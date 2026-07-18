@@ -2,7 +2,7 @@
 <p align="center">
  <img width="450px" src="https://res.cloudinary.com/b5bxmqds/image/upload/shrimb_ki0tio.jpg" align="center" alt="Ratwood Stats" />
  <h1 align="center">Paragon Moon</h1>
- <h2 align="center">Howling Past The Moon</h2>
+ <h2 align="center">Howling past the Moon.</h2>
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@
 </div>
 
 <h1>
-	<a href="https://github.com/Rotwood-Vale/Ratwood-Keep/blob/main/CONTRIBUTING.md">
+	<a href="https://github.com/Endless-Seas/Paragon-Moon/edit/master/CONTRIBUTING.md">
 		Contribution Guidelines
 	</a>
 </h1>
