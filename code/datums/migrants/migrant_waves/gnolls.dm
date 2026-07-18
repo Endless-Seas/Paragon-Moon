@@ -2,8 +2,8 @@
 	name = "Gnolls Migration"
 	typepath = /datum/round_event/migrant_wave/gnolls
 	wave_type = /datum/migrant_wave/gnolls
-	max_occurrences = 2
-	weight = 5
+	max_occurrences = 0//From 2.
+	weight = 0//From 5.
 	earliest_start = 30 MINUTES
 	min_players = 25
 	tags = list(
