@@ -1,0 +1,34 @@
+/datum/stressevent/cumok
+	timer = 15 MINUTES
+	stressadd = -2
+	desc = "<span class='green'>I came.</span>"
+
+/datum/stressevent/cummid
+	timer = 10 MINUTES
+	stressadd = -2
+	desc = "<span class='green'>I came, and it was great.</span>"
+
+/datum/stressevent/cumgood
+	timer = 10 MINUTES
+	stressadd = -3
+	desc = "<span class='green'>I came, and it was wonderful.</span>"
+
+/datum/stressevent/cummax
+	timer = 30 MINUTES
+	stressadd = -4
+	desc = "<span class='green'>I came, and it was incredible.</span>"
+
+/datum/stressevent/cumlove
+	timer = 20 MINUTES
+	stressadd = -5
+	desc = "<span class='green'>I made love.</span>"
+
+/datum/stressevent/cumconsumed
+	timer = 10 MINUTES
+	stressadd = -2
+	desc = "<span class='green'>The taste of cum has sated my desire.</span>"
+
+/datum/stressevent/cumpaingood
+	timer = 10 MINUTES
+	stressadd = -5
+	desc = "<span class='green'>Pain makes it better.</span>"

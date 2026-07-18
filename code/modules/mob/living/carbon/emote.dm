@@ -1,0 +1,104 @@
+/datum/emote/living/carbon
+	mob_type_allowed_typecache = list(/mob/living/carbon)
+
+/datum/emote/living/carbon/deathgurgle
+	key = "deathgurgle"
+	key_third_person = ""
+	emote_type = EMOTE_AUDIBLE
+	only_forced_audio = TRUE
+	vary = TRUE
+	message = "gasps out their last breath."
+	message_simple =  "falls limp."
+	stat_allowed = UNCONSCIOUS
+	mob_type_ignore_stat_typecache = list(/mob/living/carbon/human)
+
+/datum/emote/living/carbon/airguitar
+	key = "airguitar"
+	message = "strums an invisible lute."
+	restraint_check = TRUE
+
+/datum/emote/living/carbon/blink
+	key = "blink"
+	key_third_person = "blinks"
+	message = "blinks."
+
+/datum/emote/living/carbon/blink_r
+	key = "blink_r"
+	message = "blinks rapidly."
+
+/datum/emote/living/carbon/clap
+	key = "clap"
+	key_third_person = "claps"
+	message = "claps."
+	muzzle_ignore = TRUE
+	restraint_check = TRUE
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/mob/living/carbon/human/verb/emote_clap()
+	set name = "Clap"
+	set category = "Noises"
+
+	emote("clap", intentional = TRUE)
+
+/datum/emote/living/moan
+	key = "moan"
+	key_third_person = "moans"
+	message = "moans."
+	message_mime = "appears to moan!"
+	emote_type = EMOTE_AUDIBLE
+
+/mob/living/carbon/human/verb/emote_moan()
+	set name = "Moan"
+	set category = "Noises"
+
+	emote("moan")
+
+/datum/emote/living/carbon/roll
+	key = "roll"
+	key_third_person = "rolls"
+	message = "rolls."
+	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+	restraint_check = TRUE
+
+/datum/emote/living/carbon/scratch
+	key = "scratch"
+	key_third_person = "scratches"
+	message = "scratches."
+	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+	restraint_check = TRUE
+
+/datum/emote/living/carbon/screech
+	key = "screech"
+	key_third_person = "screeches"
+	message = "screeches."
+	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+
+/datum/emote/living/carbon/sign
+	key = "sign"
+	key_third_person = "signs"
+	message_param = "signs the number %t."
+	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+	restraint_check = TRUE
+
+/datum/emote/living/carbon/sign/select_param(mob/user, params)
+	. = ..()
+	if(!isnum(text2num(params)))
+		return message
+
+/datum/emote/living/carbon/sign/signal
+	key = "signal"
+	key_third_person = "signals"
+	message_param = "raises %t fingers."
+	mob_type_allowed_typecache = list(/mob/living/carbon/human)
+	restraint_check = TRUE
+
+/datum/emote/living/carbon/tail
+	key = "tail"
+	message = "waves their tail."
+	mob_type_allowed_typecache = list(/mob/living/carbon/alien)
+
+/datum/emote/living/carbon/wink
+	key = "wink"
+	key_third_person = "winks"
+	message = "winks."

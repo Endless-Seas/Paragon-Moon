@@ -1,0 +1,210 @@
+/mob/living/carbon/human
+	name = "Unknown"
+	real_name = "Unknown"
+	icon = 'icons/mob/human.dmi'
+	icon_state = "human_basic"
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	hud_possible = list(ANTAG_HUD)
+	hud_type = /datum/hud/human
+	base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
+	possible_mmb_intents = list(INTENT_STEAL, INTENT_JUMP, INTENT_KICK, INTENT_BITE, INTENT_GIVE)
+	can_buckle = TRUE
+	buckle_lying = FALSE
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+
+	ambushable = 1
+
+	voice_pitch = 1
+
+	var/footstep_type = FOOTSTEP_MOB_HUMAN
+
+	var/last_sound //last emote so we have no doubles
+
+	//Hair colour and style
+	var/hair_color = "000"
+	var/hairstyle = "Bald"
+
+	//Facial hair colour and style
+	var/facial_hair_color = "000"
+	var/facial_hairstyle = "Shaved"
+
+	//Eye colour
+	var/eye_color = "000"
+
+	var/voice_color = "a0a0a0"
+	var/nickname = "Please Change Me"
+	var/highlight_color = "#FF0000"
+	var/detail_color = "000"
+
+	var/skin_tone = "caucasian1"	//Skin tone
+
+	var/lip_style = null	//no lipstick by default- arguably misleading, as it could be used for general makeup
+	var/lip_color = "white"
+
+	var/age = "Adult"		//Player's age
+
+	var/accessory = "None"
+	var/detail = "None"
+	var/marking = "None"
+
+	var/shavelevel = 0
+	var/breathe_tick = 0 // Used for gas mask delays.
+	var/socks = "Nude" //Which socks the player wants
+	var/backpack = DBACKPACK		//Which backpack type the player has chosen.
+	var/jumpsuit_style = PREF_SUIT		//suit/skirt
+
+	//Equipment slots
+	var/obj/item/clothing/skin_armor = null
+	var/obj/item/clothing/wear_armor = null
+	var/obj/item/clothing/wear_pants = null
+	var/obj/item/belt = null
+	var/obj/item/beltl = null
+	var/obj/item/beltr = null
+	var/obj/item/clothing/wear_ring = null
+	var/obj/item/clothing/wear_wrists = null
+	var/obj/item/r_store = null
+	var/obj/item/l_store = null
+	var/obj/item/s_store = null
+	var/obj/item/cloak = null
+	var/obj/item/clothing/wear_shirt = null
+
+	var/special_voice = "" // For changing our voice. Used by a symptom.
+
+	var/name_override //For temporary visible name changes
+
+	var/merctype = 0 // Used for mercenary backgrounds - check mail.dm
+	var/tokenclaimed = FALSE // Check for having received my medal. FUTURE: Persistent medals.
+
+	var/datum/physiology/physiology
+
+	var/list/datum/bioware = list()
+
+	var/static/list/can_ride_typecache = typecacheof(list(
+		/mob/living/carbon/human,
+		/mob/living/simple_animal/hostile,
+		/mob/living/carbon/human/species/goblin,
+	))
+	var/lastpuke = 0
+	var/last_fire_update
+	var/account_id
+
+	canparry = TRUE
+	candodge = TRUE
+
+	dodgecd = FALSE
+	dodgetime = 0
+
+	var/list/possibleclass
+
+//	var/alignment = ALIGNMENT_TN
+
+	var/canseebandits = FALSE
+
+	//Familytree datum
+	//I dont know how to do UI huds so this will have to do for now.
+	var/family_UI = FALSE
+	var/mob/living/carbon/spouse_mob
+	var/image/spouse_indicator
+	var/setspouse
+	var/gender_choice_pref = ANY_GENDER
+	var/familytree_pref = FAMILY_NONE
+	var/datum/heritage/family_datum
+	var/list/temp_ui_list = list()
+	var/xenophobe = FALSE
+	var/restricted_species = null
+
+	var/marriedto
+
+	var/has_stubble = TRUE
+
+	var/original_name = null
+
+	var/buried = FALSE // Whether the body is buried or not.
+	var/funeral = FALSE // Whether the body has received rites or not.
+
+	var/datum/devotion/devotion = null // Used for cleric_holder for priests
+	var/datum/family_member/family_member_datum
+	var/datum/inspiration/inspiration = null
+
+	var/headshot_link = null
+	var/origin = "Unknown"
+	var/flavortext = null
+	var/ooc_notes = null
+	var/ooc_extra
+	var/ooc_extra_img
+	var/ooc_extra_img_link
+	var/rumour = null
+	var/noble_gossip = null
+	var/has_gnoll_scent_this_round = FALSE
+	var/song_title
+	var/song_artist
+	var/received_resident_key = FALSE
+	var/nsfwflavortext = null
+	var/nsfw_ooc_extra_img
+	var/nsfw_ooc_extra_img_link
+	var/erpprefs = null
+
+	var/list/img_gallery = list()
+	var/list/nsfw_img_gallery = list()
+
+	var/nsfw_headshot_link = null
+
+	possible_rmb_intents = list(/datum/rmb_intent/feint,\
+	/datum/rmb_intent/aimed,\
+	/datum/rmb_intent/strong,\
+	/datum/rmb_intent/swift,\
+	/datum/rmb_intent/riposte,\
+	/datum/rmb_intent/weak)
+
+	rot_type = /datum/component/rot/corpse
+
+	var/voice_type = null // LETHALSTONE EDIT: defines what sound pack we use. keep this null so mobs resort to their typical gender typing - preferences set this
+	var/datum/statpack/statpack = null // Lethalstone Port - statpacks for greater customization
+	var/second_voice	// Virtue-specific. Can be swapped to / from and changed.
+	var/original_voice
+
+	/// Whether our FOV cone is overridden to be hidden. Simple bool.
+	var/viewcone_override
+
+	/// Whether our job title is adaptive to our skills.
+	var/adaptive_name
+
+	/// Ref to orison-like sunder object
+	var/sunder_light_obj = null
+
+	/// Assoc list of culinary preferences of the mob
+	var/list/culinary_preferences = list()
+
+	var/datum/charflaw/charflaw  // Legacy single vice (kept for compatibility)
+	var/list/datum/charflaw/vices = list()  // Multiple vices system
+
+	// curse list and cooldown
+	var/list/curses = list()
+	COOLDOWN_DECLARE(priest_announcement)
+	COOLDOWN_DECLARE(guildmaster_announcement) //This is not for priest but if you are looking for GUILDMASTER announcements it's here, more so convinence than anything.
+	COOLDOWN_DECLARE(crier_announcement)
+	COOLDOWN_DECLARE(priest_sermon)
+	COOLDOWN_DECLARE(priest_apostasy)
+	COOLDOWN_DECLARE(priest_excommunicate)
+	COOLDOWN_DECLARE(priest_curse)
+	COOLDOWN_DECLARE(priest_change_miracles)
+	COOLDOWN_DECLARE(evil_priest_sermon)//I apologise.
+
+	// bait stacks for aimed intent
+	var/bait_stacks
+
+	// werewolf mob storage (this is bad and probably causes hard dels)
+	var/mob/stored_mob = null
+
+	var/mob/living/carbon/human/hostagetaker //Stores the person that took us hostage in a var, allows us to force them to attack the mob and such
+	var/mob/living/carbon/human/hostage //What hostage we have
+
+	fovangle = FOV_DEFAULT
+
+	// adds a flag that if we were skeletonized not because we are super dead and rotted, our face can be shown
+	var/ritual_skeletonization = FALSE // ritualcircles.dm path of rituos, prevents the ritual target's name always being unknown ingame. used in human_helpers.dm if( !O || (HAS_TRAIT(src, TRAIT_DISFIGURED)) || !real_name || (O.skeletonized && !ritual_skeletonization && !mind?.has_antag_datum(/datum/antagonist/lich)))
+
+	var/already_converted_once = FALSE // ritualcircles.dm , used to make it so players can't switch around between inhumen gods to stack buffs with conversion rites
+	var/time_flags = 0
+	var/heatstroke_timer_id
+	var/hypothermia_timer_id

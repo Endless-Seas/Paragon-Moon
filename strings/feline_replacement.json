@@ -1,0 +1,24 @@
+{
+    "full": {
+        
+    },
+    "start": {
+        "a": "aa",
+        "e": "ee",
+        "o": "oo",
+        "u": "uu"
+    },
+    "end": {
+
+    },
+	"multiword": {
+
+	},
+    "syllable": {
+        "f": "fv",
+        "m": "mm",
+        "v": "vv",
+        "x": "xx",
+        "r": "rr"
+    }
+}

@@ -1,0 +1,120 @@
+.column {
+    float: left;
+    flex-wrap: wrap;
+}
+
+.left {
+    width: 280px;
+}
+
+.middle {
+    width: 80px;
+}
+
+.right {
+    width: 150px;
+}
+
+.row {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.reason {
+    resize: none;
+    min-height: 40px;
+    width: 340px;
+}
+
+.rolegroup {
+    padding: 3px;
+    width: 430px;
+    border: none;
+    text-align: center;
+    outline: none;
+    display: inline-block;
+}
+
+.long {
+    width: 860px;
+}
+
+.content {
+    text-align: center;
+}
+
+.nobles {
+    background-color: #aa83b9;
+    color: #443a39;
+}
+
+.courtier {
+    background-color: #81adc8;
+    color: #443a39;
+}
+
+.church {
+    background-color: #c0ba8d;
+    color: #443a39;
+}
+
+.inquisition {
+    background-color: #cc4242;
+    color: #443a39;
+}
+
+.garrison {
+    background-color: #b18484;
+    color: #443a39;
+}
+
+.yeomen {
+    background-color: #819e82;
+    color: #443a39;
+}
+
+.peasants {
+    background-color: #b09262;
+    color: #443a39;
+}
+
+.mercenaries {
+    background-color: #c86e3a;
+    color: #443a39;
+}
+
+.youngfolk {
+    background-color: #ffc0cb;
+    color: #443a39;
+}
+
+.abstract {
+    background-color: #374048;
+}
+
+.ghostandotherroles {
+    background-color: #2e0073;
+}
+
+.antagonistpositions {
+    background-color: #361f1f;
+}
+
+.inputbox {
+    position: absolute;
+    top: 0px;
+    left: 4px;
+    width: 14px;
+    height: 14px;
+    background: #e6e6e6;
+}
+
+.select {
+    position: relative;
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}

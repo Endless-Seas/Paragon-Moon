@@ -1,0 +1,119 @@
+
+/obj/item/clothing/under/roguetown/trou
+	name = "work trousers"
+	desc = "Good quality trousers worn by laborers."
+	gender = PLURAL
+	icon_state = "trou"
+	item_state = "trou"
+//	adjustable = CAN_CADJUST
+	sewrepair = TRUE
+	armor = ARMOR_PADDED_BAD
+	prevent_crits = list(BCLASS_CUT)
+	blocksound = SOFTHIT
+	blade_dulling = DULLING_BASHCHOP
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+	armor_class = ARMOR_CLASS_LIGHT
+	salvage_amount = 1
+	cold_protection = GROIN | LEG_RIGHT | LEG_LEFT
+	min_cold_protection_temperature = BODYTEMP_COLD_LEVEL_ONE_MAX
+
+/obj/item/clothing/under/roguetown/trou/leather
+	name = "leather trousers"
+	armor = ARMOR_LEATHER
+	icon_state = "leathertrou"
+	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT, BCLASS_TWIST)
+	max_integrity = ARMOR_INT_LEG_LEATHER
+	resistance_flags = FIRE_PROOF
+	salvage_result = /obj/item/natural/hide/cured
+
+/obj/item/clothing/under/roguetown/trou/leather/mourning
+	name = "mourning trousers"
+	icon_state = "leathertrou"
+	color = "#151615"
+
+/obj/item/clothing/under/roguetown/trou/shadowpants
+	name = "silk tights"
+	desc = "Form-fitting legwear. Almost too form-fitting."
+	icon_state = "shadowpants"
+	allowed_race = NON_DWARVEN_RACE_TYPES
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = GROIN | LEG_RIGHT | LEG_LEFT
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
+
+/obj/item/clothing/under/roguetown/trou/beltpants
+	name = "belt-buckled trousers"
+	desc = "Dark leather trousers adorned with far too many buckles to be pragmatic."
+	icon_state = "beltpants"
+	item_state = "beltpants"
+
+/obj/item/clothing/under/roguetown/trou/apothecary
+	name = "apothecary trousers"
+	desc = "Heavily padded trousers. They're stained by countless herbs."
+	icon_state = "apothpants"
+	item_state = "apothpants"
+
+/obj/item/clothing/under/roguetown/trou/artipants
+	name = "tinker trousers"
+	desc = "Thick leather trousers designed to protect the wearer from sparks or stray gear projectiles. Judging by the scouring, its had plenty of use."
+	icon_state = "artipants"
+	item_state = "artipants"
+
+/obj/item/clothing/under/roguetown/trou/leathertights
+	name = "leather tights"
+	desc = "Classy leather tights, form-fitting but tasteful."
+	icon_state = "leathertights"
+	item_state = "leathertights"
+	salvage_result = /obj/item/natural/hide/cured
+
+/obj/item/clothing/under/roguetown/trou/formal
+	name = "formal trousers"
+	desc = "A formal pair of trousers."
+	icon = 'icons/roguetown/clothing/pants.dmi'
+	icon_state = "butlerpants"
+	item_state = "butlerpants"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/pants.dmi'
+	detail_tag = "_detail"
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_maids.dmi'
+	slot_flags = ITEM_SLOT_PANTS
+	salvage_result = /obj/item/natural/cloth
+	detail_color = CLOTHING_BLACK
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+
+/obj/item/clothing/under/roguetown/trou/formal/shorts
+	name = "trouser shorts"
+	desc = "A pair of formal trouser shorts, fit for any strapping young lad."
+	icon = 'icons/roguetown/clothing/pants.dmi'
+	icon_state = "butlershorts"
+	item_state = "butlershorts"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/pants.dmi'
+	slot_flags = ITEM_SLOT_PANTS
+	detail_color = CLOTHING_BLACK
+
+/obj/item/clothing/under/roguetown/trou/leather/pontifex
+	name = "pontifex's chaqchur"
+	desc = "A handmade pair of baggy, thin leather pants. They end in a tight stocking around the calf, ballooning out around the thigh."
+	icon_state = "monkpants"
+	item_state = "monkpants"
+	naledicolor = TRUE
+	salvage_result = /obj/item/natural/hide/cured
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = GROIN | LEG_RIGHT | LEG_LEFT
+	max_heat_protection_temperature = BODYTEMP_HEAT_LEVEL_ONE_MAX
+
+/obj/item/clothing/under/roguetown/trou/leather/pontifex/zyb
+	name = "baggy desert pants"
+	desc = "A handmade pair of baggy, thin leather pants. Keeps sand out of your boots, sun off your legs, and a creacher's fangs from piercing your ankles."
+	naledicolor = FALSE
+	color = CLOTHING_DARKDRAB
+	cold_protection = null
+	min_cold_protection_temperature = BODYTEMP_NORMAL_MIN
+	heat_protection = GROIN | LEG_RIGHT | LEG_LEFT
+	max_heat_protection_temperature = 600
+
+/obj/item/clothing/under/roguetown/trou/leather/eastern
+	icon_state = "eastpants1"
+	allowed_race = NON_DWARVEN_RACE_TYPES

@@ -1,0 +1,212 @@
+/obj/item/organ/stomach
+	name = "stomach"
+	icon_state = "stomach"
+	w_class = WEIGHT_CLASS_SMALL
+	zone = BODY_ZONE_PRECISE_STOMACH
+	slot = ORGAN_SLOT_STOMACH
+	attack_verb = list("gored", "squished", "slapped", "digested")
+	desc = ""
+
+	healing_factor = STANDARD_ORGAN_HEALING
+	decay_factor = STANDARD_ORGAN_DECAY
+
+	low_threshold_passed = span_info("My stomach flashes with pain before subsiding. Food doesn't seem like a good idea right now.")
+	high_threshold_passed = span_warning("My stomach flares up with constant pain- you can hardly stomach the idea of food right now!")
+	high_threshold_cleared = span_info("The pain in my stomach dies down for now, but food still seems unappealing.")
+	low_threshold_cleared = span_info("The last bouts of pain in my stomach have died out.")
+
+	var/disgust_metabolism = 1
+
+/obj/item/organ/stomach/on_life()
+	var/mob/living/carbon/human/H = owner
+	var/datum/reagent/Nutri
+
+	..()
+	if(istype(H))
+		if(!(organ_flags & ORGAN_FAILING))
+			H.dna.species.handle_digestion(H)
+		handle_disgust(H)
+
+	if(damage < low_threshold)
+		return
+
+	Nutri = locate(/datum/reagent/consumable/nutriment) in H.reagents.reagent_list
+
+	if(Nutri)
+		if(prob((damage/40) * Nutri.volume * Nutri.volume))
+			H.vomit(damage)
+			to_chat(H, span_warning("My stomach reels in pain as you're incapable of holding down all that food!"))
+
+	else if(Nutri && damage > high_threshold)
+		if(prob((damage/10) * Nutri.volume * Nutri.volume))
+			H.vomit(damage)
+			to_chat(H, span_warning("My stomach reels in pain as you're incapable of holding down all that food!"))
+
+/obj/item/organ/stomach/proc/handle_disgust(mob/living/carbon/human/H)
+	if(H.disgust)
+		var/pukeprob = 5 + 0.05 * H.disgust
+		if(H.disgust >= DISGUST_LEVEL_GROSS)
+			if(prob(10))
+				H.stuttering += 1
+				H.confused += 2
+			if(prob(10) && !H.stat)
+				to_chat(H, span_warning("I feel kind of iffy..."))
+			H.jitteriness = max(H.jitteriness - 3, 0)
+		if(H.disgust >= DISGUST_LEVEL_VERYGROSS)
+			if(prob(pukeprob)) //iT hAndLeS mOrE ThaN PukInG
+				H.confused += 2.5
+				H.stuttering += 1
+				H.vomit(10, 0, 1, 0, 1, 0)
+			H.Dizzy(5)
+		if(H.disgust >= DISGUST_LEVEL_DISGUSTED)
+			if(prob(25))
+				H.blur_eyes(3) //We need to add more shit down here
+
+		H.adjust_disgust(-0.5 * disgust_metabolism)
+	switch(H.disgust)
+		if(0 to DISGUST_LEVEL_GROSS)
+			H.clear_alert("disgust")
+		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
+			H.throw_alert("disgust", /atom/movable/screen/alert/gross)
+		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
+			H.throw_alert("disgust", /atom/movable/screen/alert/verygross)
+		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
+			H.throw_alert("disgust", /atom/movable/screen/alert/disgusted)
+
+/obj/item/organ/stomach/Remove(mob/living/carbon/M, special = 0)
+	var/mob/living/carbon/human/H = owner
+	if(istype(H))
+		H.clear_alert("disgust")
+	..()
+
+/obj/item/organ/stomach/fly
+	name = "insectoid stomach"
+	icon_state = "stomach-x" //xenomorph liver? It's just a black liver so it fits.
+	desc = ""
+
+/obj/item/organ/stomach/plasmaman
+	name = "digestive crystal"
+	icon_state = "stomach-p"
+	desc = ""
+
+/obj/item/organ/stomach/construct
+	name = "construct soulseed"
+	icon_state = "stomach-con"
+	desc = "The seat of a construct's soul, where a stomach would go. Wisps of lux cycle about, impossible to grab."
+
+/obj/item/organ/stomach/ethereal
+	name = "biological battery"
+	icon_state = "stomach-p" //Welp. At least it's more unique in functionaliy.
+	desc = ""
+	var/crystal_charge = ETHEREAL_CHARGE_FULL
+
+/obj/item/organ/stomach/ethereal/on_life()
+	..()
+	adjust_charge(-ETHEREAL_CHARGE_FACTOR)
+
+/obj/item/organ/stomach/ethereal/Insert(mob/living/carbon/M, special = 0)
+	..()
+	RegisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, PROC_REF(charge))
+	RegisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT, PROC_REF(on_electrocute))
+
+/obj/item/organ/stomach/ethereal/Remove(mob/living/carbon/M, special = 0)
+	UnregisterSignal(owner, COMSIG_PROCESS_BORGCHARGER_OCCUPANT)
+	UnregisterSignal(owner, COMSIG_LIVING_ELECTROCUTE_ACT)
+	..()
+
+/obj/item/organ/stomach/ethereal/proc/charge(datum/source, amount, repairs)
+	adjust_charge(amount / 70)
+
+/obj/item/organ/stomach/ethereal/proc/on_electrocute(datum/source, shock_damage, siemens_coeff = 1, flags = NONE)
+	if(flags & SHOCK_ILLUSION)
+		return
+	adjust_charge(shock_damage * siemens_coeff * 2)
+	to_chat(owner, span_notice("I absorb some of the shock into my body!"))
+
+/obj/item/organ/stomach/ethereal/proc/adjust_charge(amount)
+	crystal_charge = CLAMP(crystal_charge + amount, ETHEREAL_CHARGE_NONE, ETHEREAL_CHARGE_FULL)
+
+/obj/item/organ/stomach/t1
+	name = "completed stomach"
+	icon_state = "stomach"
+	desc = "The perfect art, it feels... Completed."
+	sellprice = 100
+
+/obj/item/organ/stomach/t2
+	name = "blessed stomach"
+	icon_state = "stomach"
+	desc = "They accepted this heresy to defeat a greater heresy. They call it a blessing, but we all know it’s not…"
+	sellprice = 200
+
+/obj/item/organ/stomach/t3
+	name = "corrupted stomach"
+	icon_state = "stomach"
+	desc = "A cursed, perverted artifact. It can serve you well—what sacrifice are you willing to offer to survive?"
+	maxHealth = 2 * STANDARD_ORGAN_THRESHOLD
+	sellprice = 300
+
+/datum/status_effect/buff/t1stomach
+	id = "t1stomach"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/t1stomach
+
+/atom/movable/screen/alert/status_effect/buff/t1stomach
+	name = "Completed stomach"
+	desc = "I have better version of stomach now "
+
+/obj/item/organ/stomach/t1/Insert(mob/living/carbon/M)
+	..()
+	if(M)
+		M.apply_status_effect(/datum/status_effect/buff/t1stomach)
+		ADD_TRAIT(M, TRAIT_ROT_EATER, ORGAN_TRAIT)
+
+/obj/item/organ/stomach/t1/Remove(mob/living/carbon/M, special = 0)
+	..()
+	if(M.has_status_effect(/datum/status_effect/buff/t1stomach))
+		M.remove_status_effect(/datum/status_effect/buff/t1stomach)
+		REMOVE_TRAIT(M, TRAIT_ROT_EATER , ORGAN_TRAIT)
+
+/datum/status_effect/buff/t2stomach
+	id = "t2stomach"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/t2stomach
+
+/atom/movable/screen/alert/status_effect/buff/t2stomach
+	name = "Blessed stomach"
+	desc = "A blessed stomach... Maybe"
+
+/obj/item/organ/stomach/t2/Insert(mob/living/carbon/M)
+	..()
+	if(M)
+		M.apply_status_effect(/datum/status_effect/buff/t2stomach)
+		ADD_TRAIT(M, TRAIT_ROT_EATER, ORGAN_TRAIT)
+		ADD_TRAIT(M, TRAIT_WILD_EATER, ORGAN_TRAIT)
+
+
+/obj/item/organ/stomach/t2/Remove(mob/living/carbon/M, special = 0)
+	..()
+	if(M.has_status_effect(/datum/status_effect/buff/t2stomach))
+		M.remove_status_effect(/datum/status_effect/buff/t2stomach)
+		REMOVE_TRAIT(M, TRAIT_ROT_EATER , ORGAN_TRAIT)
+		REMOVE_TRAIT(M, TRAIT_WILD_EATER , ORGAN_TRAIT)
+
+/datum/status_effect/buff/t3stomach
+	id = "t3stomach"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/t3stomach
+
+/atom/movable/screen/alert/status_effect/buff/t3stomach
+	name = "Corrupted stomach"
+	desc = "Tte cursed thing is inside me now."
+
+/obj/item/organ/stomach/t3/Insert(mob/living/carbon/M)
+	..()
+	if(M)
+		M.apply_status_effect(/datum/status_effect/buff/t3stomach)
+		ADD_TRAIT(M, TRAIT_NASTY_EATER, ORGAN_TRAIT)
+		ADD_TRAIT(M, TRAIT_ORGAN_EATER, ORGAN_TRAIT)
+
+
+/obj/item/organ/stomach/t3/Remove(mob/living/carbon/M, special = 0)
+	..()
+	if(M.has_status_effect(/datum/status_effect/buff/t3stomach))
+		M.remove_status_effect(/datum/status_effect/buff/t3stomach)
+		REMOVE_TRAIT(M, TRAIT_NASTY_EATER, ORGAN_TRAIT)
+		REMOVE_TRAIT(M, TRAIT_ORGAN_EATER, ORGAN_TRAIT)

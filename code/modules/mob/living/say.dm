@@ -1,0 +1,709 @@
+GLOBAL_LIST_INIT(department_radio_prefixes, list(":", "."))
+
+GLOBAL_LIST_INIT(department_radio_keys, list(
+	// Location
+	MODE_KEY_R_HAND = MODE_R_HAND,
+	MODE_KEY_L_HAND = MODE_L_HAND,
+	MODE_KEY_INTERCOM = MODE_INTERCOM,
+
+	// Department
+	MODE_KEY_DEPARTMENT = MODE_DEPARTMENT,
+	RADIO_KEY_COMMAND = RADIO_CHANNEL_COMMAND,
+	RADIO_KEY_SCIENCE = RADIO_CHANNEL_SCIENCE,
+	RADIO_KEY_MEDICAL = RADIO_CHANNEL_MEDICAL,
+	RADIO_KEY_ENGINEERING = RADIO_CHANNEL_ENGINEERING,
+	RADIO_KEY_SECURITY = RADIO_CHANNEL_SECURITY,
+	RADIO_KEY_SUPPLY = RADIO_CHANNEL_SUPPLY,
+	RADIO_KEY_SERVICE = RADIO_CHANNEL_SERVICE,
+
+	// Faction
+	RADIO_KEY_SYNDICATE = RADIO_CHANNEL_SYNDICATE,
+	RADIO_KEY_CENTCOM = RADIO_CHANNEL_CENTCOM,
+
+	// Admin
+	MODE_KEY_ADMIN = MODE_ADMIN,
+	MODE_KEY_DEADMIN = MODE_DEADMIN,
+
+	// Misc
+	RADIO_KEY_AI_PRIVATE = RADIO_CHANNEL_AI_PRIVATE, // AI Upload channel
+	MODE_KEY_VOCALCORDS = MODE_VOCALCORDS,		// vocal cords, used by Voice of God
+
+
+	//kinda localization -- rastaf0
+	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
+	// Location
+	"ê" = MODE_R_HAND,
+	"ä" = MODE_L_HAND,
+	"ø" = MODE_INTERCOM,
+
+	// Department
+	"ð" = MODE_DEPARTMENT,
+	"ñ" = RADIO_CHANNEL_COMMAND,
+	"ò" = RADIO_CHANNEL_SCIENCE,
+	"ü" = RADIO_CHANNEL_MEDICAL,
+	"ó" = RADIO_CHANNEL_ENGINEERING,
+	"û" = RADIO_CHANNEL_SECURITY,
+	"ã" = RADIO_CHANNEL_SUPPLY,
+	"ì" = RADIO_CHANNEL_SERVICE,
+
+	// Faction
+	"å" = RADIO_CHANNEL_SYNDICATE,
+	"í" = RADIO_CHANNEL_CENTCOM,
+
+	// Admin
+	"ç" = MODE_ADMIN,
+	"â" = MODE_ADMIN,
+
+	// Misc
+	"ù" = RADIO_CHANNEL_AI_PRIVATE,
+	"÷" = MODE_VOCALCORDS
+))
+
+/mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
+	if(chance <= 0)
+		return "..."
+	if(chance >= 100)
+		return original_msg
+
+	var/list/words = splittext(original_msg," ")
+	var/list/new_words = list()
+
+	var/new_msg = ""
+
+	for(var/w in words)
+		if(prob(chance))
+			new_words += "..."
+			if(!keep_words)
+				continue
+		new_words += w
+
+	new_msg = jointext(new_words," ")
+
+	return new_msg
+
+/mob/living/say(message, bubble_type,list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null, message_mode = null)
+	var/static/list/crit_allowed_modes = list(MODE_WHISPER = TRUE, MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
+	var/static/list/unconscious_allowed_modes = list(MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
+	var/talk_key = get_key(message)
+
+	var/static/list/one_character_prefix = list(MODE_HEADSET = TRUE, MODE_ROBOT = TRUE, MODE_WHISPER = TRUE, MODE_SING = TRUE)
+
+	var/ic_blocked = FALSE
+	if(client && !forced && CHAT_FILTER_CHECK(message))
+		//The filter doesn't act on the sanitized message, but the raw message.
+		ic_blocked = TRUE
+
+	if(sanitize)
+		message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	if(!message || message == "")
+		return
+
+	if(ic_blocked)
+		//The filter warning message shows the sanitized message though.
+		to_chat(src, span_warning("That message contained a word prohibited in IC chat! Consider reviewing the server rules.\n<span replaceRegex='show_filtered_ic_chat'>\"[message]\"</span>"))
+		SSblackbox.record_feedback("tally", "ic_blocked_words", 1, LOWER_TEXT(config.ic_filter_regex.match))
+		return
+
+	var/datum/saymode/saymode = SSradio.saymodes[talk_key]
+	if(!message_mode)
+		message_mode = get_message_mode(message)
+	var/original_message = message
+	var/in_critical = InCritical()
+
+	if(one_character_prefix[message_mode])
+		message = copytext(message, 2)
+	else if(message_mode || saymode)
+		message = copytext(message, 3)
+	if(findtext_char(message, " ", 1, 2))
+		message = copytext(message, 2)
+
+	if(message_mode == MODE_ADMIN)
+		if(client)
+			client.cmd_admin_say(message)
+		return
+
+	if(message_mode == MODE_DEADMIN)
+		if(client)
+			client.dsay(message)
+		return
+
+	if(message_mode == MODE_SING)
+	#if DM_VERSION < 513
+		var/randomnote = "~"
+	#else
+		var/randomnote = pick("&#9835;", "&#9834;", "&#9836;")
+	#endif
+		spans |= SPAN_SINGING
+		message = "[randomnote] [message] [randomnote]"
+
+	if(stat == DEAD)
+		say_dead(original_message)
+		return
+
+	if(check_emote(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
+		return
+
+	//RATWOOD SUBTLER START
+	if(check_subtler(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
+		return
+	//RATWOOD SUBTLER END
+	if(in_critical && !forced)
+		if(!(crit_allowed_modes[message_mode]))
+			return
+	else if(stat == UNCONSCIOUS && !forced)
+		if(!(unconscious_allowed_modes[message_mode]))
+			return
+
+	// language comma detection.
+	var/datum/language/message_language = get_message_language(message)
+	if(message_language)
+		// No, you cannot speak in xenocommon just because you know the key
+		if(can_speak_in_language(message_language))
+			language = message_language
+		message = copytext(message, 3)
+
+		// Trim the space if they said ",0 I LOVE LANGUAGES"
+		if(findtext_char(message, " ", 1, 2))
+			message = copytext(message, 2)
+
+	if(!language)
+		language = get_default_language()
+
+	// Detection of language needs to be before inherent channels, because
+	// AIs use inherent channels for the holopad. Most inherent channels
+	// ignore the language argument however.
+
+	if(saymode && !saymode.handle_message(src, message, language))
+		return
+
+	message = treat_message(message, language) // unfortunately we still need this
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+	if(!message)
+		return
+
+	// Allow sign languages and other tongueless speech to bypass the vocal speech check
+	var/using_tongueless_speech = language && (initial(language.flags) & TONGUELESS_SPEECH)
+	if(!can_speak_vocal(message) && !using_tongueless_speech)
+		emote("custom", message = "makes a muffled noise")
+		to_chat(src, span_warning("I can't talk."))
+		return
+
+	var/message_range = 7
+
+	var/succumbed = FALSE
+
+	var/fullcrit = InFullCritical()
+	if((InCritical() && !fullcrit) || message_mode == MODE_WHISPER)
+		message_range = 1
+		message_mode = MODE_WHISPER
+		src.log_talk(message, LOG_WHISPER)
+		if(fullcrit)
+			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
+			// If we cut our message short, abruptly end it with a-..
+			var/message_len = length(message)
+			message = copytext(message, 1, health_diff) + "[message_len > health_diff ? "-.." : "..."]"
+			message = Ellipsis(message, 10, 1)
+			last_words = message
+			message_mode = MODE_WHISPER_CRIT
+			succumbed = TRUE
+	else
+		src.log_talk(message, LOG_SAY, forced_by=forced)
+
+	if(client)
+		last_words = message
+		record_featured_stat(FEATURED_STATS_SPEAKERS, src)	//Yappin'
+	if(findtext(message, "Abyssor"))	//funni
+		record_round_statistic(STATS_ABYSSOR_REMEMBERED)
+
+	spans |= speech_span
+
+	// Add comic sans span for characters with the annoying face trait
+	if(HAS_TRAIT(src, TRAIT_COMICSANS))
+		spans |= SPAN_SANS
+
+	if(language)
+		var/datum/language/L = GLOB.language_datum_instances[language]
+		var/list/chosen_spans
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			//Species-specific language spans
+			if(H.dna?.species)
+				chosen_spans = H.dna.species.get_span_language(L)
+			//Priority 2: Accent spans for imperial language (only if no species spans)
+			if(!chosen_spans?.len && L.type == /datum/language/common && H.char_accent && GLOB.accent_spans)
+				chosen_spans = GLOB.accent_spans[H.char_accent]
+			//Priority 3: Default language spans
+			if(!chosen_spans?.len && L.spans?.len)
+				chosen_spans = L.spans
+		else
+			if(L.spans?.len)
+				chosen_spans = L.spans
+
+		if(chosen_spans?.len && islist(chosen_spans))
+			spans |= chosen_spans
+
+	var/radio_return = radio(message, message_mode, spans, language)
+	if(radio_return & ITALICS)
+		spans |= SPAN_ITALICS
+	if(radio_return & REDUCE_RANGE)
+		message_range = 1
+	if(radio_return & NOPASS)
+		return 1
+
+	var/datum/language/D = GLOB.language_datum_instances[language]
+	var/postsigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY_POSTPROCESS, args)
+	if(postsigreturn & COMPONENT_UPPERCASE_SPEECH)
+		message = uppertext(message)
+	if(!message)
+		return
+	if(D.flags & SIGNLANG)
+		send_speech_sign(message, message_range, src, bubble_type, spans, language, message_mode, original_message)
+	else
+		send_speech(message, message_range, src, bubble_type, spans, language, message_mode, original_message)
+
+	if(succumbed)
+		succumb(1)
+		to_chat(src, compose_message(src, language, message, , spans, message_mode))
+
+	return 1
+
+/mob/living/proc/send_speech_sign(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, message_mode, original_message)
+	var/static/list/eavesdropping_modes = list(MODE_WHISPER = TRUE, MODE_WHISPER_CRIT = TRUE)
+	var/eavesdrop_range = 0
+
+	if(eavesdropping_modes[message_mode])
+		eavesdrop_range = EAVESDROP_EXTRA_RANGE
+	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source)
+	var/list/the_dead = list()
+	for(var/_M in GLOB.player_list)
+		var/mob/M = _M
+		if(!client) //client is so that ghosts don't have to listen to mice
+			continue
+		if(!M)
+			continue
+		if(!M.client)
+			continue
+		if(get_dist(M, src) > message_range) //they're out of range of normal hearing
+			if(M.client.prefs)
+				if(eavesdropping_modes[message_mode] && !(M.client.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
+					continue
+				if(!(M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) //they're talking normally and we have hearing at any range off
+					continue
+		if(!is_in_zweb(src.z,M.z))
+			continue
+		listening |= M
+		the_dead[M] = TRUE
+	var/list/hidden_ghosts = null
+	if(has_ghost_protection(src))
+		hidden_ghosts = get_hidden_ghosts_for_target(src)
+		for(var/mob/dead/observer/ghost in hidden_ghosts)
+			if(ghost in listening)
+				listening -= ghost
+				the_dead -= ghost
+	log_seen(src, null, listening, original_message, SEEN_LOG_SAY)
+
+	var/eavesdropping
+	var/eavesrendered
+	if(eavesdrop_range)
+		eavesdropping = stars(message)
+		eavesrendered = compose_message(src, message_language, eavesdropping, , spans, message_mode)
+
+	var/rendered = compose_message(src, message_language, message, , spans, message_mode)
+	var/list/understanders = list() //those who aren't understanders will be shown an emote instead
+
+	for(var/_AM in listening)
+		var/atom/movable/AM = _AM
+
+		if(!(AM.has_language(message_language) || AM.check_language_hear(message_language)))
+			continue
+
+		understanders += AM
+		var/highlighted_message
+		var/keenears
+
+		if(ishuman(AM))
+			var/mob/living/carbon/human/H = AM
+			keenears = H.has_keen_ears()
+			var/name_to_highlight = H.nickname
+			if(name_to_highlight && name_to_highlight != "" && name_to_highlight != "Please Change Me")	//We don't need to highlight an unset or blank one.
+				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = #[H.highlight_color]>[name_to_highlight]</font></b>")
+		if(eavesdrop_range && get_dist(source, AM) > message_range+keenears && !(the_dead[AM]))
+			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mode, original_message)
+		else if(highlighted_message)
+			AM.Hear(rendered, src, message_language, highlighted_message, , spans, message_mode, original_message)
+		else
+			AM.Hear(rendered, src, message_language, message, , spans, message_mode, original_message)
+
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
+
+	//time for emoting!!
+	var/datum/language/D = GLOB.language_datum_instances[message_language]
+	var/sign_verb = pick(D.signlang_verb)
+	var/mob_color = "FFFFFF"
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		mob_color = H.voice_color
+	var/chatmsg = "<font color = #[mob_color]><b>[src]</b></font> " + sign_verb + "."
+	var/list/ignored_mobs = understanders.Copy()
+	if(length(hidden_ghosts))
+		ignored_mobs += hidden_ghosts
+	visible_message(chatmsg, runechat_message = sign_verb, log_seen = SEEN_LOG_EMOTE, ignored_mobs = ignored_mobs)
+
+	//speech bubble
+	var/list/speech_bubble_recipients = list()
+	for(var/mob/M in listening)
+		if(M.client?.prefs)
+			if(M.client && !M.client.prefs.chat_on_map)
+				speech_bubble_recipients.Add(M.client)
+	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_recipients, 30)
+
+/datum/species/proc/get_span_language(datum/language/message_language)
+	if(!message_language)
+		return
+	return message_language.spans
+
+// Whether the mob can see runechat from the speaker, assuming he will see his message on the text box
+/mob/proc/can_see_runechat(atom/movable/speaker)
+	if(!client || !client.prefs)
+		return FALSE
+	if(!client.prefs.chat_on_map)
+		return FALSE
+	if(stat >= UNCONSCIOUS)
+		return FALSE
+	if(!ismob(speaker) && !client.prefs.see_chat_non_mob)
+		return FALSE
+	return TRUE
+
+/mob/living/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, original_message)
+	. = ..()
+	if(!client)
+		return
+	var/deaf_message
+	var/deaf_type
+	if(speaker != src)
+		if(!radio_freq) //These checks have to be seperate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
+			deaf_message = "<span class='name'>[speaker]</span> [speaker.verb_say] something but you cannot hear [speaker.p_them()]."
+			deaf_type = 1
+	else
+		deaf_message = span_notice("I can't hear myself!")
+		deaf_type = 2 // Since you should be able to hear myself without looking
+
+	// Create map text prior to modifying message for goonchat
+	if(can_see_runechat(speaker) && can_hear())
+		create_chat_message(speaker, message_language, raw_message, spans, message_mode)
+	if(raw_message == last_heard_raw_message)
+		return
+	last_heard_raw_message = raw_message
+	// Recompose message for AI hrefs, language incomprehension.
+	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode)
+	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type)
+	return message
+
+/mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, message_mode, original_message)
+	var/static/list/eavesdropping_modes = list(MODE_WHISPER = TRUE, MODE_WHISPER_CRIT = TRUE)
+	var/eavesdrop_range = 0
+	var/Zs_too = FALSE
+	var/Zs_all = FALSE
+	var/Zs_yell = FALSE
+	var/listener_has_ceiling	= TRUE
+	var/speaker_has_ceiling		= TRUE
+	var/turf/speaker_turf = get_turf(source)
+	var/turf/speaker_ceiling = GET_TURF_ABOVE(speaker_turf)
+	var/line_of_sight_only = FALSE
+
+	if(speaker_ceiling)
+		if(istransparentturf(speaker_ceiling))
+			speaker_has_ceiling = FALSE
+	if(eavesdropping_modes[message_mode])
+		eavesdrop_range = EAVESDROP_EXTRA_RANGE
+
+	if(message_mode != MODE_WHISPER)
+		Zs_too = TRUE
+		if(say_test(message) == "2")	//CIT CHANGE - ditto
+			message_range += 10
+			Zs_yell = TRUE
+		if(say_test(message) == "3")	//Big "!!" shout
+			message_range += 10
+			Zs_all = TRUE
+
+	var/area/speaker_area = get_area(src)
+	if(speaker_area?.soundproof)
+		line_of_sight_only = TRUE
+		Zs_too = FALSE
+		Zs_yell = FALSE
+		Zs_all = FALSE
+	
+	// AZURE EDIT: thaumaturgical loudness (from orisons)
+	if (has_status_effect(/datum/status_effect/thaumaturgy))
+		spans |= SPAN_REALLYBIG
+		var/datum/status_effect/thaumaturgy/buff = locate() in status_effects
+		message_range += (5 + buff.potency) // maximum 12 tiles extra, which is a lot!
+		for(var/obj/structure/roguemachine/scomm/S in SSroguemachine.scomm_machines)
+			if (prob(buff.potency * 3) && S.speaking) // 3% chance per holy level, per SCOM for it to shriek your message in town wherever you are
+				S.verb_say = "shrieks in terror"
+				S.verb_exclaim = "shrieks in terror"
+				S.verb_yell = "shrieks in terror"
+				S.say(message, spans = list("info", "reallybig"))
+				S.verb_say = initial(S.verb_say)
+				S.verb_exclaim = initial(S.verb_exclaim)
+				S.verb_yell = initial(S.verb_yell)
+		remove_status_effect(/datum/status_effect/thaumaturgy)
+	// AZURE EDIT END
+	var/list/listening = line_of_sight_only ? get_hearers_in_view(message_range + eavesdrop_range, source) : get_hearers_in_range(message_range + eavesdrop_range, source)
+	if(Zs_too)
+		if(speaker_ceiling) // so people above us can hear us too
+			listening += line_of_sight_only ? get_hearers_in_view(message_range + eavesdrop_range, speaker_ceiling) : get_hearers_in_range(message_range + eavesdrop_range, speaker_ceiling)
+		if(!line_of_sight_only) // no real good way to do this for LOS-only
+			var/turf/below_turf = GET_TURF_BELOW(speaker_turf)
+			if(below_turf)
+				listening += get_hearers_in_range(message_range + eavesdrop_range, below_turf)
+	var/alist/admin_listeners = alist()
+	var/do_ghost_protection = has_ghost_protection(src)
+	if(Zs_all)
+		for(var/mob/potential_listener as anything in GLOB.player_list)
+			if(!potential_listener.client?.prefs)
+				continue
+			if(!client) // so we don't have to see mice or cows or chickens making a racket
+				continue
+			if(get_dist(potential_listener, src) > message_range) //they're out of range of normal hearing
+				continue // don't check ghostwhisper prefs here, those are for admins
+			if(do_ghost_protection && isobserver(potential_listener))
+				var/mob/dead/observer/potential_observer = potential_listener
+				if(!potential_observer.bypasses_ghost_protection(potential_listener))
+					continue
+			if(!is_in_zweb(src.z,potential_listener.z))
+				continue
+			listening |= potential_listener
+	// show to admins with ghostears/ghostwhisper on
+	for(var/client/admin as anything in GLOB.admins)
+		if(!(admin?.prefs.chat_toggles & CHAT_GHOSTEARS))
+			continue
+		if(!client) // so admins don't have to see mice or cows or chickens making a racket
+			continue
+		var/mob/observer = admin.mob
+		if(get_dist(observer, src) > message_range) //they're out of range of normal hearing
+			if(eavesdropping_modes[message_mode] && !(admin.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
+				continue
+		if(!is_in_zweb(src.z,observer.z))
+			continue
+		listening |= observer
+		admin_listeners[observer] = TRUE
+	if(do_ghost_protection) // don't loop over the whole listening list unless we really have to
+		for(var/mob/dead/observer/ghost in listening) // a necessary evil so ghosts don't show up in the seen log
+			if(ghost.bypasses_ghost_protection())
+				continue
+			listening -= ghost
+	log_seen(src, null, listening, original_message, SEEN_LOG_SAY)
+
+	var/eavesdropping
+	var/eavesrendered
+	if(eavesdrop_range)
+		eavesdropping = stars(message)
+		eavesrendered = compose_message(src, message_language, eavesdropping, null, spans, message_mode)
+
+	/// List of mobs that actually heard the message fully
+	var/list/heard_message = list()
+
+	var/rendered = compose_message(src, message_language, message, null, spans, message_mode)
+	var/alist/speaker_ceiling_nearby = alist()
+	if(Zs_too && !Zs_all && !speaker_has_ceiling && speaker_ceiling) // only generate this lookup if we need it
+		// can't just check for living, ghosts want to hear too
+		for(var/mob/hearer in get_hearers_in_view(message_range, speaker_ceiling)) // we need LOS to their location
+			speaker_ceiling_nearby[hearer] = TRUE
+	for(var/atom/movable/AM as anything in listening)
+		var/hearall = FALSE
+		var/turf/listener_turf = get_turf(AM)
+		var/turf/listener_ceiling = get_step_multiz(listener_turf, UP)
+		if(istype(AM, /obj/item/listeningdevice)) // Very evil snowflake code.
+			hearall = TRUE
+		listener_has_ceiling = listener_ceiling && !istransparentturf(listener_ceiling)
+		if(!hearall && !Zs_too && !admin_listeners[AM] && AM.z != src.z)
+			continue
+		var/keenears = HAS_TRAIT(AM, TRAIT_KEENEARS)
+		if(!hearall && Zs_too && listener_turf.z != speaker_turf.z && !Zs_all)
+			if(!Zs_yell && !keenears)
+				if(listener_turf.z < speaker_turf.z && listener_has_ceiling)	//Listener is below the speaker and has a ceiling above them
+					continue
+				if(listener_turf.z > speaker_turf.z && speaker_has_ceiling)		//Listener is above the speaker and the speaker has a ceiling above
+					continue
+				if(listener_has_ceiling && speaker_has_ceiling)	//Both have a ceiling, on different z-levels -- no hearing at all
+					continue
+			else if(abs((listener_turf.z - speaker_turf.z)) >= 2)	//We're yelling with only one "!", and the listener is 2 or more z levels above or below us.
+				continue
+			if(src != AM && !Zs_yell && !keenears)	//We always hear ourselves. Zs_yell will allow a "!" shout to bypass walls one z level up or below.
+				if(!speaker_ceiling || speaker_has_ceiling || AM.z != speaker_ceiling.z || !speaker_ceiling_nearby[AM])
+					// only check if the listener is unobstructed if the speaker is obstructed
+					if(!listener_ceiling || listener_has_ceiling || z != listener_ceiling.z || !(src in hearers(world.view, listener_ceiling)))
+						continue
+		var/highlighted_message
+		var/atom/movable/tocheck = AM
+		if(ishuman(AM))
+			var/mob/living/carbon/human/target = AM
+			var/name_to_highlight = target.nickname
+			if(name_to_highlight && name_to_highlight != "" && name_to_highlight != "Please Change Me")	//We don't need to highlight an unset or blank one.
+				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = #[target.highlight_color]>[name_to_highlight]</font></b>")
+			var/datum/species/dullahan/target_species = target.dna?.species
+			if(istype(target_species) && target_species.headless)
+				tocheck = target_species.my_head
+		if(eavesdrop_range && get_dist(source, tocheck) > message_range+keenears && !(admin_listeners[AM]))
+			AM.Hear(eavesrendered, src, message_language, eavesdropping, null, spans, message_mode, original_message)
+			heard_message += AM
+		else
+			AM.Hear(rendered, src, message_language, highlighted_message || message, null, spans, message_mode, original_message)
+			heard_message += AM
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
+
+	// Checks for vocal commands
+	if(findtext(message, regex("yield|give\\s*up|surrender|stop\\s*resisting","i")))
+		play_overhead_private_rclickemote(heard_message, "yield")
+		for(var/mob/living/carbon/human in heard_message)
+			human.apply_status_effect(/datum/status_effect/debuff/yield_prompt)
+
+	//speech bubble
+	var/list/speech_bubble_recipients = list()
+	for(var/mob/M in listening)
+		if(M.client?.prefs)
+			if(M.client && !M.client.prefs.chat_on_map)
+				speech_bubble_recipients.Add(M.client)
+	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_recipients, 30)
+
+	//Listening gets trimmed here if a vocal bark's present. If anyone ever makes this proc return listening, make sure to instead initialize a copy of listening in here to avoid wonkiness
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_QUEUE_BARK, listening, args) || vocal_bark || vocal_bark_id)
+		var/list/hears_barks = list()
+		for(var/mob/M in listening)
+			if(M.client?.prefs?.hear_barks)
+				hears_barks += M
+		var/is_yell = Zs_yell || Zs_all
+		var/barks = min(round((length(message) / vocal_speed)) + 1, BARK_MAX_BARKS)
+		var/total_delay = 0
+		vocal_current_bark = world.time
+		for(var/i in 1 to barks)
+			if(total_delay > BARK_MAX_TIME)
+				break
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, bark), listening, message_range, (vocal_volume * (is_yell ? 1.5 : 1)), BARK_DO_VARY(vocal_pitch, vocal_pitch_range), vocal_current_bark), total_delay)
+			total_delay += rand(DS2TICKS(vocal_speed / BARK_SPEED_BASELINE), DS2TICKS(vocal_speed / BARK_SPEED_BASELINE) + DS2TICKS((vocal_speed / BARK_SPEED_BASELINE) * (is_yell ? 0.5 : 1))) TICKS
+
+/mob/proc/binarycheck()
+	return FALSE
+
+/mob/living/can_speak(message) //For use outside of Say()
+	if(can_speak_basic(message) && can_speak_vocal(message))
+		return TRUE
+	return FALSE
+
+/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			to_chat(src, span_danger("I cannot speak in IC (muted)."))
+			return FALSE
+		if(!(ignore_spam || forced) && client.handle_spam_prevention(message,MUTE_IC))
+			return FALSE
+
+	return TRUE
+
+/mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
+	if(HAS_TRAIT(src, TRAIT_MUTE)|| HAS_TRAIT(src, TRAIT_PERMAMUTE) || HAS_TRAIT(src, TRAIT_BAGGED))
+		return FALSE
+
+	if(is_muzzled())
+		return FALSE
+
+	if(!IsVocal())
+		return FALSE
+
+	return TRUE
+
+/mob/living/proc/get_key(message)
+	var/key = copytext(message, 1, 2)
+	if(key in GLOB.department_radio_prefixes)
+		return LOWER_TEXT(copytext(message, 2, 3))
+
+/mob/living/proc/get_message_language(message)
+	if(copytext(message, 1, 2) == ",")
+		var/key = copytext(message, 2, 3)
+		for(var/ld in GLOB.all_languages)
+			var/datum/language/LD = ld
+			if(initial(LD.key) == key)
+				return LD
+	return null
+
+/mob/living/proc/treat_message(message, language)
+	if(HAS_TRAIT(src, TRAIT_ZOMBIE_SPEECH) && !ispath(language, /datum/language/undead))
+		message = "[repeat_string(rand(1, 3), "U")][repeat_string(rand(1, 6), "H")]..."
+	else if(HAS_TRAIT(src, TRAIT_GARGLE_SPEECH))
+		message = vocal_cord_torn(message)
+
+	if(HAS_TRAIT(src, TRAIT_UNINTELLIGIBLE_SPEECH))
+		message = unintelligize(message)
+
+	if(derpspeech)
+		message = derpspeech(message, stuttering)
+
+	if(stuttering)
+		message = stutter(message)
+
+	if(slurring)
+		message = slur(message)
+
+	if(cultslurring)
+		message = cultslur(message)
+
+	if(HAS_TRAIT(src, TRAIT_SIMPLESPEECH))
+		message = simplespeech(message)
+
+	message = capitalize(message)
+
+	return message
+
+/mob/living/proc/radio(message, message_mode, list/spans, language)
+	switch(message_mode)
+		if(MODE_WHISPER)
+			return ITALICS
+		if(MODE_R_HAND)
+			for(var/obj/item/r_hand in get_held_items_for_side(RIGHT_HANDS, all = TRUE))
+				if (r_hand)
+					return r_hand.talk_into(src, message, , spans, language)
+				return ITALICS | REDUCE_RANGE
+		if(MODE_L_HAND)
+			for(var/obj/item/l_hand in get_held_items_for_side(LEFT_HANDS, all = TRUE))
+				if (l_hand)
+					return l_hand.talk_into(src, message, , spans, language)
+				return ITALICS | REDUCE_RANGE
+
+		if(MODE_BINARY)
+			return ITALICS | REDUCE_RANGE //Does not return 0 since this is only reached by humans, not borgs or AIs.
+
+	return 0
+
+/mob/living/say_mod(input, message_mode)
+	if(message_mode == MODE_WHISPER)
+		. = verb_whisper
+	else if(message_mode == MODE_WHISPER_CRIT)
+		. = "[verb_whisper] in [p_their()] last breath"
+	else if(stuttering)
+		. = "stammers"
+	else if(derpspeech)
+		. = "gibbers"
+	else if(message_mode == MODE_SING)
+		. = verb_sing
+	else
+		. = ..()
+
+/mob/living/whisper(message, bubble_type, list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+	say("#[message]", bubble_type, spans, sanitize, language, ignore_spam, forced)
+
+/mob/living/get_language_holder(shadow=TRUE)
+	if(mind && shadow)
+		// Mind language holders shadow mob holders.
+		. = mind.get_language_holder()
+		if(.)
+			return .
+
+	. = ..()

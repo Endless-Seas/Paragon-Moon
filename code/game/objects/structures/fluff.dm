@@ -1,0 +1,1720 @@
+//Fluff structures serve no purpose and exist only for enriching the environment. They can be destroyed with a wrench.
+
+/obj/structure/fluff
+	name = "fluff structure"
+	desc = ""
+	icon_state = "minibar"
+	anchored = TRUE
+	density = FALSE
+	opacity = 0
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 150
+	var/deconstructible = TRUE
+
+/obj/structure/fluff/pillow
+	name = "pillows"
+	desc = "Soft plush pillows. Resting your head on one is so relaxing."
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "pillow"
+	density = FALSE
+
+/obj/structure/fluff/pillow/red
+	color = CLOTHING_RED
+
+/obj/structure/fluff/pillow/blue
+	color = CLOTHING_BLUE
+
+/obj/structure/fluff/pillow/green
+	color = CLOTHING_DARK_GREEN
+
+/obj/structure/fluff/pillow/brown
+	color = CLOTHING_BROWN
+
+/obj/structure/fluff/pillow/magenta
+	color = CLOTHING_MAGENTA
+
+/obj/structure/fluff/pillow/purple
+	color = CLOTHING_PURPLE
+
+/obj/structure/fluff/pillow/black
+	color = CLOTHING_BLACK
+
+/obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
+	name = "drake statue"
+	desc = "Possibly the only time you'll ever see its likeness up close and live to tell the tale."
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "drake_statue"
+	pixel_x = -16
+	density = TRUE
+	deconstructible = FALSE
+	layer = EDGED_TURF_LAYER
+
+/obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
+	desc = ""
+	icon_state = "drake_statue_falling"
+
+/obj/structure/fluff/paper/corner
+	icon_state = "papercorner"
+
+/obj/structure/fluff/paper/stack
+	name = "dense stack of papers"
+	desc = "You can already feel your eyes glazing over and the boredom creeping in."
+	icon_state = "paperstack"
+
+/obj/structure/fluff/divine
+	name = "Miracle"
+	icon = 'icons/obj/hand_of_god_structures.dmi'
+	anchored = TRUE
+	density = TRUE
+
+/obj/structure/fluff/divine/nexus
+	name = "nexus"
+	desc = ""
+	icon_state = "nexus"
+
+/obj/structure/fluff/divine/conduit
+	name = "conduit"
+	desc = ""
+	icon_state = "conduit"
+
+/obj/structure/fluff/divine/convertaltar
+	name = "conversion altar"
+	desc = ""
+	icon_state = "convertaltar"
+	density = FALSE
+	can_buckle = 1
+
+/obj/structure/fluff/divine/powerpylon
+	name = "power pylon"
+	desc = ""
+	icon_state = "powerpylon"
+	can_buckle = 1
+
+/obj/structure/fluff/divine/defensepylon
+	name = "defense pylon"
+	desc = ""
+	icon_state = "defensepylon"
+
+/obj/structure/fluff/divine/shrine
+	name = "shrine"
+	desc = ""
+	icon_state = "shrine"
+
+/obj/structure/fluff/big_chain
+	name = "giant chain"
+	desc = ""
+	icon = 'icons/effects/32x96.dmi'
+	icon_state = "chain"
+	layer = ABOVE_OBJ_LAYER
+	anchored = TRUE
+	density = TRUE
+	deconstructible = FALSE
+
+/obj/structure/fluff/railing
+	name = "railing"
+	desc = "A simple barrier of wood meant to prevent falls."
+	icon = 'icons/obj/railing.dmi'
+	icon_state = "railing"
+	density = FALSE
+	anchored = TRUE
+	deconstructible = FALSE
+	flags_1 = ON_BORDER_1
+	climbable = TRUE
+	layer = ABOVE_MOB_LAYER
+	/// Living mobs can lay down to go past
+	var/pass_crawl = TRUE
+	/// Projectiles can go past
+	var/pass_projectile = TRUE
+	/// Throwing atoms can go past
+	var/pass_throwing = TRUE
+	/// Throwing/Flying non mobs can always exit the turf regardless of other flags
+	var/allow_flying_outwards = TRUE
+
+/obj/structure/fluff/railing/Initialize(mapload)
+	. = ..()
+	init_connect_loc_element()
+	var/lay = getwlayer(dir)
+	if(lay)
+		layer = lay
+
+/obj/structure/fluff/railing/proc/init_connect_loc_element()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/fluff/railing/proc/getwlayer(dirin)
+	switch(dirin)
+		if(NORTH)
+			layer = BELOW_MOB_LAYER-0.01
+		if(WEST)
+			layer = BELOW_MOB_LAYER
+		if(EAST)
+			layer = BELOW_MOB_LAYER
+		if(SOUTH)
+			layer = ABOVE_MOB_LAYER
+			plane = GAME_PLANE_UPPER
+
+/obj/structure/fluff/railing/CanPass(atom/movable/mover, turf/target)
+//	if(istype(mover) && (mover.pass_flags & PASSTABLE))
+//		return 1
+	if(istype(mover, /obj/projectile))
+		return 1
+	if(mover.throwing)
+		return 1
+	if(isobserver(mover))
+		return 1
+	if(isliving(mover))
+		var/mob/living/M = mover
+		if(M.movement_type & FLYING)
+			return 1
+		if(!(M.mobility_flags & MOBILITY_STAND))
+			if(pass_crawl)
+				return TRUE
+	if(icon_state == "woodrailing" && (dir in CORNERDIRS))
+		var/list/baddirs = list()
+		switch(dir)
+			if(SOUTHEAST)
+				baddirs = list(SOUTHEAST, SOUTH, EAST)
+			if(SOUTHWEST)
+				baddirs = list(SOUTHWEST, SOUTH, WEST)
+			if(NORTHEAST)
+				baddirs = list(NORTHEAST, NORTH, EAST)
+			if(NORTHWEST)
+				baddirs = list(NORTHWEST, NORTH, WEST)
+		if(get_dir(loc, target) in baddirs)
+			return 0
+	else if(get_dir(loc, target) == dir)
+		return 0
+	return 1
+
+/obj/structure/fluff/railing/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+
+	if(dir in CORNERDIRS)
+		return
+
+	if(isobserver(leaving))
+		return
+
+	if(get_dir(leaving.loc, new_location) != dir)
+		return
+
+	if(pass_projectile && istype(leaving, /obj/projectile))
+		return
+
+	if(pass_throwing && leaving.throwing)
+		return
+
+	if(pass_crawl && isliving(leaving))
+		var/mob/living/M = leaving
+		if(!(M.mobility_flags & MOBILITY_STAND))
+			return
+
+	leaving.Bump(src)
+	return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/structure/fluff/railing/OnCrafted(dirin)
+	. = ..()
+	var/lay = getwlayer(dir)
+	if(lay)
+		layer = lay
+
+/obj/structure/fluff/railing/border/north
+	dir = 1
+
+/obj/structure/fluff/railing/border/east
+	dir = 4
+
+/obj/structure/fluff/railing/border/west
+	dir = 8
+
+/obj/structure/fluff/railing/corner
+	icon_state = "border"
+	density = FALSE
+	dir = 9
+
+/obj/structure/fluff/railing/corner/init_connect_loc_element()
+	return
+
+/obj/structure/fluff/railing/corner/north_east
+	dir = 5
+
+/obj/structure/fluff/railing/corner/south_west
+	dir = 10
+
+/obj/structure/fluff/railing/corner/south_east
+	dir = 6
+
+/obj/structure/fluff/railing/wood
+	icon_state = "woodrailing"
+	blade_dulling = DULLING_BASHCHOP
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/fluff/railing/wood/north
+	dir = 1
+
+/obj/structure/fluff/railing/wood/east
+	dir = 4
+
+/obj/structure/fluff/railing/wood/west
+	dir = 8
+
+/obj/structure/fluff/railing/stonehedge
+	icon_state = "stonehedge"
+	blade_dulling = DULLING_BASHCHOP
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/fluff/railing/border
+	name = "border"
+	desc = ""
+	icon_state = "border"
+	pass_crawl = FALSE
+
+/obj/structure/fluff/railing/fence
+	name = "palisade"
+	desc = "A rudimentary barrier that might keep the monsters at bay."
+	icon = 'icons/roguetown/misc/structure.dmi'
+	attacked_sound = 'sound/misc/woodhit.ogg'
+	destroy_sound = 'sound/misc/treefall.ogg'
+	icon_state = "fence"
+	density = TRUE
+	opacity = TRUE
+	anchored = TRUE
+	layer = 2.91
+	climbable = FALSE
+	max_integrity = 400
+	pass_crawl = FALSE
+	climb_offset = 6
+
+/obj/structure/fluff/railing/fence/Initialize(mapload)
+	. = ..()
+	smooth_fences()
+
+/obj/structure/fluff/railing/fence/Destroy()
+	..()
+	smooth_fences()
+
+/obj/structure/fluff/railing/fence/OnCrafted(dirin)
+	. = ..()
+	smooth_fences()
+
+/obj/structure/fluff/railing/fence/proc/smooth_fences(neighbors)
+	cut_overlays()
+	if((dir == WEST) || (dir == EAST))
+		var/turf/T = get_step(src, NORTH)
+		if(T)
+			for(var/obj/structure/fluff/railing/fence/F in T)
+				if(F.dir == dir)
+					if(!neighbors)
+						F.smooth_fences(TRUE)
+					var/mutable_appearance/MA = mutable_appearance(icon,"fence_smooth_above")
+					MA.dir = dir
+					add_overlay(MA)
+		T = get_step(src, SOUTH)
+		if(T)
+			for(var/obj/structure/fluff/railing/fence/F in T)
+				if(F.dir == dir)
+					if(!neighbors)
+						F.smooth_fences(TRUE)
+					var/mutable_appearance/MA = mutable_appearance(icon,"fence_smooth_below")
+					MA.dir = dir
+					add_overlay(MA)
+
+/obj/structure/fluff/railing/fence/CanPass(atom/movable/mover, turf/target)
+	if(get_dir(loc, target) == dir)
+		return 0
+	return 1
+
+/obj/structure/fluff/railing/fence/flimsy
+	name = "weak palisade"
+	desc = "A rudimentary barrier that might keep the monsters at bay. This one looks old, weathered, and hastily constructed."
+	max_integrity = 180
+	color = "#cccac5"
+
+/obj/structure/bars
+	name = "bars"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "bars"
+	density = TRUE
+	anchored = TRUE
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 700
+	damage_deflection = 12
+	integrity_failure = 0.15
+	dir = SOUTH
+	layer = ABOVE_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
+	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+
+/obj/structure/bars/obj_break(damage_flag)
+	loud_message("A sickening, metallic scrape of bars getting broken rings out", hearing_distance = 14)
+	. = ..()
+
+/obj/structure/bars/CanPass(atom/movable/mover, turf/target)
+	if(isobserver(mover))
+		return 1
+	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
+		return 1
+	if(mover.throwing && !ismob(mover))
+		return prob(66)
+	return ..()
+
+/obj/structure/bars/shop
+	icon_state = "barsbent"
+	layer = BELOW_OBJ_LAYER
+
+/obj/structure/bars/rusty
+	name = "rusty bars"
+	desc = "these look fragile"
+	color ="#ffcd9f"
+	max_integrity = 200
+
+/obj/structure/bars/shop/bronze
+	color = "#ff9c1a"
+
+/obj/structure/bars/chainlink
+	icon_state = "chainlink"
+
+/obj/structure/bars/steel
+	name = "steel bars"
+	max_integrity = 2000
+
+/obj/structure/bars/tough
+	max_integrity = 9000
+	damage_deflection = 40
+
+/obj/structure/bars/nopassthrow
+	desc = "The bars are too thick to throw anything through the gaps."
+
+/obj/structure/bars/nopassthrow/CanPass(atom/movable/mover, turf/target)
+	return isobserver(mover)
+
+/*
+/obj/structure/bars/CheckExit(atom/movable/O, turf/target)
+	if(istype(O) && (O.pass_flags & PASSGRILLE))
+		return 1
+	if(O.throwing && !ismob(O))
+		return 1
+	return !density
+	..()
+*/
+/obj/structure/bars/obj_break(damage_flag)
+	icon_state = "[initial(icon_state)]b"
+	density = FALSE
+	..()
+
+/obj/structure/bars/cemetery
+	icon_state = "cemetery"
+
+/obj/structure/bars/passage
+	icon_state = "passage0"
+	density = TRUE
+	max_integrity = 1500
+	redstone_structure = TRUE
+
+/obj/structure/bars/passage/steel
+	name = "steel bars"
+	max_integrity = 2000
+
+/obj/structure/bars/passage/redstone_triggered()
+	if(obj_broken)
+		return
+	if(density)
+		icon_state = "passage1"
+		density = FALSE
+	else
+		icon_state = "passage0"
+		density = TRUE
+
+/obj/structure/bars/passage/preopen
+	density = FALSE
+	icon_state = "passage1"
+
+/obj/structure/bars/passage/shutter
+	icon_state = "shutter0"
+	density = TRUE
+	opacity = TRUE
+	redstone_structure = TRUE
+
+/obj/structure/bars/passage/shutter/redstone_triggered()
+	if(obj_broken)
+		return
+	if(density)
+		icon_state = "shutter1"
+		density = FALSE
+		opacity = FALSE
+	else
+		icon_state = "shutter0"
+		density = TRUE
+		opacity = TRUE
+
+/obj/structure/bars/passage/shutter/open
+	icon_state = "shutter1"
+	density = FALSE
+	opacity = FALSE
+
+/obj/structure/bars/passage/shutter/hidden/redstone_triggered()
+	if(obj_broken)
+		return
+	if(density)
+		icon_state = "shutter1"
+		density = FALSE
+		opacity = FALSE
+		alpha = 60
+	else
+		icon_state = "shutter0"
+		density = TRUE
+		opacity = TRUE
+		alpha = 255
+
+/obj/structure/bars/passage/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	var/obj/item = user.get_active_held_item()
+	if(user.used_intent.type == /datum/intent/chisel )
+		if (user.get_skill_level(/datum/skill/craft/engineering) <= 3)
+			to_chat(user, span_warning("I need more skill to carve a name into this passage."))
+			return
+		playsound(user, 'sound/misc/wood_saw.ogg', 100, TRUE)
+		user.visible_message("<span class='info'>[user] Carves a name into the passage.</span>")
+		if(do_after(user, 10))
+			var/passagename
+			passagename = input("What name would you like to carve into the passage?")
+			if (passagename)
+				name = passagename + "(passage)"
+				desc = "a passage with a name carved into it"
+			else
+				name = "passage"
+				desc = "a passage with a carving scratched out"
+			playsound(user, 'sound/misc/wood_saw.ogg', 100, TRUE)
+		return
+	else if(istype(item, /obj/item/rogueweapon/chisel/assembly))
+		to_chat(user, span_warning("You most use both hands to rename the passage."))
+
+/obj/structure/bars/grille
+	name = "grille"
+	desc = ""
+	icon_state = "floorgrille"
+	density = FALSE
+	layer = TABLE_LAYER
+	plane = GAME_PLANE_LOWER
+	damage_deflection = 5
+	blade_dulling = DULLING_BASHCHOP
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	attacked_sound = list('sound/combat/hits/onmetal/grille (1).ogg', 'sound/combat/hits/onmetal/grille (2).ogg', 'sound/combat/hits/onmetal/grille (3).ogg')
+	var/togg = FALSE
+	redstone_structure = TRUE
+
+/obj/structure/bars/grille/Initialize(mapload)
+	AddComponent(/datum/component/squeak, list('sound/foley/footsteps/FTMET_A1.ogg','sound/foley/footsteps/FTMET_A2.ogg','sound/foley/footsteps/FTMET_A3.ogg','sound/foley/footsteps/FTMET_A4.ogg'), 40)
+	dir = pick(GLOB.cardinals)
+	return ..()
+
+/obj/structure/bars/grille/obj_break(damage_flag)
+	obj_flags = CAN_BE_HIT
+	..()
+
+/obj/structure/bars/grille/redstone_triggered()
+	if(obj_broken)
+		return
+	testing("togge")
+	togg = !togg
+	playsound(src, 'sound/foley/trap_arm.ogg', 100)
+	if(togg)
+		testing("togge1")
+		icon_state = "floorgrilleopen"
+		set_is_platform(FALSE)
+		obj_flags &= ~BLOCK_Z_IN_UP
+		var/turf/T = loc
+		if(istype(T))
+			for(var/mob/living/M in loc)
+				T.Entered(M)
+	else
+		testing("togge2")
+		icon_state = "floorgrille"
+		set_is_platform(TRUE)
+		obj_flags |= BLOCK_Z_IN_UP
+
+/obj/structure/bars/grille/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	var/obj/item = user.get_active_held_item()
+	if(user.used_intent.type == /datum/intent/chisel )
+		if (user.get_skill_level(/datum/skill/craft/engineering) <= 3)
+			to_chat(user, span_warning("I need more skill to carve a name into this grille."))
+			return
+		playsound(user, 'sound/misc/wood_saw.ogg', 100, TRUE)
+		user.visible_message("<span class='info'>[user] Carves a name into the grille.</span>")
+		if(do_after(user, 10))
+			var/grillename
+			grillename = input("What name would you like to carve into the grille?")
+			if (grillename)
+				name = grillename + "(grille)"
+				desc = "a grille with a name carved into it"
+			else
+				name = "grille"
+				desc = "a grille with a carving scratched out"
+			playsound(user, 'sound/misc/wood_saw.ogg', 100, TRUE)
+		return
+	else if(istype(item, /obj/item/rogueweapon/chisel/assembly))
+		to_chat(user, span_warning("You most use both hands to rename the grille."))
+
+/obj/structure/bars/grille/rusty
+	name = "rusty grille"
+	desc = "A few good hits ought to smash it open."
+	max_integrity = 70
+	color = "#d9c8c1"
+
+/obj/structure/bars/pipe
+	name = "bronze pipe"
+	desc = ""
+	icon_state = "pipe"
+	density = FALSE
+	layer = TABLE_LAYER
+	plane = GAME_PLANE_LOWER
+	damage_deflection = 5
+	blade_dulling = DULLING_BASHCHOP
+	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	attacked_sound = list('sound/combat/hits/onmetal/grille (1).ogg', 'sound/combat/hits/onmetal/grille (2).ogg', 'sound/combat/hits/onmetal/grille (3).ogg')
+	var/togg = FALSE
+	smeltresult = /obj/item/ingot/bronze
+
+//===========================
+
+/obj/structure/fluff/clock
+	name = "clock"
+	desc = ""
+	icon = 'icons/roguetown/misc/tallstructure.dmi'
+	icon_state = "clock"
+	density = FALSE
+	anchored = FALSE
+	layer = ABOVE_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 100
+	integrity_failure = 0.5
+	dir = SOUTH
+	break_sound = "glassbreak"
+	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = 'sound/combat/hits/onglass/glasshit.ogg'
+	var/datum/looping_sound/clockloop/soundloop
+	drag_slowdown = 3
+	metalizer_result = /obj/item/roguegear/bronze
+
+/obj/structure/fluff/clock/Initialize(mapload)
+	soundloop = new(src, FALSE)
+	soundloop.start()
+	. = ..()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/fluff/clock/Destroy()
+	if(soundloop)
+		soundloop.stop()
+	..()
+
+/obj/structure/fluff/clock/obj_break(damage_flag)
+	icon_state = "b[initial(icon_state)]"
+	if(soundloop)
+		soundloop.stop()
+	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+	..()
+
+/obj/structure/fluff/clock/attack_right(mob/user)
+	handle_special_items_retrieval(user, src)
+
+/obj/structure/fluff/clock/examine(mob/user)
+	. = ..()
+	if(obj_broken)
+		return
+	var/day = "... actually, WHAT dae is it?"
+	switch(GLOB.dayspassed)
+		if(1)
+			day = "Moon's dae."
+		if(2)
+			day = "Tiw's dae."
+		if(3)
+			day = "Wedding's dae."
+		if(4)
+			day = "Thule's dae."
+		if(5)
+			day = "Freyja's dae."
+		if(6)
+			day = "Saturn's dae."
+		if(7)
+			day = "Sun's dae."
+	. += "Oh no, it's [station_time_timestamp("hh:mm")] on a [day]"
+//		if(SSshuttle.emergency.mode == SHUTTLE_DOCKED)
+//			if(SSshuttle.emergency.timeLeft() < 30 MINUTES)
+//				. += span_warning("The last boat will leave in [round(SSshuttle.emergency.timeLeft()/600)] minutes.")
+
+/obj/structure/fluff/clock/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
+
+/obj/structure/fluff/clock/CanPass(atom/movable/mover, turf/target)
+	if(get_dir(loc, mover) == dir)
+		return 0
+	return 1
+
+/obj/structure/fluff/clock/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+	if(get_dir(leaving.loc, new_location) == dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/structure/fluff/wallclock
+	name = "clock"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "wallclock"
+	density = FALSE
+	anchored = TRUE
+	layer = BELOW_MOB_LAYER
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 100
+	integrity_failure = 0.5
+	var/datum/looping_sound/clockloop/soundloop
+	break_sound = "glassbreak"
+	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = 'sound/combat/hits/onglass/glasshit.ogg'
+	pixel_y = 32
+	metalizer_result = /obj/item/roguegear/bronze
+
+/obj/structure/fluff/wallclock/attack_right(mob/user)
+	if(user.mind && isliving(user))
+		var/area/rogue/user_area = get_area(user)
+		if(user_area?.no_special_item_retrieval) //area does not allow fetching special items, return
+			return
+		if(user.mind.special_items && user.mind.special_items.len)
+			var/item = input(user, "What will I take?", "STASH") as null|anything in user.mind.special_items
+			if(item)
+				if(user.Adjacent(src))
+					if(user.mind.special_items[item])
+						var/path2item = user.mind.special_items[item]
+						user.mind.special_items -= item
+						var/obj/item/I = new path2item(user.loc)
+						user.put_in_hands(I)
+			return
+
+/obj/structure/fluff/wallclock/Destroy()
+	if(soundloop)
+		soundloop.stop()
+	..()
+
+/obj/structure/fluff/wallclock/examine(mob/user)
+	. = ..()
+	if(obj_broken)
+		return
+	var/day = "... actually, WHAT dae is it?"
+	switch(GLOB.dayspassed)
+		if(1)
+			day = "Moon's dae."
+		if(2)
+			day = "Tiw's dae."
+		if(3)
+			day = "Wedding's dae."
+		if(4)
+			day = "Thule's dae."
+		if(5)
+			day = "Freyja's dae."
+		if(6)
+			day = "Saturn's dae."
+		if(7)
+			day = "Sun's dae."
+	. += "Oh no, it's [station_time_timestamp("hh:mm")] on a [day]"
+//		testing("mode is [SSshuttle.emergency.mode] should be [SHUTTLE_DOCKED]")
+//		if(SSshuttle.emergency.mode == SHUTTLE_DOCKED)
+//			if(SSshuttle.emergency.timeLeft() < 30 MINUTES)
+//				. += span_warning("The last boat will leave in [round(SSshuttle.emergency.timeLeft()/600)] minutes.")
+
+/obj/structure/fluff/wallclock/Initialize(mapload)
+	soundloop = new(src, FALSE)
+	soundloop.start()
+	. = ..()
+
+/obj/structure/fluff/wallclock/obj_break(damage_flag)
+	icon_state = "b[initial(icon_state)]"
+	if(soundloop)
+		soundloop.stop()
+	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+	..()
+
+/obj/structure/fluff/wallclock/l
+	pixel_y = 0
+	pixel_x = -32
+/obj/structure/fluff/wallclock/r
+	pixel_y = 0
+	pixel_x = 32
+//vampire
+/obj/structure/fluff/wallclock/vampire
+	name = "ancient clock"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "wallclockvampire"
+	density = FALSE
+	anchored = TRUE
+	layer = BELOW_MOB_LAYER
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 100
+	integrity_failure = 0.5
+	pixel_y = 32
+
+/obj/structure/fluff/wallclock/vampire/l
+	pixel_y = 0
+	pixel_x = -32
+/obj/structure/fluff/wallclock/vampire/r
+	pixel_y = 0
+	pixel_x = 32
+
+/obj/structure/fluff/signage//these are a bit of a pain
+	name = "sign"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "shitsign"
+	density = TRUE
+	anchored = TRUE
+	layer = ABOVE_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 200
+	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+
+/obj/structure/fluff/signage/examine(mob/user)
+	. = ..()
+	var/realmname = SSmapping.map_adjustment.realm_name
+	if(!user.is_literate())
+		. += "I have no idea what it says."
+	else
+		. += "It says \"[realmname]\""
+
+/obj/structure/fluff/buysign
+	icon_state = "signwrote"
+	name = "sign"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+
+/obj/structure/fluff/buysign/examine(mob/user)
+	. = ..()
+	if(!user.is_literate())
+		. += "I have no idea what it says."
+	else
+		. += "It says \"IMPORTS\""
+
+/obj/structure/fluff/sellsign
+	icon_state = "signwrote"
+	name = "sign"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+
+// icon signs
+
+/obj/structure/fluff/iconsign
+	icon_state = "sign"
+	name = "icon sign"
+	desc = "you shouldn't be seeing this."
+	icon = 'icons/roguetown/misc/signs.dmi'
+	max_integrity = 200
+	blade_dulling = DULLING_BASHCHOP
+
+/obj/structure/fluff/iconsign/zizosign
+	icon_state = "signdeath"
+	name = "inverted psycross sign"
+	desc = "A sign with a inverted psycross."
+
+/obj/structure/fluff/iconsign/psycrosssign
+	icon_state = "signlife"
+	name = "psycross sign"
+	desc = "A sign with a psycross."
+
+/obj/structure/fluff/iconsign/eaglesign
+	icon_state = "signeagle"
+	name = "eagle sign"
+	desc = "A sign with a heraldic eagle on it."
+
+/obj/structure/fluff/iconsign/spidersign
+	icon_state ="signspider"
+	name = "spider sign"
+	desc = "A sign with a spider on it."
+
+/obj/structure/fluff/iconsign/smithsign
+	icon_state = "signdwarf"
+	name = "hammer sign"
+	desc = "A sign with a hammer on it."
+
+/obj/structure/fluff/iconsign/innsign
+	icon_state = "signmug"
+	name = "mug sign"
+	desc = "A sign with a cup on it."
+
+/obj/structure/fluff/iconsign/elksign
+	icon_state = "signelk"
+	name = "elk sign"
+	desc = "A sign with an elk on it."
+
+/obj/structure/fluff/iconsign/skullsign
+	icon_state = "signskull"
+	name = "skull sign"
+	desc = "A sign with a skull on it."
+
+// it should be noted that icon signs may be able to be written on but hopefully this'll prevent that
+
+/obj/structure/fluff/sellsign/examine(mob/user)
+	. = ..()
+	if(!user.is_literate())
+		. += "I have no idea what it says."
+	else
+		. += "I can read this sign."
+
+/obj/structure/fluff/customsign
+	name = "sign"
+	desc = ""
+	icon_state = "sign"
+	var/wrotesign
+	max_integrity = 200//these don't need to be so tough
+	blade_dulling = DULLING_BASHCHOP
+	icon = 'icons/roguetown/misc/structure.dmi'
+	pixel_y = 3
+
+/obj/structure/fluff/customsign/examine(mob/user)
+	. = ..()
+	if(wrotesign)
+		if(!user.is_literate())
+			. += "I have no idea what it says."
+		else
+			. += "It says \"[wrotesign]\"."
+
+/obj/structure/fluff/customsign/arrow
+	icon_state = "shitsign"
+
+/obj/structure/fluff/customsign/wrote //For mapped in signs and not player-made signs
+	icon_state = "signwrote"
+
+/obj/structure/fluff/customsign/attackby(obj/item/W, mob/user, params)
+	if(!user.cmode)
+		if(!user.is_literate())
+			to_chat(user, span_warning("I do not know how to write."))
+			return
+		var/can_write = FALSE
+		if((user.used_intent.blade_class == BCLASS_STAB) && (W.wlength == WLENGTH_SHORT))
+			can_write = TRUE
+		if(istype(W, /obj/item/natural/thorn))
+			can_write = TRUE
+		if(istype(W, /obj/item/natural/feather))
+			can_write = TRUE
+		if(istype(W, /obj/item/rogueore/coal))
+			can_write = TRUE
+
+		if(can_write)
+			if(wrotesign)
+				to_chat(user, span_warning("Something is already carved here."))
+				return
+			else
+				var/inputty = stripped_input(user, "What would you like to carve here?", "", null, 200)
+				if(inputty && !wrotesign)
+					wrotesign = inputty
+					icon_state = "signwrote"
+		else
+			to_chat(user, span_warning("Alas, this will not work. I could carve words, if I stabbed at this with something posessing a short, sharp point. A knife, thorn, feather or even coal comes to mind."))
+			return
+	..()
+
+/obj/structure/fluff/alch
+	name = "alchemical lab"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "alch"
+	density = TRUE
+	anchored = TRUE
+	layer = BELOW_OBJ_LAYER
+	blade_dulling = DULLING_BASHCHOP
+	max_integrity = 450
+	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+
+/obj/structure/fluff/alch/folding
+	name = "folding alchemical lab"
+	desc = "A compact laboratory. Laid out and ready to work."
+	icon = 'icons/roguetown/misc/gadgets.dmi'
+	icon_state = "foldingAlchstationDeployed"
+	max_integrity = 350
+	debris = list(/obj/item/grown/log/tree/small = 2)
+	climbable = TRUE
+	climb_offset = 10
+
+/obj/structure/fluff/alch/folding/examine()
+	. = ..()
+	. += span_blue("Right-Click to fold the lab.")
+
+/obj/structure/fluff/alch/folding/attack_right(mob/user)
+	if(do_after(user, 5 SECONDS, target = src))
+		user.visible_message(span_notice("[user] folds [src]."), span_notice("You fold [src]."))
+		new /obj/item/folding_table_stored/alchstation(drop_location())
+		qdel(src)
+		return ..()
+
+/obj/structure/fluff/statue
+	name = "angel statue"
+	desc = "The angels of death are known to visit those whose time draws near, to offer them a less painful way to their final destination."
+	icon = 'icons/roguetown/misc/tallstructure.dmi'
+	icon_state = "bstatue"
+	density = FALSE
+	anchored = TRUE
+	layer = ABOVE_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	blade_dulling = DULLING_BASH
+	max_integrity = 300
+	dir = SOUTH
+
+/obj/structure/fluff/statue/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/fluff/statue/OnCrafted(dirin, user)
+	dirin = turn(dirin, 180)
+	. = ..()
+
+/obj/structure/fluff/statue/attack_right(mob/user)
+	handle_special_items_retrieval(user, src)
+
+
+/obj/structure/fluff/statue/CanPass(atom/movable/mover, turf/target)
+	if(get_dir(loc, mover) == dir)
+		return 0
+	return !density
+
+/obj/structure/fluff/statue/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
+
+/obj/structure/fluff/statue/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+	if(get_dir(leaving.loc, new_location) == dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/structure/fluff/statue/gargoyle
+	name = "gargoyle statue"
+	desc = "Since before the first empires, ancient men would carve statues of horrific beasts to scare off angry and tormented spirits from their places of rest."
+	icon_state = "gargoyle"
+
+/obj/structure/fluff/statue/aasimar
+	name = "crumbling statue"
+	desc = "Carvings of heroes from before your time in this world, the faces and names have become lost, they will likely be naught but dust soon enough."
+	icon_state = "aasimar"
+
+/obj/structure/fluff/statue/gargoyle/candles
+	icon_state = "gargoyle_candles"
+
+/obj/structure/fluff/statue/gargoyle/moss
+	name = "gargoyle statue"
+	desc = "Since before the first empires, ancient men would carve statues of horrific beasts to scare off angry and tormented spirits from their places of rest."
+	icon_state = "mgargoyle"
+
+/obj/structure/fluff/statue/gargoyle/moss/candles
+	icon_state = "mgargoyle_candles"
+
+/obj/structure/fluff/statue/knight
+	name = "templar statue"
+	desc = "This man stands staunch amongst the sands of time, a testament to his unending faith towards his divine masters. He will stand even when we are all dust."
+	icon_state = "knightstatue_l"
+
+/obj/structure/fluff/statue/astrata
+	name = "astrata statue"
+	desc = "Astrata saw humanity as undisciplined for letting the world become so cruel and terrible, and became a radiant shepherd over the flock of mankind. The Church of the Sun believes that all mortals require guidance and protection from the terrors of the world."
+	icon_state = "astrata"
+	icon = 'icons/roguetown/misc/tallandwide.dmi'
+
+/obj/structure/fluff/statue/astrata/gold
+	name = "decorated astrata statue"
+	desc = "In the wild eyes of the carving you can see the fire that commands fear and respect, the light of daybreak that gives hope in an endless night, the scorching fury of templars that burns heretics and undead alike."
+	icon_state = "astrata_bling"
+
+//Why are all of these in one giant file.
+/obj/structure/fluff/statue/abyssor
+	name = "abyssor statue"
+	desc = "An ephemeral cerulean dream, carved by those who seek to understand unspoken truths."
+	icon_state = "abyssor"
+	icon = 'icons/roguetown/misc/tallandwide.dmi'
+	pixel_x = -16
+
+/obj/structure/fluff/statue/abyssor/dolomite
+	name = "abyssor statue"
+	desc = "An ephemeral cerulean dream, carved by those who seek to understand unspoken truths."
+	icon_state = "abyssor_dolomite"
+
+/obj/structure/fluff/statue/knight/r
+	name = "templar statue"
+	desc = "This man stands staunch amongst the sands of time, a testament to his unending faith towards his divine masters. He will stand even when we are all dust."
+	icon_state = "knightstatue_r"
+
+/obj/structure/fluff/statue/knight/interior
+	name = "templar statue"
+	desc = "This man stands staunch amongst the sands of time, a testament to his unending faith towards his divine masters. He will stand even when we are all dust."
+	icon_state = "oknightstatue_l"
+
+/obj/structure/fluff/statue/knight/interior/r
+	name = "templar statue"
+	desc = "This man stands staunch amongst the sands of time, a testament to his unending faith towards his divine masters. He will stand even when we are all dust."
+	icon_state = "oknightstatue_r"
+
+/obj/structure/fluff/statue/knight/interior/r/bronze
+	name = "templar statue"
+	desc = "This man stands staunch amongst the sands of time, a testament to his unending faith towards his divine masters. He will stand even when we are all dust."
+	color = "#ff9c1a"
+
+/obj/structure/fluff/statue/knightalt
+	name = "knight statue"
+	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works." 
+	icon_state = "knightstatue2_l"
+
+/obj/structure/fluff/statue/knightalt/r
+	name = "knight statue"
+	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works." 
+	icon_state = "knightstatue2_r"
+
+
+/obj/structure/fluff/statue/myth
+	name = "warrior statue"
+	desc = "The name has long since faded from this statue, but one can still see the incredible detail in their steady stance and barely restrained muscular strength."
+	icon_state = "myth"
+	density = TRUE
+
+/obj/structure/fluff/statue/psy
+	name = "psydon statue"
+	desc = "The All-Father watched over Psydonia, once a paradise for his flourishing creations, without intervening upon the land. This would change one fateful day as the Arch-Enemy's ascension threatened mankind, narrowly stopped by Psydon. He wept for three daes and three nights after, and vanished from the realm."
+	icon_state = "psy"
+	icon = 'icons/roguetown/misc/96x96.dmi'
+	pixel_x = -32
+
+/obj/structure/fluff/statue/psybloody
+	name = "psydon statue"
+	desc = "And thus he wept, not for you, not for I; but for it all."
+	icon_state = "psy_bloody"
+	icon = 'icons/roguetown/misc/96x96.dmi'
+	pixel_x = -32
+
+
+/obj/structure/fluff/statue/small
+	name = "elven statue"
+	desc =  "Elves have long been seen as symbols of beauty and long life, and some believe statues of them will bring some luck, or at least make a place more bearable to look at."
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "elfs"
+
+/obj/structure/fluff/statue/pillar
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "pillar"
+
+/obj/structure/fluff/statue/femalestatue
+	name = "temptress statue"
+	desc = "Artistic depiction of the mortal form, or an exploitation of mortal desire? One thing is known for sure, these statues are not often put up in charity houses or temples."
+	icon = 'icons/roguetown/misc/ay.dmi'
+	icon_state = "1"
+	pixel_x = -32
+	pixel_y = -16
+
+/obj/structure/fluff/statue/femalestatue1
+	name = "queen alexia statue"	
+	desc = "A modest depiction of the Queen Alexia the Righteous, lacking her usual armors or finery, many were constructed as a show of her humility and piety by prisoners of the crown."
+	icon = 'icons/roguetown/misc/ay.dmi'
+	icon_state = "2"
+	pixel_x = -32
+	pixel_y = -16
+
+/obj/structure/fluff/statue/femalestatue2
+	name = "forest spirit statue"
+	desc = "Dendor's Wild is protected by many a forest spirit more than glad to drown or throttle travelers who cut one too many trees, depictions of them are often made by his followers in his places as warnings of this for those who might forget the natural balance of things."
+	icon = 'icons/roguetown/misc/ay.dmi'
+	icon_state = "5"
+	pixel_x = -32
+	pixel_y = -16
+
+/obj/structure/fluff/statue/femalestatue/zizo
+	name = "zizo statue"
+	desc = "With her mortal form destroyed and now chained in the underworld, she still whispers to her disciples, guiding them to act in her name and rebuild her powers."
+	icon = 'icons/roguetown/misc/ay.dmi'
+	icon_state = "4"
+	pixel_x = -32
+	// pixel_y = -16
+
+/obj/structure/fluff/statue/scare
+	name = "scarecrow"
+	desc = "Guardian of the harvest, and a harpy's worst nightmare."
+	icon_state = "td"
+
+/obj/structure/fluff/statue/tdummy
+	name = "practice dummy"
+	desc = "A squire's best friend; take care it doesn't knock you on your arse."
+	icon_state = "p_dummy"
+	icon = 'icons/roguetown/misc/structure.dmi'
+
+/obj/structure/fluff/statue/tdummy/attackby(obj/item/W, mob/user, params)
+	if(!user.cmode)
+		if(W.associated_skill)
+			if(user.mind)
+				if(isliving(user))
+					if(user.doing)
+						return
+					var/mob/living/L = user
+					user.visible_message(span_notice("[user] begins training on [src]..."))
+					while(do_after(user, 1 SECONDS, target = src))
+						if(!(L.mobility_flags & MOBILITY_STAND))
+							to_chat(user, span_warning("You are knocked down and stop training."))
+							break
+						var/probby = (L.STALUC / 10) * 100
+						probby = min(probby, 99)
+						user.changeNext_move(CLICK_CD_MELEE)
+						if(W.max_blade_int)
+							W.remove_bintegrity(5)
+						L.stamina_add(rand(4,6))
+						if(L.STAINT < 3)
+							probby = 0
+						if(!can_train_combat_skill(user, W.associated_skill, SKILL_LEVEL_APPRENTICE))
+							to_chat(user, span_warning("I've learned all I can from doing this, it's time for the real thing."))
+							break
+						if(prob(probby) && !user.buckled)
+							user.visible_message(span_info("[user] trains on [src]!"))
+							var/amt2raise = L.STAINT * 0.35
+							if(amt2raise > 0)
+								user.mind.add_sleep_experience(W.associated_skill, amt2raise, FALSE)
+							playsound(loc,pick('sound/combat/hits/onwood/education1.ogg','sound/combat/hits/onwood/education2.ogg','sound/combat/hits/onwood/education3.ogg'), rand(50,100), FALSE)
+						else
+							user.visible_message(span_danger("[user] trains on [src], but [src] ripostes!"))
+							L.AdjustKnockdown(1)
+							L.throw_at(get_step(L, get_dir(src,L)), 2, 2, L, spin = FALSE)
+							playsound(loc, 'sound/combat/hits/kick/stomp.ogg', 100, TRUE, -1)
+						flick(pick("p_dummy_smashed","p_dummy_smashedalt"),src)
+					return
+	..()
+
+/obj/structure/fluff/statue/spider
+	name = "idol of baotha"
+	desc = "The temptress has been depicted in many forms, but a common shape is that of the spider, ensnaring the victims who call themselves her followers ever tighter in her web."
+	icon_state = "spidercore"
+
+/obj/structure/fluff/statue/spider/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/reagent_containers/food/snacks/rogue/honey/spider))
+		if(user.mind)
+			if(user.mind.special_role == "Dark Elf")
+				playsound(loc,'sound/misc/eat.ogg', rand(30,60), TRUE)
+				SSmapping.retainer.delf_contribute += 1
+				if(SSmapping.retainer.delf_contribute >= SSmapping.retainer.delf_goal)
+					say("YOU HAVE DONE WELL, MY CHILD.",language = /datum/language/elvish)
+				else
+					say("BRING ME [SSmapping.retainer.delf_goal - SSmapping.retainer.delf_contribute] MORE. I HUNGER.",language = /datum/language/elvish)
+				qdel(W)
+				return TRUE
+	..()
+
+/obj/structure/fluff/statue/evil
+	name = "idol of matthios"
+	desc = "An idol, built to the many-faced Matthios. Though none can argue his hatred of the Tyrant's Order and nobility, \
+	they certainly can't imagine what he actually looks like. \
+	This is but one of many depictions to the many-faced god, and yet it appears ready to receive tribute all the same."
+	icon_state = "evilidol"
+	icon = 'icons/roguetown/misc/structure.dmi'
+	damage_deflection = INFINITY//We don't want this smashed normally. Prevents items from doing it damage, by mistake, too.
+// What items the idol will accept
+	var/treasuretypes = list(
+		/obj/item/roguecoin,
+		/obj/item/roguegem,
+		/obj/item/clothing/ring,
+		/obj/item/ingot/gold,
+		/obj/item/ingot/silver,
+		/obj/item/ingot/blacksteel,
+		/obj/item/clothing/neck/roguetown/psicross,
+		/obj/item/reagent_containers/glass/cup,
+		/obj/item/candle/gold,
+		/obj/item/candle/silver,
+		/obj/item/candle/candlestick/silver,
+		/obj/item/candle/candlestick/gold,
+		/obj/item/kitchen/fork/silver,
+		/obj/item/kitchen/fork/gold,
+		/obj/item/kitchen/spoon/silver,
+		/obj/item/kitchen/spoon/gold,
+		/obj/item/roguestatue,
+		/obj/item/riddleofsteel,
+		/obj/item/listenstone,
+		/obj/item/clothing/neck/roguetown/shalal,
+		/obj/item/clothing/neck/roguetown/horus,
+		/obj/item/rogue/painting,
+		/obj/item/clothing/head/roguetown/crown/serpcrown,
+		/obj/item/clothing/head/roguetown/vampire,
+		/obj/item/scomstone,
+		/obj/item/reagent_containers/lux,
+		/obj/item/cooking/platter/silver,
+		/obj/item/cooking/platter/gold,
+		/obj/item/reagent_containers/glass/bowl/silver,
+		/obj/item/reagent_containers/glass/bowl/gold,
+		/obj/item/kitchen/spoon/gold,
+		/obj/item/kitchen/spoon/silver,
+		/obj/item/candle/candlestick/gold,
+		/obj/item/candle/candlestick/silver,
+		/obj/item/rogueweapon/sword/long/judgement, // various unique weapons around from a few roles follows. Don't lose your fancy toys....
+		/obj/item/rogueweapon/sword/long/oathkeeper,
+		/obj/item/rogueweapon/woodstaff/riddle_of_steel/magos, //bit dumb for a bandit mage to toss this toy away but whatever
+		/obj/item/clothing/head/roguetown/circlet,
+		/obj/item/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be offerings
+		/obj/item/rogueweapon/huntingknife/stoneknife/kukri,
+		/obj/item/rogueweapon/huntingknife/stoneknife/opalknife,
+		/obj/item/rogueweapon/mace/cudgel/shellrungu,
+		/obj/item/clothing/mask/rogue/facemask/carved,
+		/obj/item/clothing/neck/roguetown/carved,
+		/obj/item/kitchen/fork/carved,
+		/obj/item/kitchen/spoon/carved,
+		/obj/item/clothing/wrists/roguetown/gem,
+		/obj/item/reagent_containers/glass/bowl/carved,
+		/obj/item/reagent_containers/glass/bucket/pot/carved,
+		/obj/item/clothing/mask/rogue/facemask/carved,
+		/obj/item/cooking/platter/carved
+	)
+
+/obj/structure/fluff/statue/evil/attackby(obj/item/W, mob/user, params)
+	if(!HAS_TRAIT(user, TRAIT_COMMIE))
+		return
+	var/donatedamnt = W.get_real_price()
+	if(user.mind)
+		if(user)
+			if(W.flags_1 & HOARDMASTER_SPAWNED_1)
+				to_chat(user, span_warning("This item is from the Hoard!"))
+				return
+			if(W.sellprice <= 0)
+				to_chat(user, span_warning("This item is worthless."))
+				return
+			var/proceed_with_offer = FALSE
+			for(var/TT in treasuretypes)
+				if(istype(W, TT))
+					proceed_with_offer = TRUE
+					break
+			if(proceed_with_offer)
+				playsound(loc,'sound/items/carvty.ogg', 50, TRUE)
+				qdel(W)
+				for(var/mob/player in GLOB.player_list)
+					if(player.mind)
+						if(player.mind.has_antag_datum(/datum/antagonist/bandit))
+							var/datum/antagonist/bandit/bandit_players = player.mind.has_antag_datum(/datum/antagonist/bandit)
+							record_round_statistic(STATS_SHRINE_VALUE, W.get_real_price())
+							bandit_players.favor += donatedamnt
+							bandit_players.totaldonated += donatedamnt
+							to_chat(player, ("<font color='yellow'>[user.name] donates [donatedamnt] to the shrine! You now have [bandit_players.favor] favor.</font>"))
+
+			else
+				to_chat(user, span_warning("This item isn't a good offering."))
+				return
+	..()
+
+/obj/structure/fluff/psycross
+	name = "pantheon cross"
+	icon_state = "psycross"
+	icon = 'icons/roguetown/misc/tallstructure.dmi'
+	break_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
+	attacked_sound = list('sound/combat/hits/onwood/woodimpact (1).ogg','sound/combat/hits/onwood/woodimpact (2).ogg')
+	density = FALSE
+	anchored = TRUE
+	blade_dulling = DULLING_BASHCHOP
+	layer = BELOW_MOB_LAYER
+	max_integrity = 100
+	var/chance2hear = 30
+	buckleverb = "crucifie"
+	can_buckle = 1
+	buckle_lying = 0
+	breakoutextra = 10 MINUTES
+	dir = NORTH
+	buckle_requires_restraints = 1
+	buckle_prevents_pull = 1
+	var/divine = TRUE
+	obj_flags = UNIQUE_RENAME | CAN_BE_HIT
+
+/obj/structure/fluff/psycross/Initialize(mapload)
+	. = ..()
+	become_hearing_sensitive()
+	var/static/list/loc_connections = list(COMSIG_ATOM_EXIT = PROC_REF(on_exit))
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/structure/fluff/psycross/Destroy()
+	lose_hearing_sensitivity()
+	return ..()
+
+/obj/structure/fluff/psycross/post_buckle_mob(mob/living/M)
+	..()
+	M.set_mob_offsets("bed_buckle", _x = 0, _y = 2)
+	M.setDir(SOUTH)
+
+/obj/structure/fluff/psycross/post_unbuckle_mob(mob/living/M)
+	..()
+	M.reset_offsets("bed_buckle")
+
+/obj/structure/fluff/psycross/CanPass(atom/movable/mover, turf/target)
+	if(istype(mover, /mob/camera))
+		return TRUE
+	if(get_dir(loc, mover) == dir)
+		return FALSE
+	return !density
+
+/obj/structure/fluff/psycross/CanAStarPass(ID, to_dir, caller)
+	if(to_dir == dir)
+		return FALSE // don't even bother climbing over it
+	return ..()
+
+/obj/structure/fluff/psycross/proc/on_exit(datum/source, atom/movable/leaving, atom/new_location)
+	SIGNAL_HANDLER
+	if(get_dir(leaving.loc, new_location) == dir)
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
+
+/obj/structure/fluff/psycross/copper
+	name = "pantheon cross"
+	icon_state = "psycrosschurch"
+	break_sound = null
+	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	chance2hear = 66
+
+/obj/structure/fluff/psycross/crafted
+	name = "wooden pantheon cross"
+	icon_state = "psycrosscrafted"
+	max_integrity = 80
+	chance2hear = 10
+
+/obj/structure/fluff/psycross/crafted/necra
+	name = "necran pantheon cross"
+	icon_state = "cross_necra"
+	max_integrity = 120
+
+/obj/structure/fluff/psycross/psycrucifix
+	name = "wooden psydonic crucifix"
+	desc = "A rarely seen symbol of absolute and devoted certainty, more common in Otava: HE yet lyves. HE yet breathes."
+	icon_state = "psycruci"
+	max_integrity = 80
+	chance2hear = 10
+
+/obj/structure/fluff/psycross/psycrucifix/stone
+	name = "stone psydonic crucifix"
+	desc = "Formed of stone, this great Psycross symbolises that HE is forever ENDURING. Considered a rare sight upon the vale."
+	icon_state = "psycruci_r"
+	max_integrity = 120
+	chance2hear = 10
+
+/obj/structure/fluff/psycross/psycrucifix/silver
+	name = "silver psydonic crucifix"
+	icon_state = "psycruci_s"
+	desc = "Constructed of Blessed Silver, this crucifix symbolises absolute faith in the ONE - For PSYDON WEEPS, for all mortal ilk. PSYDON WEEPS, for all who walk upon the soil. PSYDON WEEPS..."
+	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	max_integrity = 450
+	chance2hear = 10
+
+/obj/structure/fluff/psycross/zizocross
+	name = "inverted cross"
+	desc = "An unholy symbol. Blasphemy for most, reverence for few."
+	icon_state = "invertedcross"
+	divine = FALSE
+
+/obj/structure/fluff/psycross/zizocross/stone
+	name = "stone inverted cross"
+	desc = "An unholy symbol, the knowledge that something so sturdy was able to be put up in reverence of the dark star, completely unattended... is a difficult anchovy to swallow for many."
+	icon_state = "cross_zizo"
+	divine = FALSE
+	max_integrity = 200
+
+/obj/structure/fluff/psycross/zizocross/golden
+	name = "golden inverted cross"
+	desc = "An unholy symbol meticilously plated with leaf gold. It stands in defiance to order. The dead will rise."
+	icon_state = "cross_zizo_u"
+	divine = FALSE
+	max_integrity = 350
+	
+/obj/structure/fluff/psycross/graggar
+	name = "vicious cross"
+	desc = "An unholy symbol wrought from stone. It promises glory to the conqueror and chains to the conquered."
+	icon_state = "cross_graggar"
+	divine = FALSE
+	max_integrity = 200
+
+/obj/structure/fluff/psycross/graggar/decorated
+	name = "revered vicious cross"
+	desc = "An unholy symbol wrought from stone. Meat impaled on spikes and flesh dangling like ribbons off hooks, an offering, proof of conquest, but does he listen?"
+	icon_state = "cross_graggar_u"
+	divine = FALSE
+	max_integrity = 350
+
+/obj/structure/fluff/psycross/matthios
+	name = "grinning cross"
+	desc = "An unholy stone cross bearing the likeness of drawn daggers and a grinning visage."
+	icon_state = "cross_matthios"
+	divine = FALSE
+	max_integrity = 200
+
+/obj/structure/fluff/psycross/matthios/decorated
+	name = "ornate cross"
+	desc = "Golden scales dangle from rags and balance the scales. A monument to wealth."
+	icon_state = "cross_matthios_u"
+	divine = FALSE
+	max_integrity = 350
+
+/obj/structure/fluff/psycross/baotha
+	name = "spider cross"
+	desc = "A gnarled stone cross from which carved spider legs unfurl. You feel like you're being beckoned faintly, like a whisper in your ear."
+	icon_state = "cross_baotha"
+	divine = FALSE
+	max_integrity = 200
+
+/obj/structure/fluff/psycross/baotha/decorated
+	name = "webbed spider cross"
+	desc = "The spider spreads its legs, the web unfurls. Just looking at it makes bad memories surface."
+	icon_state = "cross_baotha_u"
+	divine = FALSE
+	max_integrity = 350
+
+/obj/structure/fluff/psycross/attackby(obj/item/W, mob/living/carbon/human/user, params)
+	if(user.mind)
+		if((user.mind.assigned_role == "Bishop") || (user.mind.assigned_role == "Acolyte"))
+			if(istype(W, /obj/item/reagent_containers/food/snacks/grown/apple))
+				if(!istype(get_area(user), /area/rogue/indoors/town/church/chapel))
+					to_chat(user, span_warning("I need to do this in the chapel."))
+					return FALSE
+				var/marriage = FALSE
+				var/obj/item/reagent_containers/food/snacks/grown/apple/A = W
+				if(A.bitten_names.len == 2)
+					var/mob/living/carbon/human/thegroom
+					var/mob/living/carbon/human/thebride
+					// Find people by bite order, not random viewer order
+					for(var/bite_name in A.bitten_names)
+						var/found = FALSE
+						for(var/mob/M in viewers(src, 7))
+							if(!ishuman(M)) continue
+							var/mob/living/carbon/human/C = M
+							if(C.stat == DEAD) continue
+							if(!C.client) continue
+							if(C.marriedto) continue
+							if(C.real_name == bite_name)
+								if(!thegroom)
+									thegroom = C  // First bite = groom
+								else if(!thebride)
+									thebride = C  // Second bite = bride
+								found = TRUE
+								break
+						if(found && thegroom && thebride)
+							break
+					if(thegroom && thebride)
+						// Excommunication check for both participants
+						var/excomm_found = FALSE
+						for(var/excomm_name in GLOB.excommunicated_players)
+							var/clean_excomm = LOWER_TEXT(trim(excomm_name))
+							if(thegroom && clean_excomm == LOWER_TEXT(trim(thegroom.real_name)))
+								excomm_found = TRUE
+								break
+							if(thebride && clean_excomm == LOWER_TEXT(trim(thebride.real_name)))
+								excomm_found = TRUE
+								break
+						if(!excomm_found)
+							// Prompt priest for surname
+							var/surname = input(user, "Enter a surname for the couple:", "Marriage Ceremony") as text|null
+							if(!surname || !length(trim(surname)))
+								surname = thegroom.dna.species.random_surname()
+							priority_announce("[thegroom.real_name] has married [thebride.real_name]!", title = "Holy Union!", sound = 'sound/misc/bell.ogg')
+							var/list/titles = list("Sir", "Ser", "Dame", "Lord", "Lady", "Knight-Captain", "Duke", "Duchess", "Father", "Mother", "Brother", "Sister", "Prelate", "Devotee", "Votary")
+							// Assign surname to groom
+							var/list/groom_name_parts = splittext(thegroom.real_name, " ")
+							var/title_found = (titles.Find(groom_name_parts[1]) != 0)
+							if(title_found)
+								thegroom.real_name = "[groom_name_parts[1]] [groom_name_parts[2]] [surname]"
+							else
+								thegroom.real_name = "[groom_name_parts[1]] [surname]"
+							// Assign surname to bride
+							var/list/bride_name_parts = splittext(thebride.real_name, " ")
+							title_found = (titles.Find(bride_name_parts[1]) != 0)
+							if(title_found)
+								thebride.real_name = "[bride_name_parts[1]] [bride_name_parts[2]] [surname]"
+							else
+								thebride.real_name = "[bride_name_parts[1]] [surname]"
+							// Private notification to both
+							if(thegroom) 
+								to_chat(thegroom, span_notice("Your new shared surname is [surname]."))
+							if(thebride) 
+								to_chat(thebride, span_notice("Your new shared surname is [surname]."))
+							// Set marriedto fields
+							thegroom.marriedto = thebride.real_name
+							thebride.marriedto = thegroom.real_name
+							thegroom.adjust_triumphs(1)
+							thebride.adjust_triumphs(1)
+							// After surname is set, have the priest say the wedding line
+							if(user && surname)
+								user.say("I hereby wed you as [surname]s.")
+							qdel(A)
+							marriage = TRUE
+						else
+							A.become_rotten()
+							to_chat(user, span_danger("Eora recoils from this union! The apple rots in your hands. The excommunicated cannot be wed by the church."))
+							if(thegroom)
+								to_chat(thegroom, span_danger("Eora recoils from this union! You are excommunicated and cannot be wed by the church."))
+							if(thebride)
+								to_chat(thebride, span_danger("Eora recoils from this union! You are excommunicated and cannot be wed by the church."))
+							// Do not qdel(A) here so the rotten apple remains
+							return
+					if(!marriage)
+						if(istype(W, /obj/item/reagent_containers/food/snacks/grown/apple))
+							W.burn()
+						return
+				return
+	..()
+
+
+/obj/structure/fluff/psycross/copper/Destroy()
+	addomen("psycross")
+	..()
+
+/obj/structure/fluff/psycross/proc/AOE_flash(mob/user, range = 15, power = 5, targeted = FALSE)
+	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
+	for(var/mob/living/carbon/C in targets)
+		flash_carbon(C, user, power, targeted, TRUE)
+	return TRUE
+
+/obj/structure/fluff/psycross/proc/get_flash_targets(atom/target_loc, range = 15)
+	if(!target_loc)
+		target_loc = loc
+	if(isturf(target_loc) || (ismob(target_loc) && isturf(target_loc.loc)))
+		return viewers(range, get_turf(target_loc))
+	else
+		return typecache_filter_list(target_loc.GetAllContents(), GLOB.typecache_living)
+
+/obj/structure/fluff/psycross/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+	if(!istype(M))
+		return
+	if(user)
+		log_combat(user, M, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
+	else //caused by emp/remote signal
+		M.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+	if(generic_message && M != user)
+		to_chat(M, span_danger("[src] emits a blinding light!"))
+	if(M.flash_act())
+		var/diff = power - M.confused
+		M.confused += min(power, diff)
+
+/obj/structure/fluff/beach_umbrella/security
+	icon_state = "hos_brella"
+
+/obj/structure/fluff/beach_umbrella/science
+	icon_state = "rd_brella"
+
+/obj/structure/fluff/beach_umbrella/engine
+	icon_state = "ce_brella"
+
+/obj/structure/fluff/beach_umbrella/cap
+	icon_state = "cap_brella"
+
+/obj/structure/fluff/beach_umbrella/syndi
+	icon_state = "syndi_brella"
+
+/obj/structure/fluff/clockwork
+	name = "Clockwork Fluff"
+	icon = 'icons/obj/clockwork_objects.dmi'
+	deconstructible = FALSE
+
+/obj/structure/fluff/clockwork/alloy_shards
+	name = "replicant alloy shards"
+	desc = ""
+	icon_state = "alloy_shards"
+
+/obj/structure/fluff/clockwork/alloy_shards/small
+	icon_state = "shard_small1"
+
+/obj/structure/fluff/clockwork/alloy_shards/medium
+	icon_state = "shard_medium1"
+
+/obj/structure/fluff/clockwork/alloy_shards/medium_gearbit
+	icon_state = "gear_bit1"
+
+/obj/structure/fluff/clockwork/alloy_shards/large
+	icon_state = "shard_large1"
+
+/obj/structure/fluff/clockwork/blind_eye
+	name = "blind eye"
+	desc = ""
+	icon_state = "blind_eye"
+
+/obj/structure/fluff/clockwork/fallen_armor
+	name = "fallen armor"
+	desc = ""
+	icon_state = "fallen_armor"
+
+/obj/structure/fluff/clockwork/clockgolem_remains
+	name = "clockwork golem scrap"
+	desc = ""
+	icon_state = "clockgolem_dead"
+
+/obj/structure/fluff/headstake
+	name = "head on a stake"
+	desc = ""
+	icon = 'icons/roguetown/items/natural.dmi'
+	icon_state = "headstake"
+	density = FALSE
+	anchored = TRUE
+	dir = SOUTH
+	var/obj/item/grown/log/tree/stake/stake
+	var/obj/item/bodypart/head/victim
+
+
+/obj/structure/fluff/headstake/CheckParts(list/parts_list)
+	..()
+	victim = locate(/obj/item/bodypart/head) in parts_list
+	name = "[victim.name] on a stake"
+	update_icon()
+	stake = locate(/obj/item/grown/log/tree/stake) in parts_list
+
+///obj/structure/fluff/headstake/Initialize()
+//	. = ..()
+
+/obj/structure/fluff/headstake/OnCrafted(dirin, user)
+	dir = SOUTH
+	pixel_x = rand(-8, 8)
+	return
+
+/obj/structure/fluff/headstake/update_icon()
+	..()
+	var/obj/item/bodypart/head/H = locate() in contents
+	var/mutable_appearance/MA = new()
+	if(H)
+		MA.copy_overlays(H)
+		H.pixel_y = rand(9, 11)
+		H.pixel_x = pixel_x
+		H.dir = SOUTH
+		add_overlay(H)
+
+/obj/structure/fluff/headstake/attack_hand(mob/user)
+	. = ..()
+	if(.)
+		return
+	to_chat(user, span_notice("I take down [src]."))
+	victim.forceMove(drop_location())
+	victim = null
+	stake.forceMove(drop_location())
+	stake = null
+	qdel(src)
+
+/obj/structure/fluff/statue/noc
+	name = "noc statue"
+	desc = "This statue is a depiction of Noc the Wise who guides those who seek a greater understanding of the arcane sciences."
+	icon_state = "noc"
+	icon = 'icons/roguetown/misc/statues/statue_noc.dmi'
+	pixel_x = -16
+
+/obj/structure/fluff/statue/noc/guard
+	name = "lit noc statue"
+	desc = "In the cold light of the statue's staff you can see a brief glimpse into the truth of this world, the mad and uncontrolled change of the last thousand years, of how little hope remains. And as you look away, you forget."
+	icon_state = "noc_guard"
+
+/obj/structure/fluff/statue/eora
+	name = "eora statue"
+	desc = "Despite the numerous misconceptions of drunken warriors; the Hearth Mother is not solely concerned with carnal love. To practice charity with the less fortunate and protect the vulnerable is love as well."
+	icon_state = "eora"
+	icon = 'icons/roguetown/misc/statues/statue_eora.dmi'
+	pixel_x = -16
+
+/obj/structure/fluff/statue/valmora
+	name = "saint valmora statue"
+	desc = "A statue of Valmora the Sword-Saint, who led the dark elves in the city-state of Llurth Dreir to slaughter the cruel lords and priests of the Arch-Enemy and begin an exodus to the surface. The dark elves of Otava praise her as a redeemer and savior."
+	icon_state = "zaelorian_crynsaris"
+	icon = 'icons/roguetown/misc/statues/statue_zizo.dmi'
+	pixel_x = -16

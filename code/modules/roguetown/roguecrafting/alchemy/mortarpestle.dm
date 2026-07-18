@@ -1,0 +1,224 @@
+/obj/item/pestle
+	name = "pestle"
+	desc = "A small, round-end stone tool oft used by physicians to crush and mix medicine."
+	icon = 'icons/roguetown/misc/alchemy.dmi'
+	icon_state = "pestle"
+	force = 7
+	dropshrink = 0.9
+	experimental_inhand = FALSE
+
+	grid_width = 64
+	grid_height = 32
+
+//==============================================================================
+// Druidic crafting recipes — appear under the "Druidic Trickery" tab in the
+// crafting window whenever the player has the required skill-level.
+//==============================================================================
+/datum/crafting_recipe/roguetown/druidic
+	abstract_type = /datum/crafting_recipe/roguetown/druidic
+	req_table = FALSE
+	always_availible = TRUE      // shows for anyone who has the ingredients; craftdiff gates who can actually make it
+	skillcraft = /datum/skill/magic/druidic
+	subtype_reqs = FALSE
+	verbage_simple = "prepare"
+	verbage = "prepares"
+	craftsound = 'sound/foley/mortarpestle.ogg'
+
+/datum/crafting_recipe/roguetown/druidic/blessedseedpowder
+	name = "blessed seed powder"
+	result = list(/obj/item/alch/blessedseedpowder)
+	reqs = list(
+		/obj/item/seeds/treesap = 1,
+		/datum/reagent/water/blessed = 10,
+	)
+	tools = list(/obj/item/pestle = 1)
+	craftdiff = SKILL_LEVEL_NOVICE
+	time = 2 SECONDS
+	craft_xp_override = 5
+
+/obj/item/reagent_containers/glass/mortar
+	name = "alchemical mortar"
+	desc = "A small, thick-walled stone bowl made for grinding things up inside."
+	icon = 'icons/roguetown/misc/alchemy.dmi'
+	icon_state = "mortar"
+	dropshrink = 0.75
+	amount_per_transfer_from_this = 9
+	volume = 100
+	experimental_inhand = FALSE
+	reagent_flags = OPENCONTAINER|REFILLABLE|DRAINABLE
+	spillable = TRUE
+	var/obj/item/to_grind
+
+	grid_width = 64
+	grid_height = 32
+
+/obj/item/reagent_containers/glass/mortar/examine()
+	. += ..()
+	if(to_grind)
+		. += ("[to_grind] is inside the mortar.")
+	. += span_notice("Left click with a pestle to grind the item inside into alchemical ingredients. Middle Click with a pestle to grind or juice them. Right click to remove it.")
+
+/obj/item/reagent_containers/glass/mortar/attack_right(mob/user)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
+	if(to_grind)
+		to_chat(user, "<span class='notice'>I remove [to_grind] from the mortar.</span>")
+		if(!user.put_in_hands(to_grind))
+			to_chat(user, span_warning("My hands are full! I drop [to_grind] on the ground"))
+		to_grind = null
+		return
+	to_chat(user, "<span class='notice'>It's empty.</span>")
+
+/obj/item/reagent_containers/glass/mortar/MiddleClick(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	var/pestle = H.get_active_held_item()
+	if(!istype(pestle, /obj/item/pestle))
+		to_chat(user, "<span class='warning'>You need a pestle to grind!</span>")
+		return
+	if(!to_grind)
+		to_chat(user, "<span class='warning'>There's nothing to grind.</span>")
+		return
+	if((!to_grind.juice_results && !to_grind?.grind_results?.len)) // A lot of reagents are grindable but empty
+		to_chat(user, "<span class='warning'>You don't think that will work!</span>")
+		return
+	if(to_grind.juice_results) //prioritize juicing
+		to_grind.on_juice()
+		reagents.add_reagent_list(to_grind.juice_results)
+		to_chat(user, span_notice("I juice [to_grind] into a fine liquid."))
+		if(to_grind.reagents) //food and pills
+			to_grind.reagents.trans_to(src, to_grind.reagents.total_volume, transfered_by = user)
+			onfill(to_grind, user, silent = FALSE)
+		QDEL_NULL(to_grind)
+		return
+	if(to_grind.grind_results.len) // grind, if there's a grind result
+		to_grind.on_grind()
+		reagents.add_reagent_list(to_grind.grind_results)
+		to_chat(user, span_notice("I break [to_grind] into powder."))
+		QDEL_NULL(to_grind)
+		return
+
+/obj/item/reagent_containers/glass/mortar/attackby(obj/item/I, mob/living/carbon/human/user)
+	if(istype(I,/obj/item/pestle))
+		if(!to_grind)
+			to_chat(user, "<span class='warning'>There's nothing to grind.</span>")
+			return
+		if((to_grind.type == /obj/item/seeds/treesap) && reagents.get_reagent_amount(/datum/reagent/water/blessed) >= 10)
+			if(!ishuman(user) || user.get_skill_level(/datum/skill/magic/druidic) < SKILL_LEVEL_NOVICE)
+				to_chat(user, span_warning("I lack the druidic knowledge to draw Dendor's blessing from these seeds."))
+				return
+			user.visible_message(span_info("[user] grinds [to_grind] into the blessed water, drawing out Dendor's blessing."))
+			playsound(loc, 'sound/foley/mortarpestle.ogg', 100, FALSE)
+			if(do_after(user, 10, target = src))
+				reagents.remove_reagent(/datum/reagent/water/blessed, 10)
+				new /obj/item/alch/blessedseedpowder(get_turf(src))
+				QDEL_NULL(to_grind)
+				to_chat(user, span_notice("The seeds absorb Dendor's blessing, forming luminous powder."))
+				if(user.mind)
+					user.mind.add_sleep_experience(/datum/skill/magic/druidic, 5)
+			return
+		var/datum/alch_grind_recipe/foundrecipe = find_recipe()
+		if(foundrecipe == null)
+			to_chat(user, "<span class='warning'>You don't think that will work!</span>")
+			return
+		user.visible_message("<span class='info'>[user] begins grinding up [to_grind].</span>")
+		playsound(loc, 'sound/foley/mortarpestle.ogg', 100, FALSE)
+		if(do_after(user, 10, target = src))
+			for(var/output in foundrecipe.valid_outputs)
+				for(var/i in 1 to foundrecipe.valid_outputs[output])
+					new output(get_turf(src))
+			if(foundrecipe.bonus_chance_outputs.len > 0)
+				for(var/bonus_output in foundrecipe.bonus_chance_outputs)
+					var/base_chance = foundrecipe.bonus_chance_outputs[bonus_output]
+					var/final_chance = foundrecipe.get_bonus_output_chance(bonus_output, user, base_chance)
+					if(final_chance >= roll(1, 100))
+						new bonus_output(get_turf(user))
+			if(istype(to_grind,/obj/item/rogueore) || istype(to_grind,/obj/item/ingot))
+				user.flash_fullscreen("whiteflash")
+				var/datum/effect_system/spark_spread/S = new()
+				var/turf/front = get_turf(src)
+				S.set_up(1, 1, front)
+				S.start()
+			QDEL_NULL(to_grind)
+			if(user.mind)
+				user.adjust_experience(/datum/skill/craft/alchemy, user.STAINT, FALSE)
+			return
+	if(istype(I ,/obj/item/reagent_containers/glass))
+		if(user.used_intent.type == INTENT_POUR) //Something like a glass. Player probably wants to transfer TO it.
+			testing("attackobj2")
+			if(!I.reagents.total_volume)
+				to_chat(user, span_warning("[I] is empty!"))
+				return
+
+			if(reagents.holder_full())
+				to_chat(user, span_warning("[src] is full."))
+				return
+			user.visible_message(span_notice("[user] pours [I] into [src]."), \
+							span_notice("I pour [I] into [src]."))
+			if(user.m_intent != MOVE_INTENT_SNEAK)
+				if(poursounds)
+					playsound(user.loc,pick(poursounds), 100, TRUE)
+			for(var/i in 1 to 10)
+				if(do_after(user, 8, target = src))
+					if(!I.reagents.total_volume)
+						break
+					if(reagents.holder_full())
+						break
+					if(!I.reagents.trans_to(src, amount_per_transfer_from_this, transfered_by = user))
+						reagents.reaction(src, TOUCH, amount_per_transfer_from_this)
+					onfill(I, user, silent = TRUE)
+				else
+					break
+			return
+
+		if(is_drainable() && (user.used_intent.type == /datum/intent/fill)) //A dispenser. Transfer FROM it TO us.
+			testing("attackobj3")
+			if(!reagents.total_volume)
+				to_chat(user, span_warning("[src] is empty!"))
+				return
+
+			if(I.reagents.holder_full())
+				to_chat(user, span_warning("[I] is full."))
+				return
+			if(user.m_intent != MOVE_INTENT_SNEAK)
+				if(fillsounds)
+					playsound(user.loc,pick(fillsounds), 100, TRUE)
+			user.visible_message(span_notice("[user] fills [I] with [src]."), \
+								span_notice("I fill [I] with [src]."))
+			for(var/i in 1 to 10)
+				if(do_after(user, 8, target = src))
+					if(I.reagents.holder_full())
+						break
+					if(!reagents.total_volume)
+						break
+					reagents.trans_to(I, amount_per_transfer_from_this, transfered_by = user)
+				else
+					break
+
+			return
+	if(to_grind)
+		to_chat(user, "<span class='warning'>[src] is full!</span>")
+		return
+	var/recipe = find_recipe(I)
+	if(recipe == null && I.grind_results == null && I.juice_results == null)
+		to_chat(user, "<span class='warning'>[I] can't be ground!!</span>")
+		return
+	if(!user.transferItemToLoc(I,src))
+		to_chat(user, "<span class='warning'>[I] is stuck to my hand!</span>")
+		return
+	if(!istype(I,/obj/item/pestle) && !to_grind && user.transferItemToLoc(I,src))
+		to_chat(user, "<span class='info'>I add [I] to [src].</span>")
+		to_grind = I
+		return
+	..()
+
+///Looks through all the alch grind recipes to find what it should create, returns the correct one.
+/obj/item/reagent_containers/glass/mortar/proc/find_recipe(obj/item/check_item = to_grind)
+	for(var/datum/alch_grind_recipe/grindRec in GLOB.alch_grind_recipes)
+		if(grindRec.picky)
+			if(check_item.type == grindRec.valid_input)
+				return grindRec
+		else
+			if(istype(check_item,grindRec.valid_input))
+				return grindRec
+	return null

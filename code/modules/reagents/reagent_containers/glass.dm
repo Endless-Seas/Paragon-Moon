@@ -1,0 +1,394 @@
+
+/obj/item/reagent_containers/glass
+	name = "glass"
+	amount_per_transfer_from_this = 10
+	var/amount_per_gulp = 5 // We need a separate amount for drinking
+	possible_transfer_amounts = list(5, 10, 15, 20, 25, 30, 50)
+	volume = 50
+	reagent_flags = OPENCONTAINER|REFILLABLE
+	spillable = TRUE
+	possible_item_intents = list(INTENT_POUR, INTENT_FILL, INTENT_SPLASH, INTENT_GENERIC)
+	resistance_flags = ACID_PROOF
+	var/closed = FALSE // DO NOT rely on this, use reagent_flags/spillable instead. Originally from /bottle, moved here to reduce istype() checks.
+	var/spiked = FALSE // a singular unit floating at the top that will always be consumed first
+
+/datum/intent/fill
+	name = "fill"
+	icon_state = "infill"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	misscost = 0
+
+/datum/intent/pour
+	name = "feed"
+	icon_state = "infeed"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	misscost = 0
+
+/datum/intent/splash
+	name = "splash"
+	icon_state = "insplash"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	misscost = 0
+
+/obj/item/reagent_containers/glass/attack(mob/M, mob/user, obj/target)
+	if(user.used_intent.type == INTENT_FILL)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			H.try_milking(user, src)
+			return
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("[src] is empty!"))
+		return
+	if(user.used_intent.type == INTENT_SPLASH)
+		var/R
+		M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
+						span_danger("[user] splashes the contents of [src] onto you!"))
+		if(reagents)
+			for(var/datum/reagent/A in reagents.reagent_list)
+				R += "[A] ([num2text(A.volume)]),"
+
+		if(isturf(target) && reagents.reagent_list.len && thrownby)
+			log_combat(thrownby, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
+			message_admins("[ADMIN_LOOKUPFLW(thrownby)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
+		reagents.reaction(M, TOUCH)
+		log_combat(user, M, "splashed", R)
+		reagents.clear_reagents()
+		return
+	else if(user.used_intent.type == INTENT_POUR)
+		if(!canconsume(M, user) || !is_drainable())
+			return
+		var/sneaking = FALSE
+		if(user.m_intent == MOVE_INTENT_SNEAK)
+			sneaking = TRUE
+		if(M != user)
+			M.visible_message(span_danger("[user] attempts to feed [M] something."), \
+						span_danger("[user] attempts to feed you something."))
+			if(!do_mob(user, M, double_progress = TRUE))
+				return
+			if(!reagents || !reagents.total_volume)
+				return // The drink might be empty after the delay, such as by spam-feeding
+			M.visible_message(span_danger("[user] feeds [M] something."), \
+						span_danger("[user] feeds you something."))
+			log_combat(user, M, "fed", reagents.log_list())
+		else
+			// check to see if we're a noble drinking soup
+			if (ishuman(user) && istype(src, /obj/item/reagent_containers/glass/bowl))
+				var/mob/living/carbon/human/human_user = user
+				if (human_user.is_noble()) // egads we're an unmannered SLOB
+					human_user.add_stress(/datum/stressevent/noble_bad_manners)
+					if (prob(25))
+						to_chat(human_user, span_red("I've got better manners than this..."))
+			if(sneaking)
+				to_chat(user, span_notice("I carefully sip [src]."))
+			else
+				to_chat(user, span_notice("I swallow a gulp of [src]."))
+		addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, trans_to), M, sneaking ? 1 : amount_per_gulp, TRUE, TRUE, FALSE, user, FALSE, INGEST, TRUE, spiked ? TRUE : FALSE), 5)
+		spiked = FALSE
+		playsound(M.loc,pick(drinksounds), sneaking ? 50 : 100, TRUE)
+		if(user.client?.prefs.autoconsume)
+			if(M == user && do_after(user, CLICK_CD_MELEE))
+				INVOKE_ASYNC(src, PROC_REF(attack), M, user, target)
+				user.changeNext_move(CLICK_CD_MELEE)
+			else if(M != user)
+				INVOKE_ASYNC(src, PROC_REF(attack), M, user, target)
+				user.changeNext_move(CLICK_CD_MELEE)
+		return
+
+/obj/item/reagent_containers/glass/attack_obj(obj/target, mob/living/user)
+	if(user.used_intent.type == INTENT_GENERIC)
+		return ..()
+
+	testing("attackobj1")
+
+	// Provide actual messages telling you whether either or both of the containers is closed. I don't care to refactor all this other reagent_containers stuff rn.
+	var/nodup = FALSE
+	var/they_closed = FALSE
+	if(istype(target, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/they = target
+		if(they.closed)
+			they_closed = TRUE
+
+	switch(user.used_intent.type)
+		if(INTENT_POUR)
+			if(closed)
+				if(they_closed)
+					to_chat(user, span_warning("Both vessels are corked!"))
+					nodup = TRUE
+				else
+					to_chat(user, span_warning("The vessel I'm trying to pour from is corked!"))
+			if(they_closed && !nodup)
+				to_chat(user, span_warning("The vessel I'm trying to fill up is corked!"))
+		if(INTENT_FILL)
+			if(closed)
+				if(they_closed)
+					to_chat(user, span_warning("Both vessels are corked!"))
+					nodup = TRUE
+				else
+					to_chat(user, span_warning("The vessel I'm trying to fill up is corked!"))
+			if(they_closed && !nodup)
+				to_chat(user, span_warning("The vessel I'm trying to pour from is corked!"))
+		if(INTENT_SPLASH)
+			if(closed)
+				if(!user.mob_timers["splashclosed_notif"] || (world.time > (user.mob_timers["splashclosed_notif"] + 0.3 SECONDS)))
+					to_chat(user, span_warning("The vessel I'm trying to splash with is corked!"))
+					user.mob_timers["splashclosed_notif"] = world.time
+
+	if(!spillable)
+		return
+
+
+	if(target.is_refillable() && (user.used_intent.type == INTENT_POUR)) //Something like a glass. Player probably wants to transfer TO it.
+		testing("attackobj2")
+		if(!reagents.total_volume)
+			to_chat(user, span_warning("[src] is empty!"))
+			return
+		var/sneaking = FALSE
+		var/to_transfer = amount_per_transfer_from_this
+		if(user.m_intent == MOVE_INTENT_SNEAK)
+			sneaking = TRUE
+			to_transfer = 1
+		var/to_spike = FALSE
+		if(target.reagents.holder_full())
+			if(sneaking && istype(target, /obj/item/reagent_containers/glass))
+				to_spike = TRUE
+				to_chat(user, span_warning("I start sprinkling [src] on the rim of [target]."))
+			else
+				to_chat(user, span_warning("[target] is full."))
+				return
+		if(!sneaking)
+			user.visible_message(span_notice("[user] pours [src] into [target]."), \
+							span_notice("I pour [src] into [target]."))
+			if(poursounds)
+				playsound(user.loc,pick(poursounds), 100, TRUE)
+		if(to_spike)
+			if(do_after(user, 8, target = target))
+				if(!reagents.total_volume)
+					return
+				target.reagents.remove_reagent(target.reagents.get_master_reagent_id(), 1)
+				if(!reagents.trans_to(target, 1, transfered_by = user, prepend = TRUE))
+					reagents.reaction(target, TOUCH, to_transfer)
+				target:spiked = TRUE
+				return
+		for(var/i in 1 to 11)
+			if(do_after(user, 8, target = target))
+				if(!reagents.total_volume)
+					break
+				if(target.reagents.holder_full())
+					break
+				if(!reagents.trans_to(target, to_transfer, transfered_by = user))
+					reagents.reaction(target, TOUCH, to_transfer)
+			else
+				break
+		return
+
+	if(target.is_drainable() && (user.used_intent.type == /datum/intent/fill)) //A dispenser. Transfer FROM it TO us.
+		testing("attackobj3")
+		if(!target.reagents.total_volume)
+			to_chat(user, span_warning("[target] is empty!"))
+			return
+
+		if(reagents.holder_full())
+			to_chat(user, span_warning("[src] is full."))
+			return
+		var/sneaking = FALSE
+		var/to_transfer = amount_per_transfer_from_this
+		if(user.m_intent == MOVE_INTENT_SNEAK)
+			sneaking = TRUE
+			to_transfer = 1
+		var/to_spike = FALSE
+		if(reagents.holder_full())
+			if(sneaking && istype(src, /obj/item/reagent_containers/glass))
+				to_spike = TRUE
+				to_chat(user, span_warning("I start sprinkling [target] on the rim of [src]."))
+			else
+				to_chat(user, span_warning("[src] is full."))
+				return
+		if(!sneaking)
+			user.visible_message(span_notice("[user] fills [src] with [target]."), \
+								span_notice("I fill [src] with [target]."))
+			if(fillsounds)
+				playsound(user.loc,pick(fillsounds), 100, TRUE)
+		if(to_spike)
+			if(do_after(user, 8, target = target))
+				if(!target.reagents.total_volume)
+					return
+				reagents.remove_reagent(reagents.get_master_reagent_id(), 1)
+				if(!target.reagents.trans_to(src, 1, transfered_by = user, prepend = TRUE))
+					target.reagents.reaction(src, TOUCH, to_transfer)
+				spiked = TRUE
+				return
+		for(var/i in 1 to 11)
+			if(do_after(user, 8, target = target))
+				if(reagents.holder_full())
+					break
+				if(!target.reagents.total_volume)
+					break
+				target.reagents.trans_to(src, to_transfer, transfered_by = user)
+				onfill(target, user, silent = TRUE)
+			else
+				break
+
+
+		return
+
+	if(!isnull(reagents))
+		if(reagents.total_volume && user.used_intent.type == INTENT_SPLASH)
+			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
+								span_notice("I splash the contents of [src] onto [target]."))
+			reagents.reaction(target, TOUCH)
+			reagents.clear_reagents()
+			return
+
+/obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
+	if(user.used_intent.type == INTENT_GENERIC)
+		return ..()
+
+	if((!proximity) || !check_allowed_items(target,target_self=1))
+		return ..()
+
+	if(closed && user.used_intent.type == INTENT_SPLASH)
+		if(!user.mob_timers["splashclosed_notif"] || (world.time > (user.mob_timers["splashclosed_notif"] + 0.3 SECONDS)))
+			to_chat(user, span_warning("The vessel I'm trying to splash with is corked!"))
+			user.mob_timers["splashclosed_notif"] = world.time
+
+	if(!spillable)
+		return
+
+	if(isturf(target))
+		if(reagents.total_volume && user.used_intent.type == INTENT_SPLASH)
+			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
+								span_notice("I splash the contents of [src] onto [target]."))
+			reagents.reaction(target, TOUCH)
+			reagents.clear_reagents()
+			return
+
+/obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
+	var/hotness = I.get_temperature()
+	if(hotness && reagents)
+		reagents.expose_temperature(hotness)
+		to_chat(user, span_notice("I heat [name] with [I]!"))
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
+		var/obj/item/reagent_containers/food/snacks/egg/E = I
+		if(reagents)
+			if(reagents.total_volume >= reagents.maximum_volume)
+				to_chat(user, span_notice("[src] is full."))
+			else
+				to_chat(user, span_notice("I break [E] in [src]."))
+				E.reagents.trans_to(src, E.reagents.total_volume, transfered_by = user)
+				onfill(E, user, silent = FALSE)
+				qdel(E)
+			return
+
+	if(istype(I, /obj/item/natural/cloth))
+		var/obj/item/natural/cloth/T = I
+		if(T.wet >= 10)
+			to_chat(user, span_warning("[T] is already soaked!"))
+			return
+		var/removereg = /datum/reagent/water
+		if(!reagents.has_reagent(/datum/reagent/water, 5))
+			removereg = /datum/reagent/water/gross
+			if(!reagents.has_reagent(/datum/reagent/water/gross, 5))
+				to_chat(user, span_warning("There's not enough water to soak [T] in."))
+				return
+		wash_atom(T)
+		playsound(src, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 100, FALSE)
+		reagents.remove_reagent(removereg, 5)
+		user.visible_message(span_info("[user] soaks [T] in [src]."), span_info("I soak [T] in [src]."))
+		return
+	..()
+
+// Called whenever this container is successfully filled via the target.
+/obj/item/reagent_containers/glass/proc/onfill(obj/target, mob/user, silent = FALSE)
+
+/obj/item/reagent_containers/glass/bucket
+	name = "bucket"
+	desc = ""
+	icon = 'icons/roguetown/items/misc.dmi'
+	lefthand_file = 'modular/Neu_Food/icons/food_lefthand.dmi'
+	righthand_file = 'modular/Neu_Food/icons/food_righthand.dmi'
+	icon_state = "woodbucket"
+	item_state = "woodbucket"
+	resistance_flags = FLAMMABLE
+	drop_sound = 'sound/foley/dropsound/wooden_drop.ogg'
+	max_integrity = 300
+	w_class = WEIGHT_CLASS_BULKY
+	force = 5
+	throwforce = 10
+	amount_per_transfer_from_this = 25
+	possible_transfer_amounts = list(25)
+	volume = 120
+	flags_inv = HIDEHAIR
+	reagent_flags = OPENCONTAINER
+	obj_flags = CAN_BE_HIT
+	gripped_intents = list(INTENT_POUR)
+	dropshrink = 0.8
+	slot_flags = null
+	resistance_flags = NONE
+	armor = list("blunt" = 25, "slash" = 20, "stab" = 15, "piercing" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
+	slot_equipment_priority = list( \
+		SLOT_BACK, SLOT_RING,\
+		SLOT_PANTS, SLOT_ARMOR,\
+		SLOT_WEAR_MASK, SLOT_HEAD, SLOT_NECK,\
+		SLOT_SHOES, SLOT_GLOVES,\
+		SLOT_HEAD, SLOT_GLASSES,\
+		SLOT_BELT, SLOT_S_STORE,\
+		SLOT_L_STORE, SLOT_R_STORE,\
+		SLOT_GENERC_DEXTROUS_STORAGE
+	)
+
+/obj/item/reagent_containers/glass/bucket/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.5,"sx" = -5,"sy" = -8,"nx" = 7,"ny" = -9,"wx" = -1,"wy" = -8,"ex" = -1,"ey" = -8,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0)
+
+/obj/item/reagent_containers/glass/bucket/update_icon(dont_fill=FALSE)
+	if(dont_fill)
+		testing("dontfull")
+		return ..()
+
+	cut_overlays()
+
+	if(reagents.total_volume > 0)
+		if(reagents.total_volume <= 50)
+			var/mutable_appearance/filling = mutable_appearance(icon, "bucket_half")
+			filling.color = mix_color_from_reagents(reagents.reagent_list)
+			filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
+			add_overlay(filling)
+
+		if(reagents.total_volume > 50)
+			var/mutable_appearance/filling = mutable_appearance(icon, "bucket_full")
+			filling.color = mix_color_from_reagents(reagents.reagent_list)
+			filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
+			add_overlay(filling)
+
+
+/obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
+	..()
+	if (slot == SLOT_HEAD)
+		if(reagents.total_volume)
+			to_chat(user, span_danger("[src]'s contents spill all over you!"))
+			reagents.reaction(user, TOUCH)
+			reagents.clear_reagents()
+		reagents.flags = NONE
+
+/obj/item/reagent_containers/glass/bucket/dropped(mob/user)
+	. = ..()
+	reagents.flags = initial(reagent_flags)
+
+/obj/item/reagent_containers/glass/bucket/equip_to_best_slot(mob/M)
+	if(reagents.total_volume) //If there is water in a bucket, don't quick equip it to the head
+		var/index = slot_equipment_priority.Find(SLOT_HEAD)
+		slot_equipment_priority.Remove(SLOT_HEAD)
+		. = ..()
+		slot_equipment_priority.Insert(index, SLOT_HEAD)
+		return
+	return ..()

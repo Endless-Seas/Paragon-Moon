@@ -1,0 +1,126 @@
+<html>
+
+<head>
+  <title>Create Object</title>
+  <style type="text/css">
+    body
+    {
+      font-size: 9pt;
+      font-family: Verdana, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6
+    {
+      color: #00f;
+      font-family: Georgia, Arial, sans-serif;
+    }
+    img { 
+      border: 0px; 
+    }
+    p.lic {
+      font-size: 6pt;
+    }
+  </style>
+</head>
+
+<body>
+	<form name="spawner" action="byond://?src=/* ref src */" method="get">
+		<input type="hidden" name="src" value="/* ref src */">
+		/* hreftokenfield */
+
+		<input type="text" name="filter" value="" style="width:280px;height:25"> <input type = "submit" value = "Search" onclick = "updateSearch()" /><br>
+		<input type="radio" name="search_type" value="by_type" checked="checked"> Search by type <br/>
+		<input type="radio" name="search_type" value="by_name"> Search by name <br/> 
+		Offset: <input type="text" name="offset" value="x,y,z" style="width:250px">
+		
+		A <input type="radio" name="offset_type" value="absolute">
+		R <input type="radio" name="offset_type" value="relative" checked="checked"><br>
+		
+		Number: <input type="text" name="object_count" value="1" style="width:30px">
+		Dir: <input type="text" name="object_dir" value="" style="width:30px">
+		Name: <input type="text" name="object_name" value="" style="width:180px"><br>
+		Where: 
+			<select name='object_where' style="width:320px">
+				<option value='onfloor'>On floor below own mob</option>
+				<option value='frompod'>On floor below own mob, dropped via supply pod</option>
+				<option value='inhand'>In own mob's hand</option>
+				<option value='inmarked'>In marked object</option>
+			</select>
+		<br><br>
+		<input type="submit" value="spawn">
+		<select name="object_list" id="object_list" size="18" multiple style="width:98%"></select><br>
+		
+	</form>
+	
+	<script language="JavaScript">
+		var old_search = "";
+		var object_list = document.spawner.object_list;
+		var object_paths = null /* object types */;
+		var object_names = null /* object names */;
+		var objects = object_paths == null ? new Array() : object_paths.split(";");
+		var objects_by_name = object_names == null ? new Array() : object_names.split(";")
+		
+		document.spawner.filter.focus();
+		
+		function populateList(from_list, names_list, use_names)
+		{
+			object_list.options.length = 0;
+			
+			var i;
+			for (i in from_list)
+			{
+				var new_option = document.createElement("option");
+				new_option.value = from_list[i];
+				if (use_names)
+					new_option.text = names_list[i];
+				else
+					new_option.text = from_list[i];
+				object_list.options.add(new_option);
+			}
+		}
+		
+		function updateSearch()
+		{
+			// document.spawner.search_type.value seems to always be undefined, however I access it,
+			// and I'm not sure why - so we get this hack instead.
+			var search_types = document.getElementsByName('search_type');
+			var search_type;
+			for (var i=0; i<search_types.length; ++i){
+				if (search_types[i].checked){
+					search_type = search_types[i].value;
+					break;
+				}
+			}
+
+			usenames = search_type === "by_name";
+
+			var old_search = document.spawner.filter.value.toLowerCase();
+
+			if (!old_search)
+				return;
+			
+			var filtered = new Array();
+			var filterednames = new Array();
+			var i;
+			for (i in objects)
+			{
+				var caseInsensitiveItem
+				if (usenames)
+					caseInsensitiveItem = objects_by_name[i].toLowerCase();
+				else
+					caseInsensitiveItem = objects[i].toLowerCase();
+				
+				if(caseInsensitiveItem.search(old_search) < 0)
+				{
+					continue;
+				}
+				filtered.push(objects[i]);
+				filterednames.push(objects_by_name[i]);
+			}
+			
+			populateList(filtered, filterednames, usenames);
+		}
+	</script>
+</body>
+
+</html>

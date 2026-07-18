@@ -1,0 +1,161 @@
+// If clothing appears on a bathmaiden. Then it should be sold here. 
+/datum/supply_pack/rogue/bath_clothes
+	group = "Exotic Apparel"
+	crate_name = "bathmatron's crate"
+	crate_type = /obj/structure/closet/crate/chest/merchant
+
+/datum/supply_pack/rogue/bath_clothes/exoticsilkbra
+	name = "Exotic Silk Bra"
+	cost = 30
+	contains = list(/obj/item/clothing/suit/roguetown/shirt/exoticsilkbra)
+
+/datum/supply_pack/rogue/bath_clothes/anklets
+	name = "Exotic Silk Anklets"
+	cost = 30
+	contains = list(/obj/item/clothing/shoes/roguetown/anklets)
+
+/datum/supply_pack/rogue/bath_clothes/exoticsilkbelt
+	name = "Exotic Silk Belt"
+	cost = 30
+	contains = list(/obj/item/storage/belt/rogue/leather/exoticsilkbelt)
+
+/datum/supply_pack/rogue/bath_clothes/exoticsilkmask
+	name = "Exotic Silk Mask"
+	cost = 30
+	contains = list(/obj/item/clothing/mask/rogue/exoticsilkmask)
+
+/datum/supply_pack/rogue/bath_clothes/silkstockings
+	name = "Stockings, Silk"
+	cost = 20
+	contains = list(/obj/item/legwears/silk/white)
+
+/datum/supply_pack/rogue/bath_clothes/kneestockings
+	name = "Stockings, Knee"
+	cost = 15
+	contains = list(/obj/item/legwears/knee_high/white)
+
+/datum/supply_pack/rogue/bath_clothes/thighstockings
+	name = "Stockings, Thigh"
+	cost = 15
+	contains = list(/obj/item/legwears/thigh_high/white)
+
+/datum/supply_pack/rogue/bath_clothes/fishnetstockings
+	name = "Stockings, Fishnet"
+	cost = 10
+	contains = list(/obj/item/legwears/fishnet/white)
+
+/datum/supply_pack/rogue/bath_clothes/stockings_normal
+	name = "Stockings"
+	cost = 10
+	contains = list(/obj/item/legwears/white)
+
+/datum/supply_pack/rogue/bath_clothes/briefs
+	name = "Briefs"
+	cost = 10
+	contains = list(/obj/item/undies)
+
+/datum/supply_pack/rogue/bath_clothes/bikini
+	name = "Bikini"
+	cost = 10
+	contains = list(/obj/item/undies/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/panties
+	name = "Panties"
+	cost = 10
+	contains = list(/obj/item/undies/panties)
+
+/datum/supply_pack/rogue/bath_clothes/leotard
+	name = "Leotard"
+	cost = 10
+	contains = list(/obj/item/undies/leotard)
+
+/datum/supply_pack/rogue/bath_clothes/athletic_leotard
+	name = "Athletic Leotard"
+	cost = 10
+	contains = list(/obj/item/undies/athletic_leotard)
+
+/datum/supply_pack/rogue/bath_clothes/braies
+	name = "Braies"
+	cost = 10
+	contains = list(/obj/item/undies/braies)
+
+/datum/supply_pack/rogue/bath_clothes/collar
+	name = "Collar"
+	cost = 10
+	contains = list(/obj/item/clothing/neck/roguetown/collar/leather)
+
+/datum/supply_pack/rogue/bath_clothes/catbell_collar
+	name = "Catbell Collar"
+	cost = 15
+	contains = list(/obj/item/clothing/neck/roguetown/collar/catbell)
+
+/datum/supply_pack/rogue/bath_clothes/cowbell_collar
+	name = "Cowbell Collar"
+	cost = 15
+	contains = list(/obj/item/clothing/neck/roguetown/collar/cowbell)
+
+/datum/supply_pack/rogue/bath_clothes/spikedcollar
+	name = "Spiked Dog-Collar"
+	cost = 40
+	contains = list(/obj/item/clothing/neck/roguetown/gorget/forlorncollar)
+
+/datum/supply_pack/rogue/bath_clothes/loincloth
+	name = "Loincloth"
+	cost = 10
+	contains = list(/obj/item/clothing/under/roguetown/loincloth)
+
+/datum/supply_pack/rogue/bath_clothes/corset
+	name = "Corset"
+	cost = 15
+	contains = list(/obj/item/clothing/suit/roguetown/armor/corset)
+
+/datum/supply_pack/rogue/bath_clothes/silkydress
+	name = "Silky Dress"
+	cost = 25
+	contains = list(/obj/item/clothing/suit/roguetown/shirt/dress/silkydress)
+
+// Just a recolored cloth belt lol
+/datum/supply_pack/rogue/bath_clothes/belt
+	name = "Lady's Belt"
+	cost = 10
+	contains = list(/obj/item/storage/belt/rogue/leather/cloth/lady)
+
+/datum/supply_pack/rogue/bath_clothes/corslet
+	name = "Corslet (Leather)"
+	cost = 25
+	contains = list(/obj/item/clothing/suit/roguetown/armor/leather/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/corslet/studded
+	name = "Corslet, (Leather, studded)"
+	cost = 35
+	contains = list(/obj/item/clothing/suit/roguetown/armor/leather/studded/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/corslet/hide
+	name = "Corslet (Leather, barbarian-fashion)"
+	cost = 25
+	contains = list(/obj/item/clothing/suit/roguetown/armor/leather/hide/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/corslet/chain
+	name = "Corslet (Chain)"
+	cost = 40
+	contains = list(/obj/item/clothing/suit/roguetown/armor/chainmail/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/corslet/platehalf
+	name = "Corslet (Half Plate)"
+	cost = 60
+	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/bikini)
+
+/datum/supply_pack/rogue/bath_clothes/corslet/plate
+	name = "Corslet (Full Plate)"
+	cost = 80
+	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/full/bikini)
+
+// /datum/supply_pack/rogue/bath_clothes/horsey
+// 	name = "Bit, Blinders & Barding (full set)"
+// 	cost = 80
+// 	contains = list(
+// 	/obj/item/clothing/gloves/roguetown/leather/horsey = 1,
+// 	/obj/item/clothing/head/roguetown/horsey = 1,
+// 	/obj/item/clothing/shoes/roguetown/boots/horsey = 1,
+// 	/obj/item/clothing/mask/rogue/horsey = 1,
+// 	/obj/item/clothing/suit/roguetown/armor/leather/studded/bikini/horsey = 1)

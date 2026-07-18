@@ -1,0 +1,48 @@
+GLOBAL_LIST_EMPTY(classic_keybinding_list_by_key)
+GLOBAL_LIST_EMPTY(hotkey_keybinding_list_by_key)
+GLOBAL_LIST_EMPTY(keybindings_by_name)
+
+// Temporary storage for loadout selection
+GLOBAL_VAR(temp_loadout_selection)
+
+// This is a mapping from JS keys to Byond - ref: https://keycode.info/
+// Expanded to include remapping shift input characters including special instances due to URI encoding. 
+GLOBAL_LIST_INIT(_kbMap, list(
+	"UP" = "North",
+	"RIGHT" = "East",
+	"DOWN" = "South",
+	"LEFT" = "West",
+	"INSERT" = "Insert",
+	"HOME" = "Northwest",
+	"PAGEUP" = "Northeast",
+	"DELETE" = "Delete",
+	"END" = "Southwest",
+	"PAGEDOWN" = "Southeast",
+	" " = "Space",
+	"ALT" = "Alt",
+	"SHIFT" = "Shift",
+	"CONTROL" = "Ctrl",
+	"!" = "1",
+	"@" = "2",
+	"#" = "3",
+	"%23" = "3",
+	"$" = "4",
+	"%" = "5",
+	"^" = "6",
+	"&" = "7",
+	"%26" = "7",
+	"*" = "8",
+	"(" = "9",
+	")" = "0",
+	"_" = "-",
+	"+" = "=",
+	"%3D" = "=",
+	"{" = "\[",
+	"}" = "]",
+	"|" = "\\",
+	":" = ";",
+	"\"" = "'",
+	"<" = ",",
+	">" = ".",
+	"?" = "/"
+	))

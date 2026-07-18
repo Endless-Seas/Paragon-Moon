@@ -1,0 +1,166 @@
+//Fluff structures serve no purpose and exist only for enriching the environment. They can be destroyed with a wrench.
+
+/obj/structure/well
+	name = "well"
+	desc = "Far down inside the dark hole, water laps the walls of smooth brickwork."
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "well"
+	anchored = TRUE
+	density = TRUE
+	opacity = 0
+	climb_time = 40
+	climbable = TRUE
+	layer = 2.91
+	damage_deflection = 30
+
+
+/obj/structure/well/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass/bucket))
+		var/obj/item/reagent_containers/glass/bucket/W = I
+		if(W.reagents.holder_full())
+			to_chat(user, span_warning("[W] is full."))
+			return
+		if(do_after(user, 1 SECONDS, target = src))
+			var/list/waterl = list(/datum/reagent/water = 250)
+			W.reagents.add_reagent_list(waterl)
+			to_chat(user, "<span class='notice'>I fill [W] from [src].</span>")
+			playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 80, FALSE)
+			return
+	else if(istype(I, /obj/item/reagent_containers/glass))
+		to_chat(user, span_warning("I need a bucket."))
+	else ..()
+
+/obj/structure/well/poisoned
+	name = "dubious well"
+	desc = ""
+	icon = 'icons/roguetown/misc/structure.dmi'
+	icon_state = "well"
+	color = "#59aa65"
+	anchored = TRUE
+	density = TRUE
+	opacity = 0
+	climb_time = 40
+	climbable = TRUE
+	layer = 2.91
+	damage_deflection = 30
+
+/obj/structure/well/poisoned/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass/bucket))
+		var/obj/item/reagent_containers/glass/bucket/W = I
+		if(W.reagents.holder_full())
+			to_chat(user, span_warning("[W] is full."))
+			return
+		if(do_after(user, 3 SECONDS, target = src))
+			var/list/waterl = list(/datum/reagent/water = 50, /datum/reagent/organpoison = 50)
+			W.reagents.add_reagent_list(waterl)
+			to_chat(user, "<span class='notice'>I fill [W] from [src]. The water looks vile, am I really going to drink this?</span>")
+			playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 80, FALSE)
+			return
+	else if(istype(I, /obj/item/reagent_containers/glass))
+		to_chat(user, span_warning("I need a bucket."))
+	else ..()
+
+/obj/structure/well/fountain
+	name = "water fountain"
+	desc = "A slightly more civilized alternative to drinking straight from a river."
+	icon = 'icons/roguetown/misc/64x64.dmi'
+	icon_state = "fountain"
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	pixel_x = -15
+
+/obj/structure/well/fountain/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/W = I
+		if(W.reagents.holder_full())
+			to_chat(user, span_warning("[W] is full."))
+			return
+		playsound(user, 'sound/foley/drawwater.ogg', 100, FALSE)
+		if(do_after(user, 1 SECONDS, target = src))
+			var/list/waterl = list(/datum/reagent/water = 250)
+			W.reagents.add_reagent_list(waterl)
+			to_chat(user, "<span class='notice'>I fill [W] from [src].</span>")			
+			return
+	else ..()
+
+/obj/structure/well/fountain/onbite(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.stat != CONSCIOUS)
+			return
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			if(C.is_mouth_covered())
+				return
+		user.visible_message(span_info("[user] starts to drink from [src]."))
+		playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 100, FALSE)
+		for(var/drink in 1 to 30)
+			if(drink_act(user, L))
+				return
+		to_chat(user, span_warning("I've had enough."))
+		return
+	..()
+
+/obj/structure/well/fountain/proc/drink_act(mob/user, mob/living/L)
+	if(L.stat != CONSCIOUS)
+		return TRUE
+	if(do_after(L, 2.5 SECONDS, target = src))
+		var/list/waterl = list(/datum/reagent/water = 5)
+		var/datum/reagents/reagents = new()
+		reagents.add_reagent_list(waterl)
+		reagents.trans_to(L, reagents.total_volume, transfered_by = user, method = INGEST)
+		playsound(user,pick('sound/items/drink_gen (1).ogg','sound/items/drink_gen (2).ogg','sound/items/drink_gen (3).ogg'), 100, TRUE)
+		return FALSE
+	return TRUE
+
+
+/obj/structure/well/fountainswamp
+	name = "water fountain"
+	desc = "Green-tinted bogwater dances through sheets of thick floating algae."
+	icon = 'icons/roguetown/misc/64x64.dmi'
+	icon_state = "fountain"
+	color = "#a3c2a8"
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = GAME_PLANE_UPPER
+	pixel_x = -15
+
+/obj/structure/well/fountainswamp/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/W = I
+		if(W.reagents.holder_full())
+			to_chat(user, span_warning("[W] is full."))
+			return
+		playsound(user, 'sound/foley/drawwater.ogg', 100, FALSE)
+		if(do_after(user, 1 SECONDS, target = src))
+			var/list/waterl = list(/datum/reagent/water/gross = 250)
+			W.reagents.add_reagent_list(waterl)
+			to_chat(user, "<span class='notice'>I fill [W] from [src].</span>")			
+			return
+	else ..()
+
+/obj/structure/well/fountainswamp/onbite(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.stat != CONSCIOUS)
+			return
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			if(C.is_mouth_covered())
+				return
+		user.visible_message(span_info("[user] starts to drink from [src]."))
+		playsound(user, pick('sound/foley/waterwash (1).ogg','sound/foley/waterwash (2).ogg'), 100, FALSE)
+		drink_act(user, L)
+		return
+	..()
+
+/obj/structure/well/fountainswamp/proc/drink_act(mob/user, mob/living/L)
+	if(L.stat != CONSCIOUS)
+		return TRUE
+	if(do_after(L, 2.5 SECONDS, target = src))
+		var/list/waterl = list(/datum/reagent/water/gross = 5)
+		var/datum/reagents/reagents = new()
+		reagents.add_reagent_list(waterl)
+		reagents.trans_to(L, reagents.total_volume, transfered_by = user, method = INGEST)
+		playsound(user,pick('sound/items/drink_gen (1).ogg','sound/items/drink_gen (2).ogg','sound/items/drink_gen (3).ogg'), 100, TRUE)
+		return FALSE
+	return TRUE
