@@ -33,7 +33,7 @@
 </div>
 
 <h1>
-	<a href="https://github.com/Endless-Seas/Paragon-Moon/edit/master/CONTRIBUTING.md">
+	<a href="https://github.com/Endless-Seas/Paragon-Moon/blob/master/CONTRIBUTING.md">
 		Contribution Guidelines
 	</a>
 </h1>
