@@ -184,7 +184,7 @@ export class Changelog extends Component {
 
     const header = (
       <Section>
-        <h1>Ratwood Keep</h1>
+        <h1>Paragon Moon</h1>
         <p>
           <b>Thanks to: </b>
           Baystation 12, /vg/station, NTstation, CDK Station devs,
@@ -194,16 +194,12 @@ export class Changelog extends Component {
         </p>
         <p>
           {'Current organization members can be found '}
-          <a href="https://github.com/orgs/Rotwood-Vale/people">here</a>
+          <a href="https://github.com/orgs/Endless-Seas/people">here</a>
           {', recent GitHub contributors can be found '}
-          <a href="https://github.com/Rotwood-Vale/Ratwood-Keep/pulse/monthly">
+          <a href="https://github.com/Endless-Seas/Paragon-Moon/pulse/monthly">
             here
           </a>
           .
-        </p>
-        <p>
-          {'You can also join our discord '}
-          <a href="https://discord.com/invite/MfG4bvN8ns">here</a>.
         </p>
         {dateDropdown}
       </Section>
