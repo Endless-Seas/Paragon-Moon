@@ -604,7 +604,7 @@ SUBSYSTEM_DEF(job)
 
 				if(job.plevel_req > player.client.patreonlevel())
 					continue
-					
+
 				#ifdef USES_PQ
 				if(!isnull(job.min_pq) && (get_playerquality(player.ckey) < job.min_pq) && level != JP_LOW) //since its required people on low can roll for it
 					continue
@@ -765,6 +765,13 @@ SUBSYSTEM_DEF(job)
 //			to_chat(M, span_notice("<B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B>"))
 //		if(job.tutorial)
 //			to_chat(M, job.tutorial)
+
+//PARAGON EDIT BEGIN
+//Swap around the comment if you want it to show up by default, rather than needing to be clicked!!!
+//		job.ShowJobStuff(M)
+		job.job_help_message(M)
+//PARAGON EDIT END
+
 	var/related_policy = get_policy(rank)
 	if(related_policy)
 		to_chat(M,related_policy)
@@ -971,11 +978,11 @@ SUBSYSTEM_DEF(job)
 		return TRUE
 	if(prefs.vice5?.type in job.vice_restrictions)
 		return TRUE
-	
+
 	// Legacy charflaw check
 	if(prefs.charflaw?.type in job.vice_restrictions)
 		return TRUE
-	
+
 	return FALSE
 
 /datum/controller/subsystem/job/proc/should_use_towner_spawn(mob/living/carbon/human/H, client/fallback_client)
