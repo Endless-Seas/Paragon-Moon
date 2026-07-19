@@ -31,6 +31,23 @@
 		/datum/advclass/knight/irregularknight
 		)
 
+	supervisors = "Baron | Hand <br>\
+					Marshal | Captain"
+
+	leave_admin_shout = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Uphold the laws, as instructed and set by the Baron. <br> \
+				- Act as an attack dog, at the whim of the Baron's mood. <br> \
+				- Train and discipline your squire, or maintain vigil in court. <br> \
+				- Maintain the Baron's honour, as with your own."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Disparaging the Baron, or others, of high station. <br> \
+				- Through action or inaction, imperiling the court. <br> \
+				- Abandoning your squire, or post. <br> \
+				- Working alone, for you are a pillar of the garrison."
+
 /datum/outfit/job/roguetown/knight
 	job_bitflag = BITFLAG_GARRISON
 
