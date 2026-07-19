@@ -23,10 +23,34 @@ This is pulled from one of my older projects, brought up to date for PM.
 	dat += "<h1>IC Information</h1>"
 	dat += "\n<br><b>- - - - - -</b><br>"
 
+	dat += "\n<br><b><FONT color='red'>[title]</font></b><br>"
+
 	if(tutorial)
 		dat += "<b>[tutorial]</b>"
 	else
 		dat += "<FONT color='grey'><b>Your job has no tutorial. This is a bug. Tell Carl.</b></font>"
+
+	dat += "\n<br><b>- - -</b><br>"
+
+	if(supervisors)
+		dat += "<b>You answer to the following roles, in order of priority: <br>\
+				<FONT color='green'>[supervisors]</font></b>"
+	else
+		dat += "<FONT color='grey'><b>You answer to none.</b></font>"
+
+	dat += "\n<br><br>"
+
+	if(give_bank_account)
+		dat += "<FONT color='green'><b>You've been provided a nervelock account.</b></font>"
+	else
+		dat += "<FONT color='grey'><b>Your position is NOT given a nervelock account by default.</b></font>"
+
+	dat += "\n<br>"
+
+	if(noble_income)
+		dat += "<b>You're entitled to a noble's stipend, once a day, at a rate of: (<FONT color='green'>[noble_income] mammon</font>)	</b>"
+	else
+		dat += "<FONT color='grey'><b>Your position is NOT given a noble's stipend.</b></font>"
 
 	dat += "\n<br><b>- - - - - -</b><br>"
 
@@ -45,10 +69,7 @@ This is pulled from one of my older projects, brought up to date for PM.
 	dat += "\n<br><b>- - - - - -</b><br>"
 	dat += "<h2>OOC Information</h2>"
 	dat += "\n<br><b>- - - - - -</b><br>"
-
 	dat += "<b>Storyteller: <FONT color='red'>[SSgamemode.storyteller_name]</font></b>"
-	dat += "\n<br>"
-
 	dat += "\n<br><b>- - - - - -</b><br>"
 
 	if(leave_admin_shout)
@@ -60,7 +81,7 @@ This is pulled from one of my older projects, brought up to date for PM.
 
 	if(roleplay_exclusive_notify)
 		dat += "<FONT color='orange'><b>You are playing a job that is important for roleplay. \
-		In the event of an offensive conflict, you are not permitted to participate in an attack. \
+		In the event of an offensive conflict, you are discouraged from participating in an attack. \
 		Please refrain from running dungeons when possible.</b></font>"
 
 		dat += "\n<br><b>- - - - - -</b><br>"

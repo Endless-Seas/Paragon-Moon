@@ -765,13 +765,12 @@ SUBSYSTEM_DEF(job)
 //			to_chat(M, span_notice("<B>As this station was initially staffed with a [CONFIG_GET(flag/jobs_have_minimal_access) ? "full crew, only your job's necessities" : "skeleton crew, additional access may"] have been added to your ID card.</B>"))
 //		if(job.tutorial)
 //			to_chat(M, job.tutorial)
-
 //PARAGON EDIT BEGIN
-//Swap around the comment if you want it to show up by default, rather than needing to be clicked!!!
-//		job.ShowJobStuff(M)
-		job.job_help_message(M)
+	//Comment one if you want it to show up by itself exclusively, or be an in chat link, respectively!!!
+	//We show both otherwise, in case you quickly close it or something, or want to view it again later.
+	job.ShowJobStuff(M)
+	job.job_help_message(M)
 //PARAGON EDIT END
-
 	var/related_policy = get_policy(rank)
 	if(related_policy)
 		to_chat(M,related_policy)

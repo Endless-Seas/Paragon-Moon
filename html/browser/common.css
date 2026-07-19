@@ -1,6 +1,6 @@
 @font-face {
-	font-family: "New Rocker";
-	src: url("newrocker.ttf");
+	font-family: "Endera";
+	src: url("endera.ttf");
 }
 
 @font-face {
@@ -14,12 +14,12 @@
 }
 
 body {
-	font-family: "New Rocker", TrueType;
+	font-family: "Endera", TrueType;
 	padding: 0;
 	margin: 0;
-	background: #100000 url("flowers.png") repeat;
+	background: #000000 url("flowers.png") repeat;
 	font-size: 14px;
-	color: #aa8f8f;
+	color: #8a8072;
 	line-height: 170%;
 	vertical-align: middle;
 }
@@ -130,7 +130,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "New Rocker", TrueType !important;
+	font-family: "Endera", TrueType !important;
 	margin: 0;
 	padding: 16px 0 8px 0;
 	color: #9b3131;
@@ -177,7 +177,7 @@ h4 {
 .uiContent {
 	clear: both;
 	padding: 8px;
-	font-family: "New Rocker", TrueType;
+	font-family: "Endera", TrueType;
 }
 
 .good {
