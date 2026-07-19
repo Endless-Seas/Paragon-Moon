@@ -86,6 +86,7 @@
 	)
 	if (H && H.mind)
 		H.mind.adjust_spellpoints(6)
+		H.verbs += /mob/living/carbon/human/proc/crier_announcement
 	if(H.age == AGE_OLD)
 		H.change_stat(STATKEY_SPD, -1)
 		H.change_stat(STATKEY_INT, 1)
