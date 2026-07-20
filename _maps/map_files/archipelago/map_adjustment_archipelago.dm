@@ -42,6 +42,16 @@
 
 		//Outsiders.
 		/datum/job/roguetown/pilgrim,
+
+		//I hate you so much.
+		/datum/job/roguetown/cataphract,
+		/datum/job/roguetown/headslave,
+		/datum/job/roguetown/janissary,
+		/datum/job/roguetown/janissarysergeant,
+		/datum/job/roguetown/azebagha,
+		/datum/job/roguetown/slavemaster,
+		/datum/job/roguetown/slave,
+		/datum/job/roguetown/adventurer/courtslave,
 	)
 	threat_regions = list(
 		THREAT_REGION_NORTHWICH_ISLE,

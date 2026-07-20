@@ -1,4 +1,5 @@
-/datum/job/roguetown/marshal // A somewhat ham-fisted merge between bailiff and the old town sheriff role. The latter was built like a modern day officer, but we medieval in this bitch!
+//Swap to Ealdorman, or Earl/Countess. Maybe?
+/datum/job/roguetown/marshal
 	title = "Marshal"
 	flag = MARSHAL
 	department_flag = NOBLEMEN
