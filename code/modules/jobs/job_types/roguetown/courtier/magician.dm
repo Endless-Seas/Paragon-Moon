@@ -31,6 +31,23 @@
 		/datum/advclass/courtmage
 	)
 
+	supervisors = "Regent | Hand"
+
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Inform and instruct the court on matters of the arcyne. <br> \
+				- Conduct experiments, relating to the arcyne. <br> \
+				- Make judicious calls relating to deferral of duties, to your apprentices.<br> \
+				- Assure that your tower's secrets are kept just that. Secret."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing either apprentice or associate, for they're to be your successors. <br> \
+				- Damaging your tower, needlessly. <br> \
+				- Neglecting to appropriately bind a summon by way of contract. <br> \
+				- Setting aside your research, or entirely abandoning the tower, under any circumstance."
+
 /datum/advclass/courtmage
 	name = "Court Magician"
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \

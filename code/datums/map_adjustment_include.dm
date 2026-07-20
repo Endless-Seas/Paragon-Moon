@@ -8,6 +8,7 @@
 
 #include "..\..\_maps\map_files\roguetest\map_adjustment_roguetest.dm"
 
+#include "..\..\_maps\map_files\archipelago\map_adjustment_archipelago.dm"
 /*
 #include "..\..\_maps\map_files\byos\map_adjustment_byos.dm"
 #include "..\..\_maps\map_files\deserttown\map_adjustment_deserttown.dm"

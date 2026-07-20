@@ -70,7 +70,7 @@
 		/datum/job/roguetown/slave,
 		/datum/job/roguetown/adventurer/courtslave,
 		/datum/job/roguetown/dtchaplain,
-		
+
 		// /datum/job/roguetown/adventurer//Adventurers
 		// /datum/job/roguetown/wretch,
 		// /datum/job/roguetown/bandit,
@@ -87,7 +87,7 @@
 		// /datum/job/roguetown/captain,
 		/datum/job/roguetown/marshal, //nyeah fuck you
 
-		//church. 
+		//church.
 		/datum/job/roguetown/keeper, //no beast
 		// /datum/job/roguetown/monk,
 		// /datum/job/roguetown/templar,
@@ -124,7 +124,7 @@
 		/datum/job/roguetown/niteman,
 		// /datum/job/roguetown/tailor,
 		// /datum/job/roguetown/elder,
-		
+
 		// /datum/job/roguetown/villager,
 		// /datum/job/roguetown/farmer,
 		// /datum/job/roguetown/prisonerb,
@@ -139,7 +139,7 @@
 		//inquisition. Fine as is?
 
 		//mercenaries. Fine as is?
-		
+
 		// /datum/job/roguetown/servant,
 		// /datum/job/roguetown/apothecary,
 		// /datum/job/roguetown/churchling,
@@ -148,7 +148,7 @@
 		// /datum/job/roguetown/orphan,
 		// /datum/job/roguetown/prince,
 		// /datum/job/roguetown/shophand,
-		
+
 	)
 
 	threat_regions = list(

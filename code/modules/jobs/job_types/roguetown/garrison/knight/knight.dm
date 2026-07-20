@@ -10,7 +10,7 @@
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	tutorial = "Having proven yourself both loyal and capable, you have been knighted to serve the realm as the royal family's sentry. \
 	You listen to your Liege, the Marshal, and the Knight Captain, defending your Lord and realm - the last beacon of chivalry in these dark times. \
-	You're wholly dedicated to the standing Regent and their safety. Do not fail."
+	You're wholly dedicated to the standing regent and their safety. Do not fail."
 	display_order = JDO_KNIGHT
 	whitelist_req = TRUE
 	outfit = /datum/outfit/job/roguetown/knight
@@ -31,19 +31,19 @@
 		/datum/advclass/knight/irregularknight
 		)
 
-	supervisors = "Baron | Hand <br>\
+	supervisors = "Regent | Hand <br>\
 					Marshal | Captain"
 
 	leave_admin_shout = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
-				- Uphold the laws, as instructed and set by the Baron. <br> \
-				- Act as an attack dog, at the whim of the Baron's mood. <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
+				- Act as an attack dog, at the whim of the regent's mood. <br> \
 				- Train and discipline your squire, or maintain vigil in court. <br> \
-				- Maintain the Baron's honour, as with your own."
+				- Maintain the regent's honour, as with your own."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
-				- Disparaging the Baron, or others, of high station. <br> \
+				- Disparaging the regent, or others, of high station. <br> \
 				- Through action or inaction, imperiling the court. <br> \
 				- Abandoning your squire, or post. <br> \
 				- Working alone, for you are a pillar of the garrison."

@@ -1,4 +1,5 @@
-/datum/job/roguetown/marshal // A somewhat ham-fisted merge between bailiff and the old town sheriff role. The latter was built like a modern day officer, but we medieval in this bitch!
+//Swap to Ealdorman, or Earl/Countess. Maybe?
+/datum/job/roguetown/marshal
 	title = "Marshal"
 	flag = MARSHAL
 	department_flag = NOBLEMEN
@@ -30,19 +31,19 @@
 		/datum/advclass/marshal/kcommander
 	)
 
-	supervisors = "Baron | Hand"
+	supervisors = "Regent | Hand"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
-				- Uphold the laws, as instructed and set by the Baron. <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
 				- Maintain cohesion of the garrison. <br> \
-				- Defer control of the retinue as applicable, to either Sergeant or Captain. <br> \
+				- Defer control of the retinue as applicable, to either the Sergeant or Captain. <br> \
 				- Carry out trials relating to the written law."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
 				- Acting as a member of the retinue, directly, in matters of combat. <br> \
-				- Undermining the Baron's authority. <br> \
+				- Undermining the regent's authority. <br> \
 				- Evading court and duty. <br> \
 				- Disregarding the woes of your underlings."
 

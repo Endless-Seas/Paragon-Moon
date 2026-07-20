@@ -1,6 +1,6 @@
-/datum/map_adjustment/template/roguetest
-	map_file_name = "roguetest.dmm"
-	realm_name = "Roguetest"
+/datum/map_adjustment/template/archipelago
+	map_file_name = "archipelago.dmm"
+	realm_name = "Northwich"
 	slot_adjust = list(
 		//Keep start.
 		/datum/job/roguetown/manorguard = 3,//Lowpop blues.
@@ -15,10 +15,6 @@
 	title_adjust = list(
 		//Court
 		/datum/job/roguetown/lord = list(display_title = "Baron", f_title = "Baroness"),
-		/datum/job/roguetown/prince = list(display_title = "Heir", f_title = "Heiress"),
-		/datum/job/roguetown/priest = list(display_title = "Priest", f_title = "Priestess"),
-		/datum/job/roguetown/martyr = list(display_title = "Sanguifier"),
-		/datum/job/roguetown/veteran = list(display_title = "Honorant"),
 	)
 	blacklist = list(
 		//Antags.
