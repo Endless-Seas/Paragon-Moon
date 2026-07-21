@@ -38,7 +38,7 @@
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Uphold the laws, as instructed and set by the regent. <br> \
 				- Maintain cohesion of the garrison. <br> \
-				- Defer control of the retinue as applicable, to either the Sergeant or Captain. <br> \
+				- Defer control of the retinue as applicable. <br> \
 				- Carry out trials relating to the written law."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \

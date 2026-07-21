@@ -30,6 +30,20 @@
 		/datum/advclass/wapprentice/apprentice
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Court Magician"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Conduct experiments, relating to the arcyne. <br> \
+				- Carry out instructions, as provided by the Magos.<br> \
+				- Assure that the tower's secrets are kept just that. Secret."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Damaging the tower, needlessly. <br> \
+				- Neglecting to appropriately bind a summon by way of contract. <br> \
+				- Setting aside your research, or entirely abandoning the tower, under any circumstance."
+
 /datum/outfit/job/roguetown/wapprentice
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	pants = /obj/item/clothing/under/roguetown/tights/random

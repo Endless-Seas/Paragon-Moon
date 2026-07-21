@@ -27,6 +27,20 @@
 		/datum/advclass/sergeant/sergeant
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Marshal"
+	leave_admin_shout = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
+				- Maintain cohesion with the retinue, aiding the Gaunts and Mordgaunt, when possible. <br> \
+				- Carry out instructions by your superiors and divvying them up to your subordinates."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning your post. <br> \
+				- Neglecting to share pertinent information with your fellows. <br> \
+				- Working alone, for you are a pillar of the garrison."
+
 /datum/outfit/job/roguetown/sergeant
 	job_bitflag = BITFLAG_GARRISON
 

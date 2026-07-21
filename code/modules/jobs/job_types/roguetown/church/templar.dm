@@ -26,6 +26,18 @@
 		/datum/advclass/templar/crusader
 	)
 
+	supervisors = "Your Patron | Bishop <br>\
+					Sanguifier"
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain, defend and otherwise keep vigil on the Church's grounds. <br> \
+				- Retain your equipment, for it is a gift of your sect. <br> \
+				- Obey the whim of the Bishop, no matter how inane."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the Church. <br> \
+				- Through action or inaction, imperiling the church."
+
 /datum/outfit/job/roguetown/templar
 	job_bitflag = BITFLAG_HOLY_WARRIOR
 	has_loadout = TRUE

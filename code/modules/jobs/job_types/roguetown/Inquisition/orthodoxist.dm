@@ -32,3 +32,15 @@
 		/datum/advclass/arbalist,
 		/datum/advclass/sojourner
 	)
+
+	supervisors = "Inquisitor | Absolver"
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Carry out instructions, as given by the Inquisitor. <br> \
+				- Maintain the security of the Inquisitor's sect.<br> \
+				- Assure that your sect's secrets are kept just that. Secret."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your power, needlessly. <br> \
+				- Damaging the sect's ship or causing it to come at risk of harm. <br> \
+				- Neglecting to appropriately dispose of heretics."

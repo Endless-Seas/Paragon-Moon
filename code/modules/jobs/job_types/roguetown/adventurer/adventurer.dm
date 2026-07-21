@@ -72,6 +72,12 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/bluthund,
 	)
 
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Explore. Adapt. Abuse the resources given to you, away from the isle."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Settling down."
+
 /mob/living/carbon/human/proc/adv_hugboxing_start()
 	to_chat(src, span_warning("I will be in danger once I start moving."))
 	status_flags |= GODMODE

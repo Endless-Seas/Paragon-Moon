@@ -27,6 +27,19 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "Regent | Hand"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Managed both treasury and onboarding of pay. <br> \
+				- Act as a liaison for matters material."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Neglecting the treasury. <br> \
+				- Causing a newfound crash of the market, which shall be dubbed after you for how horrific it had been. <br> \
+				- Evading court and duty."
+
 /datum/advclass/steward
 	name = "Steward"
 	tutorial = "Coin, Coin, Coin! Oh beautiful coin: You're addicted to it, and you hold the position as the Grand Duke's personal treasurer of both coin and information. You know the power silver and gold has on a man's mortal soul, and you know just what lengths they'll go to in order to get even more. Keep your festering economy alive- for it is the only thing you can weigh any trust into anymore."

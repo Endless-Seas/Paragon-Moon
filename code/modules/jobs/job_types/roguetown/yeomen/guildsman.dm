@@ -31,6 +31,16 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "The Craft's Guild | Guildmaster"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of both patron and establishment. <br> \
+				- Obey the Guildmaster's whim."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing patron, or the Guildmaster's good will, in allowing you to remain."
+
 /datum/advclass/guildsman/blacksmith
 	name = "Guild Blacksmith"
 	tutorial = "You've studied for many yils under quite a number of master smiths. Whether it's cookware or tools of war, you're unmatched at the art of bending metal to your will."

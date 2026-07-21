@@ -14,6 +14,17 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	for(var/type in subtypesof(/datum/origin))
 		.[type] = new type()
 
+/datum/origin/northwich
+	name = "Northwich"
+	desc = "A relatively new barony, founded roughly a decade ago on an ancient set of battlefields. \
+	after an accord between Otava and Grenzelhoft had been struck to grant autonomy to a local Baron. \
+	Under the watchful eye of its dutiful, now independent lord, it has seen relative peace and comfort. Despite severe growing pains. \
+	Though tales have since begun to speak of the Baron having forced that very same accord, \
+	with the discovery of something grand. More trouble than it had been worth, or so it is said, to continue the skirmishes that took place on the archipelago."
+	origin_title = "Northwich"
+	map_x = 40
+	map_y = 260
+
 /datum/origin/otava
 	name = "Otava"
 	desc = "An unforgivingly cold alpine clime, said to be the birthplace of the Psydonic faith. The Orthodoxist Inquisition operates from the capital of Otava's old monarchy."
@@ -21,51 +32,6 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	origin_language = /datum/language/otavan
 	map_x = 183
 	map_y = 151
-
-/datum/origin/zybantine
-	name = "Zybantine"
-	desc = "The Zybantine Empire spans across many countries, encompassing many of the deserts of Ferentia. The Empire favours strength and wealth; though rumours are abound \
-	that the opulent empire gathers its wealth through unsavoury means."
-	origin_title = "Zybantine"
-	origin_language = /datum/language/celestial
-	map_x = 364
-	map_y = 325
-
-/datum/origin/naledi
-	name = "Naledi"
-	desc = "Once a thriving empire in its own right, the Naledi people have warred against demons (or djinn in the local tongue) for centuries. Their homeland was almost \
-	utterly destroyed with the Ascension of Baotha. It is said that the first magics were born here."
-	origin_title = "Naledi"
-	origin_language = /datum/language/celestial
-	map_x = 514
-	map_y = 242
-
-/datum/origin/ferentia
-	name = "Ferentia"
-	desc = "An island kingdom off of the western coast of Grenzelhoft and Etrusca. The Ferentian people are a hardworking sort, eager to drink and revel after a dae's worth \
-	of toil. In the past, the kingdom has had to defend against Otava and Grenzelhoft, but now it acts as a mediator between the two nations."
-	origin_title = "Ferentia"
-	map_x = 151
-	map_y = 200
-
-/datum/origin/underdark
-	name = "The Underdark"
-	desc = "Said to be an immense network of caves and tunnels located all throughout the crust of Grimoria, the Underdark is home to the Dark Elves and the Kobolds, as well \
-	as the elusive Fluvian city-state of Mercuriam. The caverns of the Underdark are filled with many threats from rivers of acid to man-eating spiders; and even exaggerated \
-	reports of dragons beneath."
-	origin_title = "the Underdark"
-	map_x = 120
-	map_y = 344
-
-/datum/origin/hammerhold
-	name = "Hammerhold"
-	desc = "The Hammerhold Peninsula and Isles are home to a myriad of peoples, from the Abyssor-loving Witan of the peninsula, the red-heads of Ru-Yermon, or the isles that \
-	once made up the see of seasons. Within it lies the Platinum Dwarf Fortress, the ruins of a glorious cathedral that was once the seat of northern tennite faith, and various \
-	petty kingdoms, or Jarldoms, all loosely agreeing to the will of the Ringbearer, Lord of the Witan."
-	origin_title = "Hammerhold"
-	origin_language = /datum/language/dwarvish
-	map_x = 90
-	map_y = 132
 
 /datum/origin/grenzelhoft
 	name = "Grenzelhoft"
@@ -77,40 +43,30 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	map_x = 283
 	map_y = 188
 
-/datum/origin/avar
-	name = "Avar"
-	desc = "Avar is a land divided between the great Northern mountain ranges, the rolling grasslands of the Steppe, and the thick forests of the oncoming Taiga. It is home \
-	to the second greatest Psydonic kingdom behind Otava, the finest martial force of the Eastern ranges, and the most ethnically and culturally diverse peoples in Grimoria."
-	origin_title = "Avar"
-	origin_language = /datum/language/aavnic
-	map_x = 417
-	map_y = 189
+/datum/origin/ferentia
+	name = "Ferentia"
+	desc = "An island kingdom off of the western coast of Grenzelhoft and Etrusca. The Ferentian people are a hardworking sort, eager to drink and revel after a dae's worth \
+	of toil. In the past, the kingdom has had to defend against Otava and Grenzelhoft, but now it acts as a mediator between the two nations."
+	origin_title = "Ferentia"
+	map_x = 151
+	map_y = 200
 
-/datum/origin/gronn
-	name = "Gronn"
-	desc = "The steppes of Gronn are a place of bloodshed and war; Graggarite warbands laying waste to the people of Gronn and vying for dominance over Avar to the south. \
-	Not all is lost in the steppes, however, with many towns and nomad families eking out an existence fraught with danger despite the ravagers' conquest."
-	origin_title = "Gronn"
-	origin_language = /datum/language/gronnic
-	map_x = 445
-	map_y = 116
+/datum/origin/hammerhold
+	name = "Hammerhold"
+	desc = "The Hammerhold Peninsula and Isles are home to a myriad of peoples, from the Abyssor-loving Witan of the peninsula, the red-heads of Ru-Yermon, or the isles that \
+	once made up the see of seasons. Within it lies the Platinum Dwarf Fortress, the ruins of a glorious cathedral that was once the seat of northern tennite faith, and various \
+	petty kingdoms, or Jarldoms, all loosely agreeing to the will of the Ringbearer, Lord of the Witan."
+	origin_title = "Hammerhold"
+	origin_language = /datum/language/dwarvish
+	map_x = 90
+	map_y = 132
 
-/datum/origin/etrusca
-	name = "Etrusca"
-	desc = "A sunny trade nation comprised mostly of beautiful archipelagos. Etrusca prides itself on its martial and culinary traditions, with people all across Grimoria \
-	striving to learn the ways of the vaqueros and duellists of the trader state. "
-	origin_title = "Etrusca"
-	origin_language = /datum/language/etruscan
-	map_x = 266
-	map_y = 277
-
-/datum/origin/kazengun
-	name = "Kazengun"
-	desc = "Kazengun is not but one nation, but three dynasties that have been in stand-still for centuries. The Kazengun Shogunate to the west of the island, the \
-	Pui-Maen Dynasty to the east, and the Clan Xinyi to the north. Kazengun is oft travelled by the people of the west, but those who visit recount (mostly tall) \
-	tales of the warriors and monsters within. Kazengunese imports are particularly expensive considering the vast ocean between the dynasties and the western world."
-	origin_title = "Kazengun"
-	origin_language = /datum/language/kazengunese
+/datum/origin/other
+	name = "Unknown"
+	desc = "Not unknown in the traditional sense. Quite simply, your homelands don't matter.. \
+	A great deal of kingdoms exist, in the scarred and desolate landscapes of the main continents. \
+	Though, for the purposes of this story, they're irrelevant. You're an outsider among outsiders."
+	origin_title = "Unknown"
 	map_x = 120
 	map_y = 374
 

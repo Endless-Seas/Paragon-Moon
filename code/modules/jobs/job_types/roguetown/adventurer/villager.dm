@@ -42,6 +42,15 @@
 		/datum/advclass/woodworker
 	)
 
+	supervisors = "Regent | Your Betters"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Go about your daily life, acting so as to not cause strife."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the isle. It is your home."
+
 /datum/job/roguetown/villager/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))

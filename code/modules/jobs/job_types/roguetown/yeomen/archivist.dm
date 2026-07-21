@@ -37,6 +37,16 @@
 		/datum/advclass/archivist
 	)
 
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the archives are kept stocked with material. <br> \
+				- Instruct those who wish to learn. <br> \
+				- Retain knowledge, or secret, when applicable."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Neglecting or abandoning your archive, for it's your life's work."
+
 /datum/advclass/archivist
 	name = "Archivist"
 	tutorial = "The Archivist meticulously preserves and organizes ancient scrolls and tomes, safeguarding the collective knowledge of the realm for generations to come. Nobles and Peasants alike often seek your expertise on matters of history and fact, and your keenly-kept records on the events of this week will likely stand a testament to your Duke's benevolence and their realm's prosperity...or not. After all, you hold the true power: \

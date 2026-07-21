@@ -38,6 +38,19 @@
 		/datum/advclass/keeper
 	)
 
+	supervisors = "Pestra | Bishop"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Instruct, inform or otherwise care for others who show interest in the heart. <br> \
+				- Act as instructed by the Bishop. For you are but a guest. <br> \
+				- Tend to the heart."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the heart, or Church. <br> \
+				- Through action or inaction, imperiling the Church."
+
 /datum/advclass/keeper
 	name = "Keeper"
 	tutorial = "Disfigured, shunned, or simply filled with purpose and dedication for Pestra. \

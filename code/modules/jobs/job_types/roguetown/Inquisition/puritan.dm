@@ -27,6 +27,19 @@
 		/datum/advclass/puritan/arbiter
 	)
 
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Inform and instruct your subordinates on matters heretical. <br> \
+				- Make judicious calls relating to deferral of duties, to your sect.<br> \
+				- Assure that your sect's secrets are kept just that. Secret."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your underlings, needlessly. <br> \
+				- Damaging your ship or causing it to come at risk of harm. <br> \
+				- Neglecting to appropriately dispose of heretics."
+
 /datum/outfit/job/roguetown/puritan
 	name = "Inquisitor"
 	jobtype = /datum/job/roguetown/puritan

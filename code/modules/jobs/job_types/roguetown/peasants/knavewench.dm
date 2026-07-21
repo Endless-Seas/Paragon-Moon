@@ -26,6 +26,16 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "Innkeep | Cook"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of both patron and establishment. <br> \
+				- Obey the Innkeep's whim."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing patron, or the Innkeep's good will, in allowing you to remain."
+
 /datum/advclass/tapster
 	name = "Tapster"
 	tutorial = "You have a simple role at the city tavern; please. You wait tables and help guests, clean the rooms, grow and brew more drink, and assist in the kitchens as need be. Bring a smile to the masses--and those cheapsake townsfolk and adventures might just give you an extra coin...assuming you've not already pilfered their pouch while they're in a drunken stupor off your latest brew."

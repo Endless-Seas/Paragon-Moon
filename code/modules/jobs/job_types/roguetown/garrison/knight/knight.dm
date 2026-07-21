@@ -32,7 +32,7 @@
 		)
 
 	supervisors = "Regent | Hand <br>\
-					Marshal | Captain"
+					Marshal | Mordgaunt"
 
 	leave_admin_shout = TRUE
 

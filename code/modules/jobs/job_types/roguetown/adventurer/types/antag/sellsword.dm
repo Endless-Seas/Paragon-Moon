@@ -7,7 +7,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit/sellsword
 	category_tags = list(CTAG_BANDIT)
-	cmode_music = 'sound/music/cmode/antag/combat_cutpurse.ogg' // cutpurse or deadly shadows...?
+	cmode_music = 'sound/music/combat_poacher.ogg' // cutpurse or deadly shadows...?
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
@@ -61,7 +61,7 @@
 		var/weapon_choice = input(H, "Choose your expert-level proficiencies.", "HOW DOTH THOU WALK THROUGH LYFE, SELLSWORD?") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
-			if("The Deserter (Maces, Shields & Crossbows)") 
+			if("The Deserter (Maces, Shields & Crossbows)")
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				beltl = /obj/item/rogueweapon/mace/steel
 				beltr = /obj/item/quiver/bolts
@@ -71,7 +71,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_MASTER, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_EXPERT, TRUE)
-			if("The Mercenary (Swords, Shields & Polearms)") 
+			if("The Mercenary (Swords, Shields & Polearms)")
 				backl = /obj/item/rogueweapon/shield/heater
 				beltl = /obj/item/rogueweapon/scabbard/sword
 				beltr = /obj/item/rogueweapon/sword/short/falchion

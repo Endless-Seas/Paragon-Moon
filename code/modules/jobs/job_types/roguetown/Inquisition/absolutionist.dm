@@ -35,6 +35,20 @@
 		/datum/advclass/absolver
 	)
 
+	supervisors = "Inquisitor"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Carry out instructions, as given by the Inquisitor. <br> \
+				- Maintain the health of the Inquisitor's sect.<br> \
+				- Assure that your sect's secrets are kept just that. Secret."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your power, needlessly. <br> \
+				- Damaging the sect's ship or causing it to come at risk of harm. <br> \
+				- Neglecting to appropriately dispose of heretics."
+
 /datum/advclass/absolver
 	name = "Absolver"
 	tutorial = "Once, you were alone in this monastery; a chapel of stone, protecting a shard of Psydon's divinity. Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. Temper the floch with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."

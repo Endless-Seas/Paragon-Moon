@@ -29,6 +29,18 @@
 		/datum/advclass/servant/butler
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Seneschal"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the estate's grounds and image. <br> \
+				- Act subservient to your betters.."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the estate. <br> \
+				- Through action or inaction, imperiling the court."
+
 /datum/advclass/servant/servant
 	name = "Servant"
 	tutorial = "You are a humdrum servant, dressed the part; lowly and best out of sight. It's practical, however."

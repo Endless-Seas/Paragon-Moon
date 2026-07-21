@@ -31,6 +31,20 @@
 		/datum/advclass/warden/forester
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Marshal | Mordgaunt <br>\
+					Sergeant | Men at Arms"
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Aid your superiors, in any manner they ask. <br> \
+				- Maintain watch over the docks and outlying island. <br> \
+				- Inspect, search and spy on outsiders."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Hassling the locals. <br> \
+				- Ignoring information or orders, unless away from the isle. <br> \
+				- Spending most of your time in the Warden tavern."
+
 /datum/outfit/job/roguetown/warden
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/warden
 	cloak = /obj/item/clothing/cloak/wardencloak

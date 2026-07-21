@@ -29,6 +29,20 @@
 		/datum/advclass/dungeoneer
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Marshal"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
+				- Maintain the cells within the barony. <br> \
+				- Carry out instructions by your superiors, in matters of handling prisoners."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning your cells. <br> \
+				- Permitting a prisoner to leave, without instruction. <br> \
+				- Having a soft heart."
+
 /datum/job/roguetown/dungeoneer/New()
 	. = ..()
 	peopleknowme = list()

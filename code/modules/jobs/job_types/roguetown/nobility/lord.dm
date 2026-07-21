@@ -44,6 +44,18 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		/datum/advclass/lord/inbred
 	)
 
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Wield absolute power."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Acting passively. You are a figure of great power. Wield it."
+
+	vault_station = "enter second, allowing the Honorant to enter first. The right call, even now."
+	vault_dweller = TRUE
+
 /datum/outfit/job/roguetown/lord
 	job_bitflag = BITFLAG_ROYALTY
 

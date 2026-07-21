@@ -30,6 +30,15 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "Regent"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of your fields!"
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing Dendor's bounty."
+
 /datum/advclass/soilson
 	name = "Soilson"
 	tutorial = "It is a simple life you live, your basic understanding of life is something many would be envious of if they knew just how perfect it was. You know a good day's work, the sweat on your brow is yours: Famines and plague may take their toll, but you know how to celebrate life well. Till the soil and produce fresh food for those around you, and maybe you'll be more than an unsung hero someday."

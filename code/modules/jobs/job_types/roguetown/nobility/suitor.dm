@@ -23,6 +23,14 @@
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
 	job_traits = list(TRAIT_NOBLE)
 
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Force your way into the regent's good graces."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Acting counter to your purpose of being present."
+
 /datum/outfit/job/roguetown/suitor
 	job_bitflag = BITFLAG_ROYALTY
 

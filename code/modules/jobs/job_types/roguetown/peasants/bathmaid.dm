@@ -32,6 +32,16 @@
 		/datum/advclass/nightmaiden/courtesan
 	)
 
+	supervisors = "Bathmaster"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of both patron and establishment. <br> \
+				- Obey the Bathmaster's whim."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing patron, or the Bathmaster's good will, in allowing you to remain."
+
 /datum/outfit/job/roguetown/nightmaiden
 	name = "Bathhouse Attendant"
 	// This is just a base outfit, the actual outfits are defined in the advclasses
