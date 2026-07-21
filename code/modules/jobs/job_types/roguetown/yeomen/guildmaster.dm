@@ -33,6 +33,16 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "The Craft's Guild"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of both patron and establishment."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your patrons, without purpose."
+
 /datum/advclass/guildmaster
 	name = "Guildmaster"
 	tutorial = "You are the leader of the Duchy's Guild of Crafts. You represents the interests of all of the craftsmen underneath you - including the Tailor\

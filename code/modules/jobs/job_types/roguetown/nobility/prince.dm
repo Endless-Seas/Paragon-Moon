@@ -31,6 +31,18 @@
 		/datum/advclass/heir/scamp
 	)
 
+	supervisors = "Regent | Hand"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Prepare for an ascension to the throne, unlikely though it may be. <br> \
+				- Maintain ties to your family."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Undermining the regent's authority. <br> \
+				- Evading your eventual duty, in ascending to the throne."
+
 /datum/outfit/job/roguetown/heir/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.verbs |= /mob/living/carbon/human/proc/declarechampion

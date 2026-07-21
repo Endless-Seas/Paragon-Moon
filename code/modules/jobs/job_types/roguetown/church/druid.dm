@@ -30,6 +30,18 @@
 		/datum/advclass/druid
 	)
 
+	supervisors = "Dendor | Bishop"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the surrounding wilds, or your given grove. <br> \
+				- Tend to the Church, in an emergency. <br> \
+				- Act as requested, or otherwise instructed, by the Bishop, should you be in town."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Acting like a wild animal - at least in town. <br> \
+				- Causing harm to come to the Church, through your actions."
+
 /datum/advclass/druid
 	name = "Druid"
 	tutorial = "You have always been drawn to the wild, and the wild drawn to you. When your calling came, it was from Dendor. \

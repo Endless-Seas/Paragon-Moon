@@ -24,6 +24,17 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "Regent | Hand"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the estate's grounds and image. <br> \
+				- Instruct the hired help and carry out menial tasks."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the estate. <br> \
+				- Through action or inaction, imperiling the court."
+
 /datum/advclass/seneschal
 	traits_applied = list(TRAIT_CICERONE, TRAIT_KEENEARS, TRAIT_SLEUTH, TRAIT_HOMESTEAD_EXPERT, TRAIT_SEWING_EXPERT, TRAIT_ROYALSERVANT, TRAIT_FOOD_STIPEND) // They have Expert Sewing
 	category_tags = list(CTAG_SENESCHAL)

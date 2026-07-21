@@ -27,6 +27,16 @@
 		/datum/advclass/merchant
 	)
 
+	supervisors = "The Merchant's Guild"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Assure the good health of both patron and establishment."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your patrons, without purpose."
+
 /datum/advclass/merchant
 	name = "Merchant"
 	tutorial = "You were born into wealth, learning from before you could talk about the basics of mathematics. \

@@ -21,6 +21,18 @@
 	max_pq = null
 	round_contrib_points = 3
 
+	supervisors = "Regent"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Act under your own power, though not counter to the regent's will. <br> \
+				- Empower yourself, by way of knowledge and deceit. <br> \
+				- Maintain the regent's honour, as with your own."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Disparaging the regent, or others, of high station. <br> \
+				- Through action or inaction, imperiling the court."
+
 /datum/job/roguetown/exlady
 	title = "Consort Dowager"
 	flag = LADY

@@ -33,6 +33,19 @@
 		/datum/advclass/manorguard/standard_bearer
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Marshal | Sergeant"
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
+				- Maintain cohesion with the retinue, aiding the Sergeant, Gaunts and Mordgaunt, when possible. <br> \
+				- Carry out instructions by your superiors."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning your post. <br> \
+				- Neglecting to share pertinent information with your fellows. <br> \
+				- Working alone, for you are but one figure."
+
 /datum/outfit/job/roguetown/manorguard
 	job_bitflag = BITFLAG_GARRISON
 

@@ -26,6 +26,18 @@
 		/datum/advclass/towncrier
 	)
 
+	supervisors = "Regent"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the SCOM network. <br> \
+				- Host shows, interviews and chatter on the SCOM network. <br>\
+				- Prune or excise abuse of your beloved network."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abusing your network, without purpose."
+
 /datum/advclass/towncrier
 	name = "Town Crier"
 	tutorial = "Keeper of the Horn, Master of the Jabberline, and self-appointed Voice of Reason. \

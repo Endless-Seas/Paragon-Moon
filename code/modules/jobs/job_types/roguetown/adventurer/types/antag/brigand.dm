@@ -5,7 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/bandit/brigand
 	category_tags = list(CTAG_BANDIT)
-	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
+	cmode_music = 'sound/music/combat_poacher.ogg'
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(

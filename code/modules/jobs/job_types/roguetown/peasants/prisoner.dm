@@ -23,6 +23,12 @@
 	social_rank = SOCIAL_RANK_DIRT
 	advclass_cat_rolls = list(CTAG_PRISONER = 20)
 
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Get out of this wretched place!"
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Not surviving."
+
 /datum/outfit/job/roguetown/prisonerr/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(!H) return
 	// Equip collar and loincloth only

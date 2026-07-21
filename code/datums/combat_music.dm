@@ -40,47 +40,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Default"
 	musicpath = list()
 
-/datum/combat_music/acolyte
-	name = "Acolyte"
-	desc = ""
-	shortname = "Acolyte"
-	credits = "T-87 SULFURHEAD - Hellions (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/church/combat_acolyte.ogg')
-
 /datum/combat_music/adjudicator
 	name = "Adjudicator"
 	desc = "Now, there is nothing more cruel, than a fair judge."
 	shortname = "Adjudicator"
 	credits = "Chivalry 2 OST: Duty and Honor II (with Ryan Patrick Buckley)"
 	musicpath = list('sound/music/templarofpsydonia.ogg')
-
-/datum/combat_music/adventurer_default
-	name = "Adventurer Default (Warriors)"
-	desc = ""
-	shortname = "Adv. Default"
-	credits = "T-87 SULFURHEAD - Men at War (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/adventurer/combat_outlander2.ogg')
-
-/datum/combat_music/adventurer_2
-	name = "Adventurer 2 (Assassin)"
-	desc = ""
-	shortname = "Adv. 2"
-	credits = "T-87 SULFURHEAD - Ninth Circle (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/adventurer/combat_outlander.ogg')
-
-/datum/combat_music/adventurer_3
-	name = "Adventurer 3 (Rogue/Mage Classes)"
-	desc = ""
-	shortname = "Adv. 3"
-	credits = "T-87 SULFURHEAD - MORTEM OBIRE (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/adventurer/combat_outlander3.ogg')
-
-/datum/combat_music/adventurer_4
-	name = "Adventurer 4"
-	desc = ""
-	shortname = "Adv. 4"
-	credits = "T-87 SULFURHEAD - Snicker Snacker (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/adventurer/combat_outlander4.ogg')
 
 /datum/combat_music/ascended
 	name = "Ascended"
@@ -89,40 +54,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "TO PIERCE THE BLACK SKY /// ENVY INTERLUDE - UNFORTUNATE DEVELOPMENT"
 	musicpath = list('sound/music/combat_ascended.ogg')
 
-/datum/combat_music/astrata
-	name = "Astratan Light"
-	desc = ""
-	shortname = "Astrata"
-	credits = "T-87 SULFURHEAD - Heliotrix (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/church/combat_astrata.ogg')
-
-/datum/combat_music/bandit_default
-	name = "Bandit Default"
-	desc = ""
-	shortname = "Bandit Def."
-	credits = "T-87 SULFURHEAD - Deadly Shadows (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/antag/combat_deadlyshadows.ogg')
-
 /datum/combat_music/astratan_zeal
 	name = "Astratan Zeal"
 	desc = "You will never bloody your hand, striking with Her guidance."
 	shortname = "Astratan"
 	credits = "Jesper Kyd - Light of the Imperium"
 	musicpath = list('sound/music/combat_holy.ogg')
-
-/datum/combat_music/bandit_soldier
-	name = "Bandit Soldier (Deserter/Outlaw)"
-	desc = ""
-	shortname = "Bandit Sold."
-	credits = "T-87 SULFURHEAD - The Wall (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/antag/combat_thewall.ogg')
-
-/datum/combat_music/bandit_rogue
-	name = "Bandit Rogue (Sellsword/Cutpurse)"
-	desc = ""
-	shortname = "Bandit Rogue"
-	credits = "T-87 SULFURHEAD - Cutpurse (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/antag/combat_cutpurse.ogg')
 
 /datum/combat_music/barbarian
 	name = "Barbarian"
@@ -177,25 +114,11 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	musicpath = list('sound/music/combat2.ogg')
 */
 
-/datum/combat_music/darkstar
-	name = "Dark Star (Verewolf/Barbarian/Berserker)"
-	desc = ""
-	shortname = "Dark Star"
-	credits = " T-87 SULFURHEAD - Archetype of the Dark Star (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/antag/combat_darkstar.ogg')
-
 /datum/combat_music/deadite
 	name = "Deadite"
 	desc = "KICK! SCRATCH! BITE!"
 	shortname = "Deadite"
 	musicpath = list('sound/music/combat_weird.ogg')
-
-/datum/combat_music/dendor
-	name = "Dendorite Clergy (Warden)"
-	desc = ""
-	shortname = "Dendor"
-	credits = "T87-Sulfurhead - Metamorphosis (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/garrison/combat_warden.ogg')
 
 /datum/combat_music/desertrider
 	name = "Desert Rider Mercenary"
@@ -211,25 +134,11 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "The Witcher 3: Wild Hunt - Hunt or Be Hunted"
 	musicpath = list('sound/music/combat_druid.ogg')
 
-/datum/combat_music/dungeoneer
-	name = "Dungeoneer"
-	desc = "Oh, but the things I would do upon this town if I wasn't employed."
-	shortname = "Dungeoneer"
-	credits = "T87-Sulfurhead - RATEATER (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_dungeoneer.ogg')
-
 /datum/combat_music/dwarf
 	name = "Dwarven Grudgebearer"
 	desc = "See this? It's some sort of guestbook."
 	shortname = "Dwarf"
 	musicpath = list('sound/music/combat_dwarf.ogg')
-
-/datum/combat_music/eora
-	name = "Eoran Clergy"
-	desc = "Do not listen to this one after a breakup." // from the credits.txt lol
-	shortname = "Eora"
-	credits = "T-87 SULFURHEAD - Family Melts Away (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/church/combat_eora.ogg')
 
 /datum/combat_music/forlorn
 	name = "Forlorn Hope Mercenary"
@@ -251,40 +160,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "Helbrede - Sons of Tyr"
 	musicpath = list('sound/music/combat_grenzelhoft.ogg')
 
-/datum/combat_music/heretic_zizo
-	name = "Heretic - Zizo (Lich)"
-	desc = "Trust nobody, after all the power has always been within you."
-	shortname = "Zizo"
-	credits = "T87-Sulfurhead - DEMESNE (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_heretic.ogg')
-
-/datum/combat_music/heretic_matthios
-	name = "Heretic - Matthios"
-	desc = "A rush of vigour. You've forgotten the last time you were told what's right or what to do."
-	shortname = "Matthios"
-	credits = "T87-Sulfurhead - Amontillado (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_matthios.ogg')
-
 /datum/combat_music/heretic_graggar
 	name = "Heretic - Graggar"
-	desc = "Perhaps this time, you will finally feel powerful."
-	shortname = "Graggar"
-	credits = "T87-Sulfurhead - Black Powder (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_graggar.ogg')
-
-/datum/combat_music/heretic_graggar_2
-	name = "Heretic - Graggar (Alt)"
 	desc = "Perhaps this time, you will finally feel powerful. Might be loud, so be careful."
 	shortname = "Graggar Alt"
 	credits = "Devil's Meat Grinder - OTXO OST"
 	musicpath = list('sound/music/combat_graggar_new.ogg')
-
-/datum/combat_music/heretic_baotha
-	name = "Heretic - Baotha"
-	desc = "Fuck tomorrow."
-	shortname = "Baotha"
-	credits = "T87-Sulfurhead - Love Within You (Rough Mix) (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_baotha.ogg')
 
 /datum/combat_music/highgrain
 	name = "High Grain"
@@ -344,21 +225,6 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Runaway Chariot"
 	musicpath = list('sound/music/combat_Kazengun_Runaway_Chariot.ogg')
 
-/datum/combat_music/knight
-	name = "Knight (Noble)"
-	desc = ""
-	shortname = "Knight"
-	credits = "T87-Sulfurhead - Durandal (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_knight.ogg')
-
-/datum/combat_music/man_at_arms
-	name = "Man at Arms (Sergeant)"
-	desc = ""
-	shortname = ""
-	credits = "T87-Sulfurhead - Ready or Not (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_ManAtArms.ogg')
-
-
 /datum/combat_music/malpractice
 	name = "Malpractice"
 	desc = "What kills you, makes you weaker."
@@ -390,26 +256,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 
 // The two Martyr Vengeance combat tracks are intentionally left out of this. Look how they're used.
 
-/datum/combat_music/magician
-	name = "Magicians, Court"
-	desc = ""
-	shortname = "Magicians"
-	credits = "T-87 SULFURHEAD - MANASURGE (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/nobility/combat_courtmage.ogg')
-
 /datum/combat_music/monastic
 	name = "Monastic Zeal"
 	desc = ""
 	shortname = "Monastic"
 	credits = "Jesper Kyd - Light of the Imperium"
 	musicpath = list('sound/music/combat_holy.ogg')
-
-/datum/combat_music/necra
-	name = "Necran Clergy"
-	desc = ""
-	shortname = "Necra"
-	credits = "T-87 SULFURHEAD - Formerly Known as Toulouse Lautrec (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/church/combat_necra.ogg')
 
 /datum/combat_music/nitecreecher
 	name = "Nite Creecher"
@@ -444,13 +296,6 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Poacher"
 	musicpath = list('sound/music/combat_poacher.ogg')
 
-/datum/combat_music/reckoning
-	name = "Reckoning (Clergy, Offense)"
-	desc = ""
-	shortname = "Reckoning"
-	credits = "T-87 SULFURHEAD - The Reckoning (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/church/combat_reckoning.ogg')
-
 /datum/combat_music/routier
 	name = "Routier, Otavan"
 	desc = ""
@@ -464,19 +309,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "Heilung - Elddansurin"
 	musicpath = list('sound/music/combat_shaman2.ogg')
 
-/datum/combat_music/spymaster
-	name = "Spymaster"
-	desc = ""
-	shortname = "Spymaster"
-	credits = "T-87 SULFURHEAD - ABedofMoss (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/nobility/combat_spymaster.ogg')
-
 /datum/combat_music/sorcerer
 	name = "Sorcerer (Evil)"
 	desc = "Defund the retinue."
 	shortname = "Sorcerer"
 	credits = "burialgoods - APAB (All Paladins Are Bastards) (https://www.youtube.com/watch?v=CMyvIDLAub8)"
-	musicpath = list('sound/music/cmode/antag/combat_sorcerer.ogg')
+	musicpath = list('sound/music/combat_sorcerer.ogg')
 
 /datum/combat_music/squire
 	name = "Squire"
@@ -506,47 +344,12 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "The Heathen - Jan J. Močnik"
 	musicpath = list('sound/music/combat_league.ogg')
 
-/datum/combat_music/town_dirt
-	name = "Town Dirt (Default)"
-	desc = ""
-	shortname = "Town Dirt"
-	credits = "T-87 SULFURHEAD - Catharsis (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/towner/combat_towner.ogg')
-
-/datum/combat_music/town_heavyweights
-	name = "Town Heavyweights"
-	desc = ""
-	shortname = "Town Heavies"
-	credits = "T-87 SULFURHEAD - Burning Hovel (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/towner/combat_towner2.ogg')
-
-/datum/combat_music/town_skilled
-	name = "Town Skilled"
-	desc = ""
-	shortname = "Town Skills"
-	credits = "combat_towner3.ogg: T-87 SULFURHEAD - Knowledge & Pain (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/towner/combat_towner3.ogg')
-
-/datum/combat_music/town_leaders
-	name = "Town Leaders"
-	desc = "Innkeeper, Guildmaster, Village Chief, Normal Veteran."
-	shortname = "Town Leads"
-	credits = "T-87 SULFURHEAD - How Sausage is Made (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/towner/combat_retired.ogg')
-
 /datum/combat_music/varangian
 	name = "Varangian"
 	desc = ""
 	shortname = "Varangian"
 	credits = "Heilung - Svanrand"
 	musicpath = list('sound/music/combat_vagarian.ogg')
-
-/datum/combat_music/vampire
-	name = "Vampire"
-	desc = ""
-	shortname = "Vampire"
-	credits = "T-87 SULFURHEAD - STOLEN SKY (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/cmode/antag/combat_thrall.ogg')
 
 /* Unused
 /datum/combat_music/vampire_old
@@ -561,13 +364,6 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	desc = ""
 	shortname = "Vaquero"
 	musicpath = list('sound/music/combat_vaquero.ogg')
-
-/datum/combat_music/veteran
-	name = "Veteran"
-	desc = ""
-	shortname = "Veteran"
-	credits = "T87-Sulfurhead - Good Men Die Young (https://www.youtube.com/@T87-Sulfurhead)"
-	musicpath = list('sound/music/combat_veteran.ogg')
 
 /datum/combat_music/vigilante
 	name = "Vigilante"

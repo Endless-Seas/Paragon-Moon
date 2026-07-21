@@ -268,7 +268,7 @@
 #define TRAIT_REGROW_LIMBS "Regrow Limbs" //OV ADD, regrows lost limbs at cost of nutrition
 #define TRAIT_GANG_A "Gang Rontz Ratz"
 #define TRAIT_GANG_B "Gang Blortz Volves"
-#define TRAIT_NATURALARMOR "Tough Skin" 
+#define TRAIT_NATURALARMOR "Tough Skin"
 #define TRAIT_CLERGYRADICAL "Radical member of Clergy"
 
 // ARMOR / CLOTHING GIVEN TRAITS (GIVEN BY WEARING CLOTHES/ARMOR PIECES)
@@ -469,7 +469,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_ARCYNE_T1 = span_notice("I have received basic training in the Arcyne arts, allowing me access to a small variety of spells useful outside of combat."),
 	TRAIT_ARCYNE_T2 = span_notice("I have received advanced training in the Arcyne arts, allowing me to learn basic combat spells"),
 	TRAIT_ARCYNE_T3 = span_notice("I am a full-fledged mage, and have access to devastating spells that affects a wide area."),
-	TRAIT_ARCYNE_T4 = span_notice("I'm a master of the Arcyne arts, and has access to some of the most powerful spells ever devised."),
+	TRAIT_ARCYNE_T4 = span_notice("I'm a master of the Arcyne arts, and have access to some of the most powerful spells ever devised. I can recover from abuse of the arcyne."),
 	TRAIT_INFINITE_ENERGY = span_notice ("I don't need rest; I won't ever feel fatigue."),
 	TRAIT_PERMAMUTE = span_notice("I am a mute. I cannot speak."),
 	TRAIT_STRENGTH_UNCAPPED = span_warning("MY STRENGTH IS UNBOUND!"),

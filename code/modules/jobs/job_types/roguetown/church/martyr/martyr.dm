@@ -48,6 +48,16 @@
 		/datum/advclass/martyr
 	)
 
+	supervisors = "Your Patron | Bishop"
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain, defend and otherwise keep vigil on the Church's grounds. <br> \
+				- Act as an attack dog for the Bishop."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the Church. <br> \
+				- Through action or inaction, imperiling the church."
+
 /datum/advclass/martyr
 	name = "Martyr"
 	tutorial = "Prayer. Conviction. Intent. \

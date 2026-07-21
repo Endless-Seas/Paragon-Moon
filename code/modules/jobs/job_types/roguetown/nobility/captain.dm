@@ -34,6 +34,22 @@
 		/datum/virtue/utility/riding,
 	)
 
+	supervisors = "Regent | Hand <br>\
+					Marshal"
+	leave_admin_shout = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Uphold the laws, as instructed and set by the regent. <br> \
+				- Act as the regent's hound and proverbial sheriff. <br> \
+				- Train and discipline your Gaunts, or maintain vigil in court. <br> \
+				- Maintain the regent's honour, as with your own."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Disparaging the regent, or others, of high station. <br> \
+				- Through action or inaction, imperiling the court. <br> \
+				- Abandoning your post. <br> \
+				- Working alone, for you are a pillar of the garrison."
+
 /datum/outfit/job/roguetown/captain
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/captain
 	neck = /obj/item/clothing/neck/roguetown/bevor

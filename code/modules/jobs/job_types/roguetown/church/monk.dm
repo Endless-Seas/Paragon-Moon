@@ -25,7 +25,19 @@
 	job_subclasses = list(
 		/datum/advclass/acolyte
 	)
-	
+
+	supervisors = "Your Patron | Bishop"
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the Church's grounds. <br> \
+				- Tend to those who may wander into the Church. <br> \
+				- Obey the whim of the Bishop, no matter how inane."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning the Church. <br> \
+				- Through action or inaction, imperiling the church."
+
 /datum/job/roguetown/monk/proc/grant_old_path(mob/living/carbon/human/H)
 	if(!H || !H.mind || !H.patron)
 		return

@@ -31,6 +31,22 @@
 	job_traits = list(TRAIT_STEELHEARTED, TRAIT_COMBAT_AWARE)
 	virtue_restrictions = list(/datum/virtue/combat/combat_aware)//due to them having the trait by default
 
+	supervisors = "Regent | Hand"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Advise the regent on matters martial. <br> \
+				- Train those you deem worthy, or as instructed by the court. <br> \
+				- Assure you have a successor, to carry on what you know. <br> \
+				- Rest easy, in your old age."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Acting as a member of the retinue, directly, in matters of combat."
+
+	vault_dweller = TRUE
+	vault_station = "enter first, torch in hand, with the Baron to your rear. You shan't forget what you found."
+
 /datum/job/roguetown/veteran/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
 	if(ishuman(L))

@@ -28,6 +28,23 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/self/convertrole/agent)//Hiring court agents
 
+	supervisors = "Regent"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Act under your own power, though not counter to the regent's will. <br> \
+				- Act as the regent's eyes and ears, if absent from court. <br> \
+				- Empower yourself, by way of knowledge and deceit. <br> \
+				- Maintain the regent's honour, as with your own."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Disparaging the regent, or others, of high station. <br> \
+				- Through action or inaction, imperiling the court."
+
+	vault_station = "enter last, having left your personal warding active. Like some manner of coward."
+	vault_dweller = TRUE
+
 /datum/outfit/job/roguetown/hand
 	backr = /obj/item/storage/backpack/rogue/satchel/short
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot

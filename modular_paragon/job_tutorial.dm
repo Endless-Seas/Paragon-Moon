@@ -15,6 +15,10 @@ This is pulled from one of my older projects, brought up to date for PM.
 	var/leave_admin_shout = FALSE
 	//Is this role RP heavy? As in, should it be forbidden from dungeons and offensive combat?
 	var/roleplay_exclusive_notify = FALSE
+	//Do we give them the narrative piece, relating to the vault, as if they're one of the three?
+	var/vault_dweller = FALSE
+	//If so, who were they? Baron, Hand or Honorant?
+	var/vault_station = ""
 
 //Actual stuff here. Not clean, I know, but, still...
 /datum/job/proc/ShowJobStuff(mob/M)
@@ -65,6 +69,24 @@ This is pulled from one of my older projects, brought up to date for PM.
 		dat += "<b>[rp_forbid]</b>"
 	else
 		dat += "<FONT color='grey'><b>Your job has no foribdden or otherwise discouraged actions. This is a bug. Tell Carl.</b></font>"
+
+	dat += "\n<br><b>- - -</b><br>"
+
+	if(vault_dweller)
+		dat += "<FONT color='green'><b>You are relevant to the meta-plot.</b></font><br>"
+
+		dat += "<b>For you were the fool to [vault_station] \
+		Of the three that entered the Archeovault, beneath the Baron's estate. Whether that be Hand, Baron or Honorant.<br>\
+		A party that couldn't be stopped, after their departure. A straight march to power, in whatever manner that came. \
+		By way of conquest, coercion or simply revealing, to the powers that be, the exact contents of that wretched place. \
+		The end result had been the Baron's rise to control of the archipelago, all the same. Nearly a decade ago, by now.<br>"
+
+		dat += "<small><FONT color='grey'>This location is an incredibly powerful plot device, ICly, that should not be discussed beyond the two others that share this secret. \
+		People may know of it's existence, but only you three have ever seen the interior. \
+		A secret you're encouraged to take to the grave, yet may use in RP if such arises. \
+		For there is a reason the Baron's grasp is absolute, in however a manner you wish to argue it. <br>\
+		As a result, your character is capable of entering the vault, should the need arise. \
+		The abominable intelligentsia within will not cause you direct harm.</font></small>"
 
 	dat += "\n<br><b>- - - - - -</b><br>"
 	dat += "<h2>OOC Information</h2>"

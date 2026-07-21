@@ -29,6 +29,17 @@
 	)
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
+	supervisors = "Regent | Hand"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Inform and instruct the court on matters of health. <br> \
+				- Conduct experiments, relating to said matters of health."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Neglecting to appropriately treat a noble under your care."
+
 /datum/advclass/physician
 	name = "Head Physician"
 	tutorial = "You are a master physician and the current head of the clinic. \
