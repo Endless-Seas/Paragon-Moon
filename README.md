@@ -1,6 +1,6 @@
 
 <p align="center">
- <img width="450px" src="https://res.cloudinary.com/b5bxmqds/image/upload/image-138_j5uqr4.png" align="center" alt="Ratwood Stats" />
+ <img width="450px" src="https://res.cloudinary.com/towdrqzs/image/upload/paragon_big_zlfspi.png" align="center" alt="Ratwood Stats" />
  <h1 align="center">Paragon Moon</h1>
  <h2 align="center">Howling past the Moon.</h2>
 </p>
@@ -27,7 +27,7 @@
 
 | Website                   | Link                                           |
 |---------------------------|------------------------------------------------|
-| Discord          | PLACEHOLDER |
+| Discord          | https://discord.gg/Y7vYrAqGM4 |
 | Wiki                      | PLACEHOLDER |
 
 </div>
