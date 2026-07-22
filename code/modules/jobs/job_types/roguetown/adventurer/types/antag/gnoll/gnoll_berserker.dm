@@ -4,7 +4,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = list(/datum/species/gnoll)
 	outfit = /datum/outfit/job/roguetown/gnoll/berserker
-	cmode_music = 'sound/music/combat_graggar.ogg'
+	cmode_music = 'sound/music/combat_poacher.ogg'
 	category_tags = list(CTAG_GNOLL)
 	applies_post_equipment = FALSE
 	traits_applied = list()

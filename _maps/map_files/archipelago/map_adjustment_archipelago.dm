@@ -19,9 +19,6 @@
 		/datum/job/roguetown/lord = list(display_title = "Baron", f_title = "Baroness"),
 		/datum/job/roguetown/prince = list(display_title = "Heir", f_title = "Heiress"),
 		/datum/job/roguetown/veteran = list(display_title = "Honorant"),
-		//Garrison
-		/datum/job/roguetown/captain = list(display_title = "Mordgaunt"),
-		/datum/job/roguetown/knight = list(display_title = "Gaunt"),
 		//Church
 		/datum/job/roguetown/martyr = list(display_title = "Sanguifier"),
 	)
@@ -48,18 +45,18 @@
 	There was no point arguing, of course. For you were - nae, are - the Baron's strongest warrior. The first to be called, in the event of an issue. \
 	Your martial prowess, and the very weapons you wield, are quite simply not of this world.",
 	/datum/job/roguetown/knight = "One of two, the next to be uplifted by the Archeovault's trinkets. \
-	That is, beyond the Captain, now called the Mordgaunt, by the Baron's mad muse. Even now, you've taken on the moniker, quite simply, of 'Gaunt'.<br>\
+	That is, beyond the Captain, who'd been seen to by the Baron's mad muse. <br>\
 	You've been charged with standing sentry over the Baron's estate. To act as an attack dog, in place of the Captain's absent reach, \
 	with the astronomical power that you've been granted. There are few who may call themselves equals of you now. Fewer still, who'd dare.",
 	/datum/job/roguetown/squire = "Not a squire in the traditional sense. \
-	Though you still polish boots and help don and doff armour, you're special. Or so the Gaunts say. \
+	Though you still polish boots and help don and doff armour, you're special. Or so they say. \
 	For in time, you will come to replace them. To inherit the gifts they've been given. \
 	In what state you're in when such a time comes, however? That is yet to be seen. <br>\
 	For the island has a way of making the naive suffer, and you've been thrust into a position few would envy.",
 	/datum/job/roguetown/manorguard = "After the Discovery of the Archeovault, the Baron saw fit to purging those with knowledge of it. \
-	A maddening thing to think about, now, given the vague understanding most have. Yet, you stood as one of the few he did not find the want to remove. <br>\
-	Indeed, you've since been granted many gifts for your service. Whatever makes you special, you're sure to stand out in the troubles to come. \
-	Brandish arclight rifle and banner. Raise your head high, and parade behind the Gaunts as they carry out the Baron's will.",
+	A maddening thing to think about, now, given the vague understanding most have. Yet you were one of the few he did not find the want to remove. <br>\
+	Indeed, instead, you've been granted many gifts for your service. Whatever makes you special, you're sure to stand out in the troubles to come. \
+	Brandish arclight rifle and banner. Raise your head high, and parade behind the knights as they carry out the Baron's will.",
 	/datum/job/roguetown/warden = "A seafarer, in your current years. Likely trusted of the Baron, once, and now relegated to dock-duty. \
 	Or perhaps you're simply some fool who bought the words of the island being safe. No matter. You're now a sword that defends it. In a sense. <br>\
 	Spend time drinking in the tavern, where your lot is quartered. \

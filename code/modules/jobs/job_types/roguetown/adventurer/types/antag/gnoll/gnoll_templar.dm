@@ -24,7 +24,7 @@
 		/datum/skill/misc/tracking = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE
 	)
-	cmode_music = 'sound/music/combat_graggar.ogg'
+	cmode_music = 'sound/music/combat_poacher.ogg'
 
 /datum/outfit/job/roguetown/gnoll/templar/pre_equip(mob/living/carbon/human/H)
 	if(H.mind)
