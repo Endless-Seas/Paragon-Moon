@@ -24,7 +24,7 @@
 	max_pq = null
 	round_contrib_points = 2
 	social_rank = SOCIAL_RANK_YEOMAN
-	cmode_music = 'sound/music/combat_ManAtArms.ogg'
+	cmode_music = 'sound/music/combat_citywatch.ogg'
 	job_subclasses = list(
 		/datum/advclass/manorguard/footsman,
 		/datum/advclass/manorguard/skirmisher,

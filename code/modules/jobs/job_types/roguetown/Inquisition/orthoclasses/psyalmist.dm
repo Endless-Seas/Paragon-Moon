@@ -58,7 +58,7 @@
 	/obj/item/rogueweapon/huntingknife/idagger/silver/psydagger = 1,
 	/obj/item/rogueweapon/scabbard/sheath = 1)
 
-	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+	H.cmode_music = 'sound/music/combat_poacher.ogg'
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/mockery)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/psydonic_inspire)//CtA, but blood cost and... kind of worse.

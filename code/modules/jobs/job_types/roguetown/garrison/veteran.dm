@@ -19,7 +19,7 @@
 	max_pq = null
 	round_contrib_points = 2
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
-	cmode_music = 'sound/music/combat_veteran.ogg'
+	cmode_music = 'sound/music/combat_citywatch3.ogg'
 	job_subclasses = list(
 		/datum/advclass/veteran/battlemaster,
 		/datum/advclass/veteran/footman,
@@ -65,7 +65,7 @@
 	name = "Veteran Battlemaster"
 	tutorial = "You have served under a hundred masters, some good, some bad. You were a general once. A marshal, a captain. To some a hero, others a monster. Something of the sorts. You made strategies, tactics, new innovations of war. A thousand new ways for one man to kill another. It still keeps you up at night."
 	outfit = /datum/outfit/job/roguetown/vet/battlemaster
-	cmode_music = 'sound/music/cmode/towner/combat_retired.ogg'
+	cmode_music = 'sound/music/combat_ancient.ogg'
 
 	category_tags = list(CTAG_VETERAN)
 	traits_applied = list(TRAIT_HEAVYARMOR)
@@ -543,7 +543,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 	H.verbs |= /mob/proc/haltyell
-	H.cmode_music = 'sound/music/cmode/antag/combat_deadlyshadows.ogg' // so apparently this works for veteran, but not for advents. i dont know why.
+	H.cmode_music = 'sound/music/combat_nitecreecher.ogg' // so apparently this works for veteran, but not for advents. i dont know why.
 
 /datum/outfit/job/roguetown/vet/scout/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
@@ -591,7 +591,7 @@
 	tutorial = "You didn't serve on the frontlines, you were an informant, a spy, an assassin. You wove your way through enemy courts, finding information, neutralizing loose ends. You lived old in a career that many die young. It's a miracle you stand here today. You specialize in knives, whips, and stealth."
 	outfit = /datum/outfit/job/roguetown/vet/spy
 	subclass_languages = list(/datum/language/thievescant)
-	cmode_music = 'sound/music/cmode/nobility/combat_spymaster.ogg'
+	cmode_music = 'sound/music/combat_nitecreecher.ogg'
 	category_tags = list(CTAG_VETERAN)
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CICERONE, TRAIT_SEEPRICES, TRAIT_DECEIVING_MEEKNESS) //Mostly SOVL traits
 	subclass_stats = list(

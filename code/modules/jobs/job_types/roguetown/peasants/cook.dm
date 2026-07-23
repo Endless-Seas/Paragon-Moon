@@ -15,7 +15,7 @@
 	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
-	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
+	cmode_music = 'sound/music/combat_citywatch2.ogg'
 	social_rank = SOCIAL_RANK_PEASANT
 	//5 points (weighted)
 

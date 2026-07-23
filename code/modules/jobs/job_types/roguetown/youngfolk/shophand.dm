@@ -18,7 +18,7 @@
 	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
-	cmode_music = 'sound/music/cmode/towner/combat_towner.ogg'
+	cmode_music = 'sound/music/combat_citywatch.ogg'
 	social_rank = SOCIAL_RANK_PEASANT
 	job_traits = list(TRAIT_SEEPRICES)
 

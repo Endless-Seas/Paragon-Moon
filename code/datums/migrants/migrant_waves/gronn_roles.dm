@@ -49,7 +49,7 @@
 	H.change_stat(STATKEY_INT, -1)
 	H.change_stat(STATKEY_LCK, 1)  //Graggar favors your little buttcheeks.
 
-	H.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	H.cmode_music = 'sound/music/combat_blackstar.ogg'
 	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
 
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
@@ -101,7 +101,7 @@
 	H.change_stat(STATKEY_STR, 1)
 	H.change_stat(STATKEY_INT, 2)
 
-	H.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	H.cmode_music = 'sound/music/combat_blackstar.ogg'
 	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
 
 	ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
@@ -168,7 +168,7 @@
 	H.change_stat(STATKEY_STR, 3)
 	H.change_stat(STATKEY_INT, -2)
 
-	H.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	H.cmode_music = 'sound/music/combat_blackstar.ogg'
 	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
 
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
@@ -214,7 +214,7 @@
 	H.change_stat(STATKEY_STR, 2)
 	H.change_stat(STATKEY_INT, -2)
 	H.change_stat(STATKEY_SPD, 1)
-	H.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	H.cmode_music = 'sound/music/combat_blackstar.ogg'
 	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
 
 	
@@ -284,7 +284,7 @@
 	H.change_stat(STATKEY_INT, 2)
 	H.change_stat(STATKEY_SPD, 2)
 
-	H.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	H.cmode_music = 'sound/music/combat_blackstar.ogg'
 
 
 	if(!H.has_language(/datum/language/gronnic))

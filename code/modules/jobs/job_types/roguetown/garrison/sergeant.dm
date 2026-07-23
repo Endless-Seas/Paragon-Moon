@@ -21,7 +21,7 @@
 	give_bank_account = 50
 	min_pq = 6
 	max_pq = null
-	cmode_music = 'sound/music/combat_ManAtArms.ogg'
+	cmode_music = 'sound/music/combat_citywatch.ogg'
 	job_traits = list(TRAIT_GUARDSMAN, TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR)
 	job_subclasses = list(
 		/datum/advclass/sergeant/sergeant
