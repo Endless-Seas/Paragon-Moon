@@ -2,7 +2,7 @@
 	name = "EA-Hasir's Gold Caravan"
 	max_spawns = 1
 	weight = 40
-	downgrade_wave = /datum/migrant_wave/fablefield_down_one
+	downgrade_wave = /datum/migrant_wave/goldcaravan_down_one
 	roles = list(
 		/datum/migrant_role/ea_hasir/merchant = 1,
 		/datum/migrant_role/ea_hasir/guard = 2,
