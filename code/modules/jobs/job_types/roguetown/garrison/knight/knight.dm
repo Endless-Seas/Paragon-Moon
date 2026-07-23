@@ -22,7 +22,7 @@
 	max_pq = null
 	round_contrib_points = 2
 
-	cmode_music = 'sound/music/combat_knight.ogg'
+	cmode_music = 'sound/music/combat_noble.ogg'
 	social_rank = SOCIAL_RANK_MINOR_NOBLE
 	job_subclasses = list(
 		/datum/advclass/knight/heavy,

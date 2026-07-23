@@ -22,7 +22,7 @@
 	min_pq = 8
 	max_pq = null
 	round_contrib_points = 3
-	cmode_music = 'sound/music/combat_knight.ogg'
+	cmode_music = 'sound/music/combat_noble.ogg'
 	advclass_cat_rolls = list (CTAG_MARSHAL = 20)
 	social_rank = SOCIAL_RANK_NOBLE
 	job_traits = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_PERFECT_TRACKER)

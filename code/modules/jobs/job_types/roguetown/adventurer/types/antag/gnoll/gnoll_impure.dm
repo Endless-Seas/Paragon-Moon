@@ -23,7 +23,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_EXPERT,
 	)
-	cmode_music = 'sound/music/combat_graggar.ogg'
+	cmode_music = 'sound/music/combat_graggar_new.ogg'
 
 /datum/outfit/job/roguetown/gnoll_impure
 

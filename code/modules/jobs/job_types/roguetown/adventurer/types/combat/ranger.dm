@@ -5,7 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/ranger
 	class_select_category = CLASS_CAT_RANGER
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+	cmode_music = 'sound/music/combat_poacher.ogg'
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_OUTDOORSMAN)
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
@@ -69,7 +69,7 @@
 	name = "Wayfarer"
 	tutorial = "You've spent countless years homing many trades; man-hunting, picking locks, breaking into places you had no right being.. but you are no mere thief. You are trained to track men and recover stolen goods. And these lands are a prime paycheck.."
 	outfit = /datum/outfit/job/roguetown/adventurer/assassin
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander.ogg'
+	cmode_music = 'sound/music/combat.ogg'
 	subclass_languages = list(/datum/language/thievescant)
 	traits_applied = list(TRAIT_DODGEEXPERT)
 	subclass_stats = list(
@@ -118,7 +118,7 @@
 	name = "Bombadier"
 	tutorial = "Bombs? You've got them. Plenty of them - and the skills to make more. You've spent years training under skilled alchemists and have found the perfect mix to create some chaos - now go blow something up!"
 	outfit = /datum/outfit/job/roguetown/adventurer/bombadier
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
+	cmode_music = 'sound/music/combat_routier.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_ALCHEMY_EXPERT) // Bombardier get an exception - alchemy is part of the gimmick.
 	subclass_stats = list(
 		STATKEY_STR = 2,
@@ -163,7 +163,7 @@
 	name = "Biome Wanderer"
 	tutorial = "The dangers of the wilds vary upon the plains they rest upon, You happen to be experienced in many."
 	outfit = /datum/outfit/job/roguetown/adventurer/bwanderer
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander4.ogg'
+	cmode_music = 'sound/music/combat_highgrain.ogg'
 	traits_applied = list(TRAIT_OUTDOORSMAN)
 	subclass_stats = list(
 		STATKEY_PER = 2,

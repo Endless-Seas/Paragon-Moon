@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/artificer
 	subclass_social_rank = SOCIAL_RANK_PEASANT // a migrant is but a peasant in foreign lands, so no yeoman like the normal one
 	category_tags = list(CTAG_PILGRIM)
-	cmode_music = 'sound/music/cmode/towner/combat_towner3.ogg'
+	cmode_music = 'sound/music/combat_citywatch3.ogg'
 	traits_applied = list(TRAIT_TRAINED_SMITH, TRAIT_SMITHING_EXPERT, TRAIT_ARCYNE_T1) // same as the guildsman variant
 	maximum_possible_slots = 5 // We don't need a bunch of nerds running around, five will do, perhaps less, not everyone should be an artificer after all
 	subclass_stats = list(

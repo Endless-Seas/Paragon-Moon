@@ -54,10 +54,10 @@
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	if(H.age == AGE_OLD)
 		H.mind?.adjust_spellpoints(6)
-	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander4.ogg'
+	H.cmode_music = 'sound/music/combat_highgrain.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 	if(H.mind)
 		var/weapons = list("Spellslinger","Arcane Alchemist")
 		var/weapon_choice = input(H, "Choose your path.", "WHO ARE YOU?") as anything in weapons
@@ -123,7 +123,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/airblade)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_weapon)
-	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+	H.cmode_music = 'sound/music/combat_poacher.ogg'
 	if(H.mind)
 		var/weapons = list("Longsword", "Falchion & Wooden Shield", "Messer & Wooden Shield", "Hwando", "Spear", "Whip", "Battle Axe", "Mace")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
@@ -171,7 +171,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 
 /datum/advclass/mage/spellsinger
 	name = "Spellsinger"
@@ -219,10 +219,10 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mockery)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_weapon)
-	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+	H.cmode_music = 'sound/music/combat_poacher.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 	if(H.mind)
 		var/weapons = list("Accordion","Bagpipe", "Banjo","Drum","Flute","Guitar","Harmonica","Harp","Hurdy-Gurdy","Jaw Harp","Lute","Psyaltery","Shamisen","Trumpet","Viola","Vocal Talisman")
 		var/weapon_choice = tgui_input_list(H, "Choose your instrument.", "TAKE UP ARMS", weapons)
@@ -266,7 +266,7 @@
 	tutorial = "Some Rogues enhance their fine-honed skills of stealth and agility with spells, learning magical tricks to aid them in their trade. Some use their talents as pickpockets and burglars, while others are pranksters."
 	outfit = /datum/outfit/job/roguetown/adventurer/spellthief
 	subclass_social_rank = SOCIAL_RANK_PEASANT
-	cmode_music = 'sound/music/cmode/antag/combat_cutpurse.ogg'
+	cmode_music = 'sound/music/combat_vigilante.ogg'
 
 	traits_applied = list(TRAIT_ARCYNE_T2, TRAIT_DODGEEXPERT, TRAIT_LIGHT_STEP) //dodge expert has the potential for being a big pain on spellcasters,  so we take away their mage armor as a trade.
 	subclass_stats = list(

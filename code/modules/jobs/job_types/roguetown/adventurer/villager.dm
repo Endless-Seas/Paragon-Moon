@@ -22,7 +22,7 @@
 	always_show_on_latechoices = TRUE
 	same_job_respawn_delay = 0
 	class_setup_examine = TRUE
-	cmode_music = 'sound/music/cmode/towner/combat_towner.ogg'
+	cmode_music = 'sound/music/combat_citywatch.ogg'
 	social_rank = SOCIAL_RANK_PEASANT
 	job_subclasses = list(
 		/datum/advclass/barbersurgeon,

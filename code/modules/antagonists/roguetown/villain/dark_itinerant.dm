@@ -17,7 +17,7 @@
 		return
 
 	H.set_patron(/datum/patron/inhumen/zizo)
-	H.cmode_music = 'sound/music/combat_heretic.ogg'
+	H.cmode_music = 'sound/music/combat_cult.ogg'
 	H.faction = list("undead")
 	to_chat(owner, span_danger("I'm a servant to the ALMIGHTY. They call it the UNSPEAKABLE. I SHALL WRECK HAVOK and SURVIVE."))
 	H.equipOutfit(outfit_path)
@@ -97,7 +97,7 @@
 			armor = /obj/item/clothing/suit/roguetown/armor/brigandine
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 
-	H.cmode_music = 'sound/music/combat_heretic.ogg'
+	H.cmode_music = 'sound/music/combat_cult.ogg'
 	ADD_TRAIT(H, TRAIT_SQUIRE_REPAIR, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 	wretch_select_bounty(H)
@@ -154,7 +154,7 @@
 	ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_RITUALIST, TRAIT_GENERIC)
-	H.cmode_music = 'sound/music/combat_heretic.ogg'
+	H.cmode_music = 'sound/music/combat_cult.ogg'
 	wretch_select_bounty(H)
 
 /obj/effect/proc_holder/spell/self/convertrole/zizosquire

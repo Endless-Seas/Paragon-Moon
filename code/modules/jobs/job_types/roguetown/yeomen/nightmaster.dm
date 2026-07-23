@@ -16,7 +16,7 @@
 	max_pq = null
 	bypass_lastclass = TRUE
 	round_contrib_points = 3
-	cmode_music = 'sound/music/cmode/nobility/combat_spymaster.ogg'
+	cmode_music = 'sound/music/combat_nitecreecher.ogg'
 	social_rank = SOCIAL_RANK_YEOMAN
 	job_traits = list(TRAIT_SEEPRICES,
 		TRAIT_CICERONE,
