@@ -345,7 +345,7 @@ And it also helps for the character set panel
 /datum/clan/proc/setup_vampire_abilities(mob/living/carbon/human/H)
 	H.verbs |= /mob/living/carbon/human/proc/disguise_verb
 
-	H.cmode_music = 'sound/music/cmode/antag/combat_thrall.ogg'
+	H.cmode_music = 'sound/music/combat_nitecreecher.ogg'
 
 	H.adjust_skillrank_up_to(/datum/skill/magic/blood, 2, TRUE)
 

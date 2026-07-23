@@ -29,7 +29,7 @@
 		/datum/skill/craft/alchemy = SKILL_LEVEL_JOURNEYMAN
 	)
 	category_tags = list(CTAG_GNOLL)
-	cmode_music = 'sound/music/combat_poacher.ogg'
+	cmode_music = 'sound/music/combat_graggar_new.ogg'
 
 /datum/outfit/job/roguetown/gnoll/shaman/pre_equip(mob/living/carbon/human/H)
 	if(H.mind)

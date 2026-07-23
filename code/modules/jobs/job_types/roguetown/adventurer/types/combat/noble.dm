@@ -9,7 +9,7 @@
 	class_select_category = CLASS_CAT_NOBLE
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
 
-	cmode_music = 'sound/music/combat_knight.ogg'
+	cmode_music = 'sound/music/combat_noble.ogg'
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_INT = 2,

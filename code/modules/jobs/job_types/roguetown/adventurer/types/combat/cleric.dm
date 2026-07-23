@@ -151,17 +151,17 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross
 		if(/datum/patron/divine/astrata)
 			neck = /obj/item/clothing/neck/roguetown/psicross/astrata
-			H.cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
+			H.cmode_music = 'sound/music/combat_holy.ogg'
 		if(/datum/patron/divine/noc)
 			neck = /obj/item/clothing/neck/roguetown/psicross/noc
 		if(/datum/patron/divine/abyssor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/abyssor
 		if(/datum/patron/divine/dendor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/dendor
-			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // see: druid.dm
+			H.cmode_music = 'sound/music/combat_citywatch.ogg' // see: druid.dm
 		if(/datum/patron/divine/necra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/necra
-			H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
+			H.cmode_music = 'sound/music/combat_ancient.ogg'
 		if(/datum/patron/divine/pestra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/pestra
 		if(/datum/patron/divine/ravox)
@@ -170,18 +170,18 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/malum
 		if(/datum/patron/divine/eora)
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
-			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
+			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
-			H.cmode_music = 'sound/music/combat_matthios.ogg'
+			H.cmode_music = 'sound/music/unholy.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
-			H.cmode_music = 'sound/music/combat_graggar.ogg'
+			H.cmode_music = 'sound/music/combat_graggar_new.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
-			H.cmode_music = 'sound/music/combat_baotha.ogg'
+			H.cmode_music = 'sound/music/combat_starsugar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
 			neck = /obj/item/clothing/neck/roguetown/psicross/xylix
@@ -246,7 +246,7 @@
 			backpack_contents[/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar] = 1
 		if(/datum/patron/inhumen/baotha)	
 			backpack_contents[/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha] = 1
-	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
+	H.cmode_music = 'sound/music/templarofpsydonia.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
 			cloak = /obj/item/clothing/cloak/psydontabard
@@ -402,17 +402,17 @@
 			wrists = /obj/item/clothing/neck/roguetown/psicross
 		if(/datum/patron/divine/astrata)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
-			H.cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
+			H.cmode_music = 'sound/music/combat_holy.ogg'
 		if(/datum/patron/divine/noc)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/noc
 		if(/datum/patron/divine/abyssor)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/abyssor
 		if(/datum/patron/divine/dendor)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/dendor
-			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // see: druid.dm
+			H.cmode_music = 'sound/music/combat_citywatch.ogg' // see: druid.dm
 		if(/datum/patron/divine/necra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/necra
-			H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
+			H.cmode_music = 'sound/music/combat_ancient.ogg'
 		if(/datum/patron/divine/pestra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/pestra
 		if(/datum/patron/divine/ravox)
@@ -421,18 +421,18 @@
 			wrists = /obj/item/clothing/neck/roguetown/psicross/malum
 		if(/datum/patron/divine/eora)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/eora
-			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
+			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
-			H.cmode_music = 'sound/music/combat_matthios.ogg'
+			H.cmode_music = 'sound/music/unholy.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
-			H.cmode_music = 'sound/music/combat_graggar.ogg'
+			H.cmode_music = 'sound/music/combat_graggar_new.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
-			H.cmode_music = 'sound/music/combat_baotha.ogg'
+			H.cmode_music = 'sound/music/combat_starsugar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/xylix
@@ -496,7 +496,7 @@
 			backpack_contents[/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar] = 1
 		if(/datum/patron/inhumen/baotha)	
 			backpack_contents[/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha] = 1
-	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
+	H.cmode_music = 'sound/music/templarofpsydonia.ogg'
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/mockery)
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -570,17 +570,17 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross
 		if(/datum/patron/divine/astrata)
 			neck = /obj/item/clothing/neck/roguetown/psicross/astrata
-			H.cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
+			H.cmode_music = 'sound/music/combat_holy.ogg'
 		if(/datum/patron/divine/noc)
 			neck = /obj/item/clothing/neck/roguetown/psicross/noc
 		if(/datum/patron/divine/abyssor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/abyssor
 		if(/datum/patron/divine/dendor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/dendor
-			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // see: druid.dm
+			H.cmode_music = 'sound/music/combat_citywatch.ogg' // see: druid.dm
 		if(/datum/patron/divine/necra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/necra
-			H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
+			H.cmode_music = 'sound/music/combat_ancient.ogg'
 		if(/datum/patron/divine/pestra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/pestra
 		if(/datum/patron/divine/ravox)
@@ -589,18 +589,18 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/malum
 		if(/datum/patron/divine/eora)
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
-			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
+			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
-			H.cmode_music = 'sound/music/combat_matthios.ogg'
+			H.cmode_music = 'sound/music/unholy.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
-			H.cmode_music = 'sound/music/combat_graggar.ogg'
+			H.cmode_music = 'sound/music/combat_graggar_new.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
-			H.cmode_music = 'sound/music/combat_baotha.ogg'
+			H.cmode_music = 'sound/music/combat_starsugar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
 			neck = /obj/item/clothing/neck/roguetown/psicross/xylix
@@ -661,7 +661,7 @@
 	if(!is_non_pantheon_missionary)
 		backpack_contents[/obj/item/ritechalk] = 1
 		ADD_TRAIT(H, TRAIT_RITUALIST, TRAIT_GENERIC)
-	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
+	H.cmode_music = 'sound/music/templarofpsydonia.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
 			cloak = /obj/item/clothing/cloak/psydontabard
@@ -730,17 +730,17 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross
 		if(/datum/patron/divine/astrata)
 			neck = /obj/item/clothing/neck/roguetown/psicross/astrata
-			H.cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
+			H.cmode_music = 'sound/music/combat_holy.ogg'
 		if(/datum/patron/divine/noc)
 			neck = /obj/item/clothing/neck/roguetown/psicross/noc
 		if(/datum/patron/divine/abyssor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/abyssor
 		if(/datum/patron/divine/dendor)
 			neck = /obj/item/clothing/neck/roguetown/psicross/dendor
-			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // see: druid.dm
+			H.cmode_music = 'sound/music/combat_citywatch.ogg' // see: druid.dm
 		if(/datum/patron/divine/necra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/necra
-			H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
+			H.cmode_music = 'sound/music/combat_ancient.ogg'
 		if(/datum/patron/divine/pestra)
 			neck = /obj/item/clothing/neck/roguetown/psicross/pestra
 		if(/datum/patron/divine/ravox)
@@ -749,18 +749,18 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/malum
 		if(/datum/patron/divine/eora)
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
-			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
+			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
-			H.cmode_music = 'sound/music/combat_matthios.ogg'
+			H.cmode_music = 'sound/music/unholy.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
-			H.cmode_music = 'sound/music/combat_graggar.ogg'
+			H.cmode_music = 'sound/music/combat_graggar_new.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
-			H.cmode_music = 'sound/music/combat_baotha.ogg'
+			H.cmode_music = 'sound/music/combat_starsugar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
 			neck = /obj/item/clothing/neck/roguetown/psicross/xylix

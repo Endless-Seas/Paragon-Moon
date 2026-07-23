@@ -20,7 +20,7 @@
 	min_pq = 0
 	max_pq = null
 	round_contrib_points = 2
-	cmode_music = 'sound/music/cmode/nobility/combat_courtmage.ogg'
+	cmode_music = 'sound/music/combat_sorcerer.ogg'
 	advjob_examine = TRUE // So that Court Magicians can know if they're teachin' a Apprentice or if someone's a bit more advanced of a player. Just makes the title show up as the advjob's name.
 	social_rank = SOCIAL_RANK_YEOMAN
 	job_traits = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2)
@@ -102,7 +102,7 @@
 		H.mind?.adjust_spellpoints(6)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 
 /datum/advclass/wapprentice/alchemist
 	name = "Alchemist Associate"
@@ -157,7 +157,7 @@
 		H.mind?.adjust_spellpoints(3)//split studies, less magic
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'
 	if(H.mind)
 		var/weapons = list("Applied Alchemy","Magical Medicine")
 		var/weapon_choice = input(H, "Choose your tools.", "CHOOSE YOUR DISCIPLINE.") as anything in weapons
@@ -209,4 +209,4 @@
 		)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
-			H.cmode_music = 'sound/music/combat_heretic.ogg'
+			H.cmode_music = 'sound/music/combat_cult.ogg'

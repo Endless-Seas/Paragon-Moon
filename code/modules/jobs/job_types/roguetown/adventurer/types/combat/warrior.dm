@@ -4,7 +4,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/sfighter
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
+	cmode_music = 'sound/music/combat_routier.ogg'
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR)
 	class_select_category = CLASS_CAT_WARRIOR
@@ -110,7 +110,7 @@
 	name = "Duelist"
 	tutorial = "You are an esteemed swordsman who foregoes armor in exchange for a more nimble fighting style."
 	outfit = /datum/outfit/job/roguetown/adventurer/duelist
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
+	cmode_music = 'sound/music/combat_routier.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS)
 	subclass_stats = list(
 		STATKEY_INT = 2,
@@ -196,7 +196,7 @@
 	name = "Barbarian"
 	tutorial = "You are a brutal warrior, who has foregone armor in favor of pure strength. Crush your enemies, see them driven before you, and hear the lamentations of their women! Oh, and you can specialize in unarmed combat and wrestling."
 	outfit = /datum/outfit/job/roguetown/adventurer/barbarian
-	cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
+	cmode_music = 'sound/music/combat_blackstar.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOPAINSTUN)
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	subclass_stats = list(
@@ -396,7 +396,7 @@
 	name = "Exorcist"
 	tutorial = "You are a specialist who hunts terrible monsters; nitebeasts, vampyres, deadites and more. Your humenity might be limiting - but with silver weapons and steel maille, you may yet slight the odds in your favor."
 	outfit = /datum/outfit/job/roguetown/adventurer/mhunter
-	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
+	cmode_music = 'sound/music/combat_routier.ogg'
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_PURITAN_ADVENTURER, TRAIT_ALCHEMY_EXPERT)
 	maximum_possible_slots = 5 //Not a Wretch or Towner, but still conditionally lethal for an Adventurer - especially with steel coverage and round-start access to silver weapons. Adjust the amount of available slots as needed.

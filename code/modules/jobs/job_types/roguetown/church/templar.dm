@@ -115,7 +115,7 @@
 		/obj/item/storage/belt/rogue/pouch/coins/mid = 1,
 		/obj/item/storage/keyring/churchie = 1
 		)
-	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg' // this is probably awful implementation. too bad!
+	H.cmode_music = 'sound/music/templarofpsydonia.ogg' // this is probably awful implementation. too bad!
 	switch(H.patron?.type)
 		if(/datum/patron/divine/astrata)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
@@ -135,7 +135,7 @@
 			wrists = /obj/item/clothing/neck/roguetown/psicross/dendor
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/dendorhelm
 			cloak = /obj/item/clothing/cloak/tabard/crusader/dendor
-			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg'
+			H.cmode_music = 'sound/music/combat_citywatch.ogg'
 		if(/datum/patron/divine/necra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/necra
 			cloak = /obj/item/clothing/cloak/templar/necran
@@ -363,7 +363,7 @@
 	// -- Start of section for god specific bonuses --
 	if(H.patron?.type == /datum/patron/divine/astrata)
 		H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-		H.cmode_music = 'sound/music/cmode/church/combat_astrata.ogg'
+		H.cmode_music = 'sound/music/combat_holy.ogg'
 	if(H.patron?.type == /datum/patron/divine/dendor)
 		H.adjust_skillrank(/datum/skill/labor/farming, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
@@ -380,7 +380,7 @@
 	if(H.patron?.type == /datum/patron/divine/necra)
 		ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_SOUL_EXAMINE, TRAIT_GENERIC)
-		H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
+		H.cmode_music = 'sound/music/combat_ancient.ogg'
 	if(H.patron?.type == /datum/patron/divine/pestra)
 		H.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
@@ -391,7 +391,7 @@
 		ADD_TRAIT(H, TRAIT_EMPATH, TRAIT_GENERIC)
 		H.adjust_skillrank(/datum/skill/craft/sewing, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
-		H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
+		H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
 	if(H.patron?.type == /datum/patron/divine/malum)
 		H.adjust_skillrank(/datum/skill/craft/blacksmithing, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/craft/armorsmithing, 1, TRUE)

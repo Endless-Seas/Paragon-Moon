@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/hunter
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT)
-	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
+	cmode_music = 'sound/music/combat_citywatch2.ogg'
 	maximum_possible_slots = 20 // Should never fill, for the purpose of players to know what types towners are in round at the menu
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
@@ -87,7 +87,7 @@
 	tutorial = "You are a hunter. With your bow you hunt the fauna of the glade, skinning what you kill and cooking any meat left over. The job is dangerous but important in the circulation of clothing and light armor."
 	outfit = /datum/outfit/job/roguetown/adventurer/hunter_spear
 	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT)
-	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
+	cmode_music = 'sound/music/combat_citywatch2.ogg'
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_CON = 1,

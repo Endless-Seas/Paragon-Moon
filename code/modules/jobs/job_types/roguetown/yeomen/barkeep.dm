@@ -16,7 +16,7 @@
 	min_pq = -4
 	max_pq = null
 	round_contrib_points = 3
-	cmode_music = 'sound/music/cmode/towner/combat_retired.ogg'
+	cmode_music = 'sound/music/combat_ancient.ogg'
 
 	job_traits = list(TRAIT_MEDIUMARMOR, TRAIT_TAVERN_FIGHTER, TRAIT_EMPATH, TRAIT_DODGEEXPERT, TRAIT_CICERONE, TRAIT_HOMESTEAD_EXPERT)
 
