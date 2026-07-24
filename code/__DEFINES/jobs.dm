@@ -109,6 +109,7 @@
 #define SUITOR		(1<<8)
 #define PRINCE		(1<<9)
 #define CLERK 		(1<<10)
+#define CONSUL		(1<<11)
 
 #define GARRISON		(1<<1)
 
@@ -252,6 +253,7 @@
 #define JDO_CLERK 3.1
 #define JDO_MARSHAL 4
 #define JDO_COUNCILLOR 4.1
+#define JDO_CONSUL 5
 
 // Courtiers
 #define JDO_MAGICIAN 5
@@ -363,6 +365,7 @@
 	/datum/job/roguetown/steward,\
 	/datum/job/roguetown/dtprince,\
 	/datum/job/roguetown/cataphract,\
+	/datum/job/roguetown/consul,
 
 #define KING_QUEEN_ROLES \
 	/datum/job/roguetown/lady,\

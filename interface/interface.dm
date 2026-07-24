@@ -78,7 +78,7 @@
 		message += GLOB.revdata.GetTestMergeInfo(FALSE)
 	if(tgalert(src, message, "Report Issue","Yes","No")!="Yes")
 		return
-	DIRECT_OUTPUT(src, link("https://github.com/Rotwood-Vale/Ratwood-2.0/issues"))
+	DIRECT_OUTPUT(src, link("https://github.com/Endless-Seas/Paragon-Moon/issues"))
 	return
 
 /client/verb/recent_changelog()

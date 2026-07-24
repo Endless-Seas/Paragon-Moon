@@ -113,13 +113,13 @@
 // Seal of the Crown
 /obj/item/seal/crown
 	name = "crown seal"
-	seal_label = "The Crown of Rotwood Vale"
+	seal_label = "The Crown of the Archipelago"
 	seal_color = "#d4a62f"
 
 // Steward's seal
 /obj/item/seal/steward
 	name = "steward's seal"
-	seal_label = "The Steward of Rotwood Vale"
+	seal_label = "The Steward of the Archipelago"
 	seal_color = "#a07d26"
 
 // Marshal's seal
@@ -137,7 +137,7 @@
 // Merchant's seal
 /obj/item/seal/merchant
 	name = "merchant's seal"
-	seal_label = "The Rotwood Vale Guild Merchant"
+	seal_label = "The Archipelago Guild Merchant"
 	seal_color = "#11269c"
 
 // Nightmaster/Mistress seal
@@ -149,13 +149,13 @@
 // Guildmaster's seal
 /obj/item/seal/guildmaster
 	name = "guild master's seal"
-	seal_label = "The Guildmaster of Rotwood Vale"
+	seal_label = "The Guildmaster of the Archipelago"
 	seal_color = "#552600"
 
 // Prelate's seal
 /obj/item/seal/prelate
 	name = "prelate's seal"
-	seal_label = "High Prelate of Rotwood Vale"
+	seal_label = "High Prelate of the Archipelago"
 	seal_color = "#f8e7b0"
 
 // Court Magos seal
@@ -167,29 +167,29 @@
 // Master Warden's seal
 /obj/item/seal/master_warden
 	name = "master warden's seal"
-	seal_label = "Master of the Wardens of Rotwood Vale"
+	seal_label = "Master of the Wardens of the Archipelago"
 	seal_color = "#0d530d"
 
 // Seneschal's seal
 /obj/item/seal/seneschal
 	name = "seneschal's seal"
-	seal_label = "The Seneschal of The Keep of Rotwood Vale"
+	seal_label = "The Seneschal of The Keep of the Archipelago"
 	seal_color = "#5f70a7"
 
 // Hand of the Ruler seal
 /obj/item/seal/hand
 	name = "hand's seal"
-	seal_label = "The Hand of the Crown of Rotwood Vale"
+	seal_label = "The Hand of the Crown of the Archipelago"
 	seal_color = "#169921"
 
 // Knight Captain's seal
 /obj/item/seal/knight_captain
 	name = "knight captain's seal"
-	seal_label = "The Knight Captain of Rotwood Vale"
+	seal_label = "The Knight Captain of the Archipelago"
 	seal_color = "#7e1111"
 
 // Watch Captain's seal
 /obj/item/seal/watchcaptain
 	name = "watch captain's seal"
-	seal_label = "The Watch Captain of Rotwood Vale"
+	seal_label = "The Watch Captain of the Archipelago"
 	seal_color = "#1e4a7e"

@@ -1,7 +1,7 @@
-// Rotwood Vale - the areas to the south of the map
+// Northwich Archipelago - the areas to the south of the map
 
 /area/rogue/outdoors/woodsrat
-	name = "Rockhill Woods"
+	name = "Northwich Woods"
 	icon_state = "woods"
 	ambientsounds = AMB_FORESTDAY
 	ambientnight = AMB_FORESTNIGHT

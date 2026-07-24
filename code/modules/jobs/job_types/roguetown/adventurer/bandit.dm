@@ -3,8 +3,8 @@
 	flag = BANDIT
 	department_flag = WANDERERS
 	faction = "Station"
-	total_positions = 5	//bare minimum of five on round start, regardless of garrison/holywarrior count
-	spawn_positions = 5
+	total_positions = 0//From 5. We'll let the adjustment handle this, if at all.
+	spawn_positions = 0//From 5.
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "At some point in your lyfe, you'd fallen to the wrong side of the carriage. Whether by butchery or finesse, you're known throughout the land. \
@@ -71,7 +71,7 @@
 	switch(wanted_choice)
 		if("Yes")
 			ADD_TRAIT(H, TRAIT_KNOWNCRIMINAL, TRAIT_GENERIC)
-		if("No") 
+		if("No")
 			to_chat(H, span_warning("I am still relatively new to the gang. My crimes have gone unnoticed so far, but I lack experience."))
 			return null
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of [SSmapping.map_adjustment.realm_name]", "The Grenzelhoftian Holy See")
@@ -91,7 +91,7 @@
 			bounty_total = rand(200, 300)
 		if("Highwayman")
 			bounty_total = rand(300, 400)
-		if("Vale Boogeyman")
+		if("Archipelago Boogeyman")
 			bounty_total = rand(500, 600)
 	if(bounty_severity == "Small Game")
 		add_bounty_obscure(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, TRUE, my_crime, bounty_poster)
@@ -121,14 +121,14 @@
 		return
 
 	var/player_count = length(GLOB.joined_player_list)
-	var/slots = 5
+	var/slots = 0//From 5.
 
 	//Add 1 slot for every 12 players over 30.
 	if(player_count > 42)
 		var/extra = floor((player_count - 42) / 12)
 		slots += extra
 
-	//5 slots minimum, 7 maximum.
+	//0 slots minimum, 7 maximum.
 	slots = min(slots, 9)
 
 	bandit_job.total_positions = slots

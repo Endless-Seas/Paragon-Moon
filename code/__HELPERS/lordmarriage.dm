@@ -1,5 +1,5 @@
 /mob/proc/lord_marriage_choice()
-	
+
 	var/datum/job/suitor_job = SSjob.GetJob("Suitor")
 	var/datum/job/consort_job = SSjob.GetJob("Consort")
 

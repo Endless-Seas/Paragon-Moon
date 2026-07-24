@@ -33,7 +33,7 @@
 		if(the_pq >= 130)
 			return "<span style='color: #4CAF50;'>PROVEN</span>"
 		if(the_pq >= 100)
-			return "<span style='color: #617C46;'>VALE DWELLER</span>"
+			return "<span style='color: #617C46;'>DWELLER</span>"
 		if(the_pq >= 70)
 			return "<span style='color: #00ff00;'>Magnificent!</span>"
 		if(the_pq >= 50)

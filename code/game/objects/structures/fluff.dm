@@ -1068,12 +1068,12 @@
 
 /obj/structure/fluff/statue/knightalt
 	name = "knight statue"
-	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works." 
+	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works."
 	icon_state = "knightstatue2_l"
 
 /obj/structure/fluff/statue/knightalt/r
 	name = "knight statue"
-	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works." 
+	desc = "Many men and women of the Otavan Orthodoxy died here to fight the Rot. It is tradition for the bones of their knights to be encased in these stone works."
 	icon_state = "knightstatue2_r"
 
 
@@ -1117,7 +1117,7 @@
 	pixel_y = -16
 
 /obj/structure/fluff/statue/femalestatue1
-	name = "queen alexia statue"	
+	name = "queen alexia statue"
 	desc = "A modest depiction of the Queen Alexia the Righteous, lacking her usual armors or finery, many were constructed as a show of her humility and piety by prisoners of the crown."
 	icon = 'icons/roguetown/misc/ay.dmi'
 	icon_state = "2"
@@ -1392,7 +1392,7 @@
 
 /obj/structure/fluff/psycross/psycrucifix/stone
 	name = "stone psydonic crucifix"
-	desc = "Formed of stone, this great Psycross symbolises that HE is forever ENDURING. Considered a rare sight upon the vale."
+	desc = "Formed of stone, this great Psycross symbolises that HE is forever ENDURING. Considered a rare sight upon the archipelago."
 	icon_state = "psycruci_r"
 	max_integrity = 120
 	chance2hear = 10
@@ -1424,7 +1424,7 @@
 	icon_state = "cross_zizo_u"
 	divine = FALSE
 	max_integrity = 350
-	
+
 /obj/structure/fluff/psycross/graggar
 	name = "vicious cross"
 	desc = "An unholy symbol wrought from stone. It promises glory to the conqueror and chains to the conquered."
@@ -1530,9 +1530,9 @@
 							else
 								thebride.real_name = "[bride_name_parts[1]] [surname]"
 							// Private notification to both
-							if(thegroom) 
+							if(thegroom)
 								to_chat(thegroom, span_notice("Your new shared surname is [surname]."))
-							if(thebride) 
+							if(thebride)
 								to_chat(thebride, span_notice("Your new shared surname is [surname]."))
 							// Set marriedto fields
 							thegroom.marriedto = thebride.real_name

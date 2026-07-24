@@ -241,7 +241,7 @@
 #define TRAIT_NOCSHADES "Nocshaded"
 #define TRAIT_SANDSTORMED "Sandstormed"
 #define TRAIT_LIGHT_STEP	"Light Step"
-#define TRAIT_AZURENATIVE "Vale Native"
+#define TRAIT_AZURENATIVE "Archipelago Native"
 #define TRAIT_SLEUTH	"Sleuth"
 #define TRAIT_HARDSHELL "Hardshell"
 #define TRAIT_WOODWALKER "Woodwalker"
@@ -306,6 +306,9 @@
 #define TRAIT_MASTER_MASON "Master Masonry"
 
 #define TRAIT_TRIBAL "Island Tribe-member"
+
+//Funny Paragon stuff.
+#define TRAIT_PERPETUAL "Perpetual"//Used for visions and on-inspect for others.
 
 // If you want description to show up you gotta have the trait name defined BEFORE this lol
 
@@ -553,7 +556,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NATURALARMOR = span_info("Whether by natural or other means, my skin is strong enough to resist being pierced and cut."),
 	TRAIT_CLERGYRADICAL = span_info("I follow the radical path of the clergy, abandoning the old road of devotion in favor of self-guided miracle study."),
 	TRAIT_TRIBAL = span_info("I belong to the Island's tribe."),
-	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others.")
+	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others."),
+	TRAIT_PERPETUAL = span_necrosis("My fate is tied to this land. History will speak of me as having never vanished, just as I've always supposedly been present.")
 ))
 
 // trait accessor defines

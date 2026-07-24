@@ -24,22 +24,22 @@
 	)
 	tutorial_adjust = list(
 	//Keep aligned, first. The main three.
-	/datum/job/roguetown/lord = "You are the Baron. A figure of incredible sway within the region, laying claim to an entire archipelago. \
-	After the See's attempt at securing their own power, only to find themselves swayed by your Archeovault's toys, \
-	or the Inquisitorial retinue having attempted to leap at your throat when they learned the truth? \
+	/datum/job/roguetown/lord = "You are the 'forever' Baron. A figure of incredible sway within the region, laying claim to an entire archipelago. \
+	After the Confederacy's attempt at securing their own power, only to find themselves swayed by your Archeovault's toys, \
+	or the Inquisitorial retinue of the Empire having attempted to leap at your throat when they learned the truth, centuries ago? \
 	An uneasy peace has been brokered. You are no heretic, at least in their eyes. You've simply stumbled upon something horrific, \
 	with them now duty bound to assure it remains guarded. The fools.",
 	/datum/job/roguetown/hand = "You are the Hand. The lord's Maven. Their second, in function, of nearly the same stature and station. \
-	A figure ennobled by the discovery you and your two companions had made, nearly a decade ago. <br>\
+	A figure ennobled by the discovery you and your two companions had made, centuries ago. <br>\
 	It had been you who tarried, just as it'll be you to die, should the Baron's trust be a fool's endeavour.",
 	/datum/job/roguetown/veteran = "Fools may see a simple 'veteran', or perhaps an old codger. \
 	Though, not far from the truth, you've done more than most can lay claim to in your life. \
 	You were there. Present during the Baron's ascension to power, with the tools gained. \
-	Still, of course, present now. Retained, unlike many others the lord had discarded, simply for your knowledge and skill alone. <br>\
+	Still, of course, present now, centuries later. Retained, unlike many others the lord had discarded, simply for your knowledge and skill alone. <br>\
 	You're, quite possibly, the most decorated figure on the isle. Something none can lay claim to, or challenge. \
 	Though, these days, both Baron and Hand seem content to pretend you're a simple menial in their employ.",
 	//Garison. Still keep aligned.
-	/datum/job/roguetown/captain = "You were the first among those uplifted, by the Baron. \
+	/datum/job/roguetown/captain = "You were the first among those uplifted, in the current cycle, by the eternal Baron. \
 	To have been given armour and weapon that appeared divine in origin, though you know better now. <br>\
 	You'd asked, pleaded and questioned some more, with the only response you had received being an expectation of service. \
 	There was no point arguing, of course. For you were - nae, are - the Baron's strongest warrior. The first to be called, in the event of an issue. \
@@ -54,8 +54,9 @@
 	In what state you're in when such a time comes, however? That is yet to be seen. <br>\
 	For the island has a way of making the naive suffer, and you've been thrust into a position few would envy.",
 	/datum/job/roguetown/manorguard = "After the Discovery of the Archeovault, the Baron saw fit to purging those with knowledge of it. \
-	A maddening thing to think about, now, given the vague understanding most have. Yet you were one of the few he did not find the want to remove. <br>\
-	Indeed, instead, you've been granted many gifts for your service. Whatever makes you special, you're sure to stand out in the troubles to come. \
+	That had been centuries ago. A maddening thing to think about, now, given the vague understanding most have on the matter. <br>\
+	Rather than worry, you'd signed up, having now been granted many gifts for your service. \
+	Whatever makes you special, you're sure to stand out in the troubles to come. \
 	Brandish arclight rifle and banner. Raise your head high, and parade behind the knights as they carry out the Baron's will.",
 	/datum/job/roguetown/warden = "A seafarer, in your current years. Likely trusted of the Baron, once, and now relegated to dock-duty. \
 	Or perhaps you're simply some fool who bought the words of the island being safe. No matter. You're now a sword that defends it. In a sense. <br>\
@@ -72,20 +73,35 @@
 	Tend to your newfound congregation, and see to it that the Ten's light isn't forgotten in a place such as this.",
 	//Now, for the Inquisition.
 	/datum/job/roguetown/puritan = "That estate. That damnable estate. The cause of problems on the mainland. \
-	It all points to the Baron. You just don't know <b>why</b>! \
+	It all points to the Baron. You just don't know <b>why</b>! And neither does the Empire itself or the wretched Confederacy. \
 	Such is the concern that you've been dispatched, undermanned though you may be, with the goal of investigating. \
 	To establish a foothold on the archipelago. Operating from your own ship will ease the process, yet these seas are especially rough...",
+	//Baron's family. Host wants Baron family. We keep Baron family. Justify it here. Same with suitors.
+	/datum/job/roguetown/prince = "You are an Heir in all but function. \
+	Not even the Baron will tell you what your purpose is to be, if they even yet know, though you are of the forever Baron's lineage all the same. <br>\
+	One may wonder still as to why a figure, without end to their rule, may bring a fool to believe themselves to inherit it. Perhaps you'll be the one? \
+	How many came before you? You certainly won't be the last. One might imagine the Baron simply likes to keep their own blood around.",
+	/datum/job/roguetown/lady = "You are unlikely the first Consort of the Baron. A figure without end to their rule, having held sway for centuries. \
+	Yet, you can lay claim all the same to the fact that you do hold their ear, attention and, potentially, love. \
+	Something not many may say with a straight face.",
+	/datum/job/roguetown/suitor = "The 'forever' Baron, a figure of astronomical power, may be your key to ascension. \
+	To hold whatever sits within their soul. The key to longevity and endless despondency. Or, the fool that you may be, do you yet seek true love? \
+	It doesn't truly matter. You'll find your fate in this land, one way or another.",
 	)
 	blacklist = list(
 		//Antags.
-		/datum/job/roguetown/wretch,//Later. Have to redo you.
-		/datum/job/roguetown/bandit,//You too.
-		/datum/job/roguetown/assassin,//Need to redo this entirely.
+		/datum/job/roguetown/wretch,//Later. Have to redo you. Slot adjustment handles this anyways.
+		/datum/job/roguetown/bandit,//You too. Slot adjustment handles this, too.
 		/datum/job/roguetown/gnoll,//No. Not here. On an ISLAND?
 
 		//Keep.
 		/datum/job/roguetown/jester,//Enable later. Maybe. Redo you, first. Turn you into a mummer.
-
+/*
+		//Host wants the below. So we keep the below. Refluffing above via fluff text. - Carl
+		/datum/job/roguetown/prince,//Immortal Baron. No, thanks.
+		/datum/job/roguetown/lady,//Same here.
+		/datum/job/roguetown/suitor,//Yup yup. Replaced by an ambassador.
+*/
 		//Inquis. Maybe prune Absolver?
 
 		//Mercs.
@@ -95,8 +111,6 @@
 		/datum/job/roguetown/churchling,
 
 		//General towners. Unfortunately, Homesteader replaces some of you.
-		//I'm sorry. Will return a few when I ONCE AGAIN FOR THE THIRD TIME remove that GARBAGE.
-		//Oh my lord.
 		/datum/job/roguetown/apothecary,
 		/datum/job/roguetown/clerk,
 		/datum/job/roguetown/orphan,

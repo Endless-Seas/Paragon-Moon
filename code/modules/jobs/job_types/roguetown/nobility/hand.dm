@@ -20,7 +20,7 @@
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_nitecreecher.ogg'
 	social_rank = SOCIAL_RANK_NOBLE
-	job_traits = list(TRAIT_NOBLE)
+	job_traits = list(TRAIT_NOBLE, TRAIT_PERPETUAL)
 	job_subclasses = list(
 		/datum/advclass/hand/blademaster,
 		/datum/advclass/hand/spymaster,
@@ -44,6 +44,10 @@
 
 	vault_station = "enter last, having left your personal warding active. Like some manner of coward."
 	vault_dweller = TRUE
+
+	has_rp_hooks = TRUE
+	vault_hook = "You're a coward. Or so the voices say. They speak and shout, plead and whimper, that you could've done something different. \
+	You were meant for something greater. But now, trapped, as you are? You've only your friend and the once-mentor. United, in unending eternity."
 
 /datum/outfit/job/roguetown/hand
 	backr = /obj/item/storage/backpack/rogue/satchel/short

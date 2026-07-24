@@ -749,7 +749,7 @@
 	5 second cooldown on consecutive targets. Prone targets halve the knockback distance. \
 	Not fully charging the attack limits knockback to 1 tile."
 
-//We making it out of the vale with this one. RAAAAAA
+//We making it out of the archipelago with this one. RAAAAAA - FIXED LOL
 /datum/intent/maul/crush/spec_on_apply_effect(mob/living/H, mob/living/user, params)
 	var/chungus_khan_str = user.STASTR
 	if(H.has_status_effect(/datum/status_effect/debuff/yeetcd))

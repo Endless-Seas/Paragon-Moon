@@ -36,7 +36,7 @@
 #define THREAT_REGION_JUNGLE "The Dread Jungle"
 #define THREAT_REGION_ISLAND "New Kingsfield outskirts"
 //Archipelago versions
-#define THREAT_REGION_NORTHWICH_ISLE "Northwich Isle"
+#define THREAT_REGION_NORTHWICH_ISLE "Northwich Archipelago"
 #define THREAT_REGION_NORTWHICH_OUTLYING "Outlying Islands"
 //Take a guess.
 #define LOWPOP_THRESHOLD 30 // When do we give highpop tick?

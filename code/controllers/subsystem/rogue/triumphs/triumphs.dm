@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(triumphs)
 		// Prevent negative triumphs - clamp to minimum of 0
 		if(triumph_amount_cache[target_ckey] < 0)
 			triumph_amount_cache[target_ckey] = 0
-		
+
 		var/list/saving_data = list()
 		var/target_file = file("data/player_saves/[target_ckey[1]]/[target_ckey]/triumphs.json")
 		var/backup_file = file("data/player_saves/[target_ckey[1]]/[target_ckey]/triumphs.backup.json")
@@ -340,7 +340,7 @@ SUBSYSTEM_DEF(triumphs)
 // Display leaderboard browser popup
 /datum/controller/subsystem/triumphs/proc/show_triumph_leaderboard(client/C)
 
-	var/webpagu = "<B>CHAMPIONS OF THE VALE</B><br>"
+	var/webpagu = "<B>CHAMPIONS OF THE BARONY</B><br>"
 	webpagu += "Current Season: [GLOB.triumph_wipe_season]"
 	webpagu += "<hr><br>"
 

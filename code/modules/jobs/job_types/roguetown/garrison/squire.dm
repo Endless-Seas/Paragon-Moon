@@ -30,16 +30,16 @@
 	)
 
 	supervisors = "Regent | Hand <br>\
-					Mordgaunt | Assigned Gaunt"
+					Captain | Assigned Knight"
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Aid your superiors, in any way they ask. <br> \
 				- Carry out the will of your superiors, in matters menial or otherwise. <br> \
-				- Maintain, repair and generally care for the Gaunt's equipment."
+				- Maintain, repair and generally care for your Knight's equipment."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
-				- Abandoning your Gaunt. <br> \
-				- Neglecting potential training, from your assigned Gaunt."
+				- Abandoning your Knight. <br> \
+				- Neglecting potential training, from your assigned Knight."
 
 /datum/outfit/job/roguetown/squire
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/guard

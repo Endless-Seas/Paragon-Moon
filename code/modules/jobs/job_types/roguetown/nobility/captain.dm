@@ -41,7 +41,7 @@
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Uphold the laws, as instructed and set by the regent. <br> \
 				- Act as the regent's hound and proverbial sheriff. <br> \
-				- Train and discipline your Gaunts, or maintain vigil in court. <br> \
+				- Train and discipline your Knights, or maintain vigil in court. <br> \
 				- Maintain the regent's honour, as with your own."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
@@ -151,6 +151,7 @@
 		var/weapons = list(
 			"Sabre",
 			"Glaive",
+			"Arclight Claymore",
 			)
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)

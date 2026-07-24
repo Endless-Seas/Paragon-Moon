@@ -197,7 +197,7 @@
 	desc = "A ring of opulent gold, bearing the symbol of Psydon. By dipping it in melted tallow, it can seal writs of religious importance - a matter better known to the Inquisition, rather than the Church or Crown."
 	sellprice = 135
 	var/tallowed = FALSE
-	var/seal_label = "Lord Inquisitor of the Otavan Mission in The Vale"
+	var/seal_label = "Lord Inquisitor of the Otavan Mission in The Archipelago"
 	var/seal_color = "#6b0000"
 	var/seal_is_official = TRUE
 

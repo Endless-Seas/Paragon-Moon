@@ -188,7 +188,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			if(ready != tready)
 				ready = tready
 		//if it's post initialisation and they're trying to observe we do the needful
-		
+
 		if(!SSticker.current_state < GAME_STATE_PREGAME && tready == PLAYER_READY_TO_OBSERVE)
 			ready = tready
 			make_me_an_observer()
@@ -313,7 +313,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	var/list/dat = list()
 	dat += GLOB.roleplay_readme
 	if(dat)
-		var/datum/browser/popup = new(src, "Primer", "ROTWOOD VALE", 460, 550)
+		var/datum/browser/popup = new(src, "Primer", "PARAGON MOON", 460, 550)
 		popup.set_content(dat.Join())
 		popup.open()
 

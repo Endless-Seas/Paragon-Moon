@@ -174,6 +174,19 @@
 				display1 = span_info("ø ------------ ø\nThis is the <EM>[used_name]</EM>, the [race_name].")
 		. = list("[display1] [display2]")
 
+		if(HAS_TRAIT(src, TRAIT_PERPETUAL))
+			if(!HAS_TRAIT(user, TRAIT_OUTLANDER))
+				var/datum/job/three_job = SSjob.GetJob(src.mind?.assigned_role)
+				if(is_type_in_list(three_job, list(/datum/job/roguetown/lord)))
+					. += span_hypnophrase("<small>Our beloved Baron. This has always been our Great Leader, in an eternity of rule.</small>")
+				else if(is_type_in_list(three_job, list(/datum/job/roguetown/hand)))
+					. += span_hypnophrase("<small>The Great Leader's second. Forever at their side, in an eternity of rule.</small>")
+				else if(is_type_in_list(three_job, list(/datum/job/roguetown/veteran)))
+					. += span_hypnophrase("<small>The Honorant, the Great Leader's companion. Forever at their side, in an eternity of rule.</small>")
+			else
+				. += span_warning("<small>They don't appear all there. Actions stiff, like a puppet!</small>")
+
+
 		if(HAS_TRAIT(src, TRAIT_WITCH))
 			if(HAS_TRAIT(user, TRAIT_NOBLE) || HAS_TRAIT(user, TRAIT_INQUISITION) || HAS_TRAIT(user, TRAIT_WITCH))
 				. += span_warning("A witch! Their presence brings an unsettling aura.")
@@ -1146,9 +1159,9 @@
 
 	if(temporary_flavortext) //should be kept at the bottom always if possible, since someone could change the spans to trick people if it's on other places
 		var/max_temp_ft_length = 100 //Proably a good idea to fine-tune this later
-		if(length_char(temporary_flavortext) > max_temp_ft_length) 
+		if(length_char(temporary_flavortext) > max_temp_ft_length)
 			. += " <span class='info' style='color: #eaeaea'> ø ------------ ø\n [copytext_char(temporary_flavortext, 1, max_temp_ft_length + 1)]</span>" + "<a href='?src=[REF(src)];task=show_temp_ft;'>...</a>"
-		else 
+		else
 			. += " <span class='info' style='color: #eaeaea'> ø ------------ ø\n [temporary_flavortext]</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)

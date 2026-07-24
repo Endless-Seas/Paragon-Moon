@@ -1,5 +1,5 @@
 /area/rogue/outdoors/rtfield
-	name = "Rotwood Basin"
+	name = "Northwich Basin"
 	icon_state = "rtfield"
 	soundenv = 19
 	ambush_times = list("night")
@@ -10,7 +10,7 @@
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
 				/mob/living/simple_animal/hostile/retaliate/rogue/fox = 15,
 				/mob/living/carbon/human/species/skeleton/npc/supereasy = 30)
-	first_time_text = "ROTWOOD BASIN"
+	first_time_text = "NORTHWICH BASIN"
 	droning_sound = 'sound/music/area/field.ogg'
 	droning_sound_dusk = 'sound/music/area/septimus.ogg'
 	droning_sound_night = 'sound/music/area/sleeping.ogg'
@@ -20,7 +20,7 @@
 	// detail_text = DETAIL_TEXT_AZURE_BASIN
 
 /area/rogue/outdoors/rtfield/rockhill
-	name = "Rockhill Basin"
+	name = "Northwich Basin"
 	first_time_text = "Rockhill Basin"
 	threat_region = THREAT_REGION_ROCKHILL_BASIN
 	// town_area = TRUE //might spread out the action a little if townies keep to town.

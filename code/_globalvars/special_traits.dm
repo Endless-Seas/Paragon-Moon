@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 				vice.apply_post_equipment(character)
 				record_featured_object_stat(FEATURED_STATS_VICES, vice.name)
 				applied_new_system = TRUE
-	
+
 	// Legacy single vice support (deprecated) - only apply if new system wasn't used
 	if(character.charflaw && !applied_new_system)
 		character.charflaw.apply_post_equipment(character)
@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		return
 	var/datum/origin/O = player.prefs.origin
 	if(!O)
-		O = new /datum/origin/ferentia
+		O = new /datum/origin/northwich
 	character.origin = O.origin_title
 	if(O.origin_language)
 		character.grant_language(O.origin_language)
