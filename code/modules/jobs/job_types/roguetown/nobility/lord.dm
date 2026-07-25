@@ -24,7 +24,8 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	outfit = /datum/outfit/job/roguetown/lord
 	visuals_only_outfit = /datum/outfit/job/roguetown/lord/visuals
 
-	job_traits = list(TRAIT_NOBLE, TRAIT_PERPETUAL)
+	//Perpetual is for lore and mechanic stuff.
+	job_traits = list(TRAIT_PERPETUAL)
 
 	display_order = JDO_LORD
 	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error of their ways. The Crown took a heavy toll upon your lyfe-force, and you will not be able to be revived if you perish."

@@ -144,7 +144,7 @@
 	contents += "<a href='?src=[REF(src)];change=1'>MAMMON LOADED:</a> [budget]<BR>"
 
 	var/mob/living/carbon/human/H = user
-	if(H.job in list("Bathmaster","Bathhouse Attendant"))
+	if(H.job in list("Bathmaster","Bathhouse Attendant","Mystic"))
 		if(canread)
 			contents += "<a href='?src=[REF(src)];secrets=1'>Secrets</a>"
 		else

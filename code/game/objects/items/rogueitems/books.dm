@@ -111,7 +111,7 @@
 	icon_state = "ledger_0"
 	base_icon_state = "ledger"
 	title = "Catatoma"
-	dat = "To create a shipping order, use a papyrus on me."
+	desc = "A ledger for shipping orders. It can be combined with a papyrus to create a shipping order."
 
 /obj/item/book/rogue/secret/ledger/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/paper/scroll/cargo))
@@ -120,9 +120,10 @@
 			return FALSE
 		var/obj/item/paper/scroll/cargo/C = I
 		if(C.orders.len > 4)
-			to_chat(user, span_warning("Too much order."))
+			to_chat(user, span_warning("Too many orders."))
 			return
 		var/picked_cat = input(user, "Categories", "Shipping Ledger") as null|anything in sortList(SSmerchant.supply_cats)
+
 		if(!picked_cat)
 			testing("yeye")
 			return
@@ -131,14 +132,13 @@
 			var/datum/supply_pack/PA = SSmerchant.supply_packs[pack]
 			if(PA.group == picked_cat)
 				pax += PA
-
 		var/datum/supply_pack/picked_pack = input(user, "Shipments", "Shipping Ledger") as null|anything in sortList(pax)
 		if(!picked_pack)
 			return
-
 		C.orders += picked_pack
 		C.rebuild_info()
 		return
+
 	if(istype(I, /obj/item/paper/scroll))
 		if(!open)
 			to_chat(user, span_info("Open me first."))
@@ -175,7 +175,7 @@
 	title = "The Verses and Acts of the Ten"
 	dat = "gott.json"
 	possible_item_intents = list(
-		/datum/intent/use, 
+		/datum/intent/use,
 		/datum/intent/bless,
 	)
 

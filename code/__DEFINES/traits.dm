@@ -308,7 +308,8 @@
 #define TRAIT_TRIBAL "Island Tribe-member"
 
 //Funny Paragon stuff.
-#define TRAIT_PERPETUAL "Perpetual"//Used for visions and on-inspect for others.
+#define TRAIT_PERPETUAL "Perpetual"//Used for visions and on-inspect for others. Also vault access.
+#define TRAIT_MYSTIC "Mystic"//Used for the vision mechanics. Brain dances and such. Also visions of the future.
 
 // If you want description to show up you gotta have the trait name defined BEFORE this lol
 
@@ -557,7 +558,8 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_CLERGYRADICAL = span_info("I follow the radical path of the clergy, abandoning the old road of devotion in favor of self-guided miracle study."),
 	TRAIT_TRIBAL = span_info("I belong to the Island's tribe."),
 	TRAIT_COMPLIANT = span_info("No matter how hard I try, I can't put up a fight against others."),
-	TRAIT_PERPETUAL = span_necrosis("My fate is tied to this land. History will speak of me as having never vanished, just as I've always supposedly been present.")
+	TRAIT_PERPETUAL = span_necrosis("My fate is tied to this land. History will speak of me as having never vanished, just as I've always supposedly been present."),
+	TRAIT_MYSTIC = span_slime("I am cursed. There is no other way to describe it. I am shown glimpses of the future, while also capable of forcing such upon others.")
 ))
 
 // trait accessor defines

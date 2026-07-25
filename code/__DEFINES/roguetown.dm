@@ -366,6 +366,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_NIGHTMAIDEN	"CAT_NIGHTMAIDEN"	// Bathhouse Attendant's aesthetic choices.
 #define CTAG_PRISONER 		"CAT_PRISONER"
 #define CTAG_CONSUL			"CTAG_CONSUL"		// Our beloved Consul. All ready to frag.
+#define CTAG_MYSTIC			"CTAG_MYSTIC"		// Mystic. Wild how that works.
 
 // List of Migrant Classes.
 #define CTAG_HFT_LORD "CAT_HFT_LORD"  // Heartfelt Lord Class - Handles Heartfelt Lord class selector.
