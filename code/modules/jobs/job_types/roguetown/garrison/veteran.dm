@@ -28,7 +28,7 @@
 		/datum/advclass/veteran/scout,
 		/datum/advclass/veteran/spy
 	)
-	job_traits = list(TRAIT_STEELHEARTED, TRAIT_COMBAT_AWARE)
+	job_traits = list(TRAIT_STEELHEARTED, TRAIT_COMBAT_AWARE, TRAIT_PERPETUAL)
 	virtue_restrictions = list(/datum/virtue/combat/combat_aware)//due to them having the trait by default
 
 	supervisors = "Regent | Hand"
@@ -46,6 +46,11 @@
 
 	vault_dweller = TRUE
 	vault_station = "enter first, torch in hand, with the Baron to your rear. You shan't forget what you found."
+
+	has_rp_hooks = TRUE
+	vault_hook = "You'd lead those two fools in another life. Knowing, perhaps, that it was an unsound decision. \
+	Nothing ever good came of ruins. Doubly so, in your prime. Even now, from the glimpses of the past that you've been given? \
+	It's a bitter truth. The images that flash of what you were, once. A hero. A sycophant. A martyr. Perhaps this life shall be different."
 
 /datum/job/roguetown/veteran/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()

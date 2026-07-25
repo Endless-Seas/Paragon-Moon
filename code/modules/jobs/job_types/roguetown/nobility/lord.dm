@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	outfit = /datum/outfit/job/roguetown/lord
 	visuals_only_outfit = /datum/outfit/job/roguetown/lord/visuals
 
+	job_traits = list(TRAIT_NOBLE, TRAIT_PERPETUAL)
+
 	display_order = JDO_LORD
 	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error of their ways. The Crown took a heavy toll upon your lyfe-force, and you will not be able to be revived if you perish."
 	whitelist_req = FALSE
@@ -48,13 +50,22 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	roleplay_exclusive_notify = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
-				- Wield absolute power."
+				- Wield absolute power. <br> \
+				- Protect the Archeovault beneath the estate. At all costs."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
-				- Acting passively. You are a figure of great power. Wield it."
+				- Acting passively. You are a figure of great power. Wield it. <br> \
+				- Exploring the Archeovault. For just as its guardians are restless, so too is your mind when near."
 
 	vault_station = "enter second, allowing the Honorant to enter first. The right call, even now."
 	vault_dweller = TRUE
+
+	has_rp_hooks = TRUE
+	vault_hook = "Despite the attempts at wresting control from the infernal power beneath the estate, \
+	in however many lives you've attempted, one thing has become abundantly clear: You are not free. \
+	The dreams no longer speak of promise and security. They do not assure you that you will rule forever. \
+	They have shown you the future, and, despite your wish to be free of it, you will forever be on this throne. \
+	You are bound by prophecy. One you cannot break. For this is to be your fate."
 
 /datum/outfit/job/roguetown/lord
 	job_bitflag = BITFLAG_ROYALTY
@@ -140,7 +151,6 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		if(istype(H.wear_mask, /obj/item/clothing/mask/rogue/eyepatch/left))
 			qdel(H.wear_mask)
 			mask = /obj/item/clothing/mask/rogue/lordmask/l
-	ADD_TRAIT(H, TRAIT_NOBLE, TRAIT_GENERIC)
 
 //	SSticker.rulermob = H
 /**

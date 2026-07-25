@@ -101,7 +101,7 @@
 
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/bogman
 	name = "steel bogman's helmet"
-	desc = "A helmet featuring the face of a snarling goblin. Once worn by the Bogmen, now a relic of old Rotwood Vale."
+	desc = "A helmet featuring the face of a snarling goblin. Once worn by the Bogmen, now a relic of the archipelago."
 	icon_state = "guardhelm"
 
 /obj/item/clothing/head/roguetown/helmet/heavy/sheriff

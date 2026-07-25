@@ -332,12 +332,12 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_GNOLL			"CAT_GNOLL"			// Wretch-esque gnolls, graggar's chosen.
 #define CTAG_GNOLL_IMPURE	"CAT_GNOLL_IMPURE"	// Reward for beating enough gnolls.
 
-#define CTAG_TRIBAL				"CAT_TRIBAL"			// 
-#define CTAG_TRIBALCHIEFTAIN	"CAT_TRIBALCHIEFTAIN"	// 
-#define CTAG_TRIBALSHAMAN		"CAT_TRIBALSHAMAN"		// 
-#define CTAG_TRIBALGUARD		"CAT_TRIBALGUARD"		// 
-#define CTAG_TRIBALRABBLE		"CAT_TRIBALRABBLE"		// 
-#define CTAG_TRIBALVILLAGER		"CAT_TRIBALVILLAGER"	// 
+#define CTAG_TRIBAL				"CAT_TRIBAL"			//
+#define CTAG_TRIBALCHIEFTAIN	"CAT_TRIBALCHIEFTAIN"	//
+#define CTAG_TRIBALSHAMAN		"CAT_TRIBALSHAMAN"		//
+#define CTAG_TRIBALGUARD		"CAT_TRIBALGUARD"		//
+#define CTAG_TRIBALRABBLE		"CAT_TRIBALRABBLE"		//
+#define CTAG_TRIBALVILLAGER		"CAT_TRIBALVILLAGER"	//
 
 #define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.
 #define CTAG_VANGUARD		"CAT_VANGUARD"		// Vanguard class - Handles vanguard class selector.
@@ -365,6 +365,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_GUILDSMEN 		"CAT_GUILDSMEN"		// Guildsmen class - Handles Guildsmen class selector
 #define CTAG_NIGHTMAIDEN	"CAT_NIGHTMAIDEN"	// Bathhouse Attendant's aesthetic choices.
 #define CTAG_PRISONER 		"CAT_PRISONER"
+#define CTAG_CONSUL			"CTAG_CONSUL"		// Our beloved Consul. All ready to frag.
 
 // List of Migrant Classes.
 #define CTAG_HFT_LORD "CAT_HFT_LORD"  // Heartfelt Lord Class - Handles Heartfelt Lord class selector.

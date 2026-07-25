@@ -1,6 +1,6 @@
-// Rotwood Coast - the northern part of the map - may not be actually coast
+// Northwich Coast - the northern part of the map - may not be actually coast
 /area/rogue/outdoors/beach/forest
-	name = "Rotwood Coast"
+	name = "Northwich Coast"
 	icon_state = "beach"
 	icon_state = "woods"
 	ambientsounds = AMB_FORESTDAY
@@ -23,25 +23,25 @@
 				/mob/living/carbon/human/species/orc/npc/berserker = 10,
 				/mob/living/carbon/human/species/orc/npc/marauder = 10,
 				/mob/living/carbon/human/species/goblin/npc/ambush/sea = 40)
-	first_time_text = "THE ROTWOOD COAST"
+	first_time_text = "THE NORTHWICH COAST"
 	converted_type = /area/rogue/indoors/shelter/woods
 	deathsight_message = "somewhere betwixt Abyssor's realm and Dendor's bounty"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_NORTH_COAST
 
 /area/rogue/outdoors/beach/forest/hamlet
-	name = "The Rotwood Coast - Hamlet"
+	name = "The Northwich Coast - Hamlet"
 	first_time_text = "THE HAMLET"
 	ambush_mobs = null // We don't want actual ambushes in Hamlet but we also don't want to misuse outdoors/beach lol
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_NORTH_COAST_HAMLET
 
 /area/rogue/outdoors/beach/forest/north
-	name = "The Rotwood Coast - North"
+	name = "The Northwich Coast - North"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 
 /area/rogue/outdoors/beach/forest/south
-	name = "The Rotwood Coast - South"
+	name = "The Northwich Coast - South"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 
 /area/rogue/under/cave/dukecourt

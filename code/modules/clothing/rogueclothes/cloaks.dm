@@ -1745,7 +1745,7 @@
 
 /obj/item/clothing/cloak/forrestercloak
 	name = "forrester cloak"
-	desc = "A cloak worn by the Black Oaks of the vale."
+	desc = "A cloak worn by the Black Oaks of the archipelago."
 	icon_state = "forestcloak"
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
@@ -1759,7 +1759,7 @@
 
 /obj/item/clothing/cloak/forrestercloak/snow
 	name = "snow cloak"
-	desc = "A cloak meant to keep one's body warm in the cold of the mountains as well as the dampness of the vale."
+	desc = "A cloak meant to keep one's body warm in the cold of the mountains as well as the dampness of the archipelago."
 	icon_state = "snowcloak"
 	cold_protection = CHEST | GROIN | ARM_LEFT | ARM_RIGHT
 

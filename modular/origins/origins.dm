@@ -15,58 +15,64 @@ GLOBAL_LIST_INIT(origins, build_origins())
 		.[type] = new type()
 
 /datum/origin/northwich
-	name = "Northwich"
-	desc = "A relatively new barony, founded roughly a decade ago on an ancient set of battlefields. \
-	after an accord between Otava and Grenzelhoft had been struck to grant autonomy to a local Baron. \
-	Under the watchful eye of its dutiful, now independent lord, it has seen relative peace and comfort. Despite severe growing pains. \
-	Though tales have since begun to speak of the Baron having forced that very same accord, \
-	with the discovery of something grand. More trouble than it had been worth, or so it is said, to continue the skirmishes that took place on the archipelago."
-	origin_title = "Northwich"
+	name = "The Barony"
+	desc = "An impossibly ancient barony, typically referred to by the locals as 'Northwich', secured on every which side by violent seas and bone-biting chill. <br>\
+	Neither Confederacy nor Empire wished to settle the archipelago, for it had been a harsh place. \
+	Yet, under the watchful eye of its dutiful, forever independent Great Leader, it has seen relative peace and comfort for centuries. <br>\
+	<small>In whispers and tongues, something grand is beheld beneath the Baron's estate. The source of perpetual conquest.</small>"
+	origin_title = "Archipelago"
 	map_x = 40
 	map_y = 260
 
-/datum/origin/otava
-	name = "Otava"
-	desc = "An unforgivingly cold alpine clime, said to be the birthplace of the Psydonic faith. The Orthodoxist Inquisition operates from the capital of Otava's old monarchy."
-	origin_title = "Otava"
+/datum/origin/empire
+	name = "Otavan Empire"
+	desc = "The grand Empire to the west is the oldest and largest of the emergent nations. \
+	A theocratic hegemony where each emperor is crowned by none other than the head of the clergy. \
+	Faith in the maker, often referred to as Psydon, is all. It is in duty and perseverance you pay your due respect. \
+	Other views, while accepted, are closely watched, for none shall impede the divine sanctity and peace."
+	origin_title = "Empire"
 	origin_language = /datum/language/otavan
 	map_x = 183
 	map_y = 151
 
-/datum/origin/grenzelhoft
-	name = "Grenzelhoft"
-	desc = "The Grenzelhoft Empire is the seat of the Holy See of the Dieci, the main Ten-worshipping religion of Grimoria. Due to the unfathomable hordes of deadites plaguing \
-	the Empire, many of the grand cities and artisan towns have been abandoned in favour of a lyfe across the seas or within the capital city. Despite all, Grenzelhoft still \
-	stands tall."
-	origin_title = "Grenzelhoft"
+/datum/origin/confederacy
+	name = "The Grenzelhoft Confederacy"
+	desc = "On the mainland to the east lies the confederacy of free city states. \
+	The second largest known nation only rivaled by the empire in sheer size. \
+	Once a splintered group of cities and noble houses, now a bustling union where each region sends forth one of their own to represent them in the house of lords. \
+	Old rivalries remain, but together they field the largest army known to date."
+	origin_title = "Confederacy"
 	origin_language = /datum/language/grenzelhoftian
 	map_x = 283
 	map_y = 188
 
-/datum/origin/ferentia
-	name = "Ferentia"
-	desc = "An island kingdom off of the western coast of Grenzelhoft and Etrusca. The Ferentian people are a hardworking sort, eager to drink and revel after a dae's worth \
-	of toil. In the past, the kingdom has had to defend against Otava and Grenzelhoft, but now it acts as a mediator between the two nations."
-	origin_title = "Ferentia"
+/datum/origin/freefolk
+	name = "Freefolk Conclave"
+	desc = "Further north of the Empire, lies the home of the freefolk. A culturally diverse people of travelers, refugees and tribal folk. \
+	While a loose communal group only guided by their elders, \
+	their faith in spirits and the wild gods of this world has bestowed them with fertile and bountiful lands. \
+	An ancestral home that seems to live and writhe, warding itself and its people from harm."
+	origin_title = "Conclave"
+	origin_language = /datum/language/elvish
 	map_x = 151
 	map_y = 200
 
-/datum/origin/hammerhold
-	name = "Hammerhold"
-	desc = "The Hammerhold Peninsula and Isles are home to a myriad of peoples, from the Abyssor-loving Witan of the peninsula, the red-heads of Ru-Yermon, or the isles that \
-	once made up the see of seasons. Within it lies the Platinum Dwarf Fortress, the ruins of a glorious cathedral that was once the seat of northern tennite faith, and various \
-	petty kingdoms, or Jarldoms, all loosely agreeing to the will of the Ringbearer, Lord of the Witan."
-	origin_title = "Hammerhold"
-	origin_language = /datum/language/dwarvish
+/datum/origin/colonial
+	name = "Etruscan Colonies"
+	desc = "A young maritime nation of merchants, mariners, explorers and vagabonds. \
+	The colonies are the springboard for expeditions to any yet uncharted coast and a bustling hub of trade. \
+	Under the firm leadership of the great admiralty, piracy is punished with a heavy hand. Fortune and fame however, favour only the bold..."
+	origin_title = "Colonial"
+	origin_language = /datum/language/etruscan
 	map_x = 90
 	map_y = 132
 
 /datum/origin/other
-	name = "Unknown"
-	desc = "Not unknown in the traditional sense. Quite simply, your homelands don't matter.. \
+	name = "Outlands"
+	desc = "Not an unknown in the traditional sense. Quite simply, your homelands don't matter.. \
 	A great deal of kingdoms exist, in the scarred and desolate landscapes of the main continents. \
-	Though, for the purposes of this story, they're irrelevant. You're an outsider among outsiders."
-	origin_title = "Unknown"
+	Though, for the purposes of this story, they're irrelevant. You're an outlander among outsiders."
+	origin_title = "Outlander"
 	map_x = 120
 	map_y = 374
 
@@ -95,7 +101,7 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	html += {".confirm-btn:hover{background:#8b4010;border-color:#e8c87a;}"}
 	html += "</style></head><body>"
 	html += "<div class='map-wrap'>"
-	html += "<img src='rwmap1.png' alt='Ratwood Map'>"
+	html += "<img src='rwmap1.png' alt='Paragon Map'>"
 	for(var/otype as anything in GLOB.origins)
 		var/datum/origin/O = GLOB.origins[otype]
 		var/sel_cls = (origin == O) ? " selected" : ""

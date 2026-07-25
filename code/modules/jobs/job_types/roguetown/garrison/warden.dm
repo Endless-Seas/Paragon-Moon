@@ -32,7 +32,7 @@
 	)
 
 	supervisors = "Regent | Hand <br>\
-					Marshal | Mordgaunt <br>\
+					Marshal | Captain <br>\
 					Sergeant | Men at Arms"
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \

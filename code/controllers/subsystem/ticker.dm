@@ -66,7 +66,7 @@ SUBSYSTEM_DEF(ticker)
 	var/list/royals_readied = list()
 
 	/// Realm name, the location name of the current map
-	var/realm_name = "Rotwood Vale"
+	var/realm_name = "Northwich Archipelago"
 	/// Reports the current ruler's display name
 	var/rulertype = "Grand Duke"
 	/// The current ruling mob

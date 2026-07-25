@@ -224,7 +224,7 @@
 	..()
 
 /obj/structure/fluff/walldeco/customflag
-	name = "Banner of Rotwood Vale"
+	name = "Banner of the barony"
 	desc = "Prominently fluttering in the breeze you see the sturdy banner of the realm, the heraldry of the city lord's family. Many would be honored to wear these colors in loyal service to the crown."
 	icon_state = "wallflag"
 
@@ -239,7 +239,7 @@
 		name = "New-Kingsfield flag"
 		desc = "A banner flutters in the breeze in the proud heraldic colors of the Colony."
 	else
-		name = "Rotwood Vale flag"
+		name = "Northwich flag"
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
 	GLOB.lordcolor += src

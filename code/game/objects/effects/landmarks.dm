@@ -190,7 +190,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/guardsman
 	name = "City Guard"
 	icon_state = "arrow"
-	
+
 /obj/effect/landmark/start/rookie
 	name = "Rookie"
 	icon_state = "arrow"
@@ -222,6 +222,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/councillor
 	name = "Councillor"
+	icon_state = "arrow"
+
+/obj/effect/landmark/start/consul
+	name = "Consul"
 	icon_state = "arrow"
 
 /obj/effect/landmark/start/veteran
@@ -312,7 +316,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/grabber
 	name = "Grabber"
 	icon_state = "arrow"
-
 
 /obj/effect/landmark/start/innkeep
 	name = "Innkeep"
@@ -469,7 +472,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 /obj/effect/landmark/start/sapprentice
 	name = "Smithy Apprentice"
 	icon_state = "arrow"
-	
+
 /obj/effect/landmark/start/lich
 	name = "lich"
 	icon_state = "arrow"

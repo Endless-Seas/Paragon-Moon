@@ -139,14 +139,39 @@
 			else
 				adjust_triumphs(-1)
 */
+
 		switch(job)
+/*
 			if("Grand Duke")
 				//omen gets added separately, after a few minutes
 				for(var/mob/living/carbon/human/HU in GLOB.player_list)
 					if(!HU.stat && is_in_roguetown(HU))
 						HU.playsound_local(get_turf(HU), 'sound/music/lorddeath.ogg', 80, FALSE, pressure_affected = FALSE)
+*/
+			//We should probably future proof these, by checking for traits. But, whatever. Not my problem. LOL!!!!
+			if("Grand Duke")
+				for(var/mob/living/carbon/human/HU in GLOB.player_list)
+					if(!HU.stat)
+						HU.playsound_local(HU, 'modular_paragon/lostech/sound/the_great_struggle.ogg', 100, FALSE)
+						to_chat(HU, span_hypnophrase("Ah, right. You recall the Baron being away, this week. A pity."))
+						src.dust(TRUE, FALSE, TRUE)//TODO: Fix head drops. As with the rest to follow here.
+			if("Hand")
+				for(var/mob/living/carbon/human/HU in GLOB.player_list)
+					if(!HU.stat)
+						HU.playsound_local(HU, 'modular_paragon/lostech/sound/the_great_struggle.ogg', 100, FALSE)
+						to_chat(HU, span_hypnophrase("Ah, right! The Hand had been away this week. What was I doing?"))
+						src.dust(TRUE, FALSE, TRUE)
+			if("Veteran")
+				for(var/mob/living/carbon/human/HU in GLOB.player_list)
+					if(!HU.stat)
+						HU.playsound_local(HU, 'modular_paragon/lostech/sound/the_great_struggle.ogg', 100, FALSE)
+						to_chat(HU, span_hypnophrase("That old codger, the Honorant, didn't arrive this week. I wonder what they're doing?"))
+						src.dust(TRUE, FALSE, TRUE)
+
+
 			if("Bishop")
 				addomen(OMEN_NOPRIEST)
+
 //		if(yeae)
 //			if(mind)
 //				if((mind.assigned_role == "Lord") || (mind.assigned_role == "Priest") || (mind.assigned_role == "Knight Captain") || (mind.assigned_role == "Merchant"))

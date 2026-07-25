@@ -190,7 +190,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
 	tastes = list("fried egg" = 1, "sausage" = 1, "bacon" = 1, "toast" = 1)
 	name = "Hammerholdian breakfast"
-	desc = "A classic of the northern fortresses, peeled of it's more exotic ingredients for Vale kitchens, a true staple of Dwarven diet."
+	desc = "A classic of the northern fortresses, peeled of it's more exotic ingredients for the barony's kitchens, a true staple of Dwarven diet."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_egg.dmi'
 	icon_state = "hammerbreak"
 	bitesize = 5

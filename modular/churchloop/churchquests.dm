@@ -427,7 +427,8 @@
 		/datum/job/roguetown/sergeant,
 		/datum/job/roguetown/dungeoneer,
 		/datum/job/roguetown/manorguard,
-		/datum/job/roguetown/squire
+		/datum/job/roguetown/squire,
+		/datum/job/roguetown/consul
 	)
 
 	var/list/out = list()

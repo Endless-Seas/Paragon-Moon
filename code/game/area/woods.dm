@@ -1,7 +1,7 @@
-// Rotwood Vale - the areas to the south of the map
+// Northwich Archipelago - the areas to the south of the map
 
 /area/rogue/outdoors/woods
-	name = "The Vale"
+	name = "The Archipelago"
 	icon_state = "woods"
 	ambientsounds = AMB_FORESTDAY
 	ambientnight = AMB_FORESTNIGHT
@@ -21,7 +21,7 @@
 				/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 				/mob/living/carbon/human/species/human/northern/militia/deserter = 20,
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10)
-	first_time_text = "THE VALE"
+	first_time_text = "THE ARCHIPELAGO"
 	converted_type = /area/rogue/indoors/shelter/woods
 	deathsight_message = "somewhere in the wilds"
 	threat_region = THREAT_REGION_AZURE_GROVE
@@ -34,7 +34,7 @@
 	// droning_sound_night = 'sound/music/area/forestnight.ogg'
 
 /area/rogue/outdoors/woods/north
-	name = "Rotwood Vale - North"
+	name = "Northwich Archipelago - North"
 	// This section shouldn't have any sea mobs, but is close to the old warden tower
 	// So should be relatively easy
 	ambush_mobs = list(
@@ -47,7 +47,7 @@
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/northeast
-	name = "Rotwood Vale - Northeast"
+	name = "Northwich Archipelago - Northeast"
 	// Ambush list here is "easier" with some pirates mob, possibility of sea goblin
 	ambush_mobs = list(
 			/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
@@ -61,7 +61,7 @@
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/southeast
-	name = "Rotwood Vale - Southeast"
+	name = "Northwich Archipelago - Southeast"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -73,7 +73,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
 
 /area/rogue/outdoors/woods/south
-	name = "Rotwood Vale - South"
+	name = "Northwich Archipelago - South"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -84,7 +84,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
 
 /area/rogue/outdoors/woods/southwest
-	name = "Rotwood Vale - Southwest"
+	name = "Northwich Archipelago - Southwest"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
@@ -95,7 +95,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
 
 /area/rogue/outdoors/woods/northwest
-	name = "Rotwood Vale - Northwest"
+	name = "Northwich Archipelago - Northwest"
 	ambush_mobs = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/badger = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf/raccoon = 30,
