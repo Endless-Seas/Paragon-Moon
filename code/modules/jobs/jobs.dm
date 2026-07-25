@@ -155,6 +155,7 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Beggar",
 	"Refugee",
 	"Pilgrim",
+	"Mystic",
 ))
 
 GLOBAL_LIST_INIT(mercenary_positions, list(

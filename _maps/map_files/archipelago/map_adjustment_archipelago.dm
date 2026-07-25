@@ -31,7 +31,8 @@
 	with them now duty bound to assure it remains guarded. The fools.",
 	/datum/job/roguetown/hand = "You are the Hand. The lord's Maven. Their second, in function, of nearly the same stature and station. \
 	A figure ennobled by the discovery you and your two companions had made, centuries ago. <br>\
-	It had been you who tarried, just as it'll be you to die, should the Baron's trust be a fool's endeavour.",
+	It had been you who tarried, just as it'll be you to die, should the Baron's trust be a fool's endeavour. \
+	Except, of course, that you can't die. Like the other two. An unfortunate reality.",
 	/datum/job/roguetown/veteran = "Fools may see a simple 'veteran', or perhaps an old codger. \
 	Though, not far from the truth, you've done more than most can lay claim to in your life. \
 	You were there. Present during the Baron's ascension to power, with the tools gained. \
@@ -120,6 +121,7 @@
 		//Outsiders.
 		/datum/job/roguetown/pilgrim,
 		/datum/job/roguetown/lunatic,
+		/datum/job/roguetown/prisonerr,//Kind of an outsider. Need to fix this up later.
 
 		//I hate you so much.
 		/datum/job/roguetown/cataphract,

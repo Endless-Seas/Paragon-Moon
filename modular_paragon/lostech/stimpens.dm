@@ -24,8 +24,8 @@ I really should clean this up, but for now it's mostly the old garbage from OldR
 	return ..(M, user, src)  // Call parent with normal injection behavior
 
 /obj/item/reagent_containers/stimpen/attack(mob/living/M, mob/user)
-	inject(M, user)
 	..()
+	inject(M, user)
 	src.visible_message(span_warning("The [src] all but evaporates in [user]'s grasp!"), vision_distance = COMBAT_MESSAGE_RANGE)
 	to_chat(user, span_warning("[src] evaporates in your hands!"))
 	qdel(src)
@@ -71,3 +71,31 @@ I really should clean this up, but for now it's mostly the old garbage from OldR
 
 		return TRUE
 	return FALSE
+
+//Reagent for above.
+/datum/reagent/medicine/stimpen_health
+	name = "Stimpen Fluid"
+	description = "An incredibly odd fluid."
+	color = "#463c3c"
+	taste_description = "catharsis"
+	metabolization_rate = 5
+
+/datum/reagent/medicine/stimpen_health/on_mob_life(mob/living/carbon/M)
+	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume = min(M.blood_volume+80, BLOOD_VOLUME_NORMAL)
+	var/list/wCount = M.get_wounds()
+	if(wCount.len > 0)
+		M.heal_wounds(30)
+	if(volume > 0.99)
+		M.adjustBruteLoss(-24*REM, 0)
+		M.adjustFireLoss(-24*REM, 0)
+		M.adjustOxyLoss(-32, 0)
+		M.adjustToxLoss(-32, 0)
+		M.adjustCloneLoss(-60*REM, 0)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -24*REM)
+		M.adjustOrganLoss(ORGAN_SLOT_EYES, -24*REM)
+	for(var/datum/reagent/R in M.reagents.reagent_list)
+		if(R.harmful)
+			holder.remove_reagent(R.type, 1)
+	..()
+	. = 1

@@ -417,6 +417,10 @@ GLOBAL_LIST_INIT(cross_training_map, list(
 	if(HAS_TRAIT(mind.current, TRAIT_STUDENT))
 		REMOVE_TRAIT(mind.current, TRAIT_STUDENT, null)
 		to_chat(mind.current, span_nicegreen("I feel that I can be educated in a skill once more."))
+
+	//Force that mfing vision!!!!!
+	perpetual_vision(mind.current)
+
 	close_ui()
 
 /datum/sleep_adv/Topic(href, list/href_list)

@@ -305,6 +305,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Bathhouse Attendant"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/mystic
+	name = "Mystic"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/merchant
 	name = "Merchant"
 	icon_state = "arrow"

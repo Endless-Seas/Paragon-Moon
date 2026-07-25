@@ -142,16 +142,17 @@
 
 #define BARKEEP		(1<<0)
 #define ARCHIVIST	(1<<1)
-#define ALCHEMIST	(1<<5)
-#define MERCHANT	(1<<8)
-#define SCRIBE		(1<<9)
-#define CRIER		(1<<10)
-#define KEEPER		(1<<11)
+#define ALCHEMIST	(1<<2)
+#define MERCHANT	(1<<3)
+#define SCRIBE		(1<<4)
+#define CRIER		(1<<5)
+#define KEEPER		(1<<6)
 
 #define PEASANTS	(1<<5)
 
 #define HUNTER		(1<<0)
 #define FARMER		(1<<1)
+#define MYSTIC		(1<<2)
 #define FISHER		(1<<3)
 #define LUMBERJACK	(1<<4)
 #define MINER		(1<<5)
@@ -161,13 +162,14 @@
 #define NITEMASTER	(1<<9)
 #define WENCH		(1<<10)
 #define BEGGAR		(1<<11)
-#define PILGRIM		(1<<13)
-#define VILLAGER	(1<<14)
-#define PRISONERR	(1<<15)
-#define PRISONERB	(1<<16)
-#define LUNATIC		(1<<17)
-#define MIGRANT		(1<<18)
-#define ASSASSIN	(1<<19)
+#define PILGRIM		(1<<12)
+#define VILLAGER	(1<<13)
+#define PRISONERR	(1<<14)
+#define PRISONERB	(1<<15)
+#define LUNATIC		(1<<16)
+#define MIGRANT		(1<<17)
+#define ASSASSIN	(1<<18)
+
 #define YOUNGFOLK	(1<<6)
 
 #define APPRENTICE	(1<<0)
@@ -300,6 +302,7 @@
 #define JDO_NITEMASTER 27.1
 #define JDO_KNAVEWENCH 27.2
 #define JDO_WENCH 27.3
+#define JDO_MYSTIC 27.4
 
 #define JDO_SOILSON 28
 
@@ -381,6 +384,7 @@
 #define PEASANT_ROLES \
 	/datum/job/roguetown/villager,\
 	/datum/job/roguetown/nightmaiden,\
+	/datum/job/roguetown/mystic,\
 	/datum/job/roguetown/beggar,\
 	/datum/job/roguetown/cook,\
 	/datum/job/roguetown/knavewench,\
@@ -428,7 +432,8 @@
 
 #define INQUISITION_ROLES \
 	/datum/job/roguetown/puritan,\
-	/datum/job/roguetown/orthodoxist
+	/datum/job/roguetown/orthodoxist,\
+	/datum/job/roguetown/absolver
 
 #define TRIBAL_ROLES \
 	/datum/job/roguetown/tribalchieftain,\
