@@ -2,11 +2,10 @@
     "map_name": "Archipelago",
     "map_path": "map_files/archipelago",
     "map_file": "archipelago.dmm",
-	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],
+	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],
 	"other_z": [
 		"_maps/map_files/otherz/banditmountain.json",
 		"_maps/map_files/otherz/vl_manor.json",
-		"_maps/map_files/otherz/avspawnrockhill.json",
 		"_maps/map_files/otherz/wretchfort.json"
 	],
 	"minetype": null,

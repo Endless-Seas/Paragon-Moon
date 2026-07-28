@@ -85,7 +85,7 @@
 	/datum/job/roguetown/lady = "You are unlikely the first Consort of the Baron. A figure without end to their rule, having held sway for centuries. \
 	Yet, you can lay claim all the same to the fact that you do hold their ear, attention and, potentially, love. \
 	Something not many may say with a straight face.",
-	/datum/job/roguetown/suitor = "The 'forever' Baron, a figure of astronomical power, may be your key to ascension. \
+	/datum/job/roguetown/suitor = "The 'forever' Baron, a figure of astronomical power, may be your key to power. \
 	To hold whatever sits within their soul. The key to longevity and endless despondency. Or, the fool that you may be, do you yet seek true love? \
 	It doesn't truly matter. You'll find your fate in this land, one way or another.",
 	)
@@ -134,6 +134,13 @@
 		/datum/job/roguetown/adventurer/courtslave,
 	)
 	threat_regions = list(
-		THREAT_REGION_NORTHWICH_ISLE,
-		THREAT_REGION_NORTWHICH_OUTLYING,
+		THREAT_REGION_ROCKHILL_BASIN,
+		THREAT_REGION_ROCKHILL_BOG_NORTH,
+		THREAT_REGION_ROCKHILL_BOG_WEST,
+		THREAT_REGION_ROCKHILL_BOG_SOUTH,
+		THREAT_REGION_ROCKHILL_BOG_SUNKMIRE,
+		THREAT_REGION_ROCKHILL_WOODS_NORTH,
+		THREAT_REGION_ROCKHILL_WOODS_SOUTH
+//		THREAT_REGION_NORTHWICH_ISLE,
+//		THREAT_REGION_NORTWHICH_OUTLYING,
 	)
