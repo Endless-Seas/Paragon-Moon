@@ -5,7 +5,9 @@ Following them is important to make sure your work makes it into the game swiftl
 
 ## Contributor Guidelines
 
-1 - PRs must follow the these standards:
+1 - Any PR submitted, at any time, may be rejected or 'put on ice' until such a time we wish it to enter the server.
+
+2 - PRs must follow the these standards:
 - All Changes must be properly documented in the PR body.
 
 - **Test evidence MUST be included.**
@@ -18,14 +20,14 @@ In the case your PR doesn't affect something which can be clearly seen in game, 
 - Make a changelog of all changes you have made, summarized.
 *This helps our maintainers work quickly.*
 
-2 - Do not comment out code. If you're removing it, remove it completely.
+3 - Do not comment out code. If you're removing it, remove it completely.
 
-3 - Do not include slurs in your code or comments.
+4 - Do not include slurs in your code or comments.
 
-4 - Be civil while discussing PRs.
-*We are all here working for the same goal.*
+5 - Be civil while discussing PRs.
+*We are all here working for the same goal. Hopefully.*
 
-5 - You are encouraged to seek out and engage with player feedback on your PRs.
+6 - You are encouraged to seek out and engage with player feedback on your PRs.
 *Feedback is important. Especially if it affects a vast majority of players.*
 
 
