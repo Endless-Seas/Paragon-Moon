@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		return
 	var/datum/origin/O = player.prefs.origin
 	if(!O)
-		O = new /datum/origin/northwich
+		O = new /datum/origin/other
 	character.origin = O.origin_title
 	if(O.origin_language)
 		character.grant_language(O.origin_language)
