@@ -167,3 +167,4 @@ The procs and such used to display the above.
 		ShowJobStuff(usr)
 	if(href_list["ShowRPHooks"])
 		ShowRPHookStuff(usr)
+	. = ..()

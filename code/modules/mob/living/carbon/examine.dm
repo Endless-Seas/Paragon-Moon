@@ -48,12 +48,12 @@
 	var/list/msg = list("<span class='warning'>")
 	var/temp = getBruteLoss()
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
-		var/brute_text = get_damage_descriptor_text(temp, "[m3] some bruises.\n", "[m3] a lot of bruises!\n", "<B>[m1] black and blue!!</B>\n")
+		var/brute_text = get_damage_descriptor_text(temp, "[m3] some bruises.\n", "[m3] a lot of bruises!\n", "<B>[m1] beaten heavily!</B>\n")
 		if(brute_text)
 			msg += brute_text
 
 		temp = getFireLoss()
-		var/fire_text = get_damage_descriptor_text(temp, "[m3] some burns.\n", "[m3] many burns!\n", "<B>[m1] dragon food!!</B>\n")
+		var/fire_text = get_damage_descriptor_text(temp, "[m3] some burns.\n", "[m3] many burns!\n", "<B>[m1] heavily burnt!</B>\n")
 		if(fire_text)
 			msg += fire_text
 
@@ -68,7 +68,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_DUMB))
 		msg += "[t_He] seem[p_s()] to be clumsy and unable to think.\n"
-	
+
 	var/list/modular_lines = carbon_modular_examine_lines(user, t_He, m1, m2, m3)
 	if(length(modular_lines))
 		msg += modular_lines
@@ -122,11 +122,11 @@
 /mob/living/carbon/proc/get_damage_condition_summary()
 	var/list/conditions = list()
 
-	var/brute_condition = get_damage_descriptor_text(getBruteLoss(), "some bruises", "a lot of bruises", "black and blue")
+	var/brute_condition = get_damage_descriptor_text(getBruteLoss(), "some bruises", "a lot of bruises", "beaten heavily")
 	if(brute_condition)
 		conditions += brute_condition
 
-	var/fire_condition = get_damage_descriptor_text(getFireLoss(), "some burns", "many burns", "dragon food")
+	var/fire_condition = get_damage_descriptor_text(getFireLoss(), "some burns", "many burns", "heavily burnt")
 	if(fire_condition)
 		conditions += fire_condition
 

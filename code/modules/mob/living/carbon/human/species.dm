@@ -105,7 +105,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	///damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/punchstunthreshold = 0
 	///base electrocution coefficient
-	var/siemens_coeff = 1 
+	var/siemens_coeff = 1
 	///what kind of damage overlays (if any) appear on our species when wounded?
 	var/damage_overlay_type = "human"
 	///to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	///the actual flying ability given to flying species
 	var/datum/action/innate/flight/fly
 	///the icon used for the wings
-	var/wings_icon = "Angel" 
+	var/wings_icon = "Angel"
 
 	///species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
@@ -2251,7 +2251,9 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 
 			H.apply_damage(burn_damage, BURN, spread_damage = TRUE)
 
-	if(H.bodytemperature > BODYTEMP_NORMAL_MAX && !HAS_TRAIT(H, TRAIT_RESISTHEAT))	//either level one or level two heat
+	var/area/AR = get_area(cur_turf)
+
+	if(H.bodytemperature > BODYTEMP_NORMAL_MAX && !HAS_TRAIT(H, TRAIT_RESISTHEAT) && AR.hostile_weather)	//either level one or level two heat
 		if(H.hypothermia_timer_id)
 			deltimer(H.hypothermia_timer_id)
 			H.hypothermia_timer_id = null
@@ -2272,7 +2274,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 			H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
 
 
-	else if(H.bodytemperature < BODYTEMP_NORMAL_MIN && !HAS_TRAIT(H, TRAIT_RESISTCOLD))	//either level one or level two cold
+	else if(H.bodytemperature < BODYTEMP_NORMAL_MIN && !HAS_TRAIT(H, TRAIT_RESISTCOLD) && AR.hostile_weather)	//either level one or level two cold
 		if(H.heatstroke_timer_id)
 			deltimer(H.heatstroke_timer_id)
 			H.heatstroke_timer_id = null
@@ -2305,6 +2307,7 @@ GLOBAL_VAR_INIT(cold_breath_overlay, mutable_appearance(
 			H.heatstroke_timer_id = null
 		H.clear_alert("temp")
 		H.remove_movespeed_modifier(MOVESPEED_ID_COLD)
+
 // A general-purpose proc used to centralise checks to skip turf, movement, step, etc.
 // For if a mob is floating, flying, intangible, etc.
 /datum/species/proc/is_floor_hazard_immune(mob/living/carbon/human/owner)
