@@ -17,23 +17,23 @@
 		return the_pq
 	else
 		if(the_pq >= 500)
-			return "<span style='color: #FFD700;'>ASCENDANT</span>"
+			return "<span style='color: #7F6899;'>ARBITER</span>"
 		if(the_pq >= 440)
-			return "<span style='color: #B0C4DE;'>UNDYING</span>"
+			return "<span style='color: #B0C4DE;'>ASCENDANT</span>"
 		if(the_pq >= 375)
-			return "<span style='color: #9B59B6;'>DIVINE</span>"
+			return "<span style='color: #9B59B6;'>UNDYING</span>"
 		if(the_pq >= 310)
-			return "<span style='color: #E8D44D;'>EXALTED</span>"
+			return "<span style='color: #E8D44D;'>DIVINE</span>"
 		if(the_pq >= 250)
-			return "<span style='color: #5DADE2;'>RENOWNED</span>"
+			return "<span style='color: #5DADE2;'>EXALTED</span>"
 		if(the_pq >= 200)
-			return "<span style='color: #52BE80;'>FABLED</span>"
+			return "<span style='color: #52BE80;'>RENOWNED</span>"
 		if(the_pq >= 160)
-			return "<span style='color: #45B39D;'>STORIED</span>"
+			return "<span style='color: #45B39D;'>FABLED</span>"
 		if(the_pq >= 130)
-			return "<span style='color: #4CAF50;'>PROVEN</span>"
+			return "<span style='color: #4CAF50;'>STORIED</span>"
 		if(the_pq >= 100)
-			return "<span style='color: #617C46;'>DWELLER</span>"
+			return "<span style='color: #617C46;'>PROVEN</span>"
 		if(the_pq >= 70)
 			return "<span style='color: #00ff00;'>Magnificent!</span>"
 		if(the_pq >= 50)

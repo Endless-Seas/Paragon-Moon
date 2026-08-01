@@ -142,24 +142,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		client.prefs.ShowChoices(src, 3)
 		return 1
 
-	if(href_list["join_server"])
-		var/target_server
-		switch(href_list["join_server"])
-			if("primary")
-				target_server = "byond://ratwood.rip:22096"
-			if("secondary")
-				target_server = "byond://ratwood.rip:22099"
-
-		if(!target_server)
-			return 1
-
-		if(alert(src, "Switch to [target_server]? This will close my current connection.", "Switch Server", "Yes", "No") != "Yes")
-			return 1
-
-		src << browse({"<a id='link' href='[target_server]'>[target_server]</a><script type='text/javascript'>document.getElementById('link').click();window.location='byond://winset?command=.quit'</script>"}, "border=0;titlebar=0;size=1x1;window=server_switch")
-		to_chat(src, "<a href='[target_server]' style='color:#638500;text-decoration:underline;'><b>If I was not switched automatically, click here.</b></a>")
-		return 1
-
 	if(href_list["open_changelog"])
 		var/datum/changelog/changelog_ui = GLOB.changelog_tgui
 		if(!changelog_ui)

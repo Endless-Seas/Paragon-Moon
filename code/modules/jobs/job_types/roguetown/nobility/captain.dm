@@ -1,3 +1,8 @@
+//You might look at the below and go:
+//"Carl, this isn't a Captain! Good lord, what is this?!!!!
+//Simple. It's /our/ Captain. The Baron's hound.
+//We want him capable of taking on groups, without any issue whatsoever.
+//He'll be getting a lot more when his stuff is done.
 /datum/job/roguetown/captain
 	title = "Knight Captain" //The Knight Captain is clearly not drawn from the ranks of guardsmen, or sergeants. They're drawn from the Knightly ranks and should be treated as such.
 	flag = GUARD_CAPTAIN
@@ -25,7 +30,7 @@
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_noble.ogg'
 	social_rank = SOCIAL_RANK_NOBLE
-	job_traits = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_NOBLE, TRAIT_GUARDSMAN)
+	job_traits = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_NOBLE, TRAIT_GUARDSMAN, TRAIT_BREADY)
 	job_subclasses = list(
 		/datum/advclass/captain/infantry
 	)
@@ -144,14 +149,12 @@
 		/mob/living/carbon/human/proc/request_outlaw,
 		/mob/proc/haltyell,
 		/mob/living/carbon/human/mind/proc/setorders,
-		/mob/living/carbon/human/proc/take_squire
 	)
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/weapons = list(
 			"Sabre",
 			"Glaive",
-			"Arclight Claymore",
 			)
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
@@ -167,6 +170,7 @@
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 	if(H.mind && !H.mind.has_spell(/obj/effect/proc_holder/spell/self/choose_riding_virtue_mount))
 		H.AddSpell(new /obj/effect/proc_holder/spell/self/choose_riding_virtue_mount)
+	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/captorial_lament)
 
 /obj/effect/proc_holder/spell/self/convertrole
 	name = "Recruit Beggar"
@@ -257,3 +261,69 @@
 	if(!.)
 		return
 	recruit.verbs |= /mob/proc/haltyell
+
+//Funny limb tearing.
+/obj/effect/proc_holder/spell/invoked/captorial_lament
+	name = "Captain's Rend"
+	desc = "Grasp a fool that you intend to lay low, fracturing the targeted location. \
+	If 'cast' on a location that already has a fracture, either removes the limb, or in the case of head/chest, applies an arterial."
+	overlay_state = "bcry"
+	recharge_time = 6 SECONDS
+	human_req = TRUE
+	warnie = null
+	no_early_release = FALSE
+	movement_interrupt = FALSE
+	charging_slowdown = 1
+	associated_skill = /datum/skill/combat/unarmed
+	invocation_type = "none"
+	range = 1
+	ignore_los = FALSE
+	ignore_cockblock = TRUE//Not a SPELL
+	invocations = list(",..")
+	invocation_type = "shout"
+
+/obj/effect/proc_holder/spell/invoked/captorial_lament/cast(list/targets, mob/living/user)
+	if(isliving(targets[1]))
+
+		var/mob/living/carbon/M = targets[1]
+		var/def_zone = user.zone_selected
+		var/obj/item/bodypart/BP = null
+		BP = M.get_bodypart(check_zone(def_zone))
+		if(!BP)
+			BP = M.get_bodypart(BODY_ZONE_CHEST)
+
+		user.visible_message(span_danger("[user] flickers before your eyes, as if beset by an unsen force, only to focus on [M]!"))
+		to_chat(M, span_notice("[user] mutters incoherently!"))
+		if(do_after(user, 5 SECONDS))
+			user.visible_message(span_danger("[user] grabs [M] by their [BP]!"))
+			to_chat(M, span_notice("[user] growls under their breath, taking a firm hold of [BP]!"))
+			M.emote("scream", forced = TRUE)
+
+			if(do_after(user, 5 SECONDS))
+				if(!BP.has_wound(/datum/wound/fracture))
+					user.visible_message(span_danger("[user] rends [M], shattering [BP]!"))
+					to_chat(M, span_notice("[user] howls in an uncertain tongue, sinking digits into [BP]!"))
+					BP.add_wound(/datum/wound/fracture)
+					user.emote("warcry")
+
+				else// if(BP.has_wound(/datum/wound/fracture))
+					if(BP == M.get_bodypart(BODY_ZONE_CHEST))
+						user.visible_message(span_danger("[user] punches a fist into [M], tearing a hole through their chest!!!!"))
+						to_chat(M, span_notice("[user] jitters, punching a hole through your chest! Gods above!"))
+						BP.add_wound(/datum/wound/artery/chest)
+					if(BP == M.get_bodypart(BODY_ZONE_HEAD))
+						user.visible_message(span_danger("[user] grabs a hold of [M], tearing out their throat!"))
+						to_chat(M, span_notice("[user] jitters, before promptly tearing your throat open! Gods above!"))
+						BP.add_wound(/datum/wound/artery/neck)
+					else
+						user.visible_message(span_danger("[user] tears into [M], wrenching their [BP] messily from the poor fool's frame!"))
+						to_chat(M, span_notice("[user] jitters, before promptly tearing [BP] clear! Gods above!"))
+						BP.drop_limb()
+
+				BP.update_disabled()
+				M.emote("agony", forced = TRUE)
+				M.adjustBruteLoss(50)
+
+	else
+		to_chat(user, span_notice("This isn't something I'd want to tear apart..."))
+		return

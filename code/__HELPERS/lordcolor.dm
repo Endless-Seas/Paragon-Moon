@@ -39,8 +39,8 @@ GLOBAL_VAR(lordsecondary)
 		T.lordcolor(prim,sec)
 
 /proc/lord_color_default()
-	GLOB.lordprimary = "#264d26" //DARK GREEN
-	GLOB.lordsecondary = "#2b292e" //BLACK
+	GLOB.lordprimary = "#4F3E4F" //Wine Noire
+	GLOB.lordsecondary = "#49938B" //Seafoam Green
 	for(var/obj/O in GLOB.lordcolor)
 		O.lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
 	for(var/turf/T in GLOB.lordcolor)

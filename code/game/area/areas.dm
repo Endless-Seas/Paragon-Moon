@@ -120,6 +120,8 @@
 	/// If true, speech generated in this area will not propagate to other z-levels, and can only be heard by hearers with a line of sight.
 	var/soundproof = FALSE
 
+	/// Is this location capable of producing weather that'd apply the status effects? IE: 'Heat Exhaustion', 'Frostbite', etc.
+	var/hostile_weather = FALSE
 
 /**
  * A list of teleport locations
@@ -565,7 +567,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = "start"
 	requires_power = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	
+
 /area/space
 	icon_state = "space"
 	requires_power = TRUE

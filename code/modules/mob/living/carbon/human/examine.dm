@@ -729,7 +729,7 @@
 			else if (temp < 50)
 				msg += "[m3] a lot of bruises!\n"
 			else
-				msg += "<B>[m1] black and blue!!</B>\n"
+				msg += "<B>[m1] beaten heavily!</B>\n"
 
 		temp = getFireLoss()
 		if(temp)
@@ -738,7 +738,7 @@
 			else if (temp < 50)
 				msg += "[m3] many burns!\n"
 			else
-				msg += "<B>[m1] dragon food!!</B>\n"
+				msg += "<B>[m1] heavily burnt!</B>\n"
 
 	//body temp
 	switch(bodytemperature)

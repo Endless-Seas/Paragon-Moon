@@ -38,7 +38,7 @@
 	else
 		var/shown_patreon_level = client.patreonlevel()
 		if(!shown_patreon_level)
-			shown_patreon_level = "<font color='#617C46'><b>Dweller</b></font>"
+			shown_patreon_level = "<font color='#7F6899'><b>Pontiff</b></font>"
 		switch(shown_patreon_level)
 			if(1)
 				shown_patreon_level = "Silver"
@@ -51,19 +51,7 @@
 			if(5)
 				shown_patreon_level = "Lord"
 		to_chat(src, span_info("Donator Level: [shown_patreon_level]"))
-	client.changelog()
-
-	var/primary_server = "byond://ratwood.rip:22096"
-	var/secondary_server = "byond://ratwood.rip:22099"
-	var/link_style = "color:#638500;text-decoration:underline;"
-
-	if(world.port == 22096)
-		to_chat(src, "<span style='color:#638500;'>Secondary Server: [secondary_server] <a href='?src=[REF(src)];join_server=secondary' style='[link_style]'><b>(JOIN)</b></a></span>")
-	else if(world.port == 22099)
-		to_chat(src, "<span style='color:#638500;'>Primary Server: [primary_server] <a href='?src=[REF(src)];join_server=primary' style='[link_style]'><b>(JOIN)</b></a></span>")
-	else
-		to_chat(src, "<span style='color:#638500;'>Primary Server: [primary_server] <a href='?src=[REF(src)];join_server=primary' style='[link_style]'><b>(JOIN)</b></a></span>")
-		to_chat(src, "<span style='color:#638500;'>Secondary Server: [secondary_server] <a href='?src=[REF(src)];join_server=secondary' style='[link_style]'><b>(JOIN)</b></a></span>")
+//	client.changelog()
 
 	to_chat(src, "<a href='?src=[REF(src)];open_changelog=1' style='color:#638500;text-decoration:underline;'><b>Open Changelog</b></a>")
 

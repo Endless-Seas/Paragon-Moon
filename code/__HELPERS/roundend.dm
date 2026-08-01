@@ -131,15 +131,14 @@
 
 	log_game("The round has ended.")
 
-	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends this tale on Ratwood Keep.</span>")
+	to_chat(world, "<BR><BR><BR><span class='reallybig'>So ends the mad Baron's gambit.</span>")
 	get_end_reason()
 
-	var roundend_music = pick('sound/music/roundend.ogg','sound/music/roundend2.ogg','sound/music/roundend3.ogg')
 	var/list/key_list = list()
 	for(var/client/C in GLOB.clients)
 		if(C.mob)
 			SSdroning.kill_droning(C)
-			C.mob.playsound_local(C.mob, roundend_music, 100, FALSE)
+			C.mob.playsound_local(C.mob, 'sound/music/roundend.ogg', 100, FALSE)
 		if(isliving(C.mob) && C.ckey)
 			key_list += C.ckey
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -154,7 +153,7 @@
 					add_roundpoints(job.round_contrib_points, H.ckey)
 	add_roundplayed(key_list)
 	update_god_rankings()
-	
+
 	for(var/mob/M in GLOB.mob_list)
 		M.do_game_over()
 
@@ -218,27 +217,27 @@
 	var/end_reason
 
 	if(!check_for_lord())
-		end_reason = pick("Without a Duke, they were doomed to become slaves of Zizo.",
-						"Without a Duke, they were doomed to be eaten by nite creachers.",
-						"Without a Duke, they were doomed to become victims of Gehenna.",
-						"Without a Duke, they were doomed to enjoy a mass-suicide.",
-						"Without a Duke, the Lich made them his playthings.",
-						"Without a Duke, some jealous rival reigned in tyranny.",
-						"Without a Duke, the town was abandoned.")
+		end_reason = pick("Without The Three, an uneasy peace fell upon the land. It would not last.",
+						"Without The Three, one could scarcely imagine the horrors soon to close in.",
+						"Without The Three, the once-bound retinue grew restless. A new foe 'pon the archipelago.",
+						"Forever shall there be a Baron, with two fools to follow. Such is a temporary setback.",
+						"In the Baron's absence, the Archaeovault grieved an easy puppet.",
+						"In the Baron's absence, the ruinous power beneath the estate fell dormant.",
+						"In the Baron's absence, the Archaeovault slumbered. For a time.")
 
 	if(vampire_werewolf() == "vampire")
-		end_reason = "When the Vampires finished sucking the town dry, they moved on to the next one."
+		end_reason = "When the Vampires finished sucking the archipelago dry, they simply moved on."
 	if(vampire_werewolf() == "werewolf")
-		end_reason = "The Werevolves formed an unholy clan, marauding Ratwood Keep until the end of its daes."
+		end_reason = "The Werevolves formed an unholy clan, marauding the archipelago until the end of its daes."
 
 	if(SSmapping.retainer.head_rebel_decree)
-		end_reason = "The peasant rebels took control of the throne, hail the new community!"
+		end_reason = "The rebels took control of the throne, deposing the Baron! For a time, at least..."
 
 
 	if(end_reason)
 		to_chat(world, span_bigbold("[end_reason]."))
 	else
-		to_chat(world, span_bigbold("The town has managed to survive another week."))
+		to_chat(world, span_bigbold("Forever shall The Three reign. Forever shall we have our beloved Baron."))
 
 /datum/controller/subsystem/ticker/proc/gamemode_report()
 	var/list/all_teams = list()
