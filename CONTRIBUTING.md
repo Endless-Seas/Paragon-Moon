@@ -34,12 +34,13 @@ In the case your PR doesn't affect something which can be clearly seen in game, 
 ## Maintainer Guidelines
 
 1 - Maintainers may not merge their own PRs save for reverts or fixes to game breaking bugs.
-*This does not include the Head Maintainer.*
+*This does not include the Head Maintainer or Host.*
 
 2 - Maintainer decisions on game direction are absolute.
-*If something on a PR is not up to a Maintainers standards and the author is unwilling to comply the PR will be closed.*
+*If something on a PR is not up to a Maintainers standards, and the author is unwilling to comply, the PR will be closed.*
 
-3 - PRs will be taken as they are, and as is if no follow up PRs were to be made.
+3 - PRs will be taken as they are, and as is if no follow up PRs were to be made. Unless it falls outside of the server vision.
 *Maintainers will assume the Author of any given PR will not maintain their code, or contribution after it is merged.*
 
-4 - In order to Merge a map changing PR the approval of a Maptainer is necessary.
+4 - In order to Merge a map changing PR it must be approved by both the Head Maintainer and Host.
+*Exceptions are made for critical bug fixes.*
