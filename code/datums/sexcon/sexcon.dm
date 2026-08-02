@@ -794,8 +794,7 @@
 			user.add_stress(/datum/stressevent/cummax)
 	if(!oral && force >= SEX_FORCE_HIGH && (user.has_flaw(/datum/charflaw/addiction/sadist) || effective_target.has_flaw(/datum/charflaw/addiction/masochist)))
 		effective_target.emote("paincrit", forced = TRUE) // this satiates the sadomasochists in range
-	if(ishuman(user) && ishuman(target) && user.client && target.client)
-		eora_register_consensual_pair(user, target)
+
 
 /datum/sex_controller/proc/just_ejaculated()
 	return (last_ejaculation_time + 2 SECONDS >= world.time)
@@ -1646,7 +1645,7 @@
 				if(prob(10))
 					var/obj/item/bodypart/groin = target.get_bodypart(check_zone(BODY_ZONE_PRECISE_GROIN))
 					groin.add_wound(/datum/wound/fracture)
-		
+
 /datum/sex_controller/proc/try_jaw_crush(mob/living/carbon/human/target)
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong) && force > SEX_FORCE_MID)
 		if(user.client.prefs.extreme_erp && target.client.prefs.extreme_erp)
