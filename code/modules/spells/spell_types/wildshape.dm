@@ -48,7 +48,7 @@
 
 		icon_img.pixel_x = -(size_x / 2) + 16
 		icon_img.pixel_y = -(size_y / 2) + 16
-		
+
 		choices[shape.name] = icon_img
 
 	var/new_wildshape_type = show_radial_menu(user, user, choices)
@@ -72,28 +72,11 @@
 	var/wildshape_icon_state
 
 /mob/living/carbon/human/species/wildshape/proc/gain_inherent_skills()
-	if(mind)
-		adjust_skillrank(/datum/skill/magic/holy, 4, TRUE)
-		adjust_skillrank(/datum/skill/magic/holy, 4, TRUE)
-		var/datum/devotion/D = devotion
-		if(!D)
-			D = new /datum/devotion(src, patron)
+	if(src.mind)
+		src.adjust_skillrank(/datum/skill/magic/holy, 3, TRUE) //Any dendorite using this should be a holy magic user
 
-		D.suppress_grants = TRUE
-
-		if(D.level < CLERIC_T2)
-			D.level = CLERIC_T2
-		D.last_level = D.level
-
-		if(!D.passive_devotion_gain && !D.passive_progression_gain)
-			D.passive_devotion_gain = CLERIC_REGEN_MAJOR
-			D.passive_progression_gain = CLERIC_REGEN_MAJOR
-			START_PROCESSING(SSobj, D)
-
-		if(!(/mob/living/carbon/human/proc/devotionreport in verbs))
-			verbs += /mob/living/carbon/human/proc/devotionreport
-		if(!(/mob/living/carbon/human/proc/clericpray in verbs))
-			verbs += /mob/living/carbon/human/proc/clericpray	
+		var/datum/devotion/C = new /datum/devotion(src, src.patron) //If we don't do this, Dendorites can't be clerics and they can't revert back to their true forms
+		C.grant_miracles(src, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_MAJOR)	//Major regen as no matter the previous level, it gets reset on transform. More connection to dendor I guess? Can level up to T4.
 
 /mob/living/carbon/human/species/wildshape/update_inv_gloves() //Prevents weird blood overlays
 	remove_overlay(GLOVES_LAYER)
@@ -102,6 +85,3 @@
 /mob/living/carbon/human/species/wildshape/update_inv_shoes() //Prevents weird blood overlays
 	remove_overlay(SHOES_LAYER)
 	remove_overlay(SHOESLEEVE_LAYER)
-
-/mob/living/carbon/human/species/wildshape/update_inv_neck() //Prevents neck slot sprite overlays in wildshape
-	remove_overlay(NECK_LAYER)
