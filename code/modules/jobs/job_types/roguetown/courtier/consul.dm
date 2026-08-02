@@ -157,7 +157,7 @@
 
 /obj/item/clothing/neck/roguetown/luckcharm/consul_badge/conclave
 	name = "Conclave Signet"
-	desc = "A signet of the Wilderspirit that rests beneath the Freefolk's haven. <br>\
+	desc = "A signet of the Wylderspirit that rests beneath the Freefolk's haven. <br>\
 	You, of the many who had ever found safe passage and love in a place so remote, had been granted an audience. \
 	Though, now, thinking back on it? Your head hurts. The memory fading just as quickly. What you now hold is all you can recall."
 	icon_state = "consul_conclave"
