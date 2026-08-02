@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(heretical_players)
 #define PRIEST_APOSTASY_COOLDOWN (10 MINUTES)
 #define PRIEST_EXCOMMUNICATION_COOLDOWN (10 MINUTES)
 #define PRIEST_CURSE_COOLDOWN (15 MINUTES)
-#define PRIEST_SWAP_COOLDOWN (20 MINUTES)
 
 /datum/job/roguetown/priest
 	title = "Bishop"
@@ -37,11 +36,31 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	social_rank = SOCIAL_RANK_ROYAL
 	//No nobility for you, being a member of the clergy means you gave UP your nobility. It says this in many of the church tutorial texts.
 	virtue_restrictions = list(/datum/virtue/utility/noble)
-	job_traits = list(TRAIT_CHOSEN, TRAIT_RITUALIST, TRAIT_GRAVEROBBER,TRAIT_RESONANCE, TRAIT_VOTARY, TRAIT_HOMESTEAD_EXPERT)
+	job_traits = list(
+		TRAIT_CHOSEN,
+		TRAIT_RITUALIST,
+		TRAIT_GRAVEROBBER,
+		TRAIT_RESONANCE,
+		TRAIT_VOTARY,
+		TRAIT_HOMESTEAD_EXPERT,
+		TRAIT_HOLYWARRIOR,
+	)
 	advclass_cat_rolls = list(CTAG_BISHOP = 2)
 	job_subclasses = list(
 		/datum/advclass/bishop
 	)
+
+	supervisors = "Your Patron"
+	leave_admin_shout = TRUE
+	roleplay_exclusive_notify = TRUE
+
+	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
+				- Maintain the Church's grounds. <br> \
+				- Tend to your congregation, or those who may otherwise wander into the Church. <br> \
+				- Obey the whim of your Patron."
+
+	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
+				- Abandoning either Church or Patron."
 
 /datum/job/roguetown/priest/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
@@ -113,7 +132,8 @@ GLOBAL_LIST_EMPTY(heretical_players)
 		/obj/item/natural/worms/leech/cheele = 1, //little buddy
 		/obj/item/ritechalk = 1,
 		/obj/item/rogueweapon/huntingknife/idagger/steel/holysee = 1,	//Unique knife from the Holy See
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/mini_flagpole/church,
 	)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/holy, 6, TRUE)
@@ -173,6 +193,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
 /mob/living/carbon/human/proc/coronate_lord()
 	set name = "Coronate"
 	set category = "Priest"
+	to_chat (src, span_warning("The process of crowning a new ruler, and binding his soul to the Throne of the Realm takes a most heavy toil. Any newly coronated Noble Liege will not be able to be revived. You should probably mention this."))
 	if(!mind)
 		return
 	if(world.time < 30 MINUTES)
@@ -203,12 +224,13 @@ GLOBAL_LIST_EMPTY(heretical_players)
 		//Coronate new King (or Queen)
 		HU.mind.assigned_role = "Grand Duke"
 		HU.job = "Grand Duke"
+		ADD_TRAIT(HU, TRAIT_DNR, JOB_TRAIT)
 		SSticker.set_ruler_mob(HU)
 		SSticker.regentmob = null
 		var/dispjob = mind.assigned_role
 		removeomen(OMEN_NOLORD)
-		say("By the authority of the gods, I pronounce you Ruler of all the vale!")
-		priority_announce("[real_name] the [dispjob] has named [HU.real_name] the inheritor of ROTWOOD VALE!", title = "Long Live [HU.real_name]!", sound = 'sound/misc/bell.ogg')
+		say("By the authority of the gods, I pronounce you Ruler of all the realm!")
+		priority_announce("[real_name] the [dispjob] has named [HU.real_name] the inheritor of [SSmapping.map_adjustment.realm_name]!", title = "Long Live [HU.real_name]!", sound = 'sound/misc/bell.ogg')
 		var/datum/job/roguetown/nomoredukes = SSjob.GetJob("Grand Duke")
 		if(nomoredukes)
 			nomoredukes.total_positions = -1000 //We got what we got now.
@@ -224,7 +246,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
 		to_chat(src, span_warning("I need to do this in the chapel."))
 		return FALSE
 
-	var/announcementinput = input("Bellow to the vale", "Make an Announcement") as text|null
+	var/announcementinput = input("Bellow to the realm", "Make an Announcement") as text|null
 	if(announcementinput)
 		if(!src.can_speak_vocal())
 			to_chat(src,span_warning("I can't speak!"))
@@ -493,10 +515,15 @@ code\modules\admin\verbs\divinewrath.dm has a variant with all the gods so keep 
 	var/list/curse_choices = list(
 		"Curse of Astrata" = /datum/curse/astrata,
 		"Curse of Noc" = /datum/curse/noc,
+		"Curse of Dendor" = /datum/curse/dendor,
+		"Curse of Abyssor" = /datum/curse/abyssor,
 		"Curse of Ravox" = /datum/curse/ravox,
 		"Curse of Necra" = /datum/curse/necra,
 		"Curse of Xylix" = /datum/curse/xylix,
-		)
+		"Curse of Pestra" = /datum/curse/pestra,
+		"Curse of Malum" = /datum/curse/malum,
+		"Curse of Eora" = /datum/curse/eora,
+	)
 
 	var/curse_pick = input("Choose a curse to apply or lift.", "Select Curse") as null|anything in curse_choices
 	if (!curse_pick)
