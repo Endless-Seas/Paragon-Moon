@@ -235,7 +235,7 @@
 
 
 	if(end_reason)
-		to_chat(world, span_bigbold("[end_reason]."))
+		to_chat(world, span_bigbold("[end_reason]"))
 	else
 		to_chat(world, span_bigbold("Forever shall The Three reign. Forever shall we have our beloved Baron."))
 

@@ -3149,6 +3149,7 @@
 #include "modular_hearthstone\code\modules\reagents\reagent_containers\lux.dm"
 #include "modular_helmsguard\code\modules\mobs\farm\horse.dm"
 #include "modular_paragon\combat_indicator.dm"
+#include "modular_paragon\compendium.dm"
 #include "modular_paragon\job_tutorial.dm"
 #include "modular_paragon\lostech\lightspheres.dm"
 #include "modular_paragon\lostech\prophecy.dm"
