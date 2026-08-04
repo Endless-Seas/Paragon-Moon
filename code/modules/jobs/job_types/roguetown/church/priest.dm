@@ -53,6 +53,8 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	supervisors = "Your Patron"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_faith_hooks = TRUE
+	church_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Maintain the Church's grounds. <br> \

@@ -2,7 +2,7 @@
 /// Initialized at runtime. Should remain stable if nobody's calling procs on New().
 GLOBAL_LIST_EMPTY(charflaw_singletons)
 
-/// Associative list mapping the "menu name" of each vice in the list to its typepath. This list is all of the vices you can choose. 
+/// Associative list mapping the "menu name" of each vice in the list to its typepath. This list is all of the vices you can choose.
 /// Used primarily for adding a vice, but also for randomly picking a vice from the selectable space. Try pick_assoc().
 GLOBAL_LIST_INIT(character_flaws, list(
 	"Alcoholic"=/datum/charflaw/addiction/alcoholic,
@@ -19,7 +19,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	"Devout Follower"=/datum/charflaw/addiction/godfearing,
 	"Greedy"=/datum/charflaw/greedy,
 	"Marked for Death"=/datum/charflaw/assassintarget,
-	"Marked by Gnolls"=/datum/charflaw/hunted,
+//	"Marked by Gnolls"=/datum/charflaw/hunted,
 	"Isolationist"=/datum/charflaw/isolationist,
 	"Junkie"=/datum/charflaw/addiction/junkie,
 	"Lawless"=/datum/charflaw/lawless,

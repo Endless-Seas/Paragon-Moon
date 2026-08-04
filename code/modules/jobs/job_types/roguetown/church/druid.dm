@@ -32,6 +32,8 @@
 
 	supervisors = "Dendor | Bishop"
 	roleplay_exclusive_notify = TRUE
+	has_faith_hooks = TRUE
+	church_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Maintain the surrounding wilds, or your given grove. <br> \
