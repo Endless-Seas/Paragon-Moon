@@ -1897,12 +1897,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						if(!faith.name)
 							continue
 						faiths_named[faith.name] = faith
-					var/faith_input = tgui_input_list(user, "The world rots. Which truth you bear?", "FAITH", faiths_named)
+					var/faith_input = tgui_input_list(user, "The Truth Awaits", "FAITH", faiths_named)
 					if(faith_input)
 						var/datum/faith/faith = faiths_named[faith_input]
-						to_chat(user, "<font color='yellow'>Faith: [faith.name]</font>")
-						to_chat(user, "Background: [faith.desc]")
-						to_chat(user, "<font color='purple'>Likely Worshippers: [faith.worshippers]</font>")
+						to_chat(user, "<font color='#CFC041'>Faith:</font> [faith.name]")
+						to_chat(user, "<span style='font-size:70%'>Background: [faith.desc]</span>")
+						to_chat(user, "<span style='font-size:90%'><font color='#40A4B9'>Likely Worshippers:</font> [faith.worshippers]</span>")
 						selected_patron = GLOB.patronlist[faith.godhead] || GLOB.patronlist[pick(GLOB.patrons_by_faith[faith_input])]
 
 				if("patron")
@@ -1914,15 +1914,16 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						if(patron.disabled_patron)
 							continue
 						patrons_named[patron.name] = patron
-					var/god_input = tgui_input_list(user, "The first amongst many.", "PATRON", patrons_named)
+					var/god_input = tgui_input_list(user, "M'lord?", "PATRON", patrons_named)
 					if(god_input)
 						selected_patron = patrons_named[god_input]
-						to_chat(user, "<font color='yellow'>Patron: [selected_patron]</font>")
-						to_chat(user, "<font color='#FFA500'>Domain: [selected_patron.domain]</font>")
-						to_chat(user, "Background: [selected_patron.desc]")
-						to_chat(user, "<font color='purple'>Likely Worshippers: [selected_patron.worshippers]</font>")
-						to_chat(user, "<font color='white'>Considers these to be VIRTUES: [selected_patron.virtues]</font>")
-						to_chat(user, "<font color='red'>Considers these to be SINS: [selected_patron.sins]</font>")
+						to_chat(user, "<font color='#CFC041'>Patron:</font> [selected_patron]")
+						to_chat(user, "<span style='font-size:90%'><font color='#A3936D'>Titles:</font> [selected_patron.titles]</span>")
+						to_chat(user, "<span style='font-size:90%'><font color='#E99F10'>Domain:</font> [selected_patron.domain]</span>")
+						to_chat(user, "<span style='font-size:70%'>Background: [selected_patron.desc]</span>")
+						to_chat(user, "<span style='font-size:90%'><font color='#40A4B9'>Likely Worshippers:</font> [selected_patron.worshippers]</span>")
+						to_chat(user, "<span style='font-size:90%'><font color='#009403'>Considers these to be VIRTUES:</font> [selected_patron.virtues]</span>")
+						to_chat(user, "<span style='font-size:90%'><font color='#A64A2E'>Considers these to be SINS:</font> [selected_patron.sins]</span>")
 
 				if("combat_music") // if u change shit here look at /client/verb/combat_music() too
 					if(!combat_music_helptext_shown)

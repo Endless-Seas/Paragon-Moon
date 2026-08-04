@@ -21,4 +21,4 @@
 	tgui_theme = styles[next_index]
 	to_chat(usr, "<span class='notice'>TGUI style set to [get_tgui_theme_display_name()].</span>")
 	save_preferences()
-	
+

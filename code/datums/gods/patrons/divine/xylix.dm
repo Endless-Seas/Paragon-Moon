@@ -1,10 +1,14 @@
 /datum/patron/divine/xylix
 	name = "Xylix"
-	domain = "Trickery, Freedom, Inspiration, Fate, Fluvians"
-	desc = "The Trickster is an unknown amongst the Pantheon. They created the Fluvian race with the gift of Fate, and serve the sole purpose of pulling pranks on Gods and Mortals alike. Their followers see freedom as an absolute, and despise slavery."
-	worshippers = "Gamblers, Bards, Artists, The Silver-Tongued, Fluvians"
-	virtues = "Humor, Friendship, Joy"
-	sins = "Slavery, Seriousness, Servility"
+	titles = "The Trickster. The Masked God. The Patron."
+	domain = "Art, Performance, Laughter, Craft"
+	desc = "Regardless of if a singer in a house of opera, a humble tailor or a playful wordsmith? \
+	Everyone wishes for a bit of luck at times, or to find the comfort of a genuine smile. \
+	Anyone who produces wares, wishes to flaunt their skills or to share the gift of \
+	laughter may have found themselves directing a prayer to the same aspect."
+	worshippers = "Artisans, Various Performers, Comedians, Craftspeople"
+	virtues = "Putting on a Show, Refining your Skills, Entertaining the Masses, Remaining Humble"
+	sins = "Reliance on Luck, Wilful Sabotage, Disrespecting Labor"
 	mob_traits = list(TRAIT_XYLIX)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison				= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/self/xylixslip					= CLERIC_T0,

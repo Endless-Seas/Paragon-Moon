@@ -573,6 +573,7 @@
 		var/starting_rand  = rand(100, 50)
 		prices[path] = list("[starting_rand]", "[round(starting_rand * 0.5, 1)]")
 	sell_prices = prices
+
 /obj/item/paper/scroll/writ_of_esteem
 	name = "Writ of Esteem"
 	icon_state = "contractsigned"

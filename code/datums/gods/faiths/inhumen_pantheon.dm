@@ -1,7 +1,8 @@
 /datum/faith/inhumen
-	name = "Ascendents"
-	desc = "The Ascendants, bar one, were once mortal. Scorned by the world, they subsumed the powers of the COMET SYON's fragments. \
-	No centralised organisation exists for cultists of the Ascendants, but heretics stick together regardless. \
-	Regardless of which they worship, one thing is shared: hatred for the Ten."
-	worshippers = "Cultists, The Ten-Scorned, The Rebellious"
+	name = "The Outcasts"
+	desc = "A shunned few. By some they are considered part of the pantheon, by others outlawed and looked down upon, \
+	in particular by the Empire. Where there is strife and desperation, \
+	there will always be those whose prayers wish for results, disregarding morality. \
+	While not inherently malicious, the four would bring salvation as they bring ruin. A means to an end."
+	worshippers = "Cultists, Outsiders, Rebellious Souls"
 	godhead = /datum/patron/inhumen/zizo

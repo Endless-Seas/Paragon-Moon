@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(fluff_regions, init_fluff_regions())
 	var/list/parts = list()
 	parts += "<details>"
 	parts += "<summary><strong><span style='font-size:130%'> THE STAGE </span></strong></summary>"
-	parts += "<strong><span style='font-size:115%'> YET TO BE SET  </span></strong>"
+	parts += "<strong><span style='font-size:115%'> FOES OF FATE  </span></strong>"
 	parts += "<br><br>"
 	for(var/region_id in GLOB.fluff_regions)
 		var/datum/fluff_region/region = GLOB.fluff_regions[region_id]
@@ -117,6 +117,5 @@ GLOBAL_LIST_INIT(fluff_regions, init_fluff_regions())
 	region_id = FLUFF_REGION_OTHER
 	name = "Outlands"
 	subtitle = "The Lost, Bearers of Purpose and Distinction"
-	description = "Not an unknown in the traditional sense. Quite simply, your homelands don't matter.. \
-	A great deal of kingdoms exist, in the scarred and desolate landscapes of the main continents. \
-	Though, for the purposes of this story, they're irrelevant. You're an outlander among outsiders."
+	description = "A great deal of kingdoms exist, in the scarred and desolate landscapes of the main continents. \
+	Though, for the purposes of this story, they're irrelevant. Outlanders among outsiders."

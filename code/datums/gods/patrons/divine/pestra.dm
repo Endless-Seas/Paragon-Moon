@@ -1,10 +1,12 @@
 /datum/patron/divine/pestra
 	name = "Pestra"
-	domain = "Medicine, Pestilence, Decay"
-	desc = "The Panacea is the only of the Ten to be born to a wildkin, She taught us the arts of medicine and surgery. Her followers are obsessed with rot and decay to a concerning degree to the other Tennites."
-	worshippers = "The Sick, Chirurgeons, Apothecaries"
-	virtues = "Compassion, Decay, Curiosity"
-	sins = "Arrogance, Wrath, Denying Healthcare to Anyone"
+	titles = "The Cycle. The Withering One. The Balance."
+	domain = "Seasons, Medicine, Evolution, Decay, Rebirth"
+	desc = "The patron of doctors and surgeons, those who revere the cycle of life and those who accept that death is mandatory for life to exist, \
+	like sun and shadow. Everything wilts away and may yet be born anew, even if their form may differ. The endless cycle endures."
+	worshippers = "Physicians, Druids of the Cycle, Herbalists, the Sick"
+	virtues = "Accepting the Inevitable, Cultivation, Transcendence, Healing"
+	sins = "Unnatural Life, Interrupting the Cycle, Impeding Progression"
 	mob_traits = list(TRAIT_EMPATH, TRAIT_ROT_EATER)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/diagnose				= CLERIC_ORI,

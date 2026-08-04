@@ -1,10 +1,14 @@
 /datum/patron/divine/necra
 	name = "Necra"
-	domain = "Death, The Afterlife, Rebirth"
-	desc = "The Undermaiden is the custodian of the Afterlife, where all souls must eventually go. She tasks the lost with the Trials of the Forgotten, where they must ruminate on their lyfe to be reborn. Her followers find resurrection to be abhorrent, choosing to isolate themselves to their graveyards."
-	worshippers = "Gravediggers, Morticians, Disgraced Physicians, Loners"
-	virtues = "Respecting the Dead, Sloth, Fatalism"
-	sins = "Undeath, Humor, Revival"
+	titles = "The Reaper. The Gravekeeper. The Soulwarden."
+	domain = "Death, Afterlife, Spirits of the Dead, Loss"
+	desc = "Necra is who many believe you face should you die, with similar depictions existing regardless of where you've been brought up. \
+	Death isn't a foreign concept, it is a certainty. Thus, of course, many wish to not meet their end in pain and with regrets. \
+	A hope that a part of them may yet live on or be reborn. \
+	Anyone wishing to commune with the dead, pay their respects, to atone for having taken a life, or to otherwise meet their end in peace worships them."
+	worshippers = "Mournful Souls, Gravetenders, Mediums, Witch Doctors, Repenting Ones"
+	virtues = "Respecting Sacrifice, Bemoaning a Loss, Maintaining Gravesites"
+	sins = "Tarnishing the Dead, Defiling a Burial, Harassing Departed Souls"
 	mob_traits = list(TRAIT_SOUL_EXAMINE, TRAIT_NOSTINK)	//No stink is generic but they deal with dead bodies so.. makes sense, I suppose?
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison				= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/necras_sight				= CLERIC_T0,

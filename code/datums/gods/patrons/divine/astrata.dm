@@ -1,10 +1,12 @@
 /datum/patron/divine/astrata
 	name = "Astrata"
-	domain = "The Day, The Sun, Order"
-	desc = "The Absolute Order is the glorious sunlight that permeates our lands and drives back evil. By Her Light is the world given Order, and by her Blessing is Nobility deigned to rule. Ravox stands at Her side to ensure Her Order does not become Tyranny."
-	worshippers = "Nobility, The Righteous, The Zealous"
-	virtues = "Servility, Honesty, Oppression"
-	sins = "Disloyalty, Undeath, Sloth"
+	titles = "The Dawnbringer. The Firelight. The Sun."
+	domain = "Light, Fire, Divinity, Strength"
+	desc = "They who keeps the dark at bay. Without the light, life would cease to blossom. They are both warmth and fury. \
+	A gentle ray of sunshine to some, or a burning spear of purity to others."
+	worshippers = "Wider Clergy, Crusaders, Sun Cultists, Avians"
+	virtues = "Purity, Grace, Righteous Fury"
+	sins = "Hedonism, Deceit, the Dark"
 	mob_traits = list(TRAIT_APRICITY)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/ignition				= CLERIC_T0,

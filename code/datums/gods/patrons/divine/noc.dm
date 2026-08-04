@@ -1,10 +1,13 @@
 /datum/patron/divine/noc
 	name = "Noc"
-	domain = "The Night, The Moon, Knowledge, Magic, Secrets"
-	desc = "The Father of Secrets is the glorious moonlight that grants us power through knowledge. We are granted visions of His vault of secrets, and given the ability to wield the Arcyne through His benevolence."
-	worshippers = "Wizards, Scholars, Night Owls"
-	virtues = "Wisdom, Curiosity, Pursuit of Arcyne"
-	sins = "Ignorance, Censorship, Bookburning"
+	titles = "The Nightbringer. The Scholar. The Moon."
+	domain = "The Arcyne, Knowledge, the Night"
+	desc = "A calm force, lighting the way even in the absence of Astrata's sunlight. \
+	A wise and gentle soul that encourages you to learn more about the world and to broaden your horizons. \
+	Only in true understanding, would one be able to learn of their potential, lest it be squandered by ignorance."
+	worshippers = "Mages, Stewards, Wayward Politicians, Astrologers"
+	virtues = "Cataloguing Discoveries, Meritocracy, Practical Solutions, Hoarding Secrets"
+	sins = "Destruction of Knowledge, Refusal of Wisdom, Loss of Understanding"
 	mob_traits = list(TRAIT_NIGHT_OWL, TRAIT_NOCSIGHT)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison				= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/targeted/touch/prestidigitation	= CLERIC_T0,

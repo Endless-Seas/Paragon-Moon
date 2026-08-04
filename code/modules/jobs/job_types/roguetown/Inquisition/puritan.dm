@@ -8,7 +8,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_NO_CONSTRUCT		//Would you trust a machine to handle a role that requires non-logical intuition and commanding? Maybe. Could undo this if the community likes it. Purpose-built supermachines sound cool, too.
 	allowed_patrons = list(/datum/patron/old_god) //Requires your character's patron to be Psydon. This role is explicitly designed to be played by Psydonites, only, and almost everything they have - down to the equipment and statblock - is rooted in Psydonism. Do NOT make this accessable to other faiths, unless you go through the efforts of redesigning it from the ground up.
-	tutorial = "You are a puritan of unmatched aptitude, adherent to the Psydonic doctrine and entrusted with the authority to lead a local sect. Otava - the largest Psydonic kingdom left on this world - has seen it fit to treat you like a silver-tipped olive branch, gifted to the realm to ward off the encroaching darkness. Tread carefully when pursuing your missives, lest the faithless strap you to the pyre as well."
+	tutorial = "You are a puritan of unmatched aptitude, adherent to the Psydonic doctrine and entrusted with the authority to lead a local sect. The Otavan Empire - the largest Psydonic kingdom in the world, had dispatched your sect to ward off the encroaching darkness. Tread carefully when pursuing your missives, lest the faithless strap you to the pyre as well."
 	whitelist_req = TRUE
 	cmode_music = 'sound/music/inquisitorcombat.ogg'
 	selection_color = JCOLOR_INQUISITION
@@ -29,6 +29,8 @@
 
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_faith_hooks = TRUE
+	inquis_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Inform and instruct your subordinates on matters heretical. <br> \
@@ -96,9 +98,7 @@
 
 		if(!(do_mob(src, H, 10 SECONDS)))
 			return
-		src.visible_message(span_warning("[src]'s silver psycross abruptly catches flame, burning away in an instant!"))
 		H.confess_sins("patron")
-		qdel(S)
 		return
 	to_chat(src, span_warning("This one is not in a ready state to be questioned..."))
 
@@ -162,8 +162,6 @@
 
 		if(!(do_mob(src, H, 10 SECONDS)))
 			return
-		src.visible_message(span_warning("[src]'s silver psycross abruptly catches flame, burning away in an instant!"))
 		H.confess_sins("antag")
-		qdel(S)
 		return
 	to_chat(src, span_warning("This one is not in a ready state to be questioned..."))
