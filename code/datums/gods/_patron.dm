@@ -9,6 +9,8 @@ GLOBAL_LIST_EMPTY(prayers)
 /datum/patron
 	/// Name of the god
 	var/name
+	/// Titles that we hit this god with, for the purposes of RP.
+	var/titles = "Foe of good coding practice."
 	/// Domain of the god, such as earth, fire, water, murder etc
 	var/domain = "Bad coding practices"
 	/// Description of the god

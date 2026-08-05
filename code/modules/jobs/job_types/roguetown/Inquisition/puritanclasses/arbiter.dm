@@ -83,17 +83,17 @@
 		if("Psydonic Broadsword")
 			H.put_in_hands(new /obj/item/rogueweapon/sword/long/kriegmesser/psy/preblessed(H), TRUE)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/sword, SLOT_BELT_R, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/swords, 4, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)
 		if("Daybreak (Whip)")
 			H.put_in_hands(new /obj/item/rogueweapon/whip/antique/psywhip(H), TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, 4, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, 5, TRUE)
 		if("Stigmata (Halberd)")
 			H.put_in_hands(new /obj/item/rogueweapon/halberd/psyhalberd/relic(H), TRUE)
 			H.put_in_hands(new /obj/item/rogueweapon/scabbard/gwstrap(H), TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 4, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 5, TRUE)
 		if("Consecratia (Flail)")
 			H.put_in_hands(new /obj/item/rogueweapon/flail/sflail/psyflail/relic(H), TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, 4, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, 5, TRUE)
 	//Now, for their 'sect'. They can either choose a heavy gambeson and +1SPD, or inquisitor coat and +1STR.
 	var/sect = list("Ancient - Gilbranze, Gambesons & Speed", "New Age - Silver, Overcoats & Strength")
 	var/sect_choice = input(H,"FIND YOUR SECT", "WHAT ARE WE?") as anything in sect
@@ -117,7 +117,7 @@ Here because they're unused elsewhere.
 /obj/item/storage/belt/rogue/leather/arbiter
 	name = "webbing"
 	desc = "A leather belt, paired with some Otavan style webbing and pouches. <br>\
-	A style pioneered by an arbiters, a century or two ago. Maintained by those who require much of the same."
+	A style pioneered by an arbiter, a century or two ago. Maintained by those who require much of the same."
 	icon_state = "overseerbelt"
 	item_state = "overseerbelt"
 	icon = 'icons/roguetown/clothing/special/overseer/overseer.dmi'

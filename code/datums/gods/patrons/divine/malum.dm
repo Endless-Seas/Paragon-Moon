@@ -1,10 +1,14 @@
 /datum/patron/divine/malum
 	name = "Malum"
-	domain = "Craft, Fire, Destruction, Ingenuity"
-	desc = "The Opinionless God teaches that tools for killing or saving are tools, either way. The well-oiled guillotine and the well-sharpened axe are merely tools, and there is no good and evil to their craft."
-	worshippers = "Smiths, Miners, Engineers, Dwarves"
-	virtues = "Craftsmanship, Chastity, Diligence"
-	sins = "Sloth, Moralism, Suicide"
+	titles = "The Shaper. The Smith. The Mountain."
+	domain = "The Earth, Ores, the Deep Below, Comradery"
+	desc = "While the other patrons may be concerned with what lies on the surface, it is they who shaped the very soil itself. \
+	Their domain lies beneath, from the many caves in mountains, to the deep caverns below. \
+	The domain of earth, sought after by smiths, miners, tunnelers and anyone who seeks for guidance in the deep below. \
+	Only by braving the lightless domain together, does one truly know a friend."
+	worshippers = "Miners, Cave Explorers, Blacksmiths, Dwarves, Kobolds."
+	virtues = "Prospecting, Forging, Exploration, Mountaineering, Merriment"
+	sins = "Nyctophobia, Wasting Metals, Abandonment of Allies"
 	mob_traits = list(TRAIT_FORGEBLESSED, TRAIT_BETTER_SLEEP)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/malum_flame_rogue 	= CLERIC_T0,

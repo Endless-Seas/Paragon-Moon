@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(mercenary_positions, list(
 GLOBAL_LIST_INIT(youngfolk_positions, list(
 	"Churchling",
 	"Shophand",
-	"Vagabond",
+//	"Vagabond",
 	//Desert
 	"Palace Slave",
 ))
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Adventurer",
 	"Assassin",
 	"Court Agent",
-	"Enslaved Adventurer",
+//	"Enslaved Adventurer",
 	"Bandit",
 	"Wretch",
 	"Gnoll",

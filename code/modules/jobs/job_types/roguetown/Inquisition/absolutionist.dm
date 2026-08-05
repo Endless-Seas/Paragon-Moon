@@ -7,7 +7,9 @@
 	spawn_positions = 1
 	allowed_races = RACES_NO_CONSTRUCT
 	allowed_patrons = list(/datum/patron/old_god) //Requires the character to be a practicing Psydonite.
-	tutorial = "Once, you were alone in this monastery; a chapel of stone, protecting a shard of Psydon's divinity. Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. Temper the floch with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
+	tutorial = "Once, you were alone in this vessel, Charged with protecting a shard of The One's divinity. \
+	Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. \
+	Temper the fools with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
 	selection_color = JCOLOR_INQUISITION
 	outfit = /datum/outfit/job/roguetown/absolver
 	display_order = JDO_ABSOLVER
@@ -38,6 +40,8 @@
 	supervisors = "Inquisitor"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_faith_hooks = TRUE
+	inquis_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Carry out instructions, as given by the Inquisitor. <br> \
@@ -51,7 +55,9 @@
 
 /datum/advclass/absolver
 	name = "Absolver"
-	tutorial = "Once, you were alone in this monastery; a chapel of stone, protecting a shard of Psydon's divinity. Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. Temper the floch with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
+	tutorial = "Once, you were alone in this vessel, Charged with protecting a shard of The One's divinity. \
+	Now, you've a whole sect to shepherd - and their propensity for violence oft-clashes with your own vows of pacifism. \
+	Temper the fools with your wisdom, siphon away their wounds with your blessings, and guide the wayard towards absolution."
 	outfit = /datum/outfit/job/roguetown/absolver/basic
 	subclass_languages = list(/datum/language/otavan)
 	category_tags = list(CTAG_ABSOLVER)

@@ -27,7 +27,7 @@
 
 	wanderer_examine = TRUE
 	advjob_examine = TRUE
-	always_show_on_latechoices = TRUE
+//	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = FALSE //no endless stream of bandits, unless the migration waves deem it so
 	job_traits = list(TRAIT_SELF_SUSTENANCE, TRAIT_DEATHBYSNUSNU, TRAIT_STEELHEARTED)
 	same_job_respawn_delay = 1 MINUTES

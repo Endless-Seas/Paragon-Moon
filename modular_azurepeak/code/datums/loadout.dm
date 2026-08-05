@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/tri_grenzelhoft_hat_capless
 	name = "Capless Grenzelhoft Hat"
 	path = /obj/item/clothing/head/roguetown/caplessgrenzelhofthat
-	
+
 //CLOAKS
 /datum/loadout_item/tabard
 	name = "Tabard"

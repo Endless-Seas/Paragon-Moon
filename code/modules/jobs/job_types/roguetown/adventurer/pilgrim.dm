@@ -23,6 +23,6 @@
 	max_pq = null
 	wanderer_examine = TRUE
 	advjob_examine = TRUE
-	always_show_on_latechoices = TRUE
+//	always_show_on_latechoices = TRUE
 	same_job_respawn_delay = 0
 

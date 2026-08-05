@@ -1,7 +1,8 @@
 /datum/faith/divine
-	name = "Divine Pantheon"
-	desc = "The Ten were once the Diecian Council of Saints, demigods sired by PSYDON to shepherd His people. \
-	After His fall, the Ten took the position of the Gods of Grimoria, and the Holy See of Grenzelhoft was formed. \
-	In this modern dae, Tennite worship is the most common religion across all of Grimoira."
-	worshippers = "The Commonfolk, The Just and True, The Zealous, The Noble"
+	name = "The Pantheon"
+	desc = "The widest spread religion among the many fledgeling nations. \
+	While not adhering to the One Truth preached by the Empire, \
+	the people were quick to establish a vast pantheon of gods many generations ago to fit their every need. \
+	Be it a prayer for a good harvest, health or kinship, the few answered the many, their boons a testament to their own truths."
+	worshippers = "The Commonfolk, The Zealous"
 	godhead = /datum/patron/divine/astrata

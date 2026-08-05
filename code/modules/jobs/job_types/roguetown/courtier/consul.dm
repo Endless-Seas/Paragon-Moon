@@ -104,7 +104,7 @@
 			if("Empire")//Trust that a Zizite Empire FREEK will be funny.
 				H.adjust_skillrank_up_to(/datum/skill/magic/holy, 3, TRUE)
 				var/datum/devotion/D = new /datum/devotion(H, H.patron)
-				D.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_1)
+				D.grant_miracles(H, cleric_tier = CLERIC_T0, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = (CLERIC_REQ_1 - 50))
 				beltr = /obj/item/clothing/neck/roguetown/luckcharm/consul_badge/empire
 			if("Confederacy")//Some combat skills, to show prior service.
 				H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 3, TRUE)

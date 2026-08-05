@@ -33,8 +33,8 @@
 		to_chat(src, span_info("ROUND ID: [GLOB.rogue_round_id]"))
 
 	if(client.is_new_player())
-		to_chat(src, span_userdanger("Due to an invasion of goblins trying to play ROGUETOWN, you need to register your discord account or support us on patreon to join."))
-		to_chat(src, span_info("We dislike discord too, but it's necessary. To register your discord or patreon, please click the 'Register' tab in the top right of the window, and then choose one of the options."))
+		to_chat(src, span_userdanger("You are strongly encouraged to join the Discord, if you are somehow whitelisted yet not inside of such."))
+		to_chat(src, span_info("You may otherwise miss important news or announcements."))
 	else
 		var/shown_patreon_level = client.patreonlevel()
 		if(!shown_patreon_level)
@@ -55,6 +55,8 @@
 
 	to_chat(src, "<a href='?src=[REF(src)];open_changelog=1' style='color:#638500;text-decoration:underline;'><b>Open Changelog</b></a>")
 
+	to_chat(src, "<a href='?src=[REF(src)];rpprompt=1' style='color:#5CA4B2;text-decoration:underline;'><b>Open Compendium</b></a>")
+
 	if(GLOB.admin_notice)
 		to_chat(src, span_notice("<b>Admin Notice:</b>\n \t [GLOB.admin_notice]"))
 
@@ -73,5 +75,5 @@
 
 		SSvote.send_vote(client)
 		var/usedkey = ckey(key)
-		var/list/thinz = list("takes a seat.", "settles in.", "joins the session", "joins the table.", "becomes a player.")
+		var/list/thinz = list("has found safe harbour.", "emerges from their cabin.", "peers out to sea.", "stands at attention!", "bows gracefully.")
 		SEND_TEXT(world, span_notice("[usedkey] [pick(thinz)]"))

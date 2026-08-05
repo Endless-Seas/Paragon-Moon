@@ -34,6 +34,8 @@
 	)
 
 	supervisors = "Inquisitor | Absolver"
+	has_faith_hooks = TRUE
+	inquis_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Carry out instructions, as given by the Inquisitor. <br> \

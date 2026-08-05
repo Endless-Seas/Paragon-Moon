@@ -28,6 +28,8 @@
 
 	supervisors = "Your Patron | Bishop <br>\
 					Sanguifier"
+	has_faith_hooks = TRUE
+	church_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Maintain, defend and otherwise keep vigil on the Church's grounds. <br> \

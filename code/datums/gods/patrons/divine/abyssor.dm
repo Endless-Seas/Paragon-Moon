@@ -1,10 +1,14 @@
 /datum/patron/divine/abyssor
 	name = "Abyssor"
-	domain = "The Seas, Dreams, Purity, Cleansing"
-	desc = "The Pure Tide disappeared into a slumber, without considering that His dreams would inspire followers of His Divine Absence. The twisted minds and bodies of the Dreamers have corrupted His realm, though through His waters may we be cleansed. If He awakens, the world will be cleansed in full."
-	worshippers = "Fishermen, Axians, Lamia, Dreamers, Madmen"
-	virtues = "Dreaming, Open-Mindedness, Purity"
-	sins = "Forgetfulness, Deception, Taking Name in Vain"
+	titles = "The Dreamer. The Kraken. The Seer."
+	domain = "The Sea, Weather, Prophecy"
+	desc = "A moody god mostly followed by fishermen, sailors and oracles. \
+	They are who you would pray to for a good catch, a safe voyage for your ship, but equally to glimpse into the unknown. \
+	They will see you reach your destination safely or brush you against the rocky coast, \
+	bestow you visions of what may yet come to pass or reflect on events long past."
+	worshippers = "Sailors, Oracles, Fortune Tellers, Tideborne"
+	virtues = "Braving Storms, Wanderlust, Vivid Dreaming, Nautical Expertise"
+	sins = "Closemindedness, Disrespecting the Sea, Hydrophobia"
 	mob_traits = list(TRAIT_ABYSSOR_SWIM, TRAIT_SEA_DRINKER)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/aquatic_compulsion	= CLERIC_T0,

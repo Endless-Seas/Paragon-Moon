@@ -20,8 +20,8 @@
 		TRAIT_OUTLANDER
 		)
 	subclass_stats = list(
-		STATKEY_WIL = 3,
 		STATKEY_CON = 3,
+		STATKEY_WIL = 3,
 		STATKEY_SPD = 2,
 		STATKEY_PER = 1,
 		STATKEY_INT = 1

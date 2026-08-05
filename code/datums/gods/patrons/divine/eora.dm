@@ -1,10 +1,12 @@
 /datum/patron/divine/eora
 	name = "Eora"
-	domain = "Love, Family, Beauty"
-	desc = "The Lady of the Hearth blesses our Love, unconditional of for whom it is for. Marriage is Astrata's Tyranny encroaching on Eora's domain. Her followers are oft promiscuous, bards especially so."
-	worshippers = "Lovers, Doting Parents, Bards, Hopeless Romantics"
-	virtues = "Compassion, Beauty, Art"
-	sins = "Dispassion, Overindulgence, Sadism"
+	titles = "The Lover. The Matron"
+	domain = "Fertility, Beauty, Kindness, Family"
+	desc = "The deity who provides comfort to those in need, to mend hearts, reunite those estranged and to form lasting bonds. \
+	Believed to be a force of good, to bring hope and to see the good in all, no matter how little."
+	worshippers = "Lovers, Aspiring Parents, Faefolk"
+	virtues = "Selflessness, Redemption, Kindness, Beauty"
+	sins = "Old Grudges, Blind Vengeance, Selfishness, Arrogance, Ugliness"
 	mob_traits = list(TRAIT_EMPATH, TRAIT_EXTEROCEPTION)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/massage				= CLERIC_T0,

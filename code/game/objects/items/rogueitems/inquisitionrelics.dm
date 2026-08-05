@@ -310,7 +310,7 @@ Inquisitorial armory down here
 
 /obj/item/flashlight/flare/torch/lantern/psycenser
 	name = "Golgatha"
-	desc = "A masterfully-crafted thurible that, when opened, emits a ghastly perfume that reinvigorates the flesh-and-steel of Psydonites. It is said to contain a volatile fragment of the Comet Syon, which - if mishandled - can lead to unforeseen consequences."
+	desc = "A masterfully-crafted thurible that, when opened, emits a ghastly perfume that reinvigorates the flesh-and-steel of Psydonites. It is said to contain a volatile fragment of The One's divinity, which - if mishandled - can lead to unforeseen consequences."
 	icon_state = "psycenser"
 	item_state = "psycenser"
 	light_outer_range = 8
@@ -387,7 +387,7 @@ Inquisitorial armory down here
 /obj/item/flashlight/flare/torch/lantern/psycenser/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()	//We smashed a guy with it turned on. Bad idea!
 	if(ismob(A) && on && (user.used_intent.type == /datum/intent/mace/smash/flail/golgotha) && user.cmode)
-		user.visible_message(span_warningbig("[user] smashes the exposed [src], shattering the shard of SYON!"))
+		user.visible_message(span_warningbig("[user] smashes the exposed [src], shattering the shard!"))
 		explosion(get_turf(A),devastation_range = 2, heavy_impact_range = 3, light_impact_range = 4, flame_range = 2, flash_range = 4, smoke = FALSE)
 		fuel = 0
 		turn_off()
@@ -450,9 +450,9 @@ Inquisitorial armory down here
 
 /datum/component/psyblessed/proc/on_examine(datum/source, mob/user, list/examine_list)
 	if(!is_blessed)
-		examine_list += span_info("<font color = '#cfa446'>This object may be blessed by the lingering shard of COMET SYON. Until then, its impure alloying of silver-and-steel cannot blight inhumen foes on its own.</font>")
+		examine_list += span_info("<font color = '#cfa446'>This object may be blessed by the lingering shard of The One's divinity. Until then, its impure alloying of silver-and-steel cannot blight inhumen foes on its own.</font>")
 	if(is_blessed)
-		examine_list += span_info("<font color = '#46bacf'>This object has been blessed by COMET SYON.</font>")
+		examine_list += span_info("<font color = '#46bacf'>This object has been blessed by The One's power.</font>")
 		if(silver)
 			examine_list += span_info("It has been imbued with <b>silver</b>.")
 
@@ -468,7 +468,7 @@ Inquisitorial armory down here
 	if(isitem(parent))
 		var/obj/item/I = parent
 		playsound(I, 'sound/magic/holyshield.ogg', 100)
-		I.visible_message(span_notice("[I] glistens with power as dust of COMET SYON lands upon it!"))
+		I.visible_message(span_notice("[I] glistens with power as dust of The One's own divinity lands upon it!"))
 
 /datum/component/psyblessed/proc/apply_bless()
 	if(isitem(parent))

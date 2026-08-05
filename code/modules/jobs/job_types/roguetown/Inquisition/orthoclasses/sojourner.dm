@@ -3,9 +3,9 @@
 //Do not numberfuck them if you can help it. I beg you.
 /datum/advclass/sojourner
 	name = "Sojourner"
-	tutorial = "Naledi scholars, bereft of their home, were sent around Grimoria searching for purpose. They'd found it in Otava, \
+	tutorial = "Scholars, bereft of their home, were sent around the realms searching for purpose. They'd found it in the Otvan Empire, \
 	within the hallowed halls that honed their gifts and refined the knowledge they'd held. Attached to the Inquisitor, you've one purpose. \
-	Show them that the fall wasn't pointless."
+	Show them that it wasn't pointless."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/sojourner
@@ -17,7 +17,7 @@
 		TRAIT_ALCHEMY_EXPERT,
 		TRAIT_ARCYNE_T1,//They're not meant to get more spellpoints. If they do, via Arcyne virtue, for example, T1 only.
 	)
-	subclass_stats = list(//This does not follow the typical 8 stat setup.
+	subclass_stats = list(//This does not follow the typical stat setup.
 		STATKEY_INT = 3,
 		STATKEY_PER = 2,
 		STATKEY_STR = -1,

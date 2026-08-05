@@ -1,10 +1,16 @@
 /datum/patron/inhumen/graggar
 	name = "Graggar"
-	domain = "Conquest, Cruelty, Kinslaying, Slaughter, Cannibalism, Domination"
-	desc = "The Gorebound Star was a half-orc warlord who sought to strike Ravox down in rage at the cruel fate of His lover. He was decapitated, and His head revived as a mutilated aberration of blue flesh and sickening tendrils. Gazing upon the Star will drive anyone mad."
-	worshippers = "Fallen Warriors, Cannibals, Serial Killers, The Cruel"
-	virtues = "Martial Prowess, Dominance, Violence"
-	sins = "Weakness, Servility, Cowardice"
+	titles = "The Warlord. The Unbroken. The Spirit of Vengeance."
+	domain = "Bravery, Bloody Retribution, Martial Skill, Bloodlust"
+	desc = "To worship the aspect of war itself is to find comfort in the thrill of combat. \
+	Those who pray to this aspect may seek to stand among the warriors of legend, \
+	to enact revenge on those who have wronged you or those dear to you, to find resolve when fear grips your heart and clouds your mind, \
+	or lose yourself and let their spirit guide your hands so that you may survive the battle ahead. \
+	To invite war into your home is to play with a fire that may never be extinguished. \
+	Their worship is seen as frightening, between acts of impulse and barbarism."
+	worshippers = "Soldiers, Berserkers, Weak Pawns, the Vindictive"
+	virtues = "Glory, Martial Prowess, Survival, the Absence of Fear"
+	sins = "Surrendering Without a Fight, Accepting Weakness, Lack of Resolve"
 	mob_traits = list(TRAIT_HORDE, TRAIT_ORGAN_EATER)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/self/graggar_bloodrage				= CLERIC_T0,

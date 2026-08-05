@@ -1,10 +1,14 @@
 /datum/patron/old_god
 	name = "Psydon"
-	domain = "Life, Creation, Compassion and Perseverance"
-	desc = "The One arrived to PSYDONIA on the COMET SYON, reshaping the barren world in His image. He was struck down by the Necromantress Zizo; some believe Him dead, others slumbering. May we ENDURE in His name."
-	worshippers = "Ancient Dwarves and Elves, Zybantines, Otavans, Those Who Dream of Peace"
-	virtues = "Peace, Resilience, Stubbornness"
-	sins = "Witchcraft, Sadism, Overindulgence"
+	titles = "The Maker. The Creator. The Allfather."
+	domain = "Creation, Fate, Resolve"
+	desc = "Though primarily worshipped by the Empire, \
+	the belief in an all encompassing god who has shaped the world and is responsible for all we know isn't a foreign concept. \
+	Neither benevolent nor malicious, life is a gift and we endure hardships to be tested and learn from our mistakes. \
+	If one god is the truth of this world, then all gods are but reflections of His whole, or so their most faithful would believe."
+	worshippers = "Imperial Clergy. Converts. The Lost."
+	virtues = "Enduring Faith, Strength of Will, Unity"
+	sins = "Pragmatism, Disorder"
 	associated_faith = /datum/faith/old_god
 	mob_traits = list(TRAIT_PSYDONIAN_GRIT)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
@@ -15,7 +19,7 @@
 	traits_tier = list(TRAIT_PSYDONITE = CLERIC_T1)
 	confess_lines = list(
 		"THERE IS ONLY ONE TRUE GOD!",
-		"PSYDON YET LYVES! PSYDON YET ENDURES!",
+		"JUST AS THE ONE I YET ENDURE!",
 		"REBUKE THE HEATHEN, SUNDER THE MONSTER!",
 		"WITH EVERY BROKEN BONE, I SWORE I LYVED!",
 		"FORGIVE THEM, ALLFATHER, FOR THEY KNOW-NOT WHAT THEY DO!",

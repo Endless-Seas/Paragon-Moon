@@ -134,11 +134,6 @@
 					/obj/item/ration,
 				)
 
-/datum/supply_pack/rogue/adventure_supplies/rationpaper
-	name = "Roll of bandages"
-	cost = 25
-	contains = list(/obj/item/natural/bundle/cloth/bandage/full)
-
 /datum/supply_pack/rogue/adventure_supplies/small_tent
 	name = "Small Tent Kit"
 	cost = 50

@@ -1,10 +1,13 @@
 /datum/patron/inhumen/zizo
 	name = "Zizo"
-	domain = "Necromancy, Ambition, The Rot, Left-Handed Magicks"
-	desc = "In the ancient times there was a mortal who formed a mighty empire, and through the sacrifice of its population ascended to godhood. Those who were weaker were bound even in death, their oaths eternal and their labor without end. Zizo is proof of humanity’s sheer potential. Now chained in the underworld she whispers to mortals to act in her name, rebuild her power and allow her to be freed to roam the mortal world once more, and continue her regime."
-	worshippers = "Necromancers, the undead, secretive cabals, conquerors and madmen."
-	virtues = "Ambition, Domination, Undeath"
-	sins = "Humility, Ignorance, Stagnation"
+	titles = "The Timekeeper. The Eternal. The Puppeteer."
+	domain = "Secrets, Undeath, Time"
+	desc = "The Patron of those who seek success at any cost. \
+	Followers of this domain seek to gain an upper hand, be it by asking to bend time in their favour, \
+	to gain power through trickery and sinister ploys or to even will the dead to serve once more. Their worship is regarded as vile and dangerous."
+	worshippers = "Seekers of Life Eternal, Necromancers, Spies, Schemers"
+	virtues = "Chaos, Lust for Power, Clever Ploys, Sowing Disorder"
+	sins = "Brute Force, Talentless Hacks, Needless Theatrics "
 	mob_traits = list(TRAIT_CABAL, TRAIT_ZIZOSIGHT)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/self/zizo_snuff						= CLERIC_T0,

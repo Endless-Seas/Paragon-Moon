@@ -182,9 +182,9 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 //		src << browse(null, "window=playersetup") //closes the player setup window
 		new_player_panel()
 
-//	if(href_list["rpprompt"])
-//		do_rp_prompt()
-//		return
+	if(href_list["rpprompt"])
+		do_rp_prompt()
+		return
 
 	if(href_list["late_join"])
 		if(!SSticker?.IsRoundInProgress())

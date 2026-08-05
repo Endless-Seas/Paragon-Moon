@@ -1,10 +1,13 @@
 /datum/patron/inhumen/baotha
 	name = "Baotha"
-	domain = "Hedonism, Debauchery, Addiction, Heartbreak"
-	desc = "The Lady of Debauchery was the only snow elf to have survived Zizo's massacre, having been kept by the Naledi as a concubine. Until one dae, She was consumed by Her depravity and addiction, stealing a shard of SYON from Her captors and ascending to godhood. Her followers desire only to experience mind-rotting pleasures."
-	worshippers = "Widows, Gamblers, Addicts, Scorned Lovers, Far-Gone Prostitutes"
-	virtues = "Lust, Gluttony, Thrill-Seeking"
-	sins = "Chastity, Temperance, Gloom"
+	titles = "The Fallen One. The Temptation. The Dark Urge."
+	domain = "Escapism, Fleeting Happiness, Addiction, Gluttony"
+	desc = "Scorned lovers, those mourning loss and try to fill the void, the ones who have nothing or can never get enough. \
+	Pained pleas to an aspect that promises to soothe you. You may find comfort, a rush, even love, but for how long till the pain resurfaces? \
+	If the joy is fleeting, how far are you willing to go in the hopes to make it last? Their worship is pitied rather than hated."
+	worshippers = "The Depressed, Those Hungering to Fill a Void, Heartbroken Fools"
+	virtues = "Indulging in Excess, Expressing Emotions Unfiltered, Self-Centered Ideals"
+	sins = "Self-Admonition, Denying One's Cravings, Ignoring Intrusive Thoughts"
 	mob_traits = list(TRAIT_DEPRAVED, TRAIT_CRACKHEAD)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/baothavice					= CLERIC_T0,

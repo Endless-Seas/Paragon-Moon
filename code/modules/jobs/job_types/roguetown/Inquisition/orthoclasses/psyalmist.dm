@@ -9,12 +9,12 @@
 	traits_applied = list(TRAIT_EMPATH, TRAIT_DODGEEXPERT)
 	category_tags = list(CTAG_INQUISITION)
 	subclass_languages = list(/datum/language/otavan)
-	subclass_stats = list(//This does not follow the typical 8 stat setup.
+	subclass_stats = list(
+		STATKEY_SPD = 1,
 		STATKEY_STR = 1,
 		STATKEY_LCK = 1,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
-		STATKEY_SPD = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/music = SKILL_LEVEL_MASTER,

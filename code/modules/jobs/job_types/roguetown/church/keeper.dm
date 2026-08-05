@@ -41,6 +41,8 @@
 	supervisors = "Pestra | Bishop"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_faith_hooks = TRUE
+	church_hook = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Instruct, inform or otherwise care for others who show interest in the heart. <br> \

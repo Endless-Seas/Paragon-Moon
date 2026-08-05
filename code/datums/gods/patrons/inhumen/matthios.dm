@@ -1,10 +1,14 @@
 /datum/patron/inhumen/matthios
 	name = "Matthios"
-	domain = "Greed, Theft, Dragons, True Freedom"
-	desc = "The Manyfaced Matthios has no true form. Some see Him as a merry highwayman, some as a god of beggars, and others the father of all dragons. One thing is certain: His followers despise Astrata's nobility."
-	worshippers = "Highwaymen, Downtrodden Peasants, Merchants, Slaves, Kobolds"
-	virtues = "Varies; usually greed and commerce"
-	sins = "Nobility, Sloth, Submitting to \"Unjust Hierarchies\""
+	titles = "The Aspect of Pride. The Gilded Serpent."
+	domain = "Greed, Envy, Arrogance"
+	desc = "Pettiness in the truest form, the aspect of pride bestows confidence at the flip of a coin. \
+	Thought to be responsible for the creation of dragons due to their prideful nature and love for gold, or even pictured as one themself. \
+	To worship this aspect is to walk a dangerous line between ever higher highs and certain doom. \
+	None may stand taller and eclipse your light if you are to bask in their fortune and fame. Their worship is seen as highly immoral."
+	worshippers = "Tyrants, Gamblers, Egomaniacs, Corrupt Nobles, Dragonblooded"
+	virtues = "Wealth, Luck, Fame, Rising in Reputation or Rank, Superiority"
+	sins = "Loss, Bad luck, Remaining Willingly Subservient, Accepting Failure"
 	crafting_recipes = list(/datum/crafting_recipe/roguetown/sewing/bandithood)
 	mob_traits = list(TRAIT_COMMIE, TRAIT_MATTHIOS_EYES, TRAIT_SEEPRICES_SHITTY)
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
