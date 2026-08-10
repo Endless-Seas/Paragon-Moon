@@ -64,6 +64,7 @@
 		M.emote("agony", forced = TRUE)
 		M.Unconscious(100)
 		M.Jitter(15)
+		loud_message("[src] ejects a pained wail", hearing_distance = 24)//Twice as loud as the alarms. What are you doing? Seriously?
 
 		. = FALSE
 

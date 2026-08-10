@@ -28,7 +28,6 @@
 	)
 
 	leave_admin_shout = TRUE
-	roleplay_exclusive_notify = TRUE
 	has_faith_hooks = TRUE
 	inquis_hook = TRUE
 
