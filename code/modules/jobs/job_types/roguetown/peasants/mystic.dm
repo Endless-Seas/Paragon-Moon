@@ -9,7 +9,7 @@
 /datum/job/roguetown/mystic
 	title = "Mystic"
 	f_title = "Mystic"
-	flag = WENCH
+	flag = MYSTIC
 	department_flag = PEASANTS
 	faction = "Station"
 	total_positions = 1

@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		Zs_too = FALSE
 		Zs_yell = FALSE
 		Zs_all = FALSE
-	
+
 	// AZURE EDIT: thaumaturgical loudness (from orisons)
 	if (has_status_effect(/datum/status_effect/thaumaturgy))
 		spans |= SPAN_REALLYBIG
@@ -562,7 +562,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(findtext(message, regex("yield|give\\s*up|surrender|stop\\s*resisting","i")))
 		play_overhead_private_rclickemote(heard_message, "yield")
 		for(var/mob/living/carbon/human in heard_message)
-			human.apply_status_effect(/datum/status_effect/debuff/yield_prompt)
+			if(human in oview(6, speaker_turf))//Why wasn't this done before? Thanks, RW. Awesome. Great. Incredible.
+				human.apply_status_effect(/datum/status_effect/debuff/yield_prompt)
 
 	//speech bubble
 	var/list/speech_bubble_recipients = list()

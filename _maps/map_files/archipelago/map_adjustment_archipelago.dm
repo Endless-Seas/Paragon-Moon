@@ -3,9 +3,11 @@
 	realm_name = "Northwich"
 	slot_adjust = list(
 		//Keep start.
-		/datum/job/roguetown/manorguard = 3,//Lowpop blues.
+		/datum/job/roguetown/prince = 1,//We only want one, here.
+		/datum/job/roguetown/manorguard = 3,
 		/datum/job/roguetown/wapprentice = 2,
 		/datum/job/roguetown/squire = 2,//The CAPTAIN requires NO HELP. GOOD GOD. NO.
+		/datum/job/roguetown/servant = 3,
 		//Inquis start.
 		/datum/job/roguetown/orthodoxist = 2,
 		//Church start.
@@ -13,12 +15,16 @@
 		/datum/job/roguetown/monk = 2,
 		/datum/job/roguetown/druid = 2,
 		/datum/job/roguetown/keeper = 1,//I HATE YOU
+		//Yeoman start.
+		/datum/job/roguetown/guildsman = 3,
 	)
 	title_adjust = list(
 		//Court
 		/datum/job/roguetown/lord = list(display_title = "Baron", f_title = "Baroness"),
 		/datum/job/roguetown/prince = list(display_title = "Heir", f_title = "Heiress"),
 		/datum/job/roguetown/veteran = list(display_title = "Honorant"),
+		//Garrison
+		/datum/job/roguetown/squire = list(display_title = "Aspirant"),
 		//Church
 		/datum/job/roguetown/martyr = list(display_title = "Sanguifier"),
 	)
@@ -26,9 +32,9 @@
 	//Keep aligned, first. The main three.
 	/datum/job/roguetown/lord = "You are the 'forever' Baron. A figure of incredible sway within the region, laying claim to an entire archipelago. \
 	After the Confederacy's attempt at securing their own power, only to find themselves swayed by your Archeovault's toys, \
-	or the Inquisitorial retinue of the Empire having attempted to leap at your throat when they learned the truth, centuries ago? \
+	or the Inquisitorial arm of the Empire having attempted to leap at your throat when they learned the truth, centuries ago? \
 	An uneasy peace has been brokered. You are no heretic, at least in their eyes. You've simply stumbled upon something horrific, \
-	with them now duty bound to assure it remains guarded. The fools.",
+	with you now duty bound to assure it remains guarded. The fools.",
 	/datum/job/roguetown/hand = "You are the Hand. The lord's Maven. Their second, in function, of nearly the same stature and station. \
 	A figure ennobled by the discovery you and your two companions had made, centuries ago. <br>\
 	It had been you who tarried, just as it'll be you to die, should the Baron's trust be a fool's endeavour. \
@@ -36,7 +42,7 @@
 	/datum/job/roguetown/veteran = "Fools may see a simple 'veteran', or perhaps an old codger. \
 	Though, not far from the truth, you've done more than most can lay claim to in your life. \
 	You were there. Present during the Baron's ascension to power, with the tools gained. \
-	Still, of course, present now, centuries later. Retained, unlike many others the lord had discarded, simply for your knowledge and skill alone. <br>\
+	Still, of course, present now, centuries later. Incapable of hanging up your blade. <br>\
 	You're, quite possibly, the most decorated figure on the isle. Something none can lay claim to, or challenge. \
 	Though, these days, both Baron and Hand seem content to pretend you're a simple menial in their employ.",
 	//Garison. Still keep aligned.
@@ -54,9 +60,9 @@
 	For in time, you will come to replace them. To inherit the gifts they've been given. \
 	In what state you're in when such a time comes, however? That is yet to be seen. <br>\
 	For the island has a way of making the naive suffer, and you've been thrust into a position few would envy.",
-	/datum/job/roguetown/manorguard = "After the Discovery of the Archeovault, the Baron saw fit to purging those with knowledge of it. \
+	/datum/job/roguetown/manorguard = "After the Baron's rise to power, few remained with knowledge of the truth. \
 	That had been centuries ago. A maddening thing to think about, now, given the vague understanding most have on the matter. <br>\
-	Rather than worry, you'd signed up, having now been granted many gifts for your service. \
+	Rather than worry, you'd signed up, having been granted many gifts for your service. \
 	Whatever makes you special, you're sure to stand out in the troubles to come. \
 	Brandish arclight rifle and banner. Raise your head high, and parade behind the knights as they carry out the Baron's will.",
 	/datum/job/roguetown/warden = "A seafarer, in your current years. Likely trusted of the Baron, once, and now relegated to dock-duty. \
@@ -69,9 +75,10 @@
 	you have a slightly different set of tools. <br>\
 	Wield hellfire and refraction lance in the name of your beloved Patron and the diocese's own. \
 	For the horrors will come soon, and the toys provided by the Baron to hide their faults will not avail them, should the truth get out.",
-	/datum/job/roguetown/priest = "You are the Bishop of this squalid island, either sent here as punishment by the See, or a figure of unsound judgement. \
+	/datum/job/roguetown/priest = "You are the Bishop of this squalid island, either sent here as punishment by the Confederacy's See, \
+	or a figure of unsound judgement. <br>\
 	Perhaps you may yet do some good, assuming the entire isle isn't beyond saving. \
-	Tend to your newfound congregation, and see to it that the Ten's light isn't forgotten in a place such as this.",
+	Tend to your newfound congregation, and see to it that the Pantheon's light isn't forgotten in a place such as this.",
 	//Now, for the Inquisition.
 	/datum/job/roguetown/puritan = "That estate. That damnable estate. The cause of problems on the mainland. \
 	It all points to the Baron. You just don't know <b>why</b>! And neither does the Empire itself or the wretched Confederacy. \
@@ -110,8 +117,10 @@
 
 		//Church.
 		/datum/job/roguetown/churchling,
+		/datum/job/roguetown/martyr,//You need to be redone. See text above.
 
 		//General towners. Unfortunately, Homesteader replaces some of you.
+		//When I gut that again or we figure something NEW out, we'll return you.
 		/datum/job/roguetown/apothecary,
 		/datum/job/roguetown/clerk,
 		/datum/job/roguetown/orphan,
@@ -123,15 +132,6 @@
 		/datum/job/roguetown/lunatic,
 		/datum/job/roguetown/prisonerr,//Kind of an outsider. Need to fix this up later.
 
-		//I hate you so much.
-		/datum/job/roguetown/cataphract,
-		/datum/job/roguetown/headslave,
-		/datum/job/roguetown/janissary,
-		/datum/job/roguetown/janissarysergeant,
-		/datum/job/roguetown/azebagha,
-		/datum/job/roguetown/slavemaster,
-		/datum/job/roguetown/slave,
-		/datum/job/roguetown/adventurer/courtslave,
 	)
 	threat_regions = list(
 		THREAT_REGION_ROCKHILL_BASIN,
