@@ -72,6 +72,8 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/bluthund,
 	)
 
+	fear_of_change = TRUE//Couldn't possibly imagine why...
+
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Explore. Adapt. Abuse the resources given to you, away from the isle."
 

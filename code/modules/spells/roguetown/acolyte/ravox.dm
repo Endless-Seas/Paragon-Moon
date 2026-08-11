@@ -401,6 +401,8 @@ GLOBAL_LIST_EMPTY(arenafolks) // we're just going to use a list and add to it. S
 
 //Special stamina and energy regen.
 //This is WILD and locked to their ritual for a reason.
+//Equivalent to a full reset for energy and stamina on 99% of characters. Full stop.
+//Frag on, my little fragchamp.
 /obj/effect/proc_holder/spell/self/justiciar_might
 	name = "Justiciar's Might"
 	desc = "Grants an immediate boost to stamina and energy, so you may continue to fight on! \
@@ -410,7 +412,7 @@ GLOBAL_LIST_EMPTY(arenafolks) // we're just going to use a list and add to it. S
 	overlay_state = "ravox_might"//I'm so tired I didn't even bother.
 	sound = 'sound/magic/necra_sight.ogg'
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
-	invocations = list("RAAAGH!!")//RAAAGH!! KILL!!
+	invocations = list("RAAAGH!!")//RAAAGH!! KILL!! You can't even see this, though. But it's funny.
 	invocation_type = "shout"
 	miracle = TRUE
 	var/stam_recovery = 200//Oh, yeah!!!! WELCOME TO FRAG TOWN, BABY!!!
@@ -421,24 +423,4 @@ GLOBAL_LIST_EMPTY(arenafolks) // we're just going to use a list and add to it. S
 	user.energy_add(blue_recovery)
 	to_chat(user, span_monkeyhive("FIGHT WELL!"))
 	user.mind?.RemoveSpell(/obj/effect/proc_holder/spell/self/justiciar_might)
-/*
-/obj/effect/proc_holder/spell/self/justiciar_might
-	name = "Justiciar's Might"
-	desc = "Grants an immediate boost to stamina and energy, so you may continue to fight on!"
-	overlay_icon = 'icons/mob/actions/ravoxmiracles.dmi'
-	action_icon = 'icons/mob/actions/ravoxmiracles.dmi'
-	overlay_state = "ravox_might"//I'm so tired I didn't even bother.
-	recharge_time = 30 SECONDS//You have 5 minutes. Pop this constantly.
-	sound = 'sound/magic/necra_sight.ogg'
-	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
-	invocations = list("RAAAGH!!")//RAAAGH!! KILL!!
-	invocation_type = "shout"
-	miracle = TRUE
-	var/stam_recovery = 200//Oh, yeah!!!! WELCOME TO FRAG TOWN, BABY!!!
-	var/blue_recovery = 250//WHO'S KING OF FRAG TOWN? I AM!!!!
 
-/obj/effect/proc_holder/spell/self/justiciar_might/cast(mob/living/carbon/human/user)
-	user.stamina_add(-stam_recovery)
-	user.energy_add(blue_recovery)
-	return TRUE
-*/
