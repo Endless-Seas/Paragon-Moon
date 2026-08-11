@@ -35,10 +35,21 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 	var/inquis_hook = FALSE
 	//Specific hooks for how the Church should interact with other faiths?
 	var/church_hook = FALSE
+	//Is this class liable to change to an extreme degree at some point in the near future?
+	var/fear_of_change = FALSE
 
 //Actual stuff here. Not clean, I know, but, still...
 /datum/job/proc/ShowJobStuff(mob/M)
 	var/list/dat = list("")
+
+	if(fear_of_change)
+		dat += "\n<br><b>- - - - - -</b><br>"
+		dat += "<b><FONT color='red'>IMPORTANT</font></b><br>\
+		<FONT color='grey'>This class is soon to be the subject of extensive changes. <br>\
+		Check your loadout and see that it's to your liking. \
+		If anything appears amiss, you're welcome to far-travel. <br>\
+		We're always looking for feedback, so shout at Carl.</font>"
+		dat += "\n<br><b>- - - - - -</b><br>"
 
 	dat += "<h1>IC Information</h1>"
 	dat += "\n<br><b>- - - - - -</b><br>"

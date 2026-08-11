@@ -211,7 +211,7 @@
 					user.say("Through strength, grace!!")
 					if(do_after(user, 50))
 						user.say("Through grace, security!!")
-						to_chat(user,span_danger("You feel a power of unfathomable intelligence glance down upon you."))
+						to_chat(user,span_danger("You feel an unfathomable intelligence glance upon you."))
 						if(do_after(user, 30))
 							icon_state = "ravox_active"
 							user.say("By way of your beloved justice, we shall bring your righteous fury!!")
@@ -227,25 +227,15 @@
 	for(var/mob/living/carbon/human/target in ritualtargets)
 		if(!istype(target.patron, /datum/patron/divine/ravox))
 			loc.visible_message(span_monkeyhive("AN OUTSIDER? I HAVE NO POWER FOR THE FOOLISH."))
-			return//GOD WHY
+			return//GOD WHY.
 		target.flash_fullscreen("curse1")
 		target.emote("warcry")//RAAAAAAAAAA
 		to_chat(target, span_monkeyhive("RIGHT THE WRONGS OF THIS SQUALID REALM. MY WILL MADE MANIFEST."))
 		var/obj/effect/proc_holder/spell/self/justiciar_might/jm = target.mind?.get_spell(/obj/effect/proc_holder/spell/self/justiciar_might)
 		if(!jm)
 			target.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/justiciar_might)
-//			addtimer(CALLBACK(src, PROC_REF(remove_martial_spell), target), 5 MINUTES)
 		else
 			to_chat(target, span_warning("I already have this power! Gods above, I'm so foolish!"))
-/*
-/obj/structure/ritualcircle/ravox/proc/remove_martial_spell(mob/living/carbon/human/target)
-	if(QDELETED(target) || !target.mind)
-		return
-	var/obj/effect/proc_holder/spell/self/justiciar_might/jm = target.mind?.get_spell(/obj/effect/proc_holder/spell/self/justiciar_might)
-	if(jm)
-		target.mind?.RemoveSpell(/obj/effect/proc_holder/spell/self/justiciar_might)
-		to_chat(target, span_warning("The power I've been granted evaporates, all at once!"))
-*/
 
 /obj/structure/ritualcircle/pestra
 	name = "Rune of Plague"
