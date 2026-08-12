@@ -8,7 +8,7 @@
 	cmode_music = 'sound/music/combat_poacher.ogg'
 	subclass_social_rank = SOCIAL_RANK_PEASANT
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_OUTDOORSMAN)
-	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
+	category_tags = list(CTAG_DISABLED)
 	subclass_stats = list(
 		STATKEY_PER = 3,
 		STATKEY_SPD = 2,

@@ -87,6 +87,8 @@
 	if(HAS_TRAIT(user, TRAIT_CURSE_RAVOX))
 		chance2hit -= 40
 
+	//Ok this is kinda weird and you'd think it breaks the above, but it doesn't.
+	//Trust that this works. TRUST!!!!! BELIEVE!!!!
 	var/funny_zone_type = funtech_zone_difficulty(zone)
 	if(funny_zone_type)
 		switch(funny_zone_type)

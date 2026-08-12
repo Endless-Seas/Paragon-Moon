@@ -406,6 +406,12 @@
 	additional_items = list(/obj/item/clothing/head/roguetown/helmet/leather/armorhood)
 	created_item = /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced
 
+/datum/anvil_recipe/armor/iron/helmetvolf
+	name = "Volf Face Helmet, Iron (+1 Iron)"
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/iron
+	i_type = "Armor"
+
 // STEEL
 
 /datum/anvil_recipe/armor/steel/haubergeon
@@ -840,7 +846,7 @@
 
 /datum/anvil_recipe/armor/blessedsilver/helmetabso/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	
+
 /datum/anvil_recipe/armor/blessedsilver/psyhalfplate/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
 

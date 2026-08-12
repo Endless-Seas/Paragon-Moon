@@ -130,3 +130,8 @@
 	name = "Helmet, Knight"
 	cost = 40
 	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/knight/iron)
+
+/datum/supply_pack/rogue/armor_iron/helmet_volfplate
+	name = "Helmet, Volfplate"
+	cost = 40
+	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/volfplate/iron)

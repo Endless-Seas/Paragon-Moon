@@ -100,7 +100,7 @@
 	name = "Chausses, Plate"
 	cost = 90 // 2 Steel
 	contains = list(/obj/item/clothing/under/roguetown/platelegs)
-	
+
 /datum/supply_pack/rogue/armor_steel/chainkilt
 	name = "Chain Kilt"
 	cost = 50 // 1 Steel

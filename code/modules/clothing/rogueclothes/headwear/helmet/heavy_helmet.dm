@@ -605,7 +605,7 @@
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
 
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate
-	name = "volf-face helm"
+	name = "volfskulle helm"
 	desc = "A steel bascinet helmet with a volfish visor protecting the head, ears, eyes, nose and mouth."
 	icon_state = "volfplate"
 	item_state = "volfplate"
@@ -621,9 +621,25 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
 
-/obj/item/clothing/head/roguetown/helmet/heavy/volfplate/puritan
-	name = "volfskulle bascinet"
-	desc = "A steel bascinet helmet with a snarling visor that protects the entire head and face. It mimics the guise of a terrible nitebeast; intimidating to the levyman, inspiring to the hunter."
+/obj/item/clothing/head/roguetown/helmet/heavy/volfplate/iron
+	name = "volfskulle helm"
+	desc = "An iron bascinet with a volfish visor protecting the head, ears, eyes, nose and mouth."
+	icon_state = "ivolfplate"
+	item_state = "ivolfplate"
+	smeltresult = /obj/item/ingot/iron
+	max_integrity = ARMOR_INT_HELMET_HEAVY_IRON - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
+
+/obj/item/clothing/head/roguetown/helmet/heavy/volfplate/zizo
+	name = "avantyne volfskulle helm"
+	desc = "A heavy volfskulle helm, forged from avantyne. The mask of a killer. Or perhaps one who has nothing left to lose."
+	icon_state = "volfplate_avantyne"
+	item_state = "volfplate_avantyne"
+	max_integrity = ARMOR_INT_HELMET_ANTAG
+	armor = ARMOR_ASCENDANT
+
+/obj/item/clothing/head/roguetown/helmet/heavy/volfplate/zizo/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "HELMET")
 
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/berserker
 	name = "volfskulle bascinet"

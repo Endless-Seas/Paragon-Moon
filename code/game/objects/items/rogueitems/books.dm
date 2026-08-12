@@ -299,7 +299,7 @@
 
 /obj/item/book/rogue/law
 	name = "Tome of Justice"
-	desc = "Issued by the Crown of the Kingdom of Ferentia to serve as the legal framework for the realm."
+	desc = "Issued by the beloved Baron to serve as the legal framework for the realm."
 	icon_state ="lawtome_0"
 	base_icon_state = "lawtome"
 	bookfile = "law_2.json"

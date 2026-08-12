@@ -1614,6 +1614,14 @@
 	gripsprite = FALSE
 	smeltresult = /obj/item/ingot/steel
 
+//Just a worse nomad spear.
+/obj/item/rogueweapon/spear/nomad/paladin
+	name = "duelling spear"
+	desc = "An odd sort of spear. No amount of further leverage will help, for you've all you need in one hand. \
+	Weighted poorly to a mind yet untrained in the use of it, while further still topped by a cheap iron head."
+	max_blade_int = 200
+	smeltresult = /obj/item/ingot/iron
+
 /////////////////////
 // Special Weapon! //
 /////////////////////

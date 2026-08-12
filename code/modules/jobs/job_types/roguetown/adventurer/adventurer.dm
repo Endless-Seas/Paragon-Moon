@@ -11,7 +11,10 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	total_positions = 20
 	spawn_positions = 20
 	allowed_races = RACES_ALL_KINDS
-	tutorial = "Hero of nothing, a wanderer in foreign lands in search of fame and riches. Whatever led you to this fate is up to the wind to decide, and you've never fancied yourself for much other than the thrill. Some day your pride is going to catch up to you, and you're going to find out why most men don't end up in the annals of history."
+	tutorial = "You are no hero. Unlikely to be a figure of note or worth. \
+	For why else would you come to this horrid place? No, truly, you'd likely few options. \
+	Any of which were likely lost long before coming to this isle. <br>\
+	Set out and find your worth, now, fool. Whether it be alone or with the trusted few you may call friends."
 	class_categories = TRUE
 
 	outfit = null
@@ -38,38 +41,12 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	job_subclasses = list(
 		/datum/advclass/cleric,
 		/datum/advclass/cleric/paladin,
-		/datum/advclass/cleric/cantor,
 		/datum/advclass/cleric/missionary,
-		/datum/advclass/cleric/stigmata,
 		/datum/advclass/sfighter,
-		/datum/advclass/sfighter/duelist,
-		/datum/advclass/sfighter/mhunter,
 		/datum/advclass/sfighter/barbarian,
-		/datum/advclass/sfighter/ironclad,
-		/datum/advclass/rogue,
-		/datum/advclass/rogue/thief,
-		/datum/advclass/rogue/bard,
-		/datum/advclass/rogue/swashbuckler,
+		/datum/advclass/sfighter/stalker,
 		/datum/advclass/mage,
-		/datum/advclass/mage/spellblade,
-		/datum/advclass/mage/spellsinger,
-		/datum/advclass/ranger,
-		/datum/advclass/ranger/wayfarer,
-		/datum/advclass/ranger/bombadier,
-		/datum/advclass/ranger/bwanderer,
-		/datum/advclass/noble,
-		/datum/advclass/noble/knighte,
-		/datum/advclass/noble/squire,
-		/datum/advclass/foreigner,
-		/datum/advclass/foreigner/yoruku,
-		/datum/advclass/foreigner/repentant,
-		/datum/advclass/foreigner/refugee,
-		/datum/advclass/foreigner/slaver,
-		/datum/advclass/foreigner/dunewell,
-		/datum/advclass/foreigner/gronn,
-		/datum/advclass/foreigner/nostromo,
-		/datum/advclass/foreigner/aavnik,
-		/datum/advclass/foreigner/bluthund,
+		/datum/advclass/mage/conjurer,
 	)
 
 	fear_of_change = TRUE//Couldn't possibly imagine why...

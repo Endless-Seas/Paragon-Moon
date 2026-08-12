@@ -44,6 +44,7 @@
 
 	supervisors = "Regent | Your Betters"
 	roleplay_exclusive_notify = TRUE
+	fear_of_change = TRUE//Lot of this needs to be redone.
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Go about your daily life, acting so as to not cause strife."

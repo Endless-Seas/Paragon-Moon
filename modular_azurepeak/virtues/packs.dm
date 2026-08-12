@@ -65,45 +65,6 @@
 	- Rich and Shrewd: Appraise spell, see prices, coinpurse stashed (SEEPRICES)\n\
 	- Equestrian: Call and bond with a treasured mount, Apprentice Riding, saddle stashed, navigate doors while mounted (EQUESTRIAN)"
 
-// Scrappy Survivor Pack: Cunning Provisioner + Forester + Feral Appetite
-/datum/virtue/pack/scrappysurvivor
-	name = "Scrappy Survivor (-10 TRI)"
-	desc = "I've lived through hard times - poverty, famine, or exile taught me to make do with what I have. I can fish, farm, forage, and most importantly, I can stomach anything. Spoiled rations? Raw meat? Doesn't matter - I'll eat it and keep going."
-	triumph_cost = 10
-	granted_virtues = list(
-		/datum/virtue/utility/forester,
-		/datum/virtue/utility/feral_appetite
-	)
-	custom_text = "Grants two virtues for the hardened survivor:\n\
-	- Forester: Cooking, Athletics, Farming, Fishing, Lumberjacking skills, Trusty Hoe (HOMESTEAD_EXPERT trait)\n\
-	- Feral Appetite: Can safely eat raw, toxic or spoiled food (NASTY_EATER trait)"
-
-// High Society Pack: Nobility + Socialite
-/datum/virtue/pack/highsociety
-	name = "High Society (-12 TRI)"
-	desc = "I was born into privilege and raised in the finest circles. Noble blood runs through my veins, I read the emotions of others with ease, and my charm opens every door. Wealth, beauty, and status are my birthright."
-	triumph_cost = 12
-	granted_virtues = list(
-		/datum/virtue/utility/noble,
-		/datum/virtue/utility/socialite
-	)
-	custom_text = "Grants two virtues for the aristocrat:\n\
-	- Nobility: Noble status, Reading skill, +15 noble income, Heirloom Amulet & Hefty Coinpurse stashed\n\
-	- Socialite: Beautiful, empathic, good lover traits + hand mirror stashed"
-
-// Trusted Housekeeper Pack: Resident + Cunning Provisioner
-/datum/virtue/pack/housekeeper
-	name = "Trusted Housekeeper (-9 TRI)"
-	desc = "I've served the households of this city for years - cooking, cleaning, and managing provisions. I know every street, have a home here, and my skills in the kitchen are unmatched. The city trusts me, and I know how to make do."
-	triumph_cost = 9
-	granted_virtues = list(
-		/datum/virtue/utility/resident,
-		/datum/virtue/utility/granary
-	)
-	custom_text = "Grants two virtues for the city servant:\n\
-	- Resident: City residency, treasury account, home in the city\n\
-	- Cunning Provisioner: Cooking & Fishing skills, food bag stashed (HOMESTEAD_EXPERT)"
-
 // Broken Soul Pack: Ugly + Tolerant + Deadened
 /datum/virtue/pack/brokensoul
 	name = "Broken Soul (-3 TRI)"

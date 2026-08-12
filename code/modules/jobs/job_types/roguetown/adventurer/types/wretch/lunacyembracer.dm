@@ -56,12 +56,8 @@
 
 	extra_context = "This class is restricted from using the Natural Armor virtue."
 
-	virtue_restrictions = list(
-		/datum/virtue/combat/tough_hide,
-	)
-
 /datum/outfit/job/roguetown/wretch/lunacyembracer/pre_equip(mob/living/carbon/human/H)
-	// -- Start of section for god specific bonuses --	
+	// -- Start of section for god specific bonuses --
 	if(H.patron?.type == /datum/patron/inhumen/graggar)
 		ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 		ADD_TRAIT(H, TRAIT_NOSTINK, TRAIT_GENERIC) //no athletics for you

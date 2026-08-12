@@ -5,7 +5,7 @@
 	No matter, even the pretty ones feel the toll as it leaves their strength atrophied. \
 	Someone has to harvest the holy blood required to purify lux and perpetuate Pestra's gift of medicine. \
 	Unfortunately, that's you. That's correct, I'm the one tasked with protecting the sacred Heart Beast of Pestra here. \
-	To study it and empower it so that Pestra's medicine may blossom even in the furthest reaches of Ferentia. \
+	To study it and empower it so that Pestra's medicine may blossom even in the furthest reaches of Northwich. \
 	Keep in mind you are NOT directly affiliated with the church of the see, the local bishop is not your boss. You answer to the sect of Pestra foremost."
 	flag = KEEPER
 	department_flag = CHURCHMEN
@@ -29,9 +29,6 @@
 		TRAIT_SURVIVAL_EXPERT, TRAIT_NOSTINK,
 		TRAIT_STEELHEARTED, TRAIT_RITUALIST,
 	)
-
-	//You're part of a Pestran sect. Not nobility.
-	virtue_restrictions = list(/datum/virtue/utility/noble)
 
 	advclass_cat_rolls = list(CTAG_KEEPER = 2)
 	job_subclasses = list(
@@ -60,7 +57,7 @@
 	No matter, even the pretty ones feel the toll as it leaves their strength atrophied. \
 	Someone has to harvest the holy blood required to purify lux and perpetuate Pestra's gift of medicine. \
 	Unfortunately, that's you. That's correct, I'm the one tasked with protecting the sacred Heart Beast of Pestra here. \
-	To study it and empower it so that Pestra's medicine may blossom even in the furthest reaches of Ferentia. \
+	To study it and empower it so that Pestra's medicine may blossom even in the furthest reaches of Northwich. \
 	Keep in mind you are NOT directly affiliated with the church of the see, the local bishop is not your boss. You answer to the sect of Pestra foremost."
 	outfit = /datum/outfit/job/roguetown/keeper/basic
 	category_tags = list(CTAG_KEEPER)

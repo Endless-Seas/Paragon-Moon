@@ -692,8 +692,10 @@
 		var/override_color = rotted ? SKIN_COLOR_ROT : null
 		if(is_organic && should_draw_greyscale && !skeletonized)
 			var/draw_color = mutation_color || species_color || skin_tone
+
 			if(rotted || (owner && HAS_TRAIT(owner, TRAIT_ROTMAN)))
 				draw_color = SKIN_COLOR_ROT
+
 			if(draw_color)
 				limb.color = "#[draw_color]"
 				if(aux)
@@ -718,7 +720,7 @@
 			draw_organ_features = FALSE
 		if(NO_BODYPART_FEATURES in owner_species.species_traits)
 			draw_bodypart_features = FALSE
-	
+
 	// Organ overlays
 	if(!skeletonized && draw_organ_features)
 		for(var/obj/item/organ/organ as anything in get_organs())
