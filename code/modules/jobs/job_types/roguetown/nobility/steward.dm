@@ -19,7 +19,6 @@
 	cmode_music = 'sound/music/combat_noble.ogg'
 	social_rank = SOCIAL_RANK_NOBLE
 	advclass_cat_rolls = list(CTAG_STEWARD = 2)
-	virtue_restrictions = list(/datum/virtue/utility/blacksmith)
 
 	job_traits = list(TRAIT_NOBLE, TRAIT_SEEPRICES)
 	job_subclasses = list(
@@ -32,7 +31,7 @@
 	roleplay_exclusive_notify = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
-				- Managed both treasury and onboarding of pay. <br> \
+				- Manage both treasury and onboarding of pay. <br> \
 				- Act as a liaison for matters material."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
