@@ -249,6 +249,8 @@ SUBSYSTEM_DEF(triumphs)
 		// Prevent negative triumphs - clamp to minimum of 0
 		if(triumph_amount_cache[target_ckey] < 0)
 			triumph_amount_cache[target_ckey] = 0
+		if(triumph_amount_cache[target_ckey] > TRIUMPH_CAP)
+			triumph_amount_cache[target_ckey] = TRIUMPH_CAP
 
 		var/list/saving_data = list()
 		var/target_file = file("data/player_saves/[target_ckey[1]]/[target_ckey]/triumphs.json")
