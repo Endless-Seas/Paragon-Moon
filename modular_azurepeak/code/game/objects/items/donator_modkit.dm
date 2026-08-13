@@ -25,7 +25,9 @@
 /////////////////////////////
 // ! Player / Donor Kits ! //
 /////////////////////////////
-
+//Old dono kits below. Stripped them from the other stuff anyways but you get the idea.
+//See: donator_fluff_items.dm for the items. Left here in case errant stuff is found later.
+/*
 //Plexiant - Custom rapier type
 /obj/item/enchantingkit/plexiant
 	name = "'Rapier di Aliseo' morphing elixir"
@@ -113,3 +115,4 @@
 	name = "'Shroud of the Undermaiden' morphing elixir"
 	target_items = list(/obj/item/clothing/cloak/darkcloak/bear)
 	result_item = /obj/item/clothing/cloak/raincloak/feather_cloak
+*/

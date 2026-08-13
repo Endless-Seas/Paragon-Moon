@@ -501,9 +501,14 @@
 	return
 
 /obj/item/rogueweapon/mace/spiked
+	name = "morning star"
+	desc = "A heavy, spiked club. Sure to ruin the day of whoever is on the other end."
 	icon_state = "spiked_club"
 
 /obj/item/rogueweapon/mace/steel/morningstar
+	name = "steel morning star"
+	desc = "A heavy, spiked club. Sure to ruin the day of whoever is on the other end. \
+	This particular example is reinforced with steel."
 	icon_state = "morningstar"
 
 /obj/item/rogueweapon/mace/warhammer

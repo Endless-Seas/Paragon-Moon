@@ -112,7 +112,7 @@
 		/datum/body_marking/stripes,
 	)
 
-	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless)
+	restricted_virtues = list(/datum/virtue/utility/deathless)
 
 /datum/species/construct/metal/check_roundstart_eligible()
 	return TRUE
@@ -169,7 +169,7 @@
 	///allow construct to use it on themselves without skill reqs, exclusively used for the black market ver
 	var/self_usable = FALSE
 	///to avoid situations where the dialog box is open but you click the golem again with it
-	var/in_use = FALSE 
+	var/in_use = FALSE
 
 /obj/item/construct_skill_core/blackmarket
 	name = "modified construct skill exhibitor"
@@ -258,4 +258,4 @@
 /obj/item/construct_skill_core/proc/disable() //reset it to inactive mode to be paired later on
 	in_use = FALSE
 	smeltresult = /obj/item/ingot/bronze
-	
+

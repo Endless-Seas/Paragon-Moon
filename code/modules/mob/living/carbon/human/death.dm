@@ -100,8 +100,10 @@
 		if(!has_world_trait(/datum/world_trait/necra_requiem))
 			if(!is_in_roguetown(src) || has_world_trait(/datum/world_trait/zizo_defilement))
 				if(!zombie_check_can_convert()) //Gives the dead unit the zombie antag flag
-					to_chat(src, span_userdanger("..is this to be my end..?"))
-					to_chat(src, span_danger("The cold consumes the final flicker of warmth in your chest and begins to seep into your limbs..."))
+					to_chat(src, span_userdanger("As the lights flicker out... something... takes hold..."))
+					to_chat(src, span_danger("The warmth in your limbs does not dim. In truth, had you been alive, \
+					it would feel as if the lyfeblood in your veins themselves have caught alight. \
+					You will serve a new purpose, soon."))
 
 	stop_sound_channel(CHANNEL_HEARTBEAT)
 	var/obj/item/organ/heart/H = getorganslot(ORGAN_SLOT_HEART)

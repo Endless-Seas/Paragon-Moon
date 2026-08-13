@@ -431,11 +431,11 @@ GLOBAL_LIST_EMPTY(round_join_times)
 
 //Adventurer categories
 #define CLASS_CAT_NOBLE	"Noble"
-#define CLASS_CAT_CLERIC "Cleric"
+#define CLASS_CAT_CLERIC "Holy"
 #define CLASS_CAT_ROGUE	"Rogue"
 #define CLASS_CAT_RANGER "Ranger"
-#define CLASS_CAT_MAGE "Mage"
-#define CLASS_CAT_WARRIOR "Warrior"
+#define CLASS_CAT_MAGE "Magical"
+#define CLASS_CAT_WARRIOR "Martial"
 #define CLASS_CAT_TRADER "Trader"
 #define CLASS_CAT_NOMAD "Nomad"
 

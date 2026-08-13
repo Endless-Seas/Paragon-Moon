@@ -1,3 +1,5 @@
+//Disabled for now. Rework and return. Here as a comment for ref.
+/*
 /datum/virtue/utility/noble
 	name = "Nobility"
 	desc = "By birth, blade or brain, I am noble known to the royalty of these lands, and have all the benefits associated with it. \
@@ -10,7 +12,7 @@
 
 /datum/virtue/utility/noble/apply_to_human(mob/living/carbon/human/recipient)
 	SStreasury.noble_incomes[recipient] += 15
-
+*/
 /datum/virtue/utility/socialite
 	name = "Socialite"
 	desc = "I thrive in social settings, easily reading the emotions of others and charming those around me. My presence is always felt at any gathering."
@@ -74,20 +76,6 @@
 				continue
 			recipient.mind.i_know_person(MF)
 
-/datum/virtue/utility/failed_squire
-	name = "Failed Squire"
-	desc = "I was once a squire in training, but failed to achieve knighthood. Though my dreams of glory were dashed, I retained my knowledge of equipment maintenance and repair, including how to polish arms and armor."
-	added_traits = list(TRAIT_SQUIRE_REPAIR)
-	added_stashed_items = list(
-		"Hammer" = /obj/item/rogueweapon/hammer/iron,
-		"Polishing Cream" = /obj/item/polishing_cream,
-		"Fine Brush" = /obj/item/armor_brush
-	)
-
-/datum/virtue/utility/failed_squire/apply_to_human(mob/living/carbon/human/recipient)
-	to_chat(recipient, span_notice("Though you failed to become a knight, your training in equipment maintenance and repair remains useful."))
-	to_chat(recipient, span_notice("You can retrieve your hammer and polishing tools from a tree, statue, or clock."))
-
 /datum/virtue/utility/linguist
 	name = "Intellectual"
 	desc = "I've spent my life surrounded by various books or sophisticated foreigners, be it through travel or other fortunes beset on my life. I've picked up several tongues and wits, and keep a journal closeby. I can tell people's exact prowess."
@@ -102,7 +90,6 @@
 	)
 
 /datum/virtue/utility/linguist/apply_to_human(mob/living/carbon/human/recipient)
-	recipient.change_stat(STATKEY_INT, 1)
 	addtimer(CALLBACK(src, .proc/linguist_apply, recipient), 50)
 
 /datum/virtue/utility/linguist/proc/linguist_apply(mob/living/carbon/human/recipient)
@@ -214,44 +201,6 @@
 	added_stashed_items = list("Lockpick Ring" = /obj/item/lockpickring/mundane)
 	added_skills = list(list(/datum/skill/misc/lockpicking, 3, 6))
 
-/datum/virtue/utility/granary
-	name = "Cunning Provisioner"
-	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
-	desc = "You've worked in or around the docks enough to steal away a sack of supplies that no one would surely miss, just in case. You've picked up on some cooking and fishing tips in your spare time, as well."
-	added_stashed_items = list("Bag of Food" = /obj/item/storage/roguebag/food)
-	added_skills = list(list(/datum/skill/craft/cooking, 3, 6),
-						list(/datum/skill/labor/fishing, 2, 6))
-
-/datum/virtue/utility/forester
-	name = "Forester"
-	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
-	desc = "The forest is your home, or at least, it used to be. You always long to return and roam free once again, and you have not forgotten your knowledge on how to be self sufficient."
-	added_stashed_items = list("Trusty hoe" = /obj/item/rogueweapon/hoe)
-	added_skills = list(list(/datum/skill/craft/cooking, 2, 2),
-						list(/datum/skill/misc/athletics, 2, 2),
-						list(/datum/skill/labor/farming, 2, 2),
-						list(/datum/skill/labor/fishing, 2, 2),
-						list(/datum/skill/labor/lumberjacking, 2, 2)
-	)
-
-/datum/virtue/utility/homesteader
-	name = "Pilgrim (-3 TRI)"
-	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
-	desc= "As they say, 'hearth is where the heart is'. You are intimately familiar with the labors of lyfe, and have stowed away everything necessary to start anew: a hunting dagger, your trusty hoe, and a sack of assorted supplies."
-	triumph_cost = 3
-	added_stashed_items = list(
-		"Hoe" = /obj/item/rogueweapon/hoe,
-		"Bag of Food" = /obj/item/storage/roguebag/food,
-		"Hunting Knife" = /obj/item/rogueweapon/huntingknife
-	)
-	added_skills = list(list(/datum/skill/craft/cooking, 3, 3),
-						list(/datum/skill/misc/athletics, 2, 2),
-						list(/datum/skill/labor/farming, 3, 3),
-						list(/datum/skill/labor/fishing, 3, 3),
-						list(/datum/skill/labor/lumberjacking, 2, 2),
-						list(/datum/skill/combat/knives, 2, 2)
-	)
-
 /datum/virtue/utility/ugly
 	name = "Ugly"
 	desc = "Be it your family's habits in and out of womb, your own choices or Xylix's cruel roll of fate, you have been left unbearable to look at. Stuck to the unseen pits and crevices of the town, you've grown used to the foul odours of lyfe that often follow you. Corpses do not stink for you, and that is all the company you might find."
@@ -345,71 +294,3 @@
 	desc = "Whether fostered through travel or care, you just don't see an issue with certain folks."
 	custom_text = "Prevents you from experiencing negative stress events when looking at select species."
 	added_traits = list(TRAIT_TOLERANT)
-
-// Apprentice-level virtues - provide broad skill sets without traits or items
-// Max skill level is Apprentice (level 2), allowing varied work without full progression
-
-/datum/virtue/utility/survivalist_novice
-	name = "Novice Survivalist"
-	desc = "I've lived in the wilds and learned to survive off the land. I can hunt, track, fish, trap, and butcher game - all the skills needed to live beyond civilization's walls."
-	added_skills = list(
-		list(/datum/skill/misc/tracking, 1, 2),
-		list(/datum/skill/labor/butchering, 1, 2),
-		list(/datum/skill/craft/tanning, 1, 2),
-		list(/datum/skill/combat/polearms, 1, 2),
-		list(/datum/skill/combat/slings, 1, 2),
-		list(/datum/skill/craft/crafting, 1, 2),
-		list(/datum/skill/craft/cooking, 1, 2),
-		list(/datum/skill/labor/lumberjacking, 1, 2),
-		list(/datum/skill/misc/climbing, 1, 2),
-		list(/datum/skill/misc/swimming, 1, 2),
-		list(/datum/skill/misc/sneaking, 1, 2),
-		list(/datum/skill/misc/medicine, 1, 1)
-	)
-
-/datum/virtue/utility/homesteader_novice
-	name = "Novice Homesteader"
-	desc = "I know how to maintain a homestead - farming the land, cooking meals, chopping wood, and all the daily labors needed to be self-sufficient."
-	added_skills = list(
-		list(/datum/skill/labor/farming, 1, 2),
-		list(/datum/skill/craft/cooking, 1, 2),
-		list(/datum/skill/labor/lumberjacking, 1, 2),
-		list(/datum/skill/misc/lockpicking, 1, 2),
-		list(/datum/skill/misc/climbing, 1, 2),
-		list(/datum/skill/misc/athletics, 1, 2),
-		list(/datum/skill/labor/fishing, 1, 2),
-		list(/datum/skill/craft/masonry, 1, 2),
-		list(/datum/skill/craft/carpentry, 1, 2),
-		list(/datum/skill/craft/crafting, 1, 2),
-		list(/datum/skill/combat/maces, 1, 2),
-		list(/datum/skill/combat/axes, 1, 2)
-	)
-
-/datum/virtue/utility/artisan_novice
-	name = "Novice Artisan"
-	desc = "I've learned the fundamentals of crafting - working with metal, fabric, and clay. I'm a jack of all trades in the workshop, though master of none."
-	added_skills = list(
-		list(/datum/skill/craft/crafting, 1, 2),
-		list(/datum/skill/craft/blacksmithing, 1, 2),
-		list(/datum/skill/craft/sewing, 1, 2),
-		list(/datum/skill/craft/smelting, 1, 2),
-		list(/datum/skill/craft/weaponsmithing, 1, 2),
-		list(/datum/skill/craft/armorsmithing, 1, 2),
-		list(/datum/skill/combat/knives, 1, 2),
-		list(/datum/skill/craft/ceramics, 1, 2),
-		list(/datum/skill/craft/engineering, 1, 2)
-	)
-
-/datum/virtue/utility/healer_novice
-	name = "Novice Healer"
-	desc = "I've studied the healing arts - tending wounds, brewing remedies, and understanding the basics of medicine and alchemy."
-	added_skills = list(
-		list(/datum/skill/misc/medicine, 1, 2),
-		list(/datum/skill/craft/alchemy, 1, 2),
-		list(/datum/skill/misc/reading, 1, 2),
-		list(/datum/skill/craft/crafting, 1, 2),
-		list(/datum/skill/craft/sewing, 1, 2),
-		list(/datum/skill/craft/cooking, 1, 2),
-		list(/datum/skill/combat/knives, 1, 2)
-	)
-

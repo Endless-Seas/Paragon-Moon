@@ -903,11 +903,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1444,15 +1439,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/steward
 	triumph_cost = 3
 
-/datum/loadout_item/tri_princess_dress/nobility_check(client/C)
+/datum/loadout_item/tri_ornate_dress/nobility_check(client/C)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1470,15 +1460,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/suit/roguetown/shirt/tunic/silktunic
 	triumph_cost = 3
 
-/datum/loadout_item/tri_princess_dress/nobility_check(client/C)
+/datum/loadout_item/tri_ornate_tunic/nobility_check(client/C)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1500,11 +1485,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1526,11 +1506,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1552,11 +1527,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1582,11 +1552,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -1609,11 +1574,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -2022,11 +1982,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/datum/preferences/P = C.prefs
 	if(!P)
 		return FALSE
-	// Check if user selected Nobility virtue
-	if(P.virtue && istype(P.virtue, /datum/virtue/utility/noble))
-		return TRUE
-	if(P.virtuetwo && istype(P.virtuetwo, /datum/virtue/utility/noble))
-		return TRUE
 	// Check if user has high priority for any noble, courtier, or yeoman job
 	for(var/job_title in GLOB.noble_positions)
 		if(P.job_preferences[job_title] == JP_HIGH)
@@ -2045,50 +2000,15 @@ GLOBAL_LIST_EMPTY(loadout_items)
 //All these items are stored in the donator_fluff.dm in the azure modular folder for simplicity.
 //All should be subtypes of existing weapons/clothes/armor/gear, whatever, to avoid balance issues I guess. Idk, I'm not your boss.
 
-/datum/loadout_item/donator_plex
-	name = "Donator Kit - Rapier di Aliseo"
-	path = /obj/item/enchantingkit/plexiant
-	ckeywhitelist = list("plexiant")
-
-/datum/loadout_item/donator_sru
-	name = "Donator Kit - Emerald Dress"
-	path = /obj/item/enchantingkit/srusu
-	ckeywhitelist = list("cheekycrenando")
-
-/datum/loadout_item/donator_strudel
-	name = "Donator Kit - Grenzelhoftian Mage Vest"
-	path = /obj/item/enchantingkit/strudle
-	ckeywhitelist = list("toasterstrudes")
-
-/datum/loadout_item/donator_bat
-	name = "Donator Kit - Handcarved Harp"
-	path = /obj/item/enchantingkit/bat
-	ckeywhitelist = list("kitchifox")
-
-/datum/loadout_item/donator_mansa
-	name = "Donator Kit - Wortträger"
-	path = /obj/item/enchantingkit/ryebread
-	ckeywhitelist = list("pepperoniplayboy")	//Byond maybe doesn't like spaces. If a name has a space, do it as one continious name.
-
-/datum/loadout_item/donator_rebel
-	name = "Donator Kit - Gilded Sallet"
-	path = /obj/item/enchantingkit/rebel
-	ckeywhitelist = list("rebel0")
-
-/datum/loadout_item/donator_bigfoot
-	name = "Donator Kit - Gilded Knight Helm"
-	path = /obj/item/enchantingkit/bigfoot
-	ckeywhitelist = list("bigfoot02")
-
-/datum/loadout_item/donator_bigfoot_axe
-	name = "Donator kit - Gilded Greataxe"
-	path = /obj/item/enchantingkit/bigfoot_axe
-	ckeywhitelist = list("bigfoot02")
-
-/datum/loadout_item/donator_zydras
-	name = "Donator Kit - Padded silky dress"
-	path = /obj/item/enchantingkit/zydras
-	ckeywhitelist = list("1ceres")
+//Example donator item below. View donator_modkit.dm to see where these led.
+//Old dono kits stripped, here at least. Maybe return later if these players, in the infinitesimally small chance, migrate here? I 'unno.
+//They were nice sprites, if nothing else. Folks had good taste.
+/*
+/datum/loadout_item/donator_example
+	name = "Donator Kit - Grenade Refluff"
+	path = /obj/item/enchantingkit/example
+	ckeywhitelist = list("examplekey")//Never space this.
+*/
 
 /datum/loadout_item/leather_collar
 	name = "Leather Collar"

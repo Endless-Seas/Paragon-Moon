@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	The second largest known nation only rivaled by the empire in sheer size. \
 	Once a splintered group of cities and noble houses, now a bustling union where each region sends forth one of their own to represent them in the house of lords. \
 	Old rivalries remain, but together they field the largest army known to date."
-	origin_title = "Confederate"
+	origin_title = "'Hoft"
 	origin_language = /datum/language/grenzelhoftian
 	map_x = 720
 	map_y = 236
@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(origins, build_origins())
 	desc = "A young maritime nation of merchants, mariners, explorers and vagabonds. \
 	The colonies are the springboard for expeditions to any yet uncharted coast and a bustling hub of trade. \
 	Under the firm leadership of the great admiralty, piracy is punished with a heavy hand. Fortune and fame however, favour only the bold..."
-	origin_title = "Colonial"
+	origin_title = "'Can"
 	origin_language = /datum/language/etruscan
 	map_x = 586
 	map_y = 135

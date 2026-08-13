@@ -14,7 +14,7 @@
 			recipient.mind?.adjust_spellpoints(3)
 	else
 		recipient.mind?.adjust_spellpoints(3) // 3 extra spellpoints since you don't get any spell point from the skill anymore
-	
+
 /datum/virtue/combat/devotee
 	name = "Devotee"
 	desc = "Though not officially of the Church, my relationship with my chosen Patron is strong enough to grant me the most minor of their blessings. I've also kept a psycross of my deity."
@@ -49,9 +49,9 @@
 			recipient.mind?.special_items["Necra Psycross"] = /obj/item/clothing/neck/roguetown/psicross/necra
 		if(/datum/patron/divine/pestra)
 			recipient.mind?.special_items["Pestra Psycross"] = /obj/item/clothing/neck/roguetown/psicross/pestra
-		if(/datum/patron/divine/eora) 
+		if(/datum/patron/divine/eora)
 			recipient.mind?.special_items["Eora Psycross"] = /obj/item/clothing/neck/roguetown/psicross/eora
-		if(/datum/patron/divine/xylix) 
+		if(/datum/patron/divine/xylix)
 			recipient.mind?.special_items["Xylix Psycross"] = /obj/item/clothing/neck/roguetown/psicross/xylix
 		if(/datum/patron/divine/noc)
 			recipient.mind?.special_items["Noc Psycross"] = /obj/item/clothing/neck/roguetown/psicross/noc
@@ -107,7 +107,6 @@
 	recipient.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, silent = TRUE)
 	recipient.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, silent = TRUE)
 
-
 /datum/virtue/combat/bowman
 	name = "Toxophilite"
 	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
@@ -148,21 +147,11 @@
 	recipient.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, silent = TRUE)
 	recipient.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_JOURNEYMAN, silent = TRUE)
 
-/*/datum/virtue/combat/tavern_brawler
-	name = "Tavern Brawler"
-	desc = "I've never met a problem my fists couldn't solve."
-	added_traits = list(TRAIT_CIVILIZEDBARBARIAN)*/
-
 /datum/virtue/combat/guarded
 	name = "Guarded"
 	desc = "I have long kept my true capabilities and vices a secret. Sometimes being deceptively weak can save one's lyfe."
 	custom_text = "Obfuscates information about you from all sorts of effects, including patron abilities & passives, Assess and other virtues."
 	added_traits = list(TRAIT_DECEIVING_MEEKNESS)
-
-/*/datum/virtue/combat/impervious
-	name = "Impervious"
-	desc = "I've spent years shoring up my weakspots, and have become difficult to wound with critical blows."
-	added_traits = list(TRAIT_CRITICAL_RESISTANCE)*/
 
 /datum/virtue/combat/rotcured
 	name = "Rotcured"
@@ -193,6 +182,9 @@
 /datum/virtue/combat/combat_aware/apply_to_human(mob/living/carbon/human/recipient)
 	recipient.verbs += /mob/living/carbon/human/proc/togglecombatawareness
 
+//As with noble. Rework this entirely. Otherwise, I suppose we do intend to give it to some things later. Maybe.
+//It's just not great overall, though, for obvious reasons. To be very kind about it.
+/*
 /datum/virtue/combat/tough_hide
 	name = "Natural Armor"
 	desc = "Whether by natural means or other means, my skin is strong enough to resist being pierced and cut."
@@ -215,7 +207,7 @@
 		SLOT_SHIRT,
 		TRUE
 	)
-	
+
 	if(alert(recipient, "Would you like to change the name or description of your skin?", "TOUGH HIDE", "MAKE IT SO", "I RESCIND") == "MAKE IT SO") // Query user
 		addtimer(CALLBACK(src, .proc/customize_skin, recipient), 1 SECONDS)
 
@@ -240,4 +232,4 @@
 
 	if(vanished_hide) //failsafe
 		to_chat(recipient, span_warning("My natural armor vanished! Perhaps some divine intervention might sort things out..."))
-
+*/
