@@ -134,13 +134,32 @@
 					tris2take += -2
 				if(real_name in GLOB.outlawed_players)
 					yeae = FALSE
-/*
-		if(get_triumphs() > 0)
-			if(tris2take)
-				adjust_triumphs(tris2take)
-			else
+
+//In an effort to murder high triumph gameplay, we scale.
+		if(get_triumphs() > TRIUMPH_BUFFER)
+			//First, though, you always lose the adjustment.
+			adjust_triumphs(tris2take)
+			//Do I need to have it named this? No. Do I even NEED it? Also no. :)
+			var/triumphs_to_cry_over = get_triumphs()
+			if(triumphs_to_cry_over <= TRIUMPH_NIL_THREAT)
 				adjust_triumphs(-1)
-*/
+				to_chat(src, span_notice("You have few enough triumphs. You have been spared additional loss..."))
+			else if(triumphs_to_cry_over <= TRIUMPH_LOW_THREAT)
+				adjust_triumphs(-2)
+				to_chat(src, span_notice("You have a middling number of triumphs. A small sum has been taken."))
+			else if(triumphs_to_cry_over <= TRIUMPH_MILD_THREAT)
+				adjust_triumphs(-3)
+				to_chat(src, span_notice("You are a known, triumphant fool. To spare you would be unwise."))
+			else if(triumphs_to_cry_over <= TRIUMPH_WILD_THREAT)//Zezuz Pyst...
+				adjust_triumphs(-4)
+				to_chat(src, span_notice("You must surely know this land. A punishment is due."))
+			else//Get a life.
+				adjust_triumphs(-5)
+				to_chat(src, span_notice("You're already aware of the great game. We shall punish you accordingly."))
+		else
+			to_chat(src, span_notice("You have so few triumphs, the gods themselves pity you. No loss will be incurred this dae."))
+//I apologise for the above. We can't do switch statements for it.
+//Anyhow, back to normal.
 
 		switch(job)
 /*
