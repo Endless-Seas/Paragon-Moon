@@ -32,7 +32,7 @@
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
-	
+
 
 /obj/item/reagent_containers/food/snacks/rogue/onionsteak/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -110,7 +110,7 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	
+
 
 /*	.................   Wiener & Fried potato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotato
@@ -127,7 +127,7 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	
+
 
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotato/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -191,7 +191,7 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	
+
 
 /obj/item/reagent_containers/food/snacks/rogue/wieneronions/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -245,7 +245,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_MEAGRE*3)
 	tastes = list("frybird" = 1)
 	name = "frybird bucket"
-	desc = "Hearty, comforting, and rich - Vale frybird is the best on the continent! Now served in a convenient bucket!"
+	desc = "Hearty, comforting, and rich - frybird is the best on the continent! Now served in a convenient bucket!"
 	bitesize = 9 //ITS AN ENTIRE BUCKET!!
 	faretype = FARE_FINE
 	portable = FALSE

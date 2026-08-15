@@ -146,6 +146,9 @@
 			if("lava" in L.weather_immunities)
 				continue
 
+			if(HAS_TRAIT(L, TRAIT_EARTH_STEP))
+				continue
+
 			if(L)
 				L.adjustFireLoss(100)
 				L.adjust_fire_stacks(100)
@@ -208,7 +211,7 @@
 				continue
 			O.obj_integrity -= O.max_integrity * 0.1
 			if(O.obj_integrity <= 0)
-				qdel(O)	
+				qdel(O)
 			. = 1
 
 		else if (isliving(thing))
@@ -233,7 +236,7 @@
 				C.obj_integrity -= C.max_integrity * 0.1
 				if(C.obj_integrity <= 0)
 					to_chat(L, span_danger("Your [C.name] is destroyed by the acid!"))
-					qdel(C)	
+					qdel(C)
 
 			L.adjustFireLoss(100)
 			to_chat(L, span_userdanger("THE ACID BURNS!"))

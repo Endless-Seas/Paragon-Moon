@@ -132,14 +132,14 @@
 	icon_state = "roofs"
 
 /area/rogue/indoors/town/magician
-	name = "University of The Vale"
+	name = "University of Northwich"
 	icon_state = "magician"
 	spookysounds = SPOOKY_MYSTICAL
 	spookynight = SPOOKY_MYSTICAL
 	droning_sound = 'sound/music/area/magiciantower.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	first_time_text = "THE UNIVERSITY OF THE VALE"
+	first_time_text = "THE UNIVERSITY OF NORTHWICH"
 	converted_type = /area/rogue/outdoors/exposed/magiciantower
 	keep_area = TRUE
 	// detail_text = DETAIL_TEXT_UNIVERSITY_OF_ROTWOOD
@@ -395,12 +395,12 @@
 	droning_sound = 'sound/music/area/dwarf.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	first_time_text = "VALE GUILD OF CRAFTS"
+	first_time_text = "GUILD OF CRAFTS"
 	converted_type = /area/rogue/outdoors/exposed/dwarf
 	detail_text = DETAIL_TEXT_AZUREAN_GUILD_OF_CRAFT
 
 /area/rogue/indoors/town/dwarfin/rockhill
-	first_time_text = "Rockhill Guild of Crafts"
+	first_time_text = "Guild of Crafts"
 
 /area/rogue/outdoors/exposed/dwarf
 	icon_state = "dwarf"

@@ -15,7 +15,7 @@
 	subclass_social_rank = SOCIAL_RANK_DIRT
 	outfit = /datum/outfit/job/roguetown/adventurer/cleric
 	cmode_music = 'sound/music/templarofpsydonia.ogg'
-	traits_applied = list(TRAIT_MEDIUMARMOR)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR)
 	subclass_stats = list(//Spread of seven. +2 from STR.
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
@@ -125,7 +125,7 @@
 	You, of all people, will stand tall in the darkness to come. Brandish blade and slay the reviled undead of the land."
 	outfit = /datum/outfit/job/roguetown/adventurer/paladin
 	cmode_music = 'sound/music/templarofpsydonia.ogg'
-	traits_applied = list(TRAIT_HEAVYARMOR)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_HEAVYARMOR)
 	subclass_stats = list(//Spread of seven. +4 from STR.
 		STATKEY_STR = 2,
 		STATKEY_CON = 2,
@@ -143,6 +143,10 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
 	)
+
+	extra_context = "Eorans, Necrans and Psydonites are given a T2 miracle. \
+	That being, Heartweave, Abrogation and Respite, respectively. <br>\
+	Astratans are given both their spear miracle, without path respec, and divine aura."
 
 /datum/outfit/job/roguetown/adventurer/paladin/pre_equip(mob/living/carbon/human/H)
 	belt = /obj/item/storage/belt/rogue/leather
@@ -178,7 +182,7 @@
 	switch(weapon_choice)
 		if("Greatsword")
 			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-			r_hand = /obj/item/rogueweapon/greatsword/iron
+			r_hand = /obj/item/rogueweapon/greatsword/warbrand
 			backr = /obj/item/rogueweapon/scabbard/gwstrap
 		if("Polehammer")
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -204,9 +208,11 @@
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
 			wrists = /obj/item/clothing/neck/roguetown/psicross
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/psydonrespite)//Less than T2 is important for others. These guys? Not so much.
 		if(/datum/patron/divine/astrata)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
 			H.cmode_music = 'sound/music/combat_holy.ogg'
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/astratan_spear)//YEAH!!!!!
 		if(/datum/patron/divine/noc)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/noc
 		if(/datum/patron/divine/abyssor)
@@ -217,6 +223,7 @@
 		if(/datum/patron/divine/necra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/necra
 			H.cmode_music = 'sound/music/combat_ancient.ogg'
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/abrogation)//This is also soulful. We just don't want Undertow, blinding, pest-blade, etc.
 		if(/datum/patron/divine/pestra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/pestra
 		if(/datum/patron/divine/ravox)
@@ -226,6 +233,7 @@
 		if(/datum/patron/divine/eora)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/heartweave)//Not just sexpests.
 		if(/datum/patron/divine/xylix)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/xylix
 			H.cmode_music = 'sound/music/combat_jester.ogg'

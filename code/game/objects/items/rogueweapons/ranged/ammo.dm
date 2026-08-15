@@ -625,7 +625,7 @@
 	desc = "A missile of frayed bronze. Before you is your weapon; that which rose Man out of the mud, and brought the Beasts of Old Syon to heel. When were you last aware of any other part of you? Do you recall seeing the world in any other way?"
 	force = 9
 	armor_penetration = 30
-	max_integrity = 50		
+	max_integrity = 50
 	throwforce = 20
 	color = "#bb9696"
 	anvilrepair = null
@@ -657,6 +657,16 @@
 	..()
 	if(!iscarbon(hit_atom))
 		return//abort
+
+//Stone javvies. For little creechurs that need their javvies.
+/obj/item/ammo_casing/caseless/rogue/javelin/stone
+	name = "stone javelin"
+	desc = "A missile of stone and spite."
+	force = 9//Decrepit force.
+	armor_penetration = 30//AP, too.
+	throwforce = 23//-2 damage.
+	icon_state = "bjavelin"
+	anvilrepair = null
 
 //sling bullets
 

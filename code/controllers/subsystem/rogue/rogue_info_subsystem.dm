@@ -2,21 +2,22 @@ GLOBAL_DATUM_INIT(rogue_info, /datum/rogue_info, new)
 
 /datum/rogue_info
 
+//Why was this not TABBED? Jesus, dude.
 	var/list/role_visibility = list(
-		"blacksmith" = FALSE,
-		"artificer"  = FALSE,
-		"steward"    = FALSE,
-		"duke"       = FALSE,
-		"apothecary" = FALSE,
-		"church"     = FALSE,
-		"fisher"     = FALSE,
-		"university" = FALSE,
-		"innkeeper"  = FALSE,
-		"tailor"     = FALSE,
-		"bathhouse"  = FALSE,
-		"merchant"   = FALSE,
-		"freeform1"  = FALSE,
-		"freeform2"  = FALSE
+		"blacksmith"	= FALSE,
+		"artificer"		= FALSE,
+		"steward"		= FALSE,
+		"baron"			= FALSE,
+		"apothecary"	= FALSE,
+		"church"		= FALSE,
+		"fisher"		= FALSE,
+		"university"	= FALSE,
+		"innkeeper"		= FALSE,
+		"tailor"		= FALSE,
+		"bathhouse"		= FALSE,
+		"merchant"		= FALSE,
+		"freeform1"		= FALSE,
+		"freeform2"		= FALSE
 	)
 
 	var/list/role_data = list(
@@ -32,8 +33,8 @@ GLOBAL_DATUM_INIT(rogue_info, /datum/rogue_info, new)
 			"desc" = "The town steward, responsible for the stockpile, handing out adventurer contracts and hiring new personnel for the keep. May buy valuables.",
 			"note" = "No custom notes."
 		),
-		"duke" = list(
-			"desc" = "The duke of our glorious duchy is currently taking petitions.",
+		"baron" = list(
+			"desc" = "The Great Baron is currently taking petitions.",
 			"note" = "No custom notes."
 		),
 		"apothecary" = list(

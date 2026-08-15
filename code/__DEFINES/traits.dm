@@ -157,8 +157,9 @@
 #define TRAIT_PSYDONITE "Psydonite's Devotion" // Anti-Miracles on a selective basis, anastasis / cure rot still apply.
 #define TRAIT_BLACKBAGGER "Apprehension Techniques" // Capable of using Garrotes and Blackbags. Apprehension techniques.
 #define TRAIT_RESONANCE "Resonance Caster"//Casting miracles will buff nearby miraclists. Or, would, had I finished it. Instead it applies fortify in an AoE. - Carl
-/// Snowflake trait given to Eoran's wearing their bud
-#define TRAIT_EORAN_CONTENTED "Eoran Contented"
+#define TRAIT_EORAN_CONTENTED "Eoran Contented"/// Snowflake trait given to Eoran's wearing their bud
+#define TRAIT_FEY_MOOD "Divine Inspiration"//The MAX YOUR SKILLS trait. For the purposes of crafting, you always have 100% crafting chance.
+#define TRAIT_EARTH_STEP "Earthly Steps"//Allows Malumites to walk over LAVA. Malum is coming, bucko.
 
 // PATRON GOD CURSES
 

@@ -271,7 +271,7 @@
 
 /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat
 	name = "warden's ramskull helm"
-	desc = "The large, intimidating horned skull of an elusive vale great ram, plated with steel on its inner side and given padding - paired together with a steel maille mask and worn with a linen shroud. Such trophies are associated with life-long foresters and their descendants."
+	desc = "The large, intimidating horned skull of an elusive great ram, plated with steel on its inner side and given padding - paired together with a steel maille mask and worn with a linen shroud. Such trophies are associated with life-long foresters and their descendants."
 	icon = 'icons/roguetown/clothing/special/warden.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/warden.dmi'
 	icon_state = "skullmet_goat"
@@ -586,7 +586,7 @@
 
 /obj/item/clothing/head/roguetown/helmet/sallet/warden/goat
 	name = "warden's ramskull helm"
-	desc = "The large, intimidating horned skull of an elusive vale great ram, plated with steel on its inner side and given padding - paired together with a steel maille mask and worn with a linen shroud. Such trophies are associated with life-long foresters and their descendants."
+	desc = "The large, intimidating horned skull of an elusive great ram, plated with steel on its inner side and given padding - paired together with a steel maille mask and worn with a linen shroud. Such trophies are associated with life-long foresters and their descendants."
 	icon = 'icons/roguetown/clothing/special/warden.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/warden.dmi'
 	icon_state = "skullmet_goat"

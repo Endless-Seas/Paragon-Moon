@@ -304,7 +304,7 @@
 
 /obj/item/clothing/armor/leather/jacket/leathercoat/duelcoat
 	name = "leather coat"
-	desc = "A stylish coat worn by Duelists of Valoria. Light and flexible, it does not impede the complex movements they are known for. Well padded."
+	desc = "A stylish coat. Light and flexible, it does not impede the complex movements they are known for. Well padded."
 	icon = 'icons/roguetown/clothing/armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
 	icon_state = "bwleathercoat"
@@ -399,7 +399,7 @@
 	item_state = "steward"
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
 	armor = ARMOR_PADDED_BAD
-	
+
 /obj/item/clothing/head/roguetown/duchess_hood
 	name = "duchess hood"
 	icon = 'icons/roguetown/clothing/licensed-infraredbaron/head.dmi'

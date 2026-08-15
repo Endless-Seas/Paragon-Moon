@@ -1,6 +1,6 @@
 //Martial classes, divided into three, as with elsewhere.
 //Champion, which is a universal weapon skill fighter. Only adventurer with expert in a mainline skill.
-//Barbarian, which, mind, I'm sure you can imagine. Unarmed or axe. Losers use an axe.
+//Barbarian, which, mind, I'm sure you can imagine. Conan or evil outsider larp.
 //Stalker. Which gets a TON of non-combat utility. Doesn't bleed into Missionary overlap, however.
 /datum/advclass/sfighter
 	name = "Champion"
@@ -15,10 +15,11 @@
 	class_select_category = CLASS_CAT_WARRIOR
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
 	subclass_stats = list(//Spread of seven. +2 from STR.
-		STATKEY_STR = 2,
+		STATKEY_PER = 2,
+		STATKEY_STR = 1,
+		STATKEY_INT = 1,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
-		STATKEY_PER = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -97,11 +98,12 @@
 
 /datum/advclass/sfighter/barbarian
 	name = "Barbarian"
-	tutorial = "You are a brutal warrior, who has foregone armor in favor of pure strength. Crush your enemies, see them driven before you, and hear the lamentations of their women!"
+	tutorial = "You've your hands. The javelins on your hip. Some teeth left to grit together. You'll be just fine, in a land as hostile as this. \
+	For you've met few who can match your strength."
 	outfit = /datum/outfit/job/roguetown/adventurer/barbarian
 	cmode_music = 'sound/music/combat_blackstar.ogg'
-	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOPAINSTUN)
-	subclass_stats = list(//Spread of five. +4 from STR. -2INT because of CR and NP, which brings it to five.
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_NOPAINSTUN)
+	subclass_stats = list(//Spread of five. +4 from STR. -2INT because of CR(potential) and NP, which brings it to five.
 		STATKEY_STR = 2,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,
@@ -109,55 +111,71 @@
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 	)
-	extra_context = "This subclass allows, after spawn, the choice between JMAN axe skills, or EXPT unarmed and CivBarb."
+	extra_context = "This subclass allows, after spawn, the choice choice between two differing playstyles: <br>\
+	Greataxe & Armour - Medium Armour trait, natural armour in shirt slot and JMAN Axe skill. <br>\
+	Greatsword & Armour - Medium Armour trait, natural armour in shirt slot and JMAN Sword skill. <br>\
+	Unarmed - Critical Resistance, Civilised Barbarian and JMAN Unarmed skill."
 
 /datum/outfit/job/roguetown/adventurer/barbarian/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	..()
 	H.set_blindness(0)
 
 	if(H.mind)
-		var/weapons = list("Axe", "Unarmed")
+		var/weapons = list("Greataxe & Armour", "Greatsword & Armour", "Unarmed")
 		var/weapon_choice = input(H, "Choose your WEAPON.", "TAKE UP ARMS.") as anything in weapons
 		switch(weapon_choice)
-			if("Axe")
+			if("Greataxe & Armour")//Tough SOB to kill. Fuckhuge axe.
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
-				r_hand = /obj/item/rogueweapon/stoneaxe/woodcut/bronze
-				gloves = /obj/item/clothing/gloves/roguetown/bandages
-			if ("Unarmed")
-				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
-				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
+				r_hand = /obj/item/rogueweapon/greataxe
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				head = /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced
+				armor = /obj/item/clothing/suit/roguetown/armor/plate/bronze
+				shirt = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/weak//Built in NA.
+				wrists = /obj/item/clothing/wrists/roguetown/bracers/copper
+				backr = /obj/item/rogueweapon/scabbard/gwstrap
+				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+			if("Greatsword & Armour")//Tough SOB to kill. Fuckhuge sword.
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/greatsword/warbrand
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				head = /obj/item/clothing/head/roguetown/helmet/leather/armorhood/advanced
+				armor = /obj/item/clothing/armor/leather/jacket/leathercoat/duelcoat
+				shirt = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/weak//Built in NA.
+				wrists = /obj/item/clothing/wrists/roguetown/bracers/jackchain
+				backr = /obj/item/rogueweapon/scabbard/gwstrap
+				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+			if ("Unarmed")//Tougher SOB to kill. No NA.
+				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/weighted
+				wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_CRITICAL_RESISTANCE, TRAIT_GENERIC)
 
 		belt = /obj/item/storage/belt/rogue/leather/battleskirt/barbarian
-		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/bronzeskirt
+		beltl = /obj/item/quiver/javelin/stone
 		shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedboots
-		wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/bronzeskirt
+		backl = /obj/item/storage/backpack/rogue/satchel
+		backpack_contents = list(
+			/obj/item/flashlight/flare/torch = 1,
+			/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
+			/obj/item/rogueweapon/scabbard/sheath = 1,
+			/obj/item/rogueweapon/huntingknife/bronze = 1,
+			)
 
 	if(should_wear_masc_clothes(H))
 		H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
-		backl = /obj/item/storage/backpack/rogue/satchel
-	if(should_wear_femme_clothes(H))
-		armor = /obj/item/clothing/suit/roguetown/armor/leather/bikini
-		backl = /obj/item/storage/backpack/rogue/satchel
-
-	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1,
-		/obj/item/rogueweapon/huntingknife/bronze = 1,
-		)
 
 /datum/advclass/sfighter/stalker
 	name = "Stalker"
 	tutorial = "You serve a cause as righteous as any other. Poaching. Theft. Perhaps a little of both. Or, perhaps, neither? \
-	It doesn't matter. You've your weapon. Some spare lockpicks. The skill to walk the woods of the isle. You'll fit in perfectly."
+	It doesn't matter. You've your weapon. Some spare lockpicks. The skill to walk the isle. You'll fit in perfectly."
 	outfit = /datum/outfit/job/roguetown/adventurer/stalker
 	cmode_music = 'sound/music/combat_poacher.ogg'
 	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_DODGEEXPERT)
@@ -168,6 +186,7 @@
 	)
 	subclass_skills = list(//It looks like a lot, because it is.
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE,
@@ -199,12 +218,13 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
 	cloak = /obj/item/clothing/cloak/raincloak/green
 	backl = /obj/item/storage/backpack/rogue/satchel
-	beltr = /obj/item/flashlight/flare/torch/lantern
+	beltr = /obj/item/rogueweapon/stoneaxe/woodcut/bronze
 	backpack_contents = list(
 		/obj/item/bait = 1,
 		/obj/item/rogueweapon/huntingknife/combat = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/lockpickring/mundane = 1,
+		/obj/item/flashlight/flare/torch/lantern = 1,
 		)
 	if(H.mind)
 		var/weapons = list("Recurve Bow", "Longbow", "Crossbow", "Sling")

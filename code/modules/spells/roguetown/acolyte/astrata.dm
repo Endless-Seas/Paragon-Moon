@@ -504,11 +504,10 @@
 	overlay_icon = 'icons/mob/actions/astratamiracles.dmi'
 	action_icon = 'icons/mob/actions/astratamiracles.dmi'
 	overlay_state = "spear"
-	desc = "An ancient miracle, honed by those who'd served as Astrata's martial arm in the second era. \
-	With such, you may beseech Astrata for a mote of Her power."
+	desc = "An ancient miracle, honed by Astratans of another era."
 	clothes_req = FALSE
 	sound = 'sound/magic/blade_burst.ogg'
-	invocations = list("Lady of Order, guide my hand!")
+	invocations = list("Dawnbringer, guide my hand!")
 	invocation_type = "shout"
 	recharge_time = 30 SECONDS
 	chargedrain = 0
@@ -530,6 +529,9 @@
 	return TRUE
 
 //The spear itself. A summoned weapon you charge(throw for now) for an AoE effect.
+//I kinda screwed up on this the first time. Let's make it absurd to make it fun.
+//How? Higher throw force. Exposed on hit. Longer debuff. Extreme damage against the undead.
+//Will this make it useful? I 'unno. It'll be fun, though.
 /obj/item/rogueweapon/light_spear
 	name = "lightning spear"
 	desc = "A spear of light, pulled from Her domain. Throw far. Strike true."
@@ -541,7 +543,7 @@
 	possible_item_intents = list(INTENT_GENERIC)
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	mob_throw_hit_sound = 'sound/magic/lightning.ogg'
-	throwforce = 15//The damage does not typically come from the impact. This is here as a fallback.
+	throwforce = 35
 	thrown_bclass = BCLASS_PIERCE//As above.
 	thrown_damage_flag = "piercing"//Let it have some fun against boots, gloves, clothing, etc. C'mon...
 	throw_speed = 2
@@ -586,9 +588,10 @@
 	playsound(effect_layer, 'sound/magic/lightning.ogg', 50)
 	for(var/mob/living/L in effect_layer.contents)
 		if(L.mob_biotypes & MOB_UNDEAD)
-			strike_damage += 15
+			strike_damage += 50
 		L.electrocute_act(strike_damage * damage_mod, src, 1, SHOCK_NOSTUN)
-		L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 3 SECONDS)
+		L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 5 SECONDS)
+		L.apply_status_effect(/datum/status_effect/debuff/exposed, 5 SECONDS)
 	sleep(10)
 	qdel(src)
 

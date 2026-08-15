@@ -373,9 +373,9 @@
 	SStitle.splash_turf = src
 	if(SStitle.icon)
 		icon = SStitle.icon
-	filters += filter(type="wave", x=0, y=2, size=0.3, offset=0)
+/*	filters += filter(type="wave", x=0, y=2, size=0.3, offset=0)
 	animate(filters[filters.len], loop=-1, time=10, offset=2)
-	animate(time=0, offset=0)
+	animate(time=0, offset=0)*/
 	..()
 
 /turf/closed/indestructible/splashscreen/vv_edit_var(var_name, var_value)

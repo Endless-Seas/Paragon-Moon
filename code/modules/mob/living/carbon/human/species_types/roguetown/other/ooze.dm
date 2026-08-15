@@ -2,7 +2,7 @@
 	name = "Ooze"
 	id = "ooze"
 	desc = "<b>Ooze</b><br>\
-	In the dungeons and ruins of the duchy of Rockhill, corpses both ancient and fresh litter the ground. \
+	In the dungeons and ruins of the archipelago, corpses both ancient and fresh litter the ground. \
 	With the appearance of Rot in our realm there was a reactionary substance formed by the natural world, the Ooze. \
 	Taking the form of unintelligent slimes that act as agents of renewal, they digest dead remains and neutralize the Rot where it can be found. \
 	Tied to no singular god they seem to be the planet’s immune system come to life, yet in the cursed loam of the archipelago there has been a unique result at times.. \

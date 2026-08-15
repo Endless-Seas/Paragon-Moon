@@ -16,7 +16,7 @@
 		/datum/job/roguetown/druid = 2,
 		/datum/job/roguetown/keeper = 1,//I HATE YOU
 		//Yeoman start.
-		/datum/job/roguetown/guildsman = 3,
+		/datum/job/roguetown/guildsman = 2,
 	)
 	title_adjust = list(
 		//Court
@@ -95,6 +95,9 @@
 	/datum/job/roguetown/suitor = "The 'forever' Baron, a figure of astronomical power, may be your key to power. \
 	To hold whatever sits within their soul. The key to longevity and endless despondency. Or, the fool that you may be, do you yet seek true love? \
 	It doesn't truly matter. You'll find your fate in this land, one way or another.",
+	//Guild guys.
+	/datum/job/roguetown/guildmaster = "",
+	/datum/job/roguetown/guildsman = "",
 	)
 	blacklist = list(
 		//Antags.
