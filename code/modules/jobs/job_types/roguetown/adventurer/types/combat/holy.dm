@@ -144,9 +144,7 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
 	)
 
-	extra_context = "Eorans, Necrans and Psydonites are given a T2 miracle. \
-	That being, Heartweave, Abrogation and Respite, respectively. <br>\
-	Astratans are given both their spear miracle, without path respec, and divine aura."
+	extra_context = "With exception to Noc and Pestra's domain, each Pantheon member is provided a curated miracle of T2 strength."
 
 /datum/outfit/job/roguetown/adventurer/paladin/pre_equip(mob/living/carbon/human/H)
 	belt = /obj/item/storage/belt/rogue/leather
@@ -214,22 +212,26 @@
 			H.cmode_music = 'sound/music/combat_holy.ogg'
 			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/astratan_spear)//YEAH!!!!!
 		if(/datum/patron/divine/noc)
-			wrists = /obj/item/clothing/neck/roguetown/psicross/noc
+			wrists = /obj/item/clothing/neck/roguetown/psicross/noc//Gotta make something for them.
 		if(/datum/patron/divine/abyssor)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/abyssor
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/abyssheal)//We'll need to make something better, but it works, for now
 		if(/datum/patron/divine/dendor)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/dendor
 			H.cmode_music = 'sound/music/combat_citywatch.ogg'
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/beasttame)//Actual nothingburger, but in theme.
 		if(/datum/patron/divine/necra)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/necra
 			H.cmode_music = 'sound/music/combat_ancient.ogg'
 			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/abrogation)//This is also soulful. We just don't want Undertow, blinding, pest-blade, etc.
 		if(/datum/patron/divine/pestra)
-			wrists = /obj/item/clothing/neck/roguetown/psicross/pestra
+			wrists = /obj/item/clothing/neck/roguetown/psicross/pestra//Same issue as Noc.
 		if(/datum/patron/divine/ravox)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/ravox
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/call_to_arms)//Soulful.
 		if(/datum/patron/divine/malum)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/malum
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/malum_earth_step)//This is better than heat metal. I'd think. Maybe? :(
 		if(/datum/patron/divine/eora)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/combat_martyrsafe.ogg'
@@ -237,6 +239,7 @@
 		if(/datum/patron/divine/xylix)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/xylix
 			H.cmode_music = 'sound/music/combat_jester.ogg'
+			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/mastersillusion)//I'll beat you to death with hammers if you give them slick trick.
 
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_cult.ogg'

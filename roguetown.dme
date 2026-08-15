@@ -3139,7 +3139,6 @@
 #include "modular_paragon\lostech\vault_entrance.dm"
 #include "modular_paragon\onboarding\job_tutorial.dm"
 #include "modular_paragon\spells\astrata.dm"
-#include "modular_paragon\spells\eora.dm"
 #include "modular_paragon\spells\malum.dm"
 #include "modular_paragon\spells\ravox.dm"
 #include "modular_rmh\code\modules\clothing\armor\corset_color.dm"
