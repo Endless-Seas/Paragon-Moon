@@ -1,6 +1,6 @@
 /obj/structure/roguemachine/atm
 	name = "nervelock"
-	desc = "Stores and withdraws currency for accounts managed by the Grand Duchy of the realm."
+	desc = "Stores and withdraws currency for accounts managed by the Stewardry of the realm."
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "atm"
 	density = FALSE
@@ -328,7 +328,7 @@
 			return
 
 	else
-		to_chat(user,span_info("Their blood is unsoiled by the Duchy's Nervemaster. There is nothing to take."))
+		to_chat(user,span_info("Their blood is unsoiled by the Nervemaster. There is nothing to take."))
 		return
 
 /obj/item/coveter/proc/drain_effect_fast(mob/living/carbon/human/H)

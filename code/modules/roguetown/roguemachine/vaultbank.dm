@@ -1,6 +1,6 @@
 /obj/structure/roguemachine/vaultbank
 	name = "\improper JAWBANK"
-	desc = "Collects and secures the treasury of the Grand Duchy of the realm."
+	desc = "Collects and secures the treasury of the realm."
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "jawbank"
 	density = TRUE
@@ -56,7 +56,7 @@
 			src.say("I WILL TREASURE THAT.")
 			playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
 		if(4)
-			src.say("MORE FOR THE DUCHY. MORE FOR ME.")
+			src.say("MORE FOR THE BARON. MORE FOR ME.")
 			playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
 		if(5)
 			src.say("TENS, HUNDREDS, THOUSANDS.")
@@ -104,7 +104,7 @@
 			src.say("STOP THAT.")
 			playsound(src, 'sound/misc/gold_license.ogg', 100, FALSE, -1)
 		if(5)
-			src.say("THAT IS THE DUCHY'S COIN.")
+			src.say("THAT IS THE BARON'S COIN.")
 			playsound(src, 'sound/misc/gold_license.ogg', 100, FALSE, -1)
 		if(6)
 			src.say("YOU LOWLYFE.")
@@ -218,12 +218,12 @@
 	if(!has_reported)
 		if(SStreasury.treasury_value >= 3000) // Adjustable. Mainly for GROSS WEALTH.
 			if(drilltime >= 50) // Adjust this as you like. Currently, it'll alert once half-way done.
-				src.say("DUCHY ALERTED.")
+				src.say("BARON ALERTED.")
 				playsound(src, 'sound/misc/jawbankanguish.ogg', 100, FALSE, -1)
 				send_ooc_note("A parasite of the Freefolk is breaking [src]! Location: The Vault", job = list("Grand Duke", "Steward", "Clerk"))
 				has_reported = TRUE
 		else
-			src.say("DUCHY ALERTED.")
+			src.say("BARON ALERTED.")
 			playsound(src, 'sound/misc/jawbankanguish.ogg', 100, FALSE, -1)
 			send_ooc_note("A parasite of the Freefolk is breaking [src]! Location: The Vault", job = list("Grand Duke", "Steward", "Clerk"))
 			has_reported = TRUE

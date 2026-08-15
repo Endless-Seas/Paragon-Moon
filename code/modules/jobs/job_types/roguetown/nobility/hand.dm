@@ -31,21 +31,23 @@
 	supervisors = "Regent"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_rp_hooks = TRUE
+	vault_dweller = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Act under your own power, though not counter to the regent's will. <br> \
 				- Act as the regent's eyes and ears, if absent from court. <br> \
 				- Empower yourself, by way of knowledge and deceit. <br> \
-				- Maintain the regent's honour, as with your own."
+				- Maintain the regent's honour, as with your own. <br> \
+				- Protect the Archeovault beneath the estate. At all costs."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
 				- Disparaging the regent, or others, of high station. <br> \
-				- Through action or inaction, imperiling the court."
+				- Through action or inaction, imperiling the court. <br> \
+				- Exploring the Archeovault. For just as its guardians are restless, so too is your mind when near."
 
-	vault_station = "enter last, having left your personal warding active. Like some manner of coward."
-	vault_dweller = TRUE
+	vault_station = "enter last, having left your personal warding active. Knowing what was to come."
 
-	has_rp_hooks = TRUE
 	vault_hook = "You're a coward. Or so the voices say. They speak and shout, plead and whimper, that you could've done something different. \
 	You were meant for something greater. But now, trapped, as you are? You've only your friend and the once-mentor. United, in unending eternity."
 

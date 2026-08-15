@@ -1060,6 +1060,21 @@
 	force = 12
 	force_wielded = 30
 
+//Zwei sidegrade or worse longsword with rend. Choose your poison.
+//Higher integrity. +1 Def. -2 Minstr. Incredibly easy to make. Longsword special.
+/obj/item/rogueweapon/greatsword/warbrand
+	name = "faussart"//Warbrand!!!!!
+	desc = "A heavy, thick length of iron shaped into the form of a sword. The weapon of many former knights. \
+	Likely to be on who you'd found this, in truth."
+	force = 12//-2
+	force_wielded = 30//-5
+	icon_state = "faussart"//Temp claymore chopup. Sorry.
+	item_state = "faussart"
+	max_blade_int = 250//-50
+	minstr = 7//-2, longsword req.
+	smeltresult = /obj/item/ingot/iron
+	special = /datum/special_intent/side_sweep
+
 /obj/item/rogueweapon/greatsword/grenz
 	name = "steel zweihander"
 	icon_state = "steelzwei"

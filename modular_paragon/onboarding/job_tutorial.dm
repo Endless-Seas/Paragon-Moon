@@ -15,26 +15,33 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 	var/rp_enforce = ""
 	//For things that the faction forbids or otherwise discourages heavily. IE: Discouraged/Forbidden, on desc.
 	var/rp_forbid = ""
+
 	//When leaving the round, do we want them to have to follow the 'don't just vanish' rule?
 	var/leave_admin_shout = FALSE
 	//Is this role RP heavy? As in, should it be forbidden from dungeons and offensive combat?
 	var/roleplay_exclusive_notify = FALSE
+
 	//Do we HAVE RP hooks? Remember that this should always be true for The Three.
+	//Otherwise, enable it on some roles dynamically as a background_hook is selected.
 	var/has_rp_hooks = FALSE
+	//Specific hooks unrelated to the vault, by other systems. Unused, for now.
+	//Character selection related, mostly. I've not fully finished this though, and it's a mess like the rest of this.
+	var/background_hook = ""
+
 	//Do we give them the narrative piece, relating to the vault, as if they're one of The Three?
 	var/vault_dweller = FALSE
-	//If so, who were they? Baron, Hand or Honorant?
+	//If so, the introduction piece.
 	var/vault_station = ""
 	//Specific hooks for The Three. To elaborate further on their role in this cyclical hell, and the visions. If applicable.
 	var/vault_hook = ""
-	//Specific hooks unrelated to the vault, by other systems. Unused, for now.
-	var/background_hook = ""
+
 	//Do we HAVE FAITH hooks? Remember that this should always be true for the Church and Inquisition.
 	var/has_faith_hooks = FALSE
 	//Specific hooks for how the Inquisition should interact with other faiths?
 	var/inquis_hook = FALSE
 	//Specific hooks for how the Church should interact with other faiths?
 	var/church_hook = FALSE
+
 	//Is this class liable to change to an extreme degree at some point in the near future?
 	var/fear_of_change = FALSE
 
@@ -145,30 +152,35 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 	if(vault_dweller)
 		dat += "<FONT color='green'><b>You are relevant to the meta-plot.</b></font><br>"
 
-		dat += "<b>For you were the fool to [vault_station] </b><br>\
-		Of the three that entered the Archeovault, beneath the Baron's estate. Whether that be Hand, Baron or Honorant.<br>\
-		A party that couldn't be stopped, after their departure. A straight march to power, in whatever manner that came. \
-		By way of conquest, coercion or simply revealing, to the powers that be, the exact contents of that wretched place. \
-		The end result had been the Baron's rise to control of the archipelago. Now and forever.<br><br>"
+		dat += "<b>Of a party that couldn't be stopped. The Baron, Hand and Honorant.</b> <br>\
+		Wretched souls, of a previous lyfe, stepping into the Archaeovault. \
+		That had been centuries ago, though the end result had been control of the archipelago. \
+		Now and forever.<br><br>"
 
-		dat += "<small><FONT color='grey'>This location is an incredibly powerful plot device, ICly, that should not be discussed beyond the two others that share this secret. \
-		People may know of it's existence, but only you three have ever seen the interior. \
+		dat += "<small><FONT color='grey'>This location is an incredibly powerful plot device, ICly, \
+		that should not be discussed beyond the two others that share this secret. \
+		People may know of its existence, but only you three have ever seen the interior. \
 		A secret you're encouraged to take to the grave, yet may use in RP if such arises. \
-		For there is a reason the Baron's grasp is absolute, in however a manner you wish to argue it. <br>\
+		For there is a reason the Baron's grasp is absolute. <br>\
 		As a result, your character is capable of entering the vault, should the need arise. \
 		The abominable intelligentsia within will not cause you direct harm.</font></small>"
 
-		dat += "\n<br><b>- - - - - -</b><br>"
+		dat += "\n<br><b>- - -</b><br>"
 
 	if(vault_hook)
-		dat += "<b><small>You've lived many lives. You don't know how. You are incapable of explaining it, even if tortured. \
-		You simply know that, in some manner, you've come to this horrid isle for centuries. \
-		That you, and your two beloved companions, are trapped in this endless cycle. To forever rule. \
-		Always aided to such heights by fiasco or providence. </b><br>\
-		No manner of death, collapse or catastrophe can keep you from this fate. \
+		dat += "<FONT color='#40A4B9'><b>You will do a great many things.</b></font><br>"
+
+		dat += "<b><small>You've lived many lives. The presence beneath the estate assures such. \
+		No manner of death, collapse or catastrophe can avert the tethers of fate. <br>\
 		For there will always be a body for you to inhabit. Just as the locals will forever see you as the same figure. \
-		An eternal slave to the barony, regardless of the truth.\
-		</small><br><br>\
+		You, and your two beloved companions, trapped in this endless cycle. To forever rule. <br>\
+		An eternal slave to the barony, regardless of the truth.</small></b><br>"
+
+		dat += "\n<br><br>"
+		dat += "<FONT color='#A64A2E'><b>You. Are. Trapped.</b></font><br>"
+		dat += "\n<br><br>"
+
+		dat += "<b>You were the fool to [vault_station] </b><br><br>\
 		[vault_hook]"
 
 		dat += "\n<br><b>- - - - - -</b><br>"

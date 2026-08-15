@@ -34,21 +34,23 @@
 	supervisors = "Regent | Hand"
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_rp_hooks = TRUE
+	vault_dweller = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Advise the regent on matters martial. <br> \
 				- Train those you deem worthy, or as instructed by the court. <br> \
 				- Assure you have a successor, to carry on what you know. <br> \
-				- Rest easy, in your old age."
+				- Rest easy, in your old age. <br> \
+				- Protect the Archeovault beneath the estate. At all costs."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \
-				- Acting as a member of the retinue, directly, in matters of combat."
+				- Acting as a member of the retinue, directly, in matters of combat. <br> \
+				- Exploring the Archeovault. For just as its guardians are restless, so too is your mind when near."
 
-	vault_dweller = TRUE
 	vault_station = "enter first, torch in hand, with the Baron to your rear. You shan't forget what you found."
 
-	has_rp_hooks = TRUE
-	vault_hook = "You'd lead those two fools in another life. Knowing, perhaps, that it was an unsound decision. \
+	vault_hook = "You'd lead those two in another life. Knowing, perhaps, that it was an unsound decision. \
 	Nothing ever good came of ruins. Doubly so, in your prime. Even now, from the glimpses of the past that you've been given? \
 	It's a bitter truth. The images that flash of what you were, once. A hero. A sycophant. A martyr. Perhaps this life shall be different."
 

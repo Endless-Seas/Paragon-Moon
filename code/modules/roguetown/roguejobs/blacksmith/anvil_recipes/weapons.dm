@@ -329,6 +329,12 @@
 	additional_items = list(/obj/item/ingot/iron, /obj/item/ingot/iron)
 	created_item = /obj/item/rogueweapon/greatsword/zwei
 
+/datum/anvil_recipe/weapons/iron/warbrand
+	name = "Faussart, Iron (+1 Iron)"
+	req_blade = /obj/item/blade/iron_sword
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/rogueweapon/greatsword/warbrand
+
 /datum/anvil_recipe/weapons/iron/handaxe
 	name = "Hatchet, Iron (+1 Stick)"
 	additional_items = list(/obj/item/grown/log/tree/stick)
@@ -1122,7 +1128,7 @@
 
 /datum/anvil_recipe/weapons/psy/dagger/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	
+
 /datum/anvil_recipe/weapons/psy/shortsword/inq
 	req_bar = /obj/item/ingot/silverblessed/bullion
 

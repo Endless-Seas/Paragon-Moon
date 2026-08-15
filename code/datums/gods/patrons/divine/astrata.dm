@@ -13,15 +13,16 @@
 					/obj/effect/proc_holder/spell/self/astrata_gaze				= CLERIC_T0,
 					/obj/effect/proc_holder/spell/invoked/lesser_heal 			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/blood_heal			= CLERIC_T1,
-					/obj/effect/proc_holder/spell/self/astratan_path			= CLERIC_T2,//WHY WAS THIS T1? THANKS RW. RAAAA FUCK I HATE YOU
+					/obj/effect/proc_holder/spell/self/astratan_path			= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/heal					= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/revive				= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/immolation			= CLERIC_T4,
+					/obj/effect/proc_holder/spell/self/astratan_rebirth			= CLERIC_T4,
 	)
 	confess_lines = list(
 		"ASTRATA IS MY LIGHT!",
-		"ASTRATA BRINGS LAW!",
-		"I SERVE THE GLORY OF THE SUN!",
+		"MY MUSE IS DIVINITY MADE MANIFEST!",
+		"I SERVE THE GLORY OF THE DAWNBRINGER!",
 	)
 	storyteller = /datum/storyteller/astrata
 

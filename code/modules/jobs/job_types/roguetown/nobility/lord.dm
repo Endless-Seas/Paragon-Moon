@@ -49,6 +49,8 @@ GLOBAL_LIST_EMPTY(lord_titles)
 
 	leave_admin_shout = TRUE
 	roleplay_exclusive_notify = TRUE
+	has_rp_hooks = TRUE
+	vault_dweller = TRUE
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Wield absolute power. <br> \
@@ -59,14 +61,12 @@ GLOBAL_LIST_EMPTY(lord_titles)
 				- Exploring the Archeovault. For just as its guardians are restless, so too is your mind when near."
 
 	vault_station = "enter second, allowing the Honorant to enter first. The right call, even now."
-	vault_dweller = TRUE
 
-	has_rp_hooks = TRUE
 	vault_hook = "Despite the attempts at wresting control from the infernal power beneath the estate, \
 	in however many lives you've attempted, one thing has become abundantly clear: You are not free. \
 	The dreams no longer speak of promise and security. They do not assure you that you will rule forever. \
 	They have shown you the future, and, despite your wish to be free of it, you will forever be on this throne. \
-	You are bound by prophecy. One you cannot break. For this is to be your fate."
+	You are bound by prophecy. Binds you cannot break. For this is to be your fate."
 
 /datum/outfit/job/roguetown/lord
 	job_bitflag = BITFLAG_ROYALTY

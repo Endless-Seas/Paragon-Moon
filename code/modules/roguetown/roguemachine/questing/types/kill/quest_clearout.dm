@@ -13,7 +13,7 @@
 	return "Eliminate [progress_required] [initial(target_mob_type.name)]."
 
 /datum/quest/kill/clearout/get_location_text()
-	return target_spawn_area ? "Reported infestation in [target_spawn_area] region." : "Reported infestations in The Vale region."
+	return target_spawn_area ? "Reported infestation in [target_spawn_area] region." : "Reported infestations in region."
 
 /datum/quest/kill/clearout/generate(obj/effect/landmark/quest_spawner/landmark)
 	..()

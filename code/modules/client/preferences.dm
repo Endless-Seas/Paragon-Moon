@@ -589,6 +589,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 							race_bonus_display = bonus
 							break
 				dat += "<b>Race Bonus:</b> <a href='?_src_=prefs;preference=race_bonus_select;task=input'>[race_bonus_display ? "[race_bonus_display]" : "None"]</a><BR>"
+				dat += "<BR>"
 			else
 				race_bonus = null
 				dat += "<BR>"
@@ -645,9 +646,10 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 			dat += "<b>Unrevivable:</b> <a href='?_src_=prefs;preference=dnr;task=input'>[dnr_pref ? "Yes" : "No"]</a><BR>"
 
+			dat += "<BR>"
 			dat += "<b>Be a Familiar:</b><a href='?_src_=prefs;preference=familiar_prefs;task=input'>Familiar Preferences</a>"
-
 			dat += "<br><b>Gnoll Customization:</b><a href='?_src_=prefs;preference=gnoll_prefs;task=input'>Gnoll Preferences</a>"
+			dat += "<BR>"
 
 /*
 			dat += "<br><br><b>Special Names:</b><BR>"
