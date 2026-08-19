@@ -102,4 +102,3 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/thawb/random
 		pants = /obj/item/clothing/under/roguetown/sirwal/plainrandom
 		shoes = /obj/item/clothing/shoes/roguetown/sandals
-		head = /obj/item/clothing/head/roguetown/roguehood/shalal/nomad

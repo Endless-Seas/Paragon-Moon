@@ -43,8 +43,11 @@
 			if(SSgamemode.current_storyteller?.name == "Eora")
 				weather_pool[/datum/particle_weather/sakura_gentle] = 10
 
+//THIS SHIT IS DISABLED, LOL. KEEP IT GONE UNTIL SOMEONE REDOES 'GALE WINDS' TO NOT BE AWFUL. - Carl
+/*
 			if(SSgamemode.current_storyteller?.name == "Abyssor")
 				weather_pool[/datum/particle_weather/hurricane] = 1	//Intended to be very rare, as it is destructive
+*/
 
 	if(!weather_pool || !length(weather_pool))
 		return

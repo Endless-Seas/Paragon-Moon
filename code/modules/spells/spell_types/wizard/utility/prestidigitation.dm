@@ -18,6 +18,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	hand_path = /obj/item/melee/touch_attack/prestidigitation
 	var/mote_color = null
+	spark_immune = TRUE
 
 // Re-apply saved prestidigitation color when the touch hand is summoned again.
 /obj/effect/proc_holder/spell/targeted/touch/prestidigitation/ChargeHand(mob/living/carbon/user)

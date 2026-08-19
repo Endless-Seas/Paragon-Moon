@@ -332,19 +332,8 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_GNOLL			"CAT_GNOLL"			// Wretch-esque gnolls, graggar's chosen.
 #define CTAG_GNOLL_IMPURE	"CAT_GNOLL_IMPURE"	// Reward for beating enough gnolls.
 
-#define CTAG_TRIBAL				"CAT_TRIBAL"			//
-#define CTAG_TRIBALCHIEFTAIN	"CAT_TRIBALCHIEFTAIN"	//
-#define CTAG_TRIBALSHAMAN		"CAT_TRIBALSHAMAN"		//
-#define CTAG_TRIBALGUARD		"CAT_TRIBALGUARD"		//
-#define CTAG_TRIBALRABBLE		"CAT_TRIBALRABBLE"		//
-#define CTAG_TRIBALVILLAGER		"CAT_TRIBALVILLAGER"	//
-
 #define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.
-#define CTAG_VANGUARD		"CAT_VANGUARD"		// Vanguard class - Handles vanguard class selector.
-#define CTAG_WATCH			"CAT_WATCH"			// Watch class - Handles Town Watch class selector
 #define CTAG_MENATARMS		"CAT_MENATARMS"		// Men-at-Arms class - Handles Men-at-Arms class selector
-#define CTAG_BOGMASTER		"CAT_BOGMASTER"		// BOGMASTER class - Handles BOGMASTER class selector (weapons selection)
-#define CTAG_SHERIFF		"CAT_SHERIFF"		// SHERIFF class - Handles SHERIFF class selector (weapons selection)
 #define CTAG_SERGEANT		"CAT_SERGEANT"		// Sergeant class - Handles Sergeant class selector (weapons selection)
 #define CTAG_ROYALGUARD		"CAT_ROYALGUARD"	// Royal Guard class - Handles Royal Guard class selector
 #define CTAG_CONSORT		"CAT_CONSORT"		// Consort/Suitor subclasses
@@ -354,7 +343,6 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_HEIR			"CAT_HEIR"			// Prince(cess) class - Handles Heir class selector
 #define CTAG_LORD			"CAT_LORD"			// Lord class - Handles Lord class selector
 #define CTAG_SQUIRE			"CAT_SQUIRE"		// Squire class - Handles Squire class selector
-#define CTAG_ROOKIE			"CAT_ROOKIE"		// Rookie class - Handles Rookie class selector
 #define CTAG_VETERAN		"CAT_VETERAN"		// Veteran class - Handles Veteran class selector
 #define CTAG_MARSHAL		"CAT_MARSHAL"		// Marshal class
 #define CTAG_SENESCHAL		"CAT_SENESCHAL"		// Seneschal's aesthetic choices.
@@ -367,19 +355,6 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_PRISONER 		"CAT_PRISONER"
 #define CTAG_CONSUL			"CTAG_CONSUL"		// Our beloved Consul. All ready to frag.
 #define CTAG_MYSTIC			"CTAG_MYSTIC"		// Mystic. Wild how that works.
-
-// List of Migrant Classes.
-#define CTAG_HFT_LORD "CAT_HFT_LORD"  // Heartfelt Lord Class - Handles Heartfelt Lord class selector.
-#define CTAG_HFT_HAND "CAT_HFT_HAND"  // Heartfelt Hand Class - Handles Heartfelt Hand class selector.
-#define CTAG_HFT_KNIGHT "CAT_HFT_KNIGHT"  // Heartfelt Knight Class - Handles Heartfelt Knight class selector.
-#define CTAG_HFT_RETINUE "CAT_HFT_RETINUE"  // Heartfelt Retinue Class - Handles Heartfelt Retinue class selector.
-#define CTAG_CZWAR_LORD "CTAG_CZWAR_LORD"
-#define CTAG_CZWAR_HEIR "CTAG_CZWAR_HEIR"
-#define CTAG_CZWAR_HUSSAR "CTAG_CZWAR_HUSSAR"
-#define CTAG_CZWAR_RETAINER "CTAG_CZWAR_RETAINER"
-#define CTAG_CZWAR_SERVANT "CTAG_CZWAR_SERVANT"
-
-
 
 // List of mono-class categories. Only here for standardisation sake, but can be added on if desired.
 #define CTAG_DUNGEONEER		"CAT_DUNGEONEER"
@@ -430,14 +405,12 @@ GLOBAL_LIST_EMPTY(round_join_times)
 */
 
 //Adventurer categories
-#define CLASS_CAT_NOBLE	"Noble"
-#define CLASS_CAT_CLERIC "Holy"
-#define CLASS_CAT_ROGUE	"Rogue"
-#define CLASS_CAT_RANGER "Ranger"
-#define CLASS_CAT_MAGE "Magical"
-#define CLASS_CAT_WARRIOR "Martial"
-#define CLASS_CAT_TRADER "Trader"
-#define CLASS_CAT_NOMAD "Nomad"
+#define CLASS_CAT_CLERIC	"Holy"
+#define CLASS_CAT_ROGUE		"Rogue"
+#define CLASS_CAT_RANGER	"Ranger"
+#define CLASS_CAT_MAGE		"Magical"
+#define CLASS_CAT_WARRIOR	"Martial"
+#define CLASS_CAT_TRADER	"Trader"
 
 //Wretch categories
 #define CLASS_CAT_ACCURSED "Accursed"
@@ -454,11 +427,6 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CLASS_CAT_OTAVA "Otava"
 #define CLASS_CAT_KAZENGUN "Kazengun"
 #define CLASS_CAT_RACIAL "Race Exclusive" //Used for black oaks, grudgebearer dwarves, etc.
-
-//Migrant categories
-#define CLASS_CAT_HFT_COURT "Upper Court"
-#define CLASS_CAT_HFT_GUARD "House Guard"
-#define CLASS_CAT_HFT_WORKER "Workers"
 
 // Social rank defines
 #define SOCIAL_RANK_DIRT 1

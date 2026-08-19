@@ -13,7 +13,7 @@
 	if(!cmode)	//We just toggled it off.
 		addtimer(CALLBACK(src, PROC_REF(purge_bait)), 30 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		addtimer(CALLBACK(src, PROC_REF(expire_peel)), 60 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-	if(!HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
+	if(!HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))//CI kinda kills the need for this, but it's flavourful.
 		filtered_balloon_alert(TRAIT_COMBAT_AWARE, (cmode ? ("<i><font color = '#831414'>Tense</font></i>") : ("<i><font color = '#c7c6c6'>Relaxed</font></i>")), y_offset = 32)
 
 /datum/rmb_intent/proc/special_attack(mob/living/user, atom/target)
@@ -212,7 +212,7 @@
 		if(user.client?.prefs.showrolls)
 			to_chat(user, span_warning("[L.p_they(TRUE)] did not fall for my feint... [perc]%"))
 		return
-	
+
 	var/effect_to_apply = (L.mind ? /datum/status_effect/debuff/vulnerable : /datum/status_effect/debuff/exposed)
 
 	L.apply_status_effect(effect_to_apply, 7 SECONDS)

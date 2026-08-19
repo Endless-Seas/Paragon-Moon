@@ -69,6 +69,9 @@
 /datum/reagent/medicine/manapot/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(M,TRAIT_INFINITE_STAMINA))
 		M.energy_add(30)
+		var/mob/living/carbon/human/H = M
+		if(ishuman(H))
+			H.adjust_spark(5)//30u gets you 150 spark. Very slowly.
 	..()
 
 /datum/reagent/medicine/strongmana
@@ -81,6 +84,9 @@
 /datum/reagent/medicine/strongmana/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(M,TRAIT_INFINITE_STAMINA))
 		M.energy_add(120)
+		var/mob/living/carbon/human/H = M
+		if(ishuman(H))
+			H.adjust_spark(10)//30u gets you 100 spark. Very quickly.
 	..()
 
 /datum/reagent/medicine/stampot

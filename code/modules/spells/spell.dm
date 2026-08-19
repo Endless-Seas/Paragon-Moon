@@ -547,6 +547,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	//Add xp based on the fatigue used -- AZURE EDIT: REMOVED!! THIS SHIT WAS TINY AND SUUUUCKED
 	/* if(xp_gain)
 		adjust_experience(usr, associated_skill, round(get_fatigue_drain() * MAGIC_XP_MULTIPLIER)) */
+	spark_check(usr)
 
 	START_PROCESSING(SSfastprocess, src) // ensure we always end up reprocessing after casting
 

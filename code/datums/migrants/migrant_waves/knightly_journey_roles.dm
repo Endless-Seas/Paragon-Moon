@@ -178,5 +178,53 @@
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
+
+/datum/outfit/job/roguetown/adventurer/squire/pre_equip(mob/living/carbon/human/H)
+	..()
+	to_chat(H, span_warning("You are a squire who has traveled far in search of a master to train you and a lord to knight you."))
+	head = /obj/item/clothing/head/roguetown/roguehood
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	cloak = /obj/item/clothing/cloak/stabard
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/flashlight/flare/torch/lantern
+	backr = /obj/item/storage/backpack/rogue/satchel
+	backpack_contents = list(/obj/item/storage/belt/rogue/pouch/coins/poor = 1, /obj/item/armor_brush = 1, /obj/item/polishing_cream = 1, /obj/item/rogueweapon/hammer/iron = 1, /obj/item/rogueweapon/huntingknife = 1, /obj/item/rogueweapon/scabbard/sheath = 1)
+	if(H.mind)
+		var/armors = list("Light Armor","Medium Armor")
+		var/armor_choice = input(H, "Choose your armor.", "HOW WILL YOU LOOK WHEN YOU DIE") as anything in armors
+		switch(armor_choice)
+			if("Light Armor")
+				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+				armor = /obj/item/clothing/suit/roguetown/armor/leather
+				pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
+				gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+			if("Medium Armor")
+				shirt = /obj/item/clothing/suit/roguetown/shirt/tunic
+				armor = /obj/item/clothing/suit/roguetown/armor/plate/half/iron
+				pants = /obj/item/clothing/under/roguetown/chainlegs/iron
+				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
+				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+		var/weapons = list("Arming Sword","Shortsword + Shield","Bow & Arrow","Spear")
+		var/weapon_choice = input(H, "Choose your weapon.", "WHAT WILL YOU SWING BEFORE DEATH") as anything in weapons
+		switch(weapon_choice)
+			if("Arming Sword")
+				backl = /obj/item/rogueweapon/scabbard/sword
+				r_hand = /obj/item/rogueweapon/sword/iron
+			if("Shortsword + Shield")
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				backl = /obj/item/rogueweapon/shield/wood
+				r_hand = /obj/item/rogueweapon/sword/short/iron
+			if("Bow & Arrow")
+				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+				beltr = /obj/item/quiver/arrows
+			if("Spear")
+				r_hand = /obj/item/rogueweapon/spear
+				backl = /obj/item/rogueweapon/scabbard/gwstrap
+	H.set_blindness(0)
+
 #undef CTAG_KJ_KNIGHT
 #undef CTAG_KG_SQUIRE

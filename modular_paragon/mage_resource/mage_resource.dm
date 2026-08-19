@@ -1,7 +1,8 @@
 /mob/living/carbon/human
 	var/spark = SPARK_LEVEL_FULL
-//get_user_spell_tier
-/datum/species/spec_life(mob/living/carbon/human/H)
+
+//We really shouldn't hook this into Life(), but we do.
+/datum/species/proc/spec_spark(mob/living/carbon/human/H)
 	//Yeah, I KNOW.
 	switch(H.spark)
 		if(SPARK_LEVEL_HALF_UP to SPARK_LEVEL_FULL)
@@ -27,18 +28,16 @@
 		src.blood_volume = max(src.blood_volume-35, 0)
 		src.handle_blood()
 		new /obj/effect/decal/cleanable/blood/puddle(src.loc)
+	//(21 - WIL * Spell Tier). Unless you adjust base drain. Out of a total of the SPARK_LEVEL_FULL value (750 at time of creation).
 	spark = max(0, spark - change - src.STAWIL)
 
 /obj/effect/proc_holder/spell
 	var/spark_immune = FALSE//Will it drain a mage's soul when casting?
 
-//Actual cost after cast.
-/*
-/obj/effect/proc_holder/spell/cast(mob/living/carbon/human/H)
-	if(!spark_immune)
+//Actual cost after cast. Hooked into 'after_cast'.
+/obj/effect/proc_holder/spell/proc/spark_check(mob/living/carbon/human/H)
+	if(!spark_immune & !miracle)//We don't care about miracles.
 		H.lessen_spark(21 * (src.spell_tier))
-	. = ..()
-*/
 
 //Debuffs.
 /datum/status_effect/debuff/spark_low
@@ -50,8 +49,9 @@
 
 /atom/movable/screen/alert/status_effect/debuff/spark_low
 	name = "Drained"
-	desc = "I've strained my capability to cast! <br>\
-	<font color=red>Any more, and I may find myself in danger.</font>"
+	desc = "I've strained my capability to cast!  <br>\
+	<font color=red>Any more might place myself in danger.</font> <br>\
+	<font color=green>I should recover, whether by potion or arcyne recovery.</font>"
 	icon = 'modular_paragon/mage_resource/icons/mob/mage_resource.dmi'
 	icon_state = "spark_low"
 
@@ -66,6 +66,6 @@
 	name = "Faded"
 	desc = "I've pushed myself too far. My powers have abandoned me. <br>\
 	<font color=grey>No recovery can return what I've lost. It's over. <br>\
-	Any further casting will be to my own detriment.</font>"
+	Any further casting will be to my own detriment, for only a skilled Magos can escape this state.</font>"
 	icon = 'modular_paragon/mage_resource/icons/mob/mage_resource.dmi'
 	icon_state = "spark_death"

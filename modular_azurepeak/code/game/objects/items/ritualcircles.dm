@@ -26,7 +26,8 @@
 	name = "Rune of the Sun" // defines name of the circle itself
 	icon_state = "astrata_chalky" // the icon state, so, the sprite the runes use on the floor. As of making, we have 6, each needs an active/inactive state.
 	desc = "A Holy Rune of Astrata. Warmth irradiates from the rune." // description on examine
-	var/solarrites = list("Guiding Light") // This is important - This is the var which stores every ritual option available to a ritualist - Ideally, we'd have like, 3 for each God. Right now, just 1.
+//Now, the actual rites. Snowflake though this might be in function. We should've unified this to a parent. Whatever.
+	var/solarrites = list("Guiding Light", "Phoenix Bindings")
 
 /obj/structure/ritualcircle/astrata/attack_hand(mob/living/user)
 	if(!..())
@@ -44,9 +45,9 @@
 	switch(riteselection) // rite selection goes in this section, try to do something fluffy. Presentation is most important here, truthfully.
 		if("Guiding Light") // User selects Guiding Light, begins the stuff for it
 			if(do_after(user, 50)) // just flavor stuff before activation
-				user.say("I beseech the Absolute Order, the Sun and Dae!!")
+				user.say("I beseech the Dawnbringer, the Sun and Dae!!")
 				if(do_after(user, 50))
-					user.say("To bring Order to a world of naught!!")
+					user.say("To bring Purity to a world of naught!!")
 					if(do_after(user, 50))
 						user.say("Place your gaze upon me, oh Radiant one!!")
 						to_chat(user,span_danger("You feel the eye of Astrata turned upon you. Her warmth dances upon your cheek. You feel yourself warming up...")) // A bunch of flavor stuff, slow incanting.
@@ -62,6 +63,35 @@
 						user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 						spawn(120)
 							icon_state = "astrata_chalky"
+		if("Phoenix Bindings")
+			if(do_after(user, 50))
+				user.say("Dawnbringer, oh Dawnbringer!!")
+				if(do_after(user, 50))
+					user.say("I ask of warmth! Of purity!!")
+					if(do_after(user, 50))
+						user.say("Of a spark, to mend flaws, both future and present!!")
+						if(do_after(user, 30))
+							icon_state = "astrata_active"
+							loc.visible_message(span_warning("[user]'s frame is engulfed in holy light!"))
+							playsound(loc, 'sound/combat/hits/burn (1).ogg', 100, FALSE, -1)
+							user.adjust_fire_stacks(20)
+							user.ignite_mob()
+							user.emote("firescream")
+							var/mob/living/carbon/human/H = user
+							phoenix_bindings(H)
+							user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+							spawn(120)
+								icon_state = "astrata_chalky"
+
+/obj/structure/ritualcircle/astrata/proc/phoenix_bindings(src)
+	var/mob/living/carbon/human/H = src
+	to_chat(H,span_cultsmall("I see you, mortal."))
+	H.flash_fullscreen("curse1")
+	var/obj/effect/proc_holder/spell/self/astratan_rebirth/pb = H.mind?.get_spell(/obj/effect/proc_holder/spell/self/astratan_rebirth)
+	if(!pb)
+		H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/astratan_rebirth)
+	else
+		to_chat(H, span_warning("I already have this power! Gods above, I'm so foolish!"))
 
 /obj/structure/ritualcircle/astrata/proc/guidinglight(src)
 	var/ritualtargets = view(7, loc) // Range of 7 from the source, which is the rune
@@ -69,8 +99,8 @@
 		target.apply_status_effect(/datum/status_effect/buff/guidinglight) // applies the status effect
 		to_chat(target,span_cultsmall("Astrata's light guides me forward, drawn to me by the Ritualist's pyre!"))
 		playsound(target, 'sound/magic/holyshield.ogg', 80, FALSE, -1) // Cool sound!
-// If you want to review a more complicated one, Undermaiden's Bargain is probs the most complicated of the starting set. - Have fun! - Onutsio 🏳️‍⚧️
 
+// If you want to review a more complicated one, Undermaiden's Bargain is probs the most complicated of the starting set. - Have fun! - Onutsio 🏳️‍⚧️
 
 /obj/structure/ritualcircle/noc
 	name = "Rune of the Moon"
