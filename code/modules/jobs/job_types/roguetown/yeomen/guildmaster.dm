@@ -45,6 +45,10 @@
 
 /datum/advclass/guildmaster
 	name = "Guildmaster"
+	tutorial = "You lead the Guild of Crafts. A collection of architects, smiths and the isle's own gifted residents. \
+	Many look to you for guidance. Many more will ask how the ins and outs of something function. <br><br>\
+	Yet, at the end of the dae? Your main goal remains the same. \
+	Undercut and destroy the competition!"
 	outfit = /datum/outfit/job/roguetown/guildmaster/basic
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
