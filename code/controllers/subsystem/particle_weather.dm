@@ -48,8 +48,10 @@ SUBSYSTEM_DEF(ParticleWeather)
 			selected_forecast = new /datum/forecast/alashur()
 		if("Build Your Own Settlement")
 			selected_forecast = new /datum/forecast/byos()
+		if("Archipelago")
+			selected_forecast = new /datum/forecast/archipelago()
 		else
-			selected_forecast = new /datum/forecast/rockhill()	//Default to rockhill if no configs match so we have some weather
+			selected_forecast = new /datum/forecast/archipelago()//We default to the island weather, otherwise. Not Rockhill, anymore.
 	return ..()
 
 /datum/controller/subsystem/ParticleWeather/proc/run_weather(datum/particle_weather/weather_datum_type, force = 0, color)

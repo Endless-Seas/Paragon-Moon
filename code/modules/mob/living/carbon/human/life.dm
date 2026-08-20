@@ -69,7 +69,7 @@
 	handle_heart()
 	update_stamina()
 	update_energy()
-	
+
 	// Process all vices
 	if(mind && length(vices))
 		for(var/datum/charflaw/vice in vices)
@@ -78,7 +78,7 @@
 	// Legacy single vice support
 	else if(charflaw && !charflaw.ephemeral && mind)
 		charflaw.flaw_on_life(src)
-	
+
 	if(health <= 0)
 		adjustOxyLoss(0.5)
 	if(mode == NPC_AI_OFF && !client && !HAS_TRAIT(src, TRAIT_NOSLEEP))
@@ -93,6 +93,7 @@
 
 	if(dna?.species)
 		dna.species.spec_life(src) // for mutantraces
+		dna.species.spec_spark(src)//Cast checks.
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
@@ -184,7 +185,7 @@
 				if(!isaxian(src) && !islamia(src))//if you aren't an abyssor spawn creature
 					add_stress(/datum/stressevent/coldhead)
 	if(HAS_TRAIT(src, TRAIT_NOBLE)) // Allows nobles who are holding a parasol & its raining to get a mood buff
-		if(is_holding_item_of_type(/obj/item/rogueweapon/mace/parasol/noble)) 
+		if(is_holding_item_of_type(/obj/item/rogueweapon/mace/parasol/noble))
 			add_stress(/datum/stressevent/parasolrain)
 //	if(locations & FEET)
 //		if(!coverfeet && patron?.type != /datum/patron/divine/abyssor)

@@ -179,7 +179,8 @@
 
 /datum/particle_weather/rain_storm/tick()
 	lightning_check()
-	tornado_check()
+//We don't want these 'gale winds' with RAIN STORMS. Later, when I redo them, maybe. - Carl
+//	tornado_check()
 
 //Makes you a bit chilly
 /datum/particle_weather/rain_storm/weather_act(mob/living/L)

@@ -37,7 +37,7 @@
 
 	rp_enforce = "You are <FONT color='green'>expected</font> to: <br> \
 				- Aid your superiors, in any manner they ask. <br> \
-				- Maintain watch over the docks and outlying island. <br> \
+				- Maintain watch over the docks and outlying islands. <br> \
 				- Inspect, search and spy on outsiders."
 
 	rp_forbid = "You are <FONT color='red'>discouraged</font> from: <br> \

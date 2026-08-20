@@ -33,9 +33,9 @@
 /datum/outfit/job/roguetown/adventurer/mage/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
-	shoes = /obj/item/clothing/shoes/roguetown/boots
-	pants = /obj/item/clothing/under/roguetown/trou/leather
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	pants = /obj/item/clothing/under/roguetown/tights/random
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/reagent_containers/glass/bottle/rogue/manapot
@@ -84,27 +84,28 @@
 /datum/outfit/job/roguetown/adventurer/conjurer/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
-	shoes = /obj/item/clothing/shoes/roguetown/boots
-	pants = /obj/item/clothing/under/roguetown/trou/leather
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	shoes = /obj/item/clothing/shoes/roguetown/simpleshoes
+	pants = /obj/item/clothing/under/roguetown/tights/random
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	belt = /obj/item/storage/belt/rogue/leather
 	beltr = /obj/item/reagent_containers/glass/bottle/rogue/manapot
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	beltl = /obj/item/rogueweapon/huntingknife
+	beltl = /obj/item/rogueweapon/huntingknife/copper
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
+	backr = /obj/item/rogueweapon/woodstaff/amethyst
 	backpack_contents = list(/obj/item/flashlight/flare/torch = 1,
 	/obj/item/alch/waterdust = 2,
 	/obj/item/alch/airdust = 2,
-	/obj/item/alch/firedust = 2,)
+	/obj/item/alch/firedust = 2)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_cult.ogg'
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	if(H.age == AGE_OLD)
 		H.mind?.adjust_spellpoints(6)
-	if(H.mind)//8 Spellpoints here worth of spells. +2 over sorcerer, but gets less ideal spells.
+	if(H.mind)//9 Spellpoints here worth of spells. +3 over sorcerer, but gets less ideal spells.
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_primordial)//Costs +4.
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_weapon)//Costs +2.
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/findfamiliar)//Useless but funny. Costs +2.
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/summonweapon)//Not a soul otherwise gets this. +1.

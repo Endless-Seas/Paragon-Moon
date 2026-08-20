@@ -16,7 +16,7 @@
 		/datum/job/roguetown/druid = 2,
 		/datum/job/roguetown/keeper = 1,//I HATE YOU
 		//Yeoman start.
-		/datum/job/roguetown/guildsman = 2,
+		/datum/job/roguetown/guildsman = 2,//Because the funny Artificers will be coming to town.
 	)
 	title_adjust = list(
 		//Court
@@ -96,8 +96,13 @@
 	To hold whatever sits within their soul. The key to longevity and endless despondency. Or, the fool that you may be, do you yet seek true love? \
 	It doesn't truly matter. You'll find your fate in this land, one way or another.",
 	//Guild guys.
-	/datum/job/roguetown/guildmaster = "",
-	/datum/job/roguetown/guildsman = "",
+	/datum/job/roguetown/guildmaster = "You lead the Guild of Crafts. A collection of architects, smiths and the isle's own gifted residents. \
+	Many look to you for guidance. Many more will ask how the ins and outs of something function. <br><br>\
+	Yet, at the end of the dae? Your main goal remains the same. \
+	Undercut and destroy the competition!",
+	/datum/job/roguetown/guildsman = "You're one of two that works under the Guildmaster. A figure of great respect and means. \
+	Perhaps, one day, with your toil and sweat? You may yet come to take up the mantle of leadership. \
+	For now, however, you've your quarters and a respected position. A simple smith or architect you yet remain.",
 	)
 	blacklist = list(
 		//Antags.

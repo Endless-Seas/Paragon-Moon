@@ -27,21 +27,20 @@ Used if you don't have mana pots.
 
 	var/mob/living/carbon/human/H = user
 
-	// Subsequent casts - begin channeling
-	H.visible_message(span_warning("[H] closes [H.p_their()] eyes and begins to focus intently..."))
+	H.visible_message(span_warning("[H] closes [H.p_their()] eyes, focusing inwards."))
 	H.apply_status_effect(/datum/status_effect/buff/arc_rejuv)
 	if(do_after(H, recovery_delay, target = H, progress = TRUE))
 		var/recovery_audio = pick('modular_paragon/mage_resource/sound/recovery_one.ogg',
 		'modular_paragon/mage_resource/sound/recovery_two.ogg')
 		playsound(H, recovery_audio, 100, TRUE)
 
-		// Visual effects at both locations
 		var/datum/effect_system/smoke_spread/smoke = new
 		smoke.set_up(1, loc)
 		smoke.start()
 
 		if(H.spark <= SPARK_LEVEL_FADED && !HAS_TRAIT(H, TRAIT_ARCYNE_T4))
 			to_chat(H, span_warning("No matter how hard you try, it just isn't possible!"))
+			H.remove_status_effect(/datum/status_effect/buff/arc_rejuv)
 			start_recharge()
 			revert_cast()
 			return
@@ -61,11 +60,11 @@ Used if you don't have mana pots.
 		start_recharge()
 		revert_cast()
 
-//Buff. Could this be elsewhere? Sure. I suppose.
 /atom/movable/screen/alert/status_effect/buff/arc_rejuv
 	name = "Recovering"
 	desc = "I'm in the middle of casting Arcyne Rejuvenation. I need to stand still!"
 	icon_state = "buff"
+	color = "#77557A"
 
 /datum/status_effect/buff/arc_rejuv
 	id = "arc_recovering"
@@ -76,12 +75,12 @@ Used if you don't have mana pots.
 	var/ticks_to_apply = 5
 
 /datum/status_effect/buff/arc_rejuv/tick()
-	var/obj/effect/temp_visual/recall_smoke/M = new /obj/effect/temp_visual/recall_smoke(get_turf(owner))
+	var/obj/effect/temp_visual/recovery_smoke/M = new /obj/effect/temp_visual/recovery_smoke(get_turf(owner))
 	M.color = effect_color
 	pulse += 1
 
 /obj/effect/temp_visual/recovery_smoke
-	name = "recall smoke"
+	name = "recovery smoke"
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = "steam_cloud_1"
 	duration = 20

@@ -45,8 +45,10 @@
 
 /datum/advclass/guildmaster
 	name = "Guildmaster"
-	tutorial = "You are the leader of the Duchy's Guild of Crafts. You represents the interests of all of the craftsmen underneath you - including the Tailor\
-	the Blacksmiths, the Artificers and the Architects. Other townspeople may look to you for guidance, but they are not under your control. You are an experienced smith and artificer, and can do their work easily. Protect the craftsmen's interests."
+	tutorial = "You lead the Guild of Crafts. A collection of architects, smiths and the isle's own gifted residents. \
+	Many look to you for guidance. Many more will ask how the ins and outs of something function. <br><br>\
+	Yet, at the end of the dae? Your main goal remains the same. \
+	Undercut and destroy the competition!"
 	outfit = /datum/outfit/job/roguetown/guildmaster/basic
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
