@@ -12,7 +12,7 @@
 		/obj/item/bodypart/r_arm, /obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg,
 	)
 	ambushable = FALSE
-	
+
 	base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
 	a_intent = INTENT_HELP
 	d_intent = INTENT_PARRY
@@ -27,6 +27,8 @@
 	wander = FALSE
 	cmode_music = FALSE
 
+	special_attacker = TRUE
+
 /mob/living/carbon/human/species/orc/npc/Initialize(mapload)
 	. = ..()
 	set_species(/datum/species/orc)
@@ -38,9 +40,9 @@
 	equipOutfit(new orc_outfit)
 	gender = pick(MALE, FEMALE)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-	var/hairf = pick(list(/datum/sprite_accessory/hair/head/lowbraid, 
+	var/hairf = pick(list(/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/countryponytailalt))
-	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher, 
+	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher,
 						/datum/sprite_accessory/hair/head/lowbraid))
 	var/beard = pick(list(/datum/sprite_accessory/hair/facial/viking,
 						/datum/sprite_accessory/hair/facial/manly,
@@ -72,7 +74,7 @@
 	else
 		new_hair.set_accessory_type(hairm, null, src)
 		new_facial.set_accessory_type(beard, null, src)
-		
+
 	head.add_bodypart_feature(new_hair)
 	head.add_bodypart_feature(new_facial)
 

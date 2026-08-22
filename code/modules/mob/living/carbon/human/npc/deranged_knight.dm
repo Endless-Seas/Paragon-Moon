@@ -30,6 +30,9 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	var/forced_preset = "" // If set, force a specific preset instead of randomizing.
 	var/never_goon = FALSE // If TRUE, this DK will not spawn goons on creation.
 
+	special_attacker = TRUE
+	smart_combatant = TRUE
+
 /mob/living/carbon/human/species/human/northern/deranged_knight/retaliate(mob/living/L)
 	var/newtarg = target
 	.=..()
@@ -160,7 +163,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	var/list/possible_turfs = list()
 	for(var/turf/open/T in oview(2, src))
 		possible_turfs += T
-	
+
 	def_intent_change(INTENT_PARRY)
 
 	if(never_goon)
@@ -228,7 +231,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	H.STACON = 15
 	H.STAWIL = 14
 	H.STAPER = 12
-	H.STAINT = 12  
+	H.STAINT = 12
 	H.STALUC = 10
 
 	H.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)

@@ -1,4 +1,4 @@
-/* 
+/*
 *	based on pages from elden ring in terms of visual design, these guys are intended to be a speedbump to solo adventurers at mount decap
 *	deadly but small in numbers. come back with a party, chump
 */
@@ -11,6 +11,10 @@
 	dodgetime = 15
 	flee_in_pain = FALSE
 	possible_rmb_intents = list()
+
+	//We want these guys even MORE scary.
+	special_attacker = TRUE
+	smart_combatant = TRUE
 
 /mob/living/carbon/human/species/human/northern/mad_touched_treasure_hunter/ambush
 	aggressive = 1

@@ -23,6 +23,9 @@
 	var/is_silent = FALSE /// Determines whether or not we will scream our funny lines at people.
 	npc_max_jump_stamina = 0
 
+	special_attacker = TRUE
+	smart_combatant = TRUE
+
 /mob/living/carbon/human/species/lizardfolk/psy_vault_guard/ambush
 	aggressive=1
 	wander = TRUE
@@ -171,7 +174,7 @@
 		if(7)
 			r_hand = /obj/item/rogueweapon/mace/goden/steel
 		// 2 hand weapon to dilute the pool to keep ranged viable
- 
+
 /datum/outfit/job/roguetown/human/species/lizardfolk/psy_vault_guard/proc/add_random_psy_vault_guard_mask(mob/living/carbon/human/H)
 	var/add_random_psy_vault_guard_mask = rand(1,5)
 	switch(add_random_psy_vault_guard_mask)

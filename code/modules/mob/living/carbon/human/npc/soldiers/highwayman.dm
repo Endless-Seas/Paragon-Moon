@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	possible_rmb_intents = list()
 	var/is_silent = FALSE /// Determines whether or not we will scream our funny lines at people.
 
+	smart_combatant = TRUE
 
 /mob/living/carbon/human/species/human/northern/highwayman/ambush
 	aggressive = 1

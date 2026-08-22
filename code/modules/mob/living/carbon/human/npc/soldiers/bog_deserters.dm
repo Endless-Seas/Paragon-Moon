@@ -109,6 +109,8 @@
 	var/is_silent = FALSE /// Determines whether or not we will scream our funny lines at people.
 	npc_max_jump_stamina = 0
 
+	special_attacker = TRUE
+	smart_combatant = TRUE
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/ambush
 	aggressive=1
