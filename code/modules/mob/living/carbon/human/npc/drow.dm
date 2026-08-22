@@ -11,6 +11,9 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	possible_rmb_intents = list()
 	var/is_silent = FALSE /// Determines whether or not we will scream our funny lines at people.
 
+	special_attacker = TRUE
+	smart_combatant = TRUE
+
 /mob/living/carbon/human/species/elf/dark/drowraider/ambush
 	aggressive = 1
 	mode = NPC_AI_IDLE
@@ -53,13 +56,13 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-	var/hairf = pick(list(/datum/sprite_accessory/hair/head/himecut, 
-						/datum/sprite_accessory/hair/head/countryponytailalt, 
-						/datum/sprite_accessory/hair/head/stacy, 
+	var/hairf = pick(list(/datum/sprite_accessory/hair/head/himecut,
+						/datum/sprite_accessory/hair/head/countryponytailalt,
+						/datum/sprite_accessory/hair/head/stacy,
 						/datum/sprite_accessory/hair/head/kusanagi_alt))
-	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher, 
-						/datum/sprite_accessory/hair/head/dave, 
-						/datum/sprite_accessory/hair/head/emo, 
+	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher,
+						/datum/sprite_accessory/hair/head/dave,
+						/datum/sprite_accessory/hair/head/emo,
 						/datum/sprite_accessory/hair/head/sabitsuki,
 						/datum/sprite_accessory/hair/head/sabitsuki_ponytail))
 
@@ -75,7 +78,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	hair_color = "#DDDDDD"
 
 	head.add_bodypart_feature(new_hair)
-	
+
 	head.sellprice = 40
 
 	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
@@ -84,10 +87,10 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	if(organ_eyes)
 		organ_eyes.eye_color = "#FFBF00"
 		organ_eyes.accessory_colors = "#FFBF00#FFBF00"
-	
+
 	if(organ_ears)
 		organ_ears.accessory_colors = "#5f5f70"
-	
+
 	skin_tone = "5f5f70"
 
 	if(gender == FEMALE)
@@ -148,7 +151,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	H.STACON = 14 // 4 points
 	H.STAWIL = 12 // 2 points - 14 points spread. Equal to 1 more than a KC accounting for Statpack.
 	H.STAPER = 10
-	H.STAINT = 10  
+	H.STAINT = 10
 	if(prob(50))
 		r_hand = /obj/item/rogueweapon/sword/falx
 		l_hand = /obj/item/rogueweapon/shield/tower

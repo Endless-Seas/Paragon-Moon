@@ -17,6 +17,9 @@ GLOBAL_LIST_INIT(dwarfskeleton_aggro, world.file2list("strings/rt/dskeletonaggro
 	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_STEAL) //intents given in case of player controlled
 	possible_rmb_intents = list(/datum/rmb_intent/feint, /datum/rmb_intent/aimed, /datum/rmb_intent/strong, /datum/rmb_intent/weak)
 
+	special_attacker = TRUE
+	smart_combatant = TRUE
+
 /mob/living/carbon/human/species/dwarfskeleton/ambush
 	aggressive = 1
 	mode = NPC_AI_IDLE
