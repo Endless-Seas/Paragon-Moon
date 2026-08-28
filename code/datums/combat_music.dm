@@ -415,3 +415,10 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Mobster"
 	credits = "Roller Mobster - RudolVe"
 	musicpath = list('sound/music/combat_mobster.ogg')
+
+/datum/combat_music/unholy
+	name = "Profane Wanderer"
+	desc = "You are the scourge of the righteous, the bane of the faithful. Make them bleed."
+	shortname = "Profane"
+	credits = "Unholy - RudolVe"
+	musicpath = list('sound/music/combat_unholy.ogg')
