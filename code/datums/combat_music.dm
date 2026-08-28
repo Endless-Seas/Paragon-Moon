@@ -422,3 +422,10 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Profane"
 	credits = "Unholy - RudolVe"
 	musicpath = list('sound/music/combat_unholy.ogg')
+
+/datum/combat_music/vitamass
+	name = "Vitae Mass"
+	desc = "Blood poured, blood spilled, blood shed. The world is a better place for it."
+	shortname = "Vitamass"
+	credits = "Vitamass - RudolVe"
+	musicpath = list('sound/music/combat_vitamass.ogg')
