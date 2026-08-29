@@ -281,11 +281,11 @@ GLOBAL_VAR(restart_counter)
 //	to_chat(world, span_boldannounce("<b><u><a href='byond://winset?command=.reconnect'>CLICK TO RECONNECT</a></u></b>"))
 
 	var/round_end_sound = pick(
-		'sound/roundend/knave.ogg',
-		'sound/roundend/twohours.ogg',
-		'sound/roundend/rest.ogg',
-		'sound/roundend/gather.ogg',
-		'sound/roundend/dwarfs.ogg',
+		'sound/roundend/CORRUPTIONKETLLE.ogg',
+		'sound/roundend/FOOKENMINGING.ogg',
+		'sound/roundend/misinput.ogg',
+		'sound/roundend/PEACEKETTLE.ogg',
+		'sound/roundend/ourtable.ogg',
 	)
 	for(var/client/thing in GLOB.clients)
 		if(!thing)
