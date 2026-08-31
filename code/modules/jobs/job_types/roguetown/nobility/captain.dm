@@ -282,6 +282,7 @@
 	invocations = list(",..")
 	invocation_type = "shout"
 
+//Carl, you MORON. Fix this. Good lord.
 /obj/effect/proc_holder/spell/invoked/captorial_lament/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
 
@@ -294,19 +295,19 @@
 
 		user.visible_message(span_danger("[user] flickers before your eyes, as if beset by an unsen force, only to focus on [M]!"))
 		to_chat(M, span_notice("[user] mutters incoherently!"))
-		if(do_after(user, 5 SECONDS))
+		if(do_after(user, 5 SECONDS))//Do after has the same issue as something like potions.
 			user.visible_message(span_danger("[user] grabs [M] by their [BP]!"))
 			to_chat(M, span_notice("[user] growls under their breath, taking a firm hold of [BP]!"))
 			M.emote("scream", forced = TRUE)
 
-			if(do_after(user, 5 SECONDS))
-				if(!BP.has_wound(/datum/wound/fracture))
+			if(do_after(user, 5 SECONDS))//As above. If it needs the prox check, just... add it. I guess. Why not now? Because I'm tired.
+				if(!BP.has_wound(/datum/wound/fracture))//So do the two seconds of intelligent work yourself, given I'm dumb.
 					user.visible_message(span_danger("[user] rends [M], shattering [BP]!"))
 					to_chat(M, span_notice("[user] howls in an uncertain tongue, sinking digits into [BP]!"))
 					BP.add_wound(/datum/wound/fracture)
 					user.emote("warcry")
 
-				else// if(BP.has_wound(/datum/wound/fracture))
+				else
 					if(BP == M.get_bodypart(BODY_ZONE_CHEST))
 						user.visible_message(span_danger("[user] punches a fist into [M], tearing a hole through their chest!!!!"))
 						to_chat(M, span_notice("[user] jitters, punching a hole through your chest! Gods above!"))
