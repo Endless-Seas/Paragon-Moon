@@ -37,3 +37,8 @@ combat_shaman2.ogg. Heilung - Elddansurin
 ravoxarena.ogg: Mick Gordon - Polemos
 combat_zybantine.ogg: Crusader Kings 3 Fate of Iberia OST - War "Short"
 paragontitle.ogg: Moon Stairs Ambience - Craig Hamilton
+paragontitle2.ogg: Praxis - Joel Corelitz
+paragonettle3.ogg: Absolution - Joel Corelitz
+combat_monster.ogg: Roller Mobster - RudolVe
+combat_unholy.ogg: Unholy - RudolVe
+combat_vitamass.ogg: Vitamass - RudolVe

@@ -5,7 +5,9 @@ Following them is important to make sure your work makes it into the game swiftl
 
 ## Contributor Guidelines
 
-1 - PRs must follow the these standards:
+1 - Any PR submitted, at any time, may be rejected or 'put on ice' until such a time we wish it to enter the server.
+
+2 - PRs must follow the these standards:
 - All Changes must be properly documented in the PR body.
 
 - **Test evidence MUST be included.**
@@ -18,26 +20,27 @@ In the case your PR doesn't affect something which can be clearly seen in game, 
 - Make a changelog of all changes you have made, summarized.
 *This helps our maintainers work quickly.*
 
-2 - Do not comment out code. If you're removing it, remove it completely.
+3 - Do not comment out code. If you're removing it, remove it completely.
 
-3 - Do not include slurs in your code or comments.
+4 - Do not include slurs in your code or comments.
 
-4 - Be civil while discussing PRs.
-*We are all here working for the same goal.*
+5 - Be civil while discussing PRs.
+*We are all here working for the same goal. Hopefully.*
 
-5 - You are encouraged to seek out and engage with player feedback on your PRs.
+6 - You are encouraged to seek out and engage with player feedback on your PRs.
 *Feedback is important. Especially if it affects a vast majority of players.*
 
 
 ## Maintainer Guidelines
 
 1 - Maintainers may not merge their own PRs save for reverts or fixes to game breaking bugs.
-*This does not include the Head Maintainer.*
+*This does not include the Head Maintainer or Host.*
 
 2 - Maintainer decisions on game direction are absolute.
-*If something on a PR is not up to a Maintainers standards and the author is unwilling to comply the PR will be closed.*
+*If something on a PR is not up to a Maintainers standards, and the author is unwilling to comply, the PR will be closed.*
 
-3 - PRs will be taken as they are, and as is if no follow up PRs were to be made.
+3 - PRs will be taken as they are, and as is if no follow up PRs were to be made. Unless it falls outside of the server vision.
 *Maintainers will assume the Author of any given PR will not maintain their code, or contribution after it is merged.*
 
-4 - In order to Merge a map changing PR the approval of a Maptainer is necessary.
+4 - In order to Merge a map changing PR it must be approved by both the Head Maintainer and Host.
+*Exceptions are made for critical bug fixes.*

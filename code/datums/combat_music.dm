@@ -408,3 +408,24 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	shortname = "Ancient"
 	credits = "Carlos Viola - Cante de los Muertos"
 	musicpath = list('sound/music/combat_ancient.ogg')
+
+/datum/combat_music/mobster
+	name = "Relentless Mobster"
+	desc = "Heads will roll."
+	shortname = "Mobster"
+	credits = "Roller Mobster - RudolVe"
+	musicpath = list('sound/music/combat_mobster.ogg')
+
+/datum/combat_music/unholy
+	name = "Profane Wanderer"
+	desc = "You are the scourge of the righteous, the bane of the faithful. Make them bleed."
+	shortname = "Profane"
+	credits = "Unholy - RudolVe"
+	musicpath = list('sound/music/combat_unholy.ogg')
+
+/datum/combat_music/vitamass
+	name = "Vitae Mass"
+	desc = "Blood poured, blood spilled, blood shed. The world is a better place for it."
+	shortname = "Vitamass"
+	credits = "Vitamass - RudolVe"
+	musicpath = list('sound/music/combat_vitamass.ogg')

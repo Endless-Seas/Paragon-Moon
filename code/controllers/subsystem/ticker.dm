@@ -149,8 +149,7 @@ SUBSYSTEM_DEF(ticker)
 
 
 	// TODO: Make music map dependent
-	login_music = pick('sound/music/paragontitle.ogg')
-
+	login_music = pick('sound/music/paragontitle.ogg', 'sound/music/paragontitle2.ogg', 'sound/music/paragontitle3.ogg')
 	if(!GLOB.syndicate_code_phrase)
 		GLOB.syndicate_code_phrase	= generate_code_phrase(return_list=TRUE)
 

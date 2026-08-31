@@ -376,7 +376,7 @@
 /*	filters += filter(type="wave", x=0, y=2, size=0.3, offset=0)
 	animate(filters[filters.len], loop=-1, time=10, offset=2)
 	animate(time=0, offset=0)*/
-	..()
+	..() //FUCK YOU FUCK YOUR STUPID FUCKING WAVE EFFECT FOR THE TITLE SCREEN NEVER RENABLE THIS SHIT AGAIN FUCK YOU
 
 /turf/closed/indestructible/splashscreen/vv_edit_var(var_name, var_value)
 	. = ..()
