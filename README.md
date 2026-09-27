@@ -17,12 +17,6 @@
     </a>
 </p>
 
-<p align="center">
-	<a href="https://github.com/Rotwood-Vale/Ratwood-2.0/actions/workflows/ci_suite.yml">
-      <img alt="BYOND Build" src="https://github.com/Rotwood-Vale/Ratwood-2.0/actions/workflows/ci_suite.yml/badge.svg" />
-    </a>
-</p>
-
 <div align="center">
 
 | Website                   | Link                                           |
