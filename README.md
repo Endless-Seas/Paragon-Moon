@@ -1,6 +1,6 @@
 
 <p align="center">
- <img width="450px" src="https://res.cloudinary.com/towdrqzs/image/upload/paragon_big_zlfspi.png" align="center" alt="Ratwood Stats" />
+ <img width="150px" src="https://res.cloudinary.com/b5bxmqds/image/upload/v1790548062/paragon_moon2_xmsdwg.png" align="center" alt="Paragon Stats" />
  <h1 align="center">Paragon Moon</h1>
  <h2 align="center">Howling past the Moon.</h2>
 </p>
