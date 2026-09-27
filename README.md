@@ -27,7 +27,7 @@
 
 | Website                   | Link                                           |
 |---------------------------|------------------------------------------------|
-| Discord          | https://discord.gg/Y7vYrAqGM4 |
+| Discord          | https://discord.gg/Aphelion |
 | Wiki                      | PLACEHOLDER |
 
 </div>
