@@ -6,14 +6,14 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Rotwood-Vale/Ratwood-2.0/graphs/contributors">
-      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/Rotwood-Vale/Ratwood-2.0" />
+    <a href="https://github.com/Endless-Seas/Paragon-Moon/graphs/contributors">
+      <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/Endless-Seas/Paragon-Moon" />
     </a>
-    <a href="https://github.com/Rotwood-Vale/Ratwood-2.0/issues">
-      <img alt="Issues" src="https://img.shields.io/github/issues/Rotwood-Vale/Ratwood-2.0?color=0088ff" />
+    <a href="https://github.com/Endless-Seas/Paragon-Moon/issues">
+      <img alt="Issues" src="https://img.shields.io/github/issues/Endless-Seas/Paragon-Moon" />
     </a>
-    <a href="https://github.com/Rotwood-Vale/Ratwood-2.0/pulls">
-      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Rotwood-Vale/Ratwood-2.0?color=0088ff" />
+    <a href="https://github.com/Endless-Seas/Paragon-Moon/pulls">
+      <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/Endless-Seas/Paragon-Moon?color=0088ff" />
     </a>
 </p>
 
