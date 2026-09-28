@@ -27,10 +27,11 @@ jobs:
           tools/bootstrap/python -m dmi.test
           tools/bootstrap/python -m mapmerge2.dmm_test
       - name: Run DreamChecker
+        id: dreamchecker
         run: ~/dreamchecker > output-annotations.txt 2>&1
       - name: Annotate DreamChecker
         uses: yogstation13/DreamAnnotate@v2
-        if: always()
+        if: ${{ !cancelled() && steps.dreamchecker.outcome != 'skipped' }}
         with:
           outputFile: output-annotations.txt
       - name: Run grep checks

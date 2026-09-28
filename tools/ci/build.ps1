@@ -15,7 +15,25 @@ if (!$ByondDirectory) {
     if (!(Test-Path -LiteralPath $compiler)) {
         New-Item -ItemType Directory -Path $ByondDirectory -Force | Out-Null
         $archive = Join-Path $ByondDirectory 'byond.zip'
-        Invoke-WebRequest "https://www.byond.com/download/build/$($dependencies.BYOND_MAJOR)/${version}_byond.zip" -OutFile $archive
+        # The official host can challenge CI runners; the mirror must match the same pinned checksum.
+        $downloadUrls = @(
+            "https://www.byond.com/download/build/$($dependencies.BYOND_MAJOR)/${version}_byond.zip",
+            "https://byond-builds.dm-lang.org/$($dependencies.BYOND_MAJOR)/${version}_byond.zip"
+        )
+        $downloaded = $false
+        foreach ($downloadUrl in $downloadUrls) {
+            try {
+                Write-Output "Downloading BYOND $version from $downloadUrl"
+                Invoke-WebRequest $downloadUrl -OutFile $archive -TimeoutSec 60
+                $downloaded = $true
+                break
+            } catch {
+                Write-Warning "Unable to download BYOND from $downloadUrl ($($_.Exception.GetType().Name))."
+            }
+        }
+        if (!$downloaded) {
+            throw "Unable to download BYOND $version from the official host or mirror"
+        }
         if ((Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash -ne $dependencies.BYOND_WINDOWS_SHA256) {
             throw 'BYOND archive checksum does not match dependencies.sh'
         }
