@@ -1,6 +1,6 @@
 import { Component, type CSSProperties, type PropsWithChildren } from 'react';
 import { resolveAsset } from 'tgui/assets';
-import { useBackend } from 'tgui/backend';
+import { getBackend, useBackend } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -59,8 +59,8 @@ export class NanoMap extends Component<Props, State> {
   }
 
   getWxH = (zoom: number) => {
-    const { config } = useBackend();
-    return [config.mapInfo.maxx * 2 * zoom, config.mapInfo.maxy * 2 * zoom];
+    const { config } = getBackend();
+    return [(config.mapInfo?.maxx ?? 0) * 2 * zoom, (config.mapInfo?.maxy ?? 0) * 2 * zoom];
   };
 
   setZoom(zoom: number, mouseX: number, mouseY: number) {
@@ -186,7 +186,7 @@ export class NanoMap extends Component<Props, State> {
   }
 
   render() {
-    const { config } = useBackend();
+    const { config } = getBackend();
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
@@ -295,7 +295,7 @@ const NanoMapZoomer = (props: NanoMapZoomerProps) => {
             .map((level) => (
               <Button
                 key={level}
-                selected={~~level === ~~config.mapZLevel}
+                selected={~~level === ~~(config.mapZLevel ?? 0)}
                 onClick={() => {
                   act('setZLevel', { mapZLevel: level });
                 }}

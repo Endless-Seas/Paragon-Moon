@@ -1,10 +1,10 @@
 import {
+  Box,
   Button,
   LabeledList,
   Section,
-  TimeDisplay,
-  Box,
   Stack,
+  TimeDisplay,
 } from 'tgui-core/components';
 
 import { useBackend } from '../backend';

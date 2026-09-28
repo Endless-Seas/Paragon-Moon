@@ -32,6 +32,45 @@
 	</a>
 </h1>
 
+## Building and testing on Windows
+
+Use BYOND **516.1688** with the 32-bit Microsoft WebView2 runtime. The client
+minimum applies to administrators too. Engine, Bun and native release pins live
+in `dependencies.sh`; `BUILD.cmd` bootstraps the pinned Bun version and builds
+the TGUI bundles before compiling `roguetown.dme`.
+
+For the same compiler download, native hash checks and artifact checks used by
+Windows CI, run `pwsh -File tools/ci/build.ps1`. Run frontend checks with
+`tools\build\build.bat --ci tgui-tsc tgui-eslint tgui-test`. For an ordinary
+development build, use `BUILD.cmd`; `tools\build\build.bat tgui-dev` starts the
+UI development server.
+
+Test the complete checkout with Windows Dream Daemon before deploying through
+TGS. Use a disposable data/config directory, and retain the matching engine,
+native DLL, compiled game, UI assets and configuration for rollback. Real-client
+checks must include normal-player permissions, pooled-window reuse, large text,
+chat reconnect, all five local themes and legacy browser screens.
+
+A fresh checkout needs local startup resources: the historical default map
+points to the absent Dun Manor map. For an isolated smoke test, copy
+`_maps/roguetest_nootherz.json` to `data/next_map.json` and provide a supported
+sound file in `config/title_music/sounds/` (for example the supplied
+`sound/music/paragontitle.ogg`). Select the intended game map and configuration
+separately for gameplay testing.
+
+TGS operators must select the pinned BYOND version in their instance settings
+and stage the updated `tools/tgs_scripts/PreCompile` hook with the game directory
+as its argument. Windows verifies the tracked rust-g DLL; Linux downloads the
+hash-verified release. Linux/TGS runtime qualification remains a separate
+operator gate. The tracked historical Linux library is not the pinned release;
+run `bash tools/ci/install_rust_g.sh` before a Linux trial.
+
+The obsolete Dockerfile has been retired. The legacy TGS3 packaging,
+`tools/tgs4_scripts/PostCompile.sh`, `tools/deploy.sh`, Travis and AppVeyor
+definitions are not supported deployment or qualification paths. Use the full
+checkout and current TGS precompile hook; do not use the old packaging scripts.
+Changing repository pins does not update a running TGS instance.
+
 ## LICENSE
 Original Fork Originates from [commit c28b351807bad950d2b323ada048190844bbda32](https://github.com/tgstation/tgstation/commit/c28b351807bad950d2b323ada048190844bbda32).
 

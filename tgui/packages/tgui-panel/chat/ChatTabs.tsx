@@ -1,47 +1,38 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-import { useDispatch, useSelector } from 'tgui/backend';
+import { useAtom } from 'jotai';
 import { Box, Button, Stack, Tabs } from 'tgui-core/components';
 
-import { openChatSettings } from '../settings/actions';
-import { addChatPage, changeChatPage } from './actions';
-import { selectChatPages, selectCurrentChatPage } from './selectors';
+import { settingsVisibleAtom } from '../settings/atoms';
+import { useChatPages } from './use-chat-pages';
 
 function UnreadCountWidget({ value }: { value: number }) {
   return <Box className="UnreadCount">{Math.min(value, 99)}</Box>;
 }
 
-export function ChatTabs(props) {
-  const pages = useSelector(selectChatPages);
-  const currentPage = useSelector(selectCurrentChatPage);
-  const dispatch = useDispatch();
+export function ChatTabs() {
+  const { addChatPage, changeChatPage, pages, pagesRecord, currentPageId } =
+    useChatPages();
+  const [, setSettingsVisible] = useAtom(settingsVisibleAtom);
 
   return (
     <Stack align="center">
       <Stack.Item>
         <Tabs textAlign="center">
-          {pages.map((page) => (
-            <Tabs.Tab
-              key={page.id}
-              selected={page === currentPage}
-              onClick={() =>
-                dispatch(
-                  changeChatPage({
-                    pageId: page.id,
-                  }),
-                )
-              }
-            >
-              {page.name}
-              {!page.hideUnreadCount && page.unreadCount > 0 && (
-                <UnreadCountWidget value={page.unreadCount} />
-              )}
-            </Tabs.Tab>
-          ))}
+          {pages.map((id) => {
+            const page = pagesRecord[id];
+            if (!page) return null;
+            return (
+              <Tabs.Tab
+                key={id}
+                selected={id === currentPageId}
+                onClick={() => changeChatPage(page)}
+              >
+                {page.name}
+                {!page.hideUnreadCount && page.unreadCount > 0 && (
+                  <UnreadCountWidget value={page.unreadCount} />
+                )}
+              </Tabs.Tab>
+            );
+          })}
         </Tabs>
       </Stack.Item>
       <Stack.Item>
@@ -49,8 +40,8 @@ export function ChatTabs(props) {
           color="transparent"
           icon="plus"
           onClick={() => {
-            dispatch(addChatPage());
-            dispatch(openChatSettings());
+            addChatPage();
+            setSettingsVisible(true);
           }}
         />
       </Stack.Item>

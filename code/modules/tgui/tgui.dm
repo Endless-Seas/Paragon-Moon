@@ -261,6 +261,7 @@
 		),
 		"refreshing" = refreshing,
 		"window" = list(
+			"session" = window.session_id,
 			"key" = window_key,
 			"size" = window_size,
 			"fancy" = user.client.prefs.tgui_fancy,
@@ -363,10 +364,17 @@
 			if(href_list["fatal"])
 				close(can_be_suspended = FALSE)
 		if("setSharedState")
+			process_status()
 			if(status != UI_INTERACTIVE)
 				return
+			var/shared_key = href_list["key"]
+			var/shared_value = href_list["value"]
+			if(!istext(shared_key) || !length(shared_key) || length(shared_key) > 128 || !istext(shared_value))
+				return
+			if(length(shared_value) && !rustg_json_is_valid(shared_value))
+				return
 			LAZYINITLIST(src_object.tgui_shared_states)
-			src_object.tgui_shared_states[href_list["key"]] = href_list["value"]
+			src_object.tgui_shared_states[shared_key] = shared_value
 			SStgui.update_uis(src_object)
 		if(TGUI_MANAGED_BYONDUI_TYPE_RENDER)
 			var/byond_ui_id = payload[TGUI_MANAGED_BYONDUI_PAYLOAD_ID]
@@ -383,7 +391,10 @@
 
 /// Wrapper for behavior to potentially wait until the next tick if the server is overloaded
 /datum/tgui/proc/on_act_message(act_type, payload, state)
-	if(QDELETED(src) || QDELETED(src_object))
+	if(QDELETED(src) || QDELETED(src_object) || QDELETED(user) || closing)
+		return
+	process_status()
+	if(status != UI_INTERACTIVE || usr != user || !islist(payload))
 		return
 	if(src_object.ui_act(act_type, payload, src, state))
 		SStgui.update_uis(src_object)

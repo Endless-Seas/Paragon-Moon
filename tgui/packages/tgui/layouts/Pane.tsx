@@ -7,7 +7,6 @@
 import { Box } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
-import { useBackend } from '../backend';
 import { useDebug } from '../debug';
 import { Layout } from './Layout';
 
@@ -20,13 +19,12 @@ type Props = Partial<{
 
 export function Pane(props: Props) {
   const { theme, children, className, ...rest } = props;
-  const { suspended } = useBackend();
   const { debugLayout = false } = useDebug();
 
   return (
     <Layout className={classes(['Window', className])} theme={theme} {...rest}>
       <Box fillPositionedParent className={debugLayout && 'debug-layout'}>
-        {!suspended && children}
+        {children}
       </Box>
     </Layout>
   );

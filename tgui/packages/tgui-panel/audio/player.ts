@@ -26,10 +26,10 @@ function isProtectedError(error: ErrorEvent): boolean {
 export class AudioPlayer {
   element: HTMLAudioElement | null;
   options: AudioOptions;
-  volume: number;
+  volume = 0.5;
 
-  onPlaySubscribers: { (): void }[];
-  onStopSubscribers: { (): void }[];
+  onPlaySubscribers: (() => void)[];
+  onStopSubscribers: (() => void)[];
 
   constructor() {
     this.element = null;

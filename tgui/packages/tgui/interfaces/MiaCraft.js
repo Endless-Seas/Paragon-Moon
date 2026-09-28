@@ -129,7 +129,7 @@ export const MiaCraft = (props, context) => {
           <Stack.Item style={{ 'position': 'sticky' }}>
               <Stack>
                 <Stack.Item>
-                  <Input placeholder="Search..." autoFocus value={searchText} onInput={(e) => SearchTextModify(e.target.value.toLowerCase())} />
+                  <Input placeholder="Search..." autoFocus value={searchText} onChange={(value) => SearchTextModify(value.toLowerCase())} />
                 </Stack.Item>
                 <Stack.Item>
                   <label>Show only craftables</label>

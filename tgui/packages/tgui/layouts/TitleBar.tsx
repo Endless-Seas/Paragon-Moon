@@ -4,8 +4,7 @@ import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from 'tgui-core/constants';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { toTitleCase } from 'tgui-core/string';
 
-import { globalStore } from '../backend';
-import { toggleKitchenSink } from '../debug/actions';
+import { toggleKitchenSink } from '../debug/events';
 
 type TitleBarProps = Partial<{
   className: string;
@@ -31,16 +30,8 @@ function statusToColor(status: number): string {
 }
 
 export function TitleBar(props: TitleBarProps) {
-  const {
-    className,
-    title,
-    canClose,
-    fancy,
-    onDragStart,
-    onClose,
-    children,
-  } = props;
-  const dispatch = globalStore.dispatch;
+  const { className, title, canClose, fancy, onDragStart, onClose, children } =
+    props;
 
   const finalTitle =
     (typeof title === 'string' &&
@@ -60,7 +51,7 @@ export function TitleBar(props: TitleBarProps) {
         <Button
           className="TitleBar__buttons TitleBar__KitchenSink"
           icon="bug"
-          onClick={() => dispatch(toggleKitchenSink())}
+          onClick={toggleKitchenSink}
         />
       )}
       {Boolean(fancy && canClose) && (
