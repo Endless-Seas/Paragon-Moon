@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 // God that was a mess, now to do the rest of the corner code! Hooray!
 /datum/lighting_corner/proc/update_lumcount(delta_r, delta_g, delta_b)
 
-	if (!delta_r || !delta_g || !delta_b)
+	if (!delta_r && !delta_g && !delta_b)
 		return
 
 	lum_r += delta_r
