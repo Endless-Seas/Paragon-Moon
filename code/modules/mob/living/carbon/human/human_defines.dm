@@ -18,6 +18,11 @@
 
 	var/footstep_type = FOOTSTEP_MOB_HUMAN
 
+	/// Organ regeneration can request many body redraws before its final appearance is ready.
+	var/bodypart_update_defer_count = 0
+	var/bodypart_update_pending = FALSE
+	var/bodypart_redraw_pending = FALSE
+
 	var/last_sound //last emote so we have no doubles
 
 	//Hair colour and style
