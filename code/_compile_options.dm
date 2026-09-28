@@ -54,6 +54,15 @@
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 516
 #define MIN_COMPILER_BUILD 1688
+
+// DreamChecker's built-in version lags BYOND; analyze the project's required target.
+#ifdef SPACEMAN_DMM
+#undef DM_VERSION
+#undef DM_BUILD
+#define DM_VERSION MIN_COMPILER_VERSION
+#define DM_BUILD MIN_COMPILER_BUILD
+#endif
+
 #if DM_VERSION < MIN_COMPILER_VERSION || (DM_VERSION == MIN_COMPILER_VERSION && DM_BUILD < MIN_COMPILER_BUILD)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.

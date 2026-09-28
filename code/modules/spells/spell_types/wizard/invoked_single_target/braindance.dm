@@ -57,7 +57,7 @@
 		You shall remain in this endless hell, for it is all you deserve.</b></span>",
 		"<span class='danger'><b>You scream. Your voice is readily carried out along the murk, yet the fog prevents any rescue. \
 		Your legs, sunken into the mire, seals your fate. You watch as your end approaches. Slowly. Surely. \
-		It asks you to beg. You oblige.</b></span>"
+		It asks you to beg. You oblige.</b></span>",
 		"<span class='danger'><b>You watch in horror as an abyss of swirling entropy opens up above you. \
 		It is a horrific thing, to be skinned alive by a force that no mortal can understand. Worse still? \
 		You try to scream, yet your lungs are pulled clear from your chest. \
