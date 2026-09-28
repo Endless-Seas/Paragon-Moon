@@ -166,7 +166,8 @@ export const DmTestTarget = new Juke.Target({
 export const BunTarget = new Juke.Target({
   parameters: [CiParameter],
   inputs: [
-    "tgui/**/package.json",
+    "tgui/package.json",
+    "tgui/packages/*/package.json",
     "tgui/bun.lock",
     "tgui/bunfig.toml",
     "dependencies.sh",
@@ -240,7 +241,8 @@ export const TguiTarget = new Juke.Target({
     "tgui/bun.lock",
     "tgui/tsconfig.json",
     "tgui/public/tgui.html",
-    "tgui/**/package.json",
+    "tgui/package.json",
+    "tgui/packages/*/package.json",
     "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss|css|svg|png|jpg|ttf|woff|woff2)",
     "interface/fonts/**",
     "dependencies.sh",
