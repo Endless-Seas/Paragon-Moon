@@ -61,8 +61,13 @@ export class ActionTransport {
   constructor(
     private send: (type: string, payload: object) => void,
     private fail: (message: string) => void,
-    private schedule: Scheduler = setTimeout,
-    private unschedule: typeof clearTimeout = clearTimeout,
+    // Wrapped so the timer globals are never invoked with the transport as `this`,
+    // which browsers reject with "Illegal invocation".
+    private schedule: Scheduler = (callback, delay) =>
+      setTimeout(callback, delay),
+    private unschedule: (
+      timer: ReturnType<typeof setTimeout> | undefined,
+    ) => void = (timer) => clearTimeout(timer),
   ) {}
 
   enqueue(type: string, text: string, session: number) {

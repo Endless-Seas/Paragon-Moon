@@ -1,3 +1,31 @@
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-BoldItalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
+}
+
 body {
   	background-color: rgb(31, 20, 24);
 	background: url("try6_border.png"), url("try6.png");
@@ -8,10 +36,10 @@ body {
 }
 
 #top_handwriting {
-	font-family: "Jacquarda Bastarda 9", serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 32px;
+	font-size: 20px;
 	color:#ff0808;
 }
 
@@ -37,10 +65,10 @@ img.ninetysskull{
 
 a.vagrant:link, a.vagrant:visited, a.vagrant:active, .linkOn, .linkOff
 {
-	font-family: "VT323", monospace;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 24px;
+	font-size: 16px;
 
 	color: #CBCC97;
 	text-decoration: none;
@@ -55,7 +83,7 @@ a.vagrant:link, a.vagrant:visited, a.vagrant:active, .linkOn, .linkOff
 a.vagrant:hover
 {
 	color: #ffffff;
-	font-size: 32px;
+	font-size: 20px;
 
 }
 
@@ -64,10 +92,10 @@ a.vagrant:hover img.ninetysskull {
 }
 
 a.bottom_buttons, a.bottom_buttons:link, a.bottom_buttons:visited, a.bottom_buttons:active {
-	font-family: "Jacquarda Bastarda 9", serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 24px;
+	font-size: 16px;
 	color: #ff0000;
 
 	text-decoration: none;
@@ -86,10 +114,10 @@ a.bottom_buttons:hover
 }
 
 a.mo_bottom_buttons, a.mo_bottom_buttons:link, a.mo_bottom_buttons:visited, a.mo_bottom_buttons:active {
-	font-family: "VT323", monospace;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 20px;
+	font-size: 15px;
 	color: #00ff73;
 
 	text-decoration: none;
@@ -108,7 +136,7 @@ a.mo_bottom_buttons:hover
 }
 
 .bottom_button_cost {
-	font-family: "Silkscreen", sans-serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
 	font-size: 12px;
@@ -117,10 +145,10 @@ a.mo_bottom_buttons:hover
 
 
 a.class_desc_YES_LINK, a.class_desc_YES_LINK:link, a.class_desc_YES_LINK:visited, a.class_desc_YES_LINK:active {
-	font-family: "Jacquarda Bastarda 9", serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 24px;
+	font-size: 16px;
 	color: #00ff00;
 
 	text-decoration: none;
@@ -152,30 +180,30 @@ a.class_desc_YES_LINK:hover
 }
 
 .title_shit {
-	font-family: "VT323", monospace;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
-	font-size: 26px;
+	font-size: 17px;
 	color: #ffffff;
 }
 
 .post_title_shit{
-	font-family: "Silkscreen", sans-serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
 	color: #ffffff;
 }
 
 .subclassorz{
-    font-family: "VT323", monospace;
+    font-family: "Source Code Pro", monospace;
     font-weight: 400;
     font-style: normal;
-    font-size: 26px;
+    font-size: 17px;
     color: #ffffff;
 }
 
 .subclass_title{
-	font-family: "Silkscreen", sans-serif;
+	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-style: normal;
 	color: #fdf4c5;
@@ -206,13 +234,13 @@ a.class_desc_YES_LINK:hover
 .class_dropdown {
     margin: 1px 0;
 	text-align: center; 
-    font-family: 'VT323', monospace;
+    font-family: "Source Code Pro", monospace;
     color: #e5e6cc;
 }
 
 .class_dropdown summary {
     cursor: pointer;
-    font-size: 32px;
+    font-size: 20px;
     text-shadow: 1px 1px #000;
     margin-bottom: 1px;
 }

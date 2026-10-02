@@ -206,7 +206,7 @@ body {
   overflow-y: scroll;
   color: #c9c1ba;
   font-size: 19px;
-  font-family: 'Pterra';
+  font-family: 'Source Code Pro', monospace;
   text-shadow:
     -1px -1px 0 #000,
     1px -1px 0 #000,
@@ -221,13 +221,13 @@ h4,
 h5,
 h6 {
   color: #c9c1ba;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 
 em {
   font-style: normal;
   font-weight: bold;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 
 a:link {
@@ -237,7 +237,7 @@ a:link {
 
 .motd {
   color: #638500;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 .motd h1,
 .motd h2,
@@ -258,7 +258,7 @@ a:link {
 h1.alert,
 h2.alert {
   color: #c9c1ba;
-  font-family: Pterra, TrueType;
+  font-family: 'Source Code Pro', monospace;
 }
 .italics {
   font-style: italic;
@@ -275,12 +275,12 @@ h2.alert {
 .ooc {
   color: #c5c5c5;
   font-weight: bold;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 .adminobserverooc {
   color: #cca300;
   font-weight: bold;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 .adminooc {
   color: #4972bc;
@@ -301,7 +301,7 @@ h2.alert {
 }
 
 .say {
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 .deadsay {
   color: #e2c1ff;
@@ -693,7 +693,7 @@ h2.alert {
 }
 .smallyell {
   font-size: 70%;
-  font-family: Pterra;
+  font-family: 'Source Code Pro', monospace;
 }
 .big {
   font-size: 120%;
@@ -870,7 +870,7 @@ h2.alert {
 
 .chat_headshot {
   position: relative;
-  width:  min(100px, 100%);
+  width: min(100px, 100%);
   height: min(100px, 100%);
   max-width: 100px;
   max-height: 100px;

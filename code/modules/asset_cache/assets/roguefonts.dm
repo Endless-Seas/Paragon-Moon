@@ -29,15 +29,8 @@
 		"aavnic.ttf" = 'interface/fonts/languages/aavnic.ttf',
 		"merar.ttf" = 'interface/fonts/languages/merar.ttf',
 		"abyssal.ttf" = 'interface/fonts/languages/abyssal.ttf',
-	)
-
-// Keep the stylesheet and its fonts together for both browse_rsc and CDN delivery.
-// The TTF resources also make this family available to the native stat control.
-/datum/asset/simple/namespaced/character_creator
-	assets = list(
 		"SourceCodePro-Regular.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Regular.ttf',
 		"SourceCodePro-Bold.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Bold.ttf',
 		"SourceCodePro-Italic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Italic.ttf',
 		"SourceCodePro-BoldItalic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-BoldItalic.ttf',
 	)
-	parents = list("character_creator.css" = 'html/browser/character_creator.css')

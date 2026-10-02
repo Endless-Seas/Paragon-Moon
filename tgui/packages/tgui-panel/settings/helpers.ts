@@ -1,5 +1,5 @@
 import { setClientTheme } from '../themes';
-import { FONTS_DISABLED } from './constants';
+import { FONT_OVERRIDE_EXEMPT, FONTS_DISABLED } from './constants';
 import type { SettingsState } from './types';
 
 let statFontTimer: ReturnType<typeof setTimeout> | undefined;
@@ -8,12 +8,17 @@ let overrideRule: HTMLStyleElement | undefined;
 let overrideFontFamily: string | undefined;
 let overrideFontSize = '19px';
 
+const overrideExclusions = [
+  '.Icon',
+  ...FONT_OVERRIDE_EXEMPT.flatMap((name) => [`.${name}`, `.${name} *`]),
+].join(', ');
+
 function updateGlobalOverrideRule(): void {
   const fontFamily =
     overrideFontFamily === undefined
       ? ''
       : `font-family: ${overrideFontFamily} !important;`;
-  const rule = `body * :not(.Icon) { ${fontFamily} }`;
+  const rule = `body * :not(${overrideExclusions}) { ${fontFamily} }`;
 
   if (!overrideRule) {
     overrideRule = document.createElement('style');
