@@ -1270,12 +1270,12 @@
 	return ..()
 
 /proc/process_ochre_revivals(list/mob/living/carbon/human/targets_to_revive)
-	for(var/mob/living/carbon/human/target in targets_to_revive)
-		continue
-		if(target.stat != DEAD)
-			continue
-
-		INVOKE_ASYNC(GLOBAL_PROC_REF(revive_ochre_target), target)
+	// Ochre revivals are disabled; the original loop skipped every target with a bare `continue`.
+	// To re-enable, restore:
+	// for(var/mob/living/carbon/human/target in targets_to_revive)
+	// 	if(target.stat == DEAD)
+	// 		INVOKE_ASYNC(GLOBAL_PROC_REF(revive_ochre_target), target)
+	return
 
 /proc/revive_ochre_target(mob/living/carbon/human/target)
 	to_chat(world, span_userdanger("ATTEMPTING REVIVAL FOR [target]"))
