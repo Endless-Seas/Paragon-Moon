@@ -558,7 +558,8 @@
 		return
 
 	last_trigger = world.time
-	trigger_effect()
+	// Effects can open input prompts (e.g. forced emotes), so never block the signal sender
+	INVOKE_ASYNC(src, PROC_REF(trigger_effect))
 
 /datum/modular_curse/proc/unregister_all_signals()
 	if(!owner || !signals || !signals.len)

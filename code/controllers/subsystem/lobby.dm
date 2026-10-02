@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(lobbymenu)
 		"Wretch",
 		"Court Agent"
 	)
-	actor_list += "<center><b>Classes:</b></center><hr>"
+	actor_list += "<hr><div class='qudHeading'>Classes</div>"
 	for (var/mob/dead/new_player/player in GLOB.player_list)
 		if (player.client?.ckey in GLOB.hiderole)
 			continue
@@ -63,7 +63,7 @@ SUBSYSTEM_DEF(lobbymenu)
 		var/list/jobs_under_department = job_list_by_department[department]
 		if(jobs_under_department.len)
 			sortTim(jobs_under_department, cmp = GLOBAL_PROC_REF(cmp_text_asc))
-			actor_list += "<h3><center><font color='[JCOLOR_BY_DEPARTMENT[department]]'>----- [department] -----</font></center></h3>"
+			actor_list += "<h3><font color='[JCOLOR_BY_DEPARTMENT[department]]'>[department]</font></h3>"
 			actor_list += jobs_under_department
 
 	actor_list = actor_list.Join()

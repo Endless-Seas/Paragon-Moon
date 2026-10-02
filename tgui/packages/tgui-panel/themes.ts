@@ -4,14 +4,27 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = ['dark', 'qud'];
+
+export const THEME_NAMES: Record<string, string> = {
+  dark: 'Dark',
+  qud: 'Paragon Classic',
+};
 
 const COLORS = {
   DARK: {
-    BG_BASE: '#202020',
-    BG_SECOND: '#151515',
-    BUTTON: '#404040',
-    TEXT: '#A6A6A6',
+    BG_BASE: '#000000',
+    BG_SECOND: '#000000',
+    BUTTON: '#202020',
+    TEXT: '#D6DBD5',
+  },
+  // Caves of Qud palette, keep in sync with interface/skin.dmf and
+  // styles/themes/qud.scss
+  QUD: {
+    BG_BASE: '#04100F',
+    BG_SECOND: '#0B2423',
+    BUTTON: '#0F3B3A',
+    TEXT: '#B1C9C3',
   },
   LIGHT: {
     BG_BASE: '#EEEEEE',
@@ -41,6 +54,11 @@ export const setClientTheme = (name) => {
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
   }, 1500);
+
+  // Chat-side styling lives in styles/themes/<name>.scss, scoped to this class
+  for (const theme of THEMES) {
+    document.body.classList.toggle(`chat-${theme}`, theme === name);
+  }
 
   const themeColor = COLORS[name.toUpperCase()];
   if (!themeColor) {
