@@ -51,6 +51,8 @@
 	var/is_vet = FALSE
 	var/is_naked = FALSE
 	var/nsfw_examine_always = FALSE
+	// Placeholder headshot matches the viewer's TGUI theme
+	var/placeholder_headshot = (user.client?.prefs?.tgui_theme == "qud") ? "headshot_qud.png" : "headshot_red.png"
 
 	if(ishuman(holder))
 		var/mob/living/carbon/human/holder_human = holder
@@ -72,7 +74,7 @@
 			ooc_extra_image = holder.ooc_extra_img
 			nsfw_ooc_extra_image = holder.nsfw_ooc_extra_img
 		if(!holder.headshot_link)
-			headshot = "headshot_red.png"
+			headshot = placeholder_headshot
 
 	else if(pref)
 		is_naked = TRUE
@@ -92,7 +94,7 @@
 		if(viewing)
 			is_vet = viewing.check_agevet()
 		if(!headshot)
-			headshot = "headshot_red.png"
+			headshot = placeholder_headshot
 
 	if(song_url)
 		has_song = TRUE
@@ -193,4 +195,5 @@
 	assets = list(
 		"headshot_background.png" = 'icons/tgui/headshot_background.png',
 		"headshot_red.png" = 'icons/tgui/headshot_red.png',
+		"headshot_qud.png" = 'icons/tgui/headshot_qud.png',
 		)

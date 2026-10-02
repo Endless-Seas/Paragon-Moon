@@ -3,6 +3,7 @@ import { storage } from 'common/storage';
 import { setMusicVolume } from '../audio/handlers';
 import { chatRenderer } from '../chat/renderer';
 import { store } from '../events/store';
+import { THEMES } from '../themes';
 import {
   defaultHighlightSetting,
   defaultSettings,
@@ -117,9 +118,10 @@ function normalizeSettings(input: unknown) {
       typeof source.statTabsStyle === 'string'
         ? source.statTabsStyle
         : defaultSettings.statTabsStyle,
-    // Paragon ships the dark chat stylesheet; do not import a donor theme
-    // through a stale persisted preference.
-    theme: 'dark',
+    // Only keep themes Paragon ships; a stale donor theme falls back.
+    theme: THEMES.includes(source.theme as string)
+      ? (source.theme as string)
+      : defaultSettings.theme,
     initialized: true,
     view: defaultSettings.view,
   };

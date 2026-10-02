@@ -1,0 +1,210 @@
+/**
+ * Qud chat theme, see https://wiki.cavesofqud.com/wiki/Visual_Style
+ * Applied when the "Qud" theme is picked in chat settings, which puts
+ * `chat-qud` on <body>. The plain dark theme is left untouched.
+ */
+
+@use 'sass:math';
+
+$abyss: #020807;
+$void: #04100f;
+$panel: #0b2423;
+$viridian: #0f3b3a;
+$line: #155352;
+$frame: #4f8f8a;
+$text: #c3d6d0;
+$bright: #e8efe9;
+$cyan: #40a4b9;
+$cyan-bright: #77bfcf;
+$gold: #cfc041;
+$red: #d74200;
+
+// Scanlines over viridian, as on Qud's menus
+$scanlines: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px);
+
+// Bright pixel corner brackets, as on Qud's icon tiles
+@mixin corner-brackets($color: $bright, $size: 8px, $width: 2px) {
+  background-image:
+    linear-gradient($color, $color), linear-gradient($color, $color),
+    linear-gradient($color, $color), linear-gradient($color, $color),
+    linear-gradient($color, $color), linear-gradient($color, $color),
+    linear-gradient($color, $color), linear-gradient($color, $color);
+  background-repeat: no-repeat;
+  background-position:
+    left top,
+    left top,
+    right top,
+    right top,
+    left bottom,
+    left bottom,
+    right bottom,
+    right bottom;
+  background-size:
+    $size $width,
+    $width $size,
+    $size $width,
+    $width $size,
+    $size $width,
+    $width $size,
+    $size $width,
+    $width $size;
+}
+
+body.chat-qud {
+  --chat-text-color: #{$text};
+  --color-base: #{$void};
+  --color-section: #{$abyss};
+  --color-hyperlink: #{$cyan-bright};
+  --color-hyperlink-visited: #{$cyan};
+  --color-scrollbar-base: #{$void};
+  --color-scrollbar-thumb: #{$line};
+
+  color: $text;
+  background: $scanlines $void;
+
+  .Layout,
+  .Window,
+  .Window__content {
+    background: $scanlines $void;
+  }
+
+  // Header bar and chat log are framed like Qud windows
+  .Section {
+    background-color: $abyss;
+    border: 2px solid $frame;
+    box-shadow: inset 0 0 0 1px $abyss;
+    border-radius: 0;
+  }
+
+  .Section__content {
+    background: transparent;
+  }
+
+  // Tabs read like Qud's top menu: uppercase, cyan, gold when selected
+  .Tabs--horizontal .Tab {
+    border-radius: 0;
+    border: 1px solid transparent;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: $cyan;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .Tabs--horizontal .Tab:hover {
+    color: $cyan-bright;
+    background: $viridian;
+  }
+
+  .Tabs--horizontal .Tab--selected {
+    color: $gold;
+    background: $viridian;
+    border-color: $line;
+    border-bottom-color: $gold;
+  }
+
+  .Button {
+    border-radius: 0;
+    color: $text;
+    background-color: $panel;
+    border: 1px solid $line;
+  }
+
+  .Button:hover,
+  .Button--selected {
+    color: $gold;
+    background-color: $viridian;
+  }
+
+  .Button--selected {
+    border-color: $gold;
+  }
+
+  .Input,
+  .TextArea,
+  .NumberInput {
+    border-radius: 0;
+    color: $text;
+    background-color: $void;
+    border-color: $line;
+  }
+
+  .Divider--horizontal {
+    border-color: $line;
+  }
+
+  .Chat {
+    color: $text;
+  }
+
+  .Chat__badge {
+    color: $void;
+    background-color: $gold;
+    border-radius: 0;
+  }
+
+  .Chat__reconnected {
+    &:before {
+      border-radius: 0;
+      border: 1px solid $red;
+      color: $red;
+      background-color: $void;
+    }
+
+    &:after {
+      border-bottom-color: $red;
+    }
+  }
+
+  // Qud's message log leads every entry with a dim double colon
+  .ChatMessage:before {
+    content: ':: ';
+    color: $line;
+  }
+
+  .ChatMessage--highlighted {
+    border-left-color: $gold;
+
+    &:after {
+      background-color: rgba($gold, 0.1);
+    }
+  }
+
+  .Tooltip {
+    @include corner-brackets;
+    border: 2px solid $frame;
+    border-radius: 0;
+    background-color: $void;
+    color: $text;
+  }
+
+  .Notification {
+    border-radius: 0;
+    border: 1px solid $gold;
+    background-color: $void;
+    color: $text;
+  }
+
+  a:link {
+    color: $cyan-bright;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $cyan-bright;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: $void;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: $line;
+    border: 1px solid $viridian;
+  }
+}

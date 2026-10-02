@@ -33,6 +33,9 @@
 // tgchat styles
 @include meta.load-css('./tgchat/chat-dark.scss');
 
+// Selectable chat themes, scoped by a body class (see themes.ts)
+@include meta.load-css('./themes/qud.scss');
+
 :root {
   --chat-text-color: #c9c1ba;
 
