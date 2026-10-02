@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(tgui_theme_names, list(
 	// "azure_purple" = "Zybantium",
 	// "azure_gilbranze" = "Gilbranze", // Coming soon :tm:
 	// "trey_liam" = "Trey Liam",
-	"qud" = "Qud"
+	"qud" = "Paragon Classic" // Internal id kept as "qud" so existing saves carry over
 ))
 
 // Get the display names of the underlying TGUI themes

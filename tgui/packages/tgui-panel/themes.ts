@@ -8,7 +8,7 @@ export const THEMES = ['dark', 'qud'];
 
 export const THEME_NAMES: Record<string, string> = {
   dark: 'Dark',
-  qud: 'Qud',
+  qud: 'Paragon Classic',
 };
 
 const COLORS = {
