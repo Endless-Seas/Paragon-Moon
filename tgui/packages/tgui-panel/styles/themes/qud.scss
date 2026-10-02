@@ -18,6 +18,9 @@ $cyan: #40a4b9;
 $cyan-bright: #77bfcf;
 $gold: #cfc041;
 $red: #d74200;
+$ember: #f15f22;
+$orange: #e99f10;
+$magenta: #da5bd6;
 
 // Scanlines over viridian, as on Qud's menus
 $scanlines: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px);
@@ -156,10 +159,124 @@ body.chat-qud {
     }
   }
 
-  // Qud's message log leads every entry with a dim double colon
-  .ChatMessage:before {
-    content: ':: ';
-    color: $line;
+  // Combat log. Each kind of event gets a coloured rail and a fading wash,
+  // and the statuses inside a hit read as bracketed Qud tags, e.g. [fresh].
+  @mixin combat-rail($color, $marker: null) {
+    position: relative;
+    border-left: math.div(1em, 6) solid $color;
+    padding-left: 0.4em;
+    background: linear-gradient(to right, rgba($color, 0.16), rgba($color, 0) 70%);
+
+    @if $marker {
+      &:before {
+        content: $marker;
+        color: $color;
+        font-weight: bold;
+      }
+    }
+  }
+
+  @mixin status-tag($color) {
+    color: $color;
+    font-size: 85%;
+    font-weight: normal;
+    font-style: normal;
+    white-space: nowrap;
+
+    &:before {
+      content: ' [';
+      color: $frame;
+    }
+
+    &:after {
+      content: ']';
+      color: $frame;
+    }
+  }
+
+  // Hits on or by me
+  .ChatMessage:has(> .danger) {
+    @include combat-rail($red, '!! ');
+  }
+
+  .danger {
+    color: $ember;
+    font-weight: bold;
+  }
+
+  // Hit location, underlined in red
+  .danger .userdanger {
+    color: $orange;
+    font-size: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid $red;
+  }
+
+  // Armour outcomes ("Armor stops the damage.", "The armor yet remains...")
+  .danger .warning {
+    @include status-tag($cyan-bright);
+  }
+
+  // Critical wounds inside a hit
+  .danger .crit {
+    @include status-tag($magenta);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 6px rgba($magenta, 0.6);
+  }
+
+  // Standalone critical events: knockouts, decapitations, gore
+  .ChatMessage:has(> .crit),
+  .ChatMessage:has(> b > .crit) {
+    @include combat-rail($magenta, '** ');
+  }
+
+  .crit {
+    color: $magenta;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba($magenta, 0.5);
+  }
+
+  // Grave alerts and embeds ("is stuck in", "You feel your bones break")
+  .userdanger {
+    color: $orange;
+    font-weight: bold;
+  }
+
+  .ChatMessage:has(> .userdanger) {
+    @include combat-rail($orange, '! ');
+  }
+
+  // Defence: parries, ripostes and absorbs are notable, so they get a gold rail
+  .ChatMessage:has(> .boldwarning) {
+    @include combat-rail($gold, '>> ');
+  }
+
+  .boldwarning {
+    color: $gold;
+    font-weight: bold;
+
+    b {
+      color: $bright;
+    }
+  }
+
+  // Dodges, clipped weapons and being too tired: amber, full size
+  .warning {
+    color: $orange;
+    font-size: 100%;
+
+    b {
+      color: $bright;
+    }
+  }
+
+  // Roll odds and attack feedback ("Roll to dodge... 45%") as dim readouts
+  .info {
+    color: $cyan;
+    font-size: 85%;
   }
 
   .ChatMessage--highlighted {
