@@ -29,8 +29,5 @@
 		"aavnic.ttf" = 'interface/fonts/languages/aavnic.ttf',
 		"merar.ttf" = 'interface/fonts/languages/merar.ttf',
 		"abyssal.ttf" = 'interface/fonts/languages/abyssal.ttf',
-		"SourceCodePro-Regular.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Regular.ttf',
-		"SourceCodePro-Bold.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Bold.ttf',
-		"SourceCodePro-Italic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Italic.ttf',
-		"SourceCodePro-BoldItalic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-BoldItalic.ttf',
+		SOURCE_CODE_PRO_FONT_ASSETS,
 	)

@@ -101,12 +101,14 @@ export function chatMessage(payload: unknown): void {
     const requestedIndex = requestedOrder.indexOf(message.sequence);
     if (requestedIndex !== -1) requestedOrder.splice(requestedIndex, 1);
   }
+  // DM can deliver out of order (to_chat_immediate overtakes queued batches),
+  // so late unseen messages are rendered. Only messages older than the
+  // dedup history are dropped, since they may already have been shown.
   if (
     highestSequence !== null &&
-    message.sequence < highestSequence &&
+    message.sequence <= highestSequence - MAX_SEQUENCE_HISTORY &&
     !requested
   ) {
-    // An old message that was not requested is stale; do not duplicate it.
     return;
   }
 

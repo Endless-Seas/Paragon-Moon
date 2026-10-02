@@ -30,6 +30,8 @@
 	var/list/completed_payloads = list()
 	/// Changes whenever a pooled window changes owners; never reuse an old action.
 	var/session_id = 0
+	/// Session already reinitialized for a stale cached bundle; once per session stops reload loops.
+	var/stale_bundle_reinit_session = -1
 
 /**
  * public
@@ -357,7 +359,8 @@
 	if(copytext(type, 1, 5) == "act/" || type == "setSharedState")
 		if(!can_accept_payload() || href_list["windowSession"] != "[session_id]")
 			// Old cached bundles cannot attach actions to the current owner.
-			if(locked && !href_list["windowSession"])
+			if(locked && !href_list["windowSession"] && stale_bundle_reinit_session != session_id)
+				stale_bundle_reinit_session = session_id
 				reinitialize()
 			return
 	// Status can be READY if user has refreshed the window.

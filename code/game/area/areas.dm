@@ -34,7 +34,7 @@
 
 	var/outdoors = FALSE //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 
-	var/areasize = 0 //Size of the area in open turfs, only calculated for indoors areas.
+	var/areasize = -1 //Size of the area in open turfs, only calculated for indoors areas. -1 until needed.
 
 	/// Bonus mood for being in this area
 	var/mood_bonus = 0
@@ -227,13 +227,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  * Ensures the item is added to the SSmapping.areas_in_z list for this z
  */
 /area/proc/reg_in_areas_in_z()
-	if(!length(contents))
+	// An area's z is its first turf's, so 0 means no turfs. Avoids building contents.
+	if(!z)
 		return
 	var/list/areas_in_z = SSmapping.areas_in_z
-	update_areasize()
-	if(!z)
-		WARNING("No z found for [src]")
-		return
+	// Counting turfs scans the whole area; defer it until beauty actually needs it.
+	areasize = -1
 	if(!areas_in_z["[z]"])
 		areas_in_z["[z]"] = list()
 	areas_in_z["[z]"] += src
@@ -462,6 +461,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 ///Divides total beauty in the room by roomsize to allow us to get an average beauty per tile.
 /area/proc/update_beauty()
+	if(!totalbeauty)
+		beauty = 0
+		return FALSE
+	if(areasize < 0)
+		update_areasize()
 	if(!areasize)
 		beauty = 0
 		return FALSE
@@ -506,6 +510,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
  */
 /area/proc/update_areasize()
 	if(outdoors)
+		areasize = 0
 		return FALSE
 	areasize = 0
 	for(var/turf/open/T in src)

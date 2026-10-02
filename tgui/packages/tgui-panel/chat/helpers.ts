@@ -8,10 +8,10 @@ import {
   chatPagesRecordAtom,
   currentPageAtom,
   currentPageIdAtom,
-  mainPage,
   scrollTrackingAtom,
 } from './atom';
 import { MAX_PERSISTED_MESSAGES } from './constants';
+import { normalizeChatSettings } from './migration';
 import { canPageAcceptType, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
 import type { Page } from './types';
@@ -75,30 +75,19 @@ chatRenderer.events.on('scrollTrackingChanged', (scrollTracking: boolean) => {
 
 export function importChatState(pageRecord: Record<string, Page>): void {
   if (!pageRecord || typeof pageRecord !== 'object') return;
+  if (Object.keys(pageRecord).length === 0) return;
 
-  const ids = Object.keys(pageRecord);
-  if (ids.length === 0) return;
+  // Same repair as stored state: canonical main id, no duplicate main pages.
+  const { settings } = normalizeChatSettings({
+    version: 5,
+    pageById: pageRecord,
+    pages: Object.keys(pageRecord),
+  });
 
-  const merged: Record<string, Page> = {};
-  for (const id of ids) {
-    merged[id] = {
-      ...mainPage,
-      ...pageRecord[id],
-      id,
-      unreadCount: 0,
-      acceptedTypes: {
-        ...mainPage.acceptedTypes,
-        ...(pageRecord[id]?.acceptedTypes || {}),
-      },
-    };
-  }
-
-  const orderedIds = Object.keys(merged);
-  const first = orderedIds[0];
-  store.set(currentPageIdAtom, first);
-  store.set(chatPagesAtom, orderedIds);
-  store.set(chatPagesRecordAtom, merged);
-  chatRenderer.changePage(merged[first]);
+  store.set(currentPageIdAtom, settings.currentPageId);
+  store.set(chatPagesAtom, settings.pages);
+  store.set(chatPagesRecordAtom, settings.pageById);
+  chatRenderer.changePage(settings.pageById[settings.currentPageId]);
 }
 
 export async function saveChatToStorage(): Promise<void> {

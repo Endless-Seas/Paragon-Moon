@@ -6,7 +6,7 @@ let statFontTimer: ReturnType<typeof setTimeout> | undefined;
 let statTabsTimer: ReturnType<typeof setTimeout> | undefined;
 let overrideRule: HTMLStyleElement | undefined;
 let overrideFontFamily: string | undefined;
-let overrideFontSize = '19px';
+let overrideFontSize = '16px';
 
 const overrideExclusions = [
   '.Icon',

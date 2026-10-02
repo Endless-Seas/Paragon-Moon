@@ -344,7 +344,7 @@
 		log_tgui(user, "Action: [act_type] [href_list["payload"]]",
 			window = window,
 			src_object = src_object)
-		process_status()
+		// on_act_message refreshes status itself, so it stays correct if deferred.
 		on_act_message(act_type, payload, state)
 		// DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(on_act_message), act_type, payload, state))
 		return FALSE

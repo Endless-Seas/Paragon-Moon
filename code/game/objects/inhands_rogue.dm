@@ -49,7 +49,8 @@
 			cache_props[key] = isnum(value) && (value != round(value) || abs(value) >= 1e6) ? num2text(value, 20) : value
 	var/cache_key
 	if(cacheable)
-		cache_key = json_encode(list("\ref[icon]", icon_state, tag, !!behind, !!mirrored, color, cache_props))
+		// Newline-separated (none of these fields hold one); list2params escapes the props.
+		cache_key = "\ref[icon]\n[icon_state]\n[tag]\n[!!behind][!!mirrored]\n[color]\n[list2params(cache_props)]"
 		var/icon/cached = onmob_sprites[cache_key]
 		if(cached)
 			return cached

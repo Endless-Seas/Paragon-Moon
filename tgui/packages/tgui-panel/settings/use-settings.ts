@@ -14,6 +14,26 @@ import { startSettingsMigration } from './migration';
 import { setDisplayScaling } from './scaling';
 import type { SettingsState } from './types';
 
+// Shared by every useSettings() caller: several components can mount before
+// the first load resolves, and the migration must run (and write) only once.
+let loadPromise: Promise<void> | undefined;
+
+function loadSettingsOnce(): Promise<void> {
+  if (!loadPromise) {
+    setDisplayScaling();
+    loadPromise = (async () => {
+      try {
+        const stored = await storage.get('panel-settings');
+        startSettingsMigration(stored);
+      } catch (error) {
+        console.error('Failed to load panel settings:', error);
+        startSettingsMigration(undefined);
+      }
+    })();
+  }
+  return loadPromise;
+}
+
 export function useSettings() {
   const [settings, setSettings] = useAtom(settingsAtom);
   const highlights = useAtomValue(highlightsAtom);
@@ -23,21 +43,9 @@ export function useSettings() {
   useEffect(() => {
     if (loaded) return;
     let active = true;
-
-    async function load(): Promise<void> {
-      try {
-        const stored = await storage.get('panel-settings');
-        startSettingsMigration(stored);
-      } catch (error) {
-        console.error('Failed to load panel settings:', error);
-        startSettingsMigration(undefined);
-      } finally {
-        if (active) setLoaded(true);
-      }
-    }
-
-    setDisplayScaling();
-    void load();
+    void loadSettingsOnce().then(() => {
+      if (active) setLoaded(true);
+    });
     return () => {
       active = false;
     };

@@ -25,6 +25,13 @@ describe('panel settings migration', () => {
     expect(settings.view).toEqual(defaultSettings.view);
   });
 
+  it('moves the old default font size to the new default once', () => {
+    expect(normalizeSettings({ fontSize: 19 }).fontSize).toBe(16);
+    expect(normalizeSettings({ fontSize: 19, version: 1 }).fontSize).toBe(16);
+    expect(normalizeSettings({ fontSize: 19, version: 2 }).fontSize).toBe(19);
+    expect(normalizeSettings({ fontSize: 21 }).fontSize).toBe(21);
+  });
+
   it('repairs malformed highlight settings with a usable default entry', () => {
     const highlights = normalizeHighlightState({
       highlightSettings: ['missing', 'missing'],

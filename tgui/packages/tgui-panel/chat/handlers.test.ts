@@ -36,6 +36,29 @@ describe('panel chat transport reliability', () => {
     processBatch.mockRestore();
   });
 
+  it('renders late unrequested messages that DM delivered out of order', () => {
+    const timer = spyOn(globalThis, 'setTimeout').mockImplementation(
+      (() => 1) as unknown as typeof setTimeout,
+    );
+    // @ts-expect-error BYOND is supplied by the native client.
+    globalThis.Byond = { sendMessage };
+    const processBatch = spyOn(chatRenderer, 'processBatch').mockImplementation(
+      () => undefined,
+    );
+
+    chatMessage(JSON.stringify({ sequence: 0, content: {} }));
+    chatMessage(JSON.stringify({ sequence: 10, content: {} }));
+    // 1..5 were never requested (only the last four gaps are), but must show.
+    for (let sequence = 1; sequence < 10; sequence++) {
+      chatMessage(JSON.stringify({ sequence, content: {} }));
+    }
+    chatMessage(JSON.stringify({ sequence: 3, content: {} }));
+
+    expect(processBatch).toHaveBeenCalledTimes(11);
+    timer.mockRestore();
+    processBatch.mockRestore();
+  });
+
   it('caps resend requests and sequence history', () => {
     const callbacks: (() => void)[] = [];
     const timer = spyOn(globalThis, 'setTimeout').mockImplementation(((

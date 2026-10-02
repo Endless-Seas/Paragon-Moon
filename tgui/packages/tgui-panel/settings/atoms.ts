@@ -6,14 +6,14 @@ import type { HighlightSetting, HighlightState, SettingsState } from './types';
 export const defaultSettings: SettingsState = {
   adminMusicVolume: 0.5,
   fontFamily: FONTS[0],
-  fontSize: 19,
+  fontSize: 16,
   initialized: false,
   lineHeight: 1.2,
   statFontSize: 12,
   statLinked: true,
   statTabsStyle: 'default',
   theme: 'dark',
-  version: 1,
+  version: 2,
   view: {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,

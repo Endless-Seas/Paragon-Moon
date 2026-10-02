@@ -75,6 +75,19 @@ function normalizeHighlightState(input: unknown): HighlightState {
   };
 }
 
+/** Chat font size default before settings version 2. */
+const LEGACY_DEFAULT_FONT_SIZE = 19;
+
+function normalizeFontSize(source: Record<string, unknown>): number {
+  if (typeof source.fontSize !== 'number') return defaultSettings.fontSize;
+  const version = typeof source.version === 'number' ? source.version : 1;
+  // Move players still on the old default to the new one, once.
+  if (version < 2 && source.fontSize === LEGACY_DEFAULT_FONT_SIZE) {
+    return defaultSettings.fontSize;
+  }
+  return source.fontSize;
+}
+
 function normalizeSettings(input: unknown) {
   const source = isRecord(input) ? input : {};
   return {
@@ -87,10 +100,7 @@ function normalizeSettings(input: unknown) {
       typeof source.fontFamily === 'string'
         ? source.fontFamily
         : defaultSettings.fontFamily,
-    fontSize:
-      typeof source.fontSize === 'number'
-        ? source.fontSize
-        : defaultSettings.fontSize,
+    fontSize: normalizeFontSize(source),
     lineHeight:
       typeof source.lineHeight === 'number'
         ? source.lineHeight
