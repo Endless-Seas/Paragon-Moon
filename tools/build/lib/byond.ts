@@ -3,6 +3,7 @@ import path from "node:path";
 import Juke from "../juke/index.js";
 import { regQuery } from "./winreg";
 import Bun from "bun";
+import { formatDeps } from "./helpers";
 
 /** Cached path to DM compiler */
 let dmPath;
@@ -162,8 +163,9 @@ export async function DreamMaker(
       );
       throw new Juke.ExitCode(1);
     }
-    const requiredMajorVersion = 515;
-    const requiredMinorVersion = 1597; // First with -D switch functionality
+    const dependencies = formatDeps(fs.readFileSync("dependencies.sh", "utf8"));
+    const requiredMajorVersion = Number(dependencies.BYOND_MAJOR);
+    const requiredMinorVersion = Number(dependencies.BYOND_MINOR);
     const major = Number(version[1]);
     const minor = Number(version[2]);
     if (
@@ -230,7 +232,7 @@ export async function DreamDaemon(
   const dmPath = await getDmPath(options.namedDmVersion);
   const baseDir = path.dirname(dmPath);
   const ddExeName =
-    process.platform === "win32" ? "dreamdaemon.exe" : "DreamDaemon";
+    process.platform === "win32" ? "dd.exe" : "DreamDaemon";
   const ddExePath = baseDir === "." ? ddExeName : path.join(baseDir, ddExeName);
 
   return Juke.exec(ddExePath, [options.dmbFile, ...args]);

@@ -84,6 +84,7 @@ SUBSYSTEM_DEF(dungeon_generator)
 
 	if(!try_pickedtype_first(picked_type, direction, creator, looking_for_love))
 		var/list/true_list = created_types.Copy()
+		var/list/excluded_types = subtypesof(picked_type) + subtypesof(/datum/map_template/dungeon/entry)
 		while(picking)
 			if(!GET_TURF_ABOVE(creator))
 				message_admins("[ADMIN_JMP(creator)] A dungeon piece was set to spawn on a top level z. This is not intended, their is a bad template.")
@@ -94,7 +95,7 @@ SUBSYSTEM_DEF(dungeon_generator)
 			true_list -= template
 			if(is_abstract(template))
 				continue
-			if(is_type_in_list(template, list(subtypesof(picked_type) + subtypesof(/datum/map_template/dungeon/entry))))
+			if(is_type_in_list(template, excluded_types))
 				continue
 			var/turf/true_spawn
 			switch(direction)
@@ -217,6 +218,7 @@ SUBSYSTEM_DEF(dungeon_generator)
 
 /datum/controller/subsystem/dungeon_generator/proc/try_pickedtype_first(picked_type, direction, turf/creator, obj/effect/dungeon_directional_helper/looking_for_love)
 	var/picking = TRUE
+	var/list/picked_subtypes = subtypesof(picked_type)
 
 	var/list/true_list = created_types.Copy()
 	while(picking)
@@ -226,7 +228,7 @@ SUBSYSTEM_DEF(dungeon_generator)
 		true_list -= template
 		if(is_abstract(template))
 			continue
-		if(!is_type_in_list(template, subtypesof(picked_type)))
+		if(!is_type_in_list(template, picked_subtypes))
 			continue
 		var/turf/true_spawn
 		switch(direction)

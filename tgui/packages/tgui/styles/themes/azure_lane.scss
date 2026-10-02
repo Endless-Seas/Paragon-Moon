@@ -1,6 +1,29 @@
 @font-face {
-  font-family: 'Pterra';
-  src: url('~roguefont/pterra.ttf');
+  font-family: 'Source Code Pro';
+  src: url('~roguefont/source-code-pro/SourceCodePro-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('~roguefont/source-code-pro/SourceCodePro-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('~roguefont/source-code-pro/SourceCodePro-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('~roguefont/source-code-pro/SourceCodePro-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
 }
 
 .theme-azure_lane:root {
@@ -8,10 +31,10 @@
   --color-base-start: #141820;
   --color-base-end: #141820;
 
-  --font-size: 14px;
-  --font-family: 'Pterra';
+  --font-size: 12px;
+  --font-family: 'Source Code Pro', monospace;
   --color-text: #c8d4e0;
-  --line-height: 170%;
+  --line-height: 1.4;
 
   /* Semantic colors */
   --color-label: #7284a8;

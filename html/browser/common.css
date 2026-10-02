@@ -1,26 +1,39 @@
 @font-face {
-	font-family: "Endera";
-	src: url("endera.ttf");
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Regular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Pterra";
-	src: url("pterra.ttf");
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Bold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
 }
 
 @font-face {
-	font-family: "Nosfer";
-	src: url("nosfer.ttf");
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-Italic.ttf") format("truetype");
+	font-weight: 400;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: "Source Code Pro";
+	src: url("SourceCodePro-BoldItalic.ttf") format("truetype");
+	font-weight: 700;
+	font-style: italic;
 }
 
 body {
-	font-family: "Endera", TrueType;
+	font-family: "Source Code Pro", monospace;
 	padding: 0;
 	margin: 0;
 	background: #000000 url("flowers.png") repeat;
 	font-size: 14px;
 	color: #8a8072;
-	line-height: 170%;
+	line-height: 1.4;
 	vertical-align: middle;
 }
 
@@ -36,7 +49,7 @@ a:visited,
 a:active,
 .linkOn,
 .linkOff {
-	font-family: Pterra, TrueType !important;
+	font-family: "Source Code Pro", monospace !important;
 	color: #7b5353;
 	text-decoration: none;
 	background: #00000066;
@@ -130,7 +143,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Endera", TrueType !important;
+	font-family: "Source Code Pro", monospace !important;
 	margin: 0;
 	padding: 16px 0 8px 0;
 	color: #9b3131;
@@ -159,7 +172,7 @@ h4 {
 }
 
 .uiTitle {
-	font-family: Nosfer, TrueType !important;
+	font-family: "Source Code Pro", monospace !important;
 	clear: both;
 	padding: 6px 8px 6px 8px;
 	border-bottom: 2px solid #161616;
@@ -177,7 +190,7 @@ h4 {
 .uiContent {
 	clear: both;
 	padding: 8px;
-	font-family: "Endera", TrueType;
+	font-family: "Source Code Pro", monospace;
 }
 
 .good {

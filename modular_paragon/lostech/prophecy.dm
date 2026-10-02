@@ -13,7 +13,7 @@
 		The beast snarled, licking its chops before discarding your carcass. It had been displeased, for it could not understand you, even in the end.</b></span>",
 
 		"<span class='his_grace'><b>The Baron arrived. You speak on good terms. Of service. Of life and death. \
-		They leave uncharacteristically pleased. This is a common occurrence.</b></span>"
+		They leave uncharacteristically pleased. This is a common occurrence.</b></span>",
 
 		"<span class='danger'><b>Your legs gave out as a vision struck you. It had been wrong. Twisted. \
 		The subject troubled you. You did not sleep, then, knowing what you do, now.</b></span>",

@@ -9,7 +9,7 @@ export function bun(...args: any[]): Promise<Juke.ExecReturn> {
     hasInstallFolder = true;
   }
 
-  return Juke.exec("bun", [...args.filter((arg) => typeof arg === "string")], {
+  return Juke.exec(process.execPath, [...args.filter((arg) => typeof arg === "string")], {
     cwd: "./tgui",
     shell: true,
   });
@@ -21,7 +21,7 @@ export function bun_tgfont(...args: any[]): Promise<Juke.ExecReturn> {
     hasInstallFolder = true;
   }
 
-  return Juke.exec("bun", [...args.filter((arg) => typeof arg === "string")], {
+  return Juke.exec(process.execPath, [...args.filter((arg) => typeof arg === "string")], {
     cwd: "./tgui/packages/tgfont",
     shell: true,
   });

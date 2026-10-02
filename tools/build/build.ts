@@ -8,6 +8,7 @@
 
 import Bun from "bun";
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 import Juke from "./juke/index.js";
 import { bun, bun_tgfont } from "./lib/bun";
 import { DreamDaemon, DreamMaker, NamedVersionFile } from "./lib/byond";
@@ -86,6 +87,7 @@ export const DmTarget = new Juke.Target({
     NoWarningParameter,
   ],
   dependsOn: ({ get }) => [
+    TguiTarget,
     get(DefineParameter).includes("ALL_TEMPLATES") && DmMapsIncludeTarget,
   ],
   inputs: [
@@ -95,16 +97,10 @@ export const DmTarget = new Juke.Target({
     "icons/**",
     "interface/**",
     "sound/**",
-    "tgui/public/tgui.html",
-    "modular/**",
-    "modular_azurepeak/**",
-    "modular_causticcove/**",
-    "modular_deserttown/**",
-    "modular_hearthstone/**",
-    "modular_helmsguard/**",
-    "modular_rmh/**",
-    "modular_stonehedge/**",
-    "modular_twilight_axis/**",
+    "tgui/public/*.+(html|js|css|ttf|woff|woff2|svg|png|jpg)",
+    "modular*/**",
+    "dependencies.sh",
+    "tools/build/**/*.+(ts|js)",
     `${DME_NAME}.dme`,
     NamedVersionFile,
   ],
@@ -121,6 +117,7 @@ export const DmTarget = new Juke.Target({
       ignoreWarningCodes: get(NoWarningParameter),
       namedDmVersion: get(DmVersionParameter),
     });
+    requireArtifacts([`${DME_NAME}.dmb`, `${DME_NAME}.rsc`]);
   },
 });
 
@@ -168,7 +165,15 @@ export const DmTestTarget = new Juke.Target({
 
 export const BunTarget = new Juke.Target({
   parameters: [CiParameter],
-  inputs: ["tgui/**/package.json"],
+  inputs: [
+    "tgui/package.json",
+    "tgui/packages/*/package.json",
+    "tgui/bun.lock",
+    "tgui/bunfig.toml",
+    "dependencies.sh",
+    "tools/bootstrap/*.+(sh|bat|ps1)",
+    "tools/build/lib/bun.ts",
+  ],
   executes: () => {
     return bun("install", "--frozen-lockfile", "--ignore-scripts");
   },
@@ -198,22 +203,56 @@ export const TgFontTarget = new Juke.Target({
   },
 });
 
-export const TguiTarget = new Juke.Target({
+export const TguiSetupTarget = new Juke.Target({
   dependsOn: [BunTarget],
   inputs: [
-    "tgui/rspack.config.mjs",
-    "tgui/**/package.json",
-    "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss)",
+    "tgui/packages/tgui-setup/*",
+    "tgui/bun.lock",
+    "dependencies.sh",
+    "tools/build/build.ts",
   ],
-  outputs: [
-    "tgui/public/tgui.bundle.css",
-    "tgui/public/tgui.bundle.js",
-    "tgui/public/tgui-panel.bundle.css",
-    "tgui/public/tgui-panel.bundle.js",
-    "tgui/public/tgui-say.bundle.css",
-    "tgui/public/tgui-say.bundle.js",
+  outputs: ["tgui/public/helpers.min.js", "tgui/public/ntos-error.min.css"],
+  executes: async () => {
+    await bun("run", "--cwd", "packages/tgui-setup", "build:helpers");
+    await bun("run", "--cwd", "packages/tgui-setup", "build:style");
+    requireArtifacts(["tgui/public/helpers.min.js", "tgui/public/ntos-error.min.css"]);
+  },
+});
+
+const tguiArtifacts = [
+  "tgui/public/tgui.bundle.css",
+  "tgui/public/tgui.bundle.js",
+  "tgui/public/tgui-panel.bundle.css",
+  "tgui/public/tgui-panel.bundle.js",
+];
+
+function requireArtifacts(files: string[]) {
+  for (const file of files) {
+    if (!fs.existsSync(file) || fs.statSync(file).size === 0) {
+      throw new Error(`Missing or empty build artifact: ${file}`);
+    }
+  }
+}
+
+export const TguiTarget = new Juke.Target({
+  dependsOn: [BunTarget, TguiSetupTarget],
+  inputs: [
+    "tgui/rspack.config.ts",
+    "tgui/bun.lock",
+    "tgui/tsconfig.json",
+    "tgui/public/tgui.html",
+    "tgui/package.json",
+    "tgui/packages/*/package.json",
+    "tgui/packages/**/*.+(js|cjs|ts|tsx|jsx|scss|css|svg|png|jpg|ttf|woff|woff2)",
+    "interface/fonts/**",
+    "dependencies.sh",
+    "tools/build/**/*.+(ts|js)",
   ],
-  executes: () => bun("tgui:build"),
+  outputs: tguiArtifacts,
+  executes: async () => {
+    await bun("tgui:build");
+    requireArtifacts(tguiArtifacts);
+  },
 });
 
 export const TguiEslintTarget = new Juke.Target({
@@ -248,7 +287,7 @@ export const TguiLintTarget = new Juke.Target({
 });
 
 export const TguiDevTarget = new Juke.Target({
-  dependsOn: [BunTarget],
+  dependsOn: [BunTarget, TguiSetupTarget],
   executes: ({ args }) => bun("tgui:dev", ...args),
 });
 
@@ -323,6 +362,14 @@ export const CleanAllTarget = new Juke.Target({
 export const TgsTarget = new Juke.Target({
   dependsOn: [TguiTarget],
   executes: async () => {
+    const nativeFile = process.platform === "win32" ? "rust_g.dll" : "librust_g.so";
+    const expectedHash = process.platform === "win32"
+      ? dependencies.RUST_G_WINDOWS_SHA256
+      : dependencies.RUST_G_LINUX_SHA256;
+    const actualHash = createHash("sha256").update(fs.readFileSync(nativeFile)).digest("hex");
+    if (actualHash !== expectedHash) {
+      throw new Error(`${nativeFile} does not match the pinned rust-g release`);
+    }
     Juke.logger.info("Prepending TGS define");
     prependDefines("TGS");
   },

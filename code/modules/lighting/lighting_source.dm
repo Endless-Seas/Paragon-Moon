@@ -153,6 +153,7 @@
 	var/_range_divisor = max(light_outer_range - light_inner_range, 1); \
 	var/_range_subtrahend = -light_outer_range / _range_divisor; \
 	var/_light_power = lighting_source.light_power; \
+	var/_light_falloff_curve = lighting_source.light_falloff_curve; \
 	var/_applied_lum_r = lighting_source.applied_lum_r; \
 	var/_applied_lum_g = lighting_source.applied_lum_g; \
 	var/_applied_lum_b = lighting_source.applied_lum_b; \
@@ -177,9 +178,9 @@
 // This is the define used to calculate falloff.
 // Assuming a brightness of 1 at range 1, formula should be (brightness = 1 / distance^2)
 // However, due to the weird range factor, brightness = (-(distance - full_dark_start) / (full_dark_start - full_light_end)) ^ light_max_bright
-#define LUM_FALLOFF(C)(CLAMP01(-(sqrt((C.x - _turf_x) ** 2 +(C.y - _turf_y) ** 2 + LIGHTING_HEIGHT) / _range_divisor + _range_subtrahend)) ** light_falloff_curve)
+#define LUM_FALLOFF(C)(CLAMP01(-(sqrt((C.x - _turf_x) ** 2 +(C.y - _turf_y) ** 2 + LIGHTING_HEIGHT) / _range_divisor + _range_subtrahend)) ** _light_falloff_curve)
 // This is the same as the above but it takes into account Z-distance.
-#define LUM_FALLOFF_MULTIZ(C)(CLAMP01(-(sqrt((C.x - _turf_x) ** 2 +(C.y - _turf_y) ** 2 + (C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor + _range_subtrahend)) ** light_falloff_curve)
+#define LUM_FALLOFF_MULTIZ(C)(CLAMP01(-(sqrt((C.x - _turf_x) ** 2 +(C.y - _turf_y) ** 2 + (C.z - _turf_z) ** 2 + LIGHTING_HEIGHT) / _range_divisor + _range_subtrahend)) ** _light_falloff_curve)
 
 #define APPLY_CORNER(C)                          \
 	if(C.z == _turf_z) {                         \
@@ -366,18 +367,15 @@
 				LAZYADD(C.affecting, src)
 				effect_str[C] = .
 	else
-		L = corners - effect_str
-		for (C as anything in L) // New corners
-			APPLY_CORNER(C)
-			if(. != 0)
-				LAZYADD(C.affecting, src)
-				effect_str[C] = .
-
-		for (C as anything in corners - L) // Existing corners
+		// APPLY_CORNER already reads the old strength; null distinguishes a new
+		// corner from an existing entry whose strength is zero.
+		for (C as anything in corners)
 			APPLY_CORNER(C)
 			if (. != 0)
+				if(isnull(OLD))
+					LAZYADD(C.affecting, src)
 				effect_str[C] = .
-			else
+			else if(!isnull(OLD))
 				LAZYREMOVE(C.affecting, src)
 				effect_str -= C
 

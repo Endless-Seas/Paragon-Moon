@@ -13,15 +13,14 @@ import { setupHotKeys } from 'tgui-core/hotkeys';
 import { setupHotReloading } from 'tgui-dev-server/link/client';
 
 import { App } from './App';
-import { setGlobalStore } from './backend';
+import { setupDebugEvents } from './debug/events';
+import { dispatchMessage } from './events/listeners';
 import { captureExternalLinks } from './links';
 import { render } from './renderer';
-import { configureStore } from './store';
+import { createStackAugmentor } from './stack';
 
 perf.mark('inception', window.performance?.timeOrigin);
 perf.mark('init');
-
-const store = configureStore();
 
 function setupApp() {
   // Delay setup
@@ -30,7 +29,7 @@ function setupApp() {
     return;
   }
 
-  setGlobalStore(store);
+  window.__augmentStack__ = createStackAugmentor();
 
   setupGlobalEvents();
   setupHotKeys({
@@ -41,13 +40,12 @@ function setupApp() {
   });
   captureExternalLinks();
 
-  store.subscribe(() => render(<App />));
-
-  // Dispatch incoming messages as store actions
-  Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
+  Byond.subscribe(dispatchMessage);
+  render(<App />);
 
   // Enable hot module reloading
   if (import.meta.webpackHot) {
+    setupDebugEvents(dispatchMessage);
     setupHotReloading();
     import.meta.webpackHot.accept(
       ['./debug', './layouts', './routes', './App'],

@@ -303,10 +303,14 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(connection != "seeker" && connection != "web")//Invalid connection type.
 		return null
 
+	// Checked before the client is registered anywhere: alert() blocks, and a
+	// half-registered client without a tgui_panel would stall chat delivery.
+	if(!passes_version_gate())
+		qdel(src)
+		return null
+
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
-
-	initialize_commandbar_spy()
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	var/connecting_admin = FALSE //because de-admined admins connecting should be treated like admins.
@@ -354,7 +358,18 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
-	// Instantiate tgui panel
+	if(connection == "web" && !connecting_admin)
+		if(!CONFIG_GET(flag/allow_webclient))
+			alert(src, "Web client is disabled.", "Connection rejected", "OK")
+			qdel(src)
+			return
+		if(CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
+			alert(src, "The web client is restricted to BYOND members.", "Connection rejected", "OK")
+			qdel(src)
+			return
+
+	// Instantiate tgui panel only after the technical compatibility gate.
+	initialize_commandbar_spy()
 	tgui_panel = new(src, "browseroutput")
 
 	if(fexists(roundend_report_file()))
@@ -412,6 +427,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			add_system_note("Spoofed-Byond-Version", "Detected as using a spoofed byond version.")
 			log_access("Failed Login: [key] - Spoofed byond version")
 			qdel(src)
+			return
 
 		if (num2text(byond_build) in GLOB.blacklisted_builds)
 			log_access("Failed login: [key] - blacklisted byond version")
@@ -441,18 +457,13 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/cev = CONFIG_GET(number/client_error_version)
 	var/ceb = CONFIG_GET(number/client_error_build)
 	var/cwv = CONFIG_GET(number/client_warn_version)
-	if (byond_version < cev || byond_build < ceb)		//Out of date client.
+	if (byond_version < cev || (byond_version == cev && byond_build < ceb))	//Only admins get past passes_version_gate() here.
 		to_chat(src, span_danger("<b>My version of BYOND is too old:</b>"))
 		to_chat(src, CONFIG_GET(string/client_error_message))
 		to_chat(src, "Your version: [byond_version].[byond_build]")
 		to_chat(src, "Required version: [cev].[ceb] or later")
-		to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
-		if (connecting_admin)
-			to_chat(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
-		else
-			qdel(src)
-			return 0
-	else if (byond_version < cwv)	//We have words for this client.
+		to_chat(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
+	else if (byond_version < cwv)	//Advisory only; the hard floor was checked before TGUI.
 		if(CONFIG_GET(flag/client_warn_popup))
 			var/msg = "<b>My version of byond may be getting out of date:</b><br>"
 			msg += CONFIG_GET(string/client_warn_message) + "<br><br>"
@@ -466,16 +477,6 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 			to_chat(src, "Your version: [byond_version]")
 			to_chat(src, "Required version to remove this message: [cwv] or later")
 			to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
-
-	if (connection == "web" && !connecting_admin)
-		if (!CONFIG_GET(flag/allow_webclient))
-			to_chat(src, "Web client is disabled")
-			qdel(src)
-			return 0
-		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
-			to_chat(src, "Sorry, but the web client is restricted to byond members only.")
-			qdel(src)
-			return 0
 
 	if( (world.address == address || !address) && !GLOB.host )
 		GLOB.host = key
@@ -589,6 +590,28 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 //////////////
 //DISCONNECT//
 //////////////
+
+/// Hard BYOND version floor. Admins may walk past the configured floor, as before,
+/// but never past the technical minimum the TGUI browser needs.
+/client/proc/passes_version_gate()
+	var/tech_ok = byond_version > MIN_COMPILER_VERSION || (byond_version == MIN_COMPILER_VERSION && byond_build >= MIN_COMPILER_BUILD)
+	var/cev = CONFIG_GET(number/client_error_version)
+	var/ceb = CONFIG_GET(number/client_error_build)
+	var/config_ok = byond_version > cev || (byond_version == cev && byond_build >= ceb)
+	if(tech_ok && config_ok)
+		return TRUE
+	var/is_admin = GLOB.admin_datums[ckey] || GLOB.deadmins[ckey]
+	if(tech_ok && is_admin)
+		// Warned once they have a chat panel, in the advisory block of New().
+		return TRUE
+	var/req_version = MIN_COMPILER_VERSION
+	var/req_build = MIN_COMPILER_BUILD
+	if(cev > req_version || (cev == req_version && ceb > req_build))
+		req_version = cev
+		req_build = ceb
+	log_access("Failed login: [key] - unsupported BYOND [byond_version].[byond_build]")
+	alert(src, "[CONFIG_GET(string/client_error_message)]\n\nThis server requires BYOND [req_version].[req_build] or newer, with the 32-bit Microsoft WebView2 runtime. Your version is [byond_version].[byond_build]. Download the current client from https://www.byond.com/download/ and reconnect.", "Client update required", "OK")
+	return FALSE
 
 /client/Del()
 	log_access("Logout: [key_name(src)]")

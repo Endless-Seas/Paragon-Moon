@@ -28,6 +28,8 @@ export const FONTS_DISABLED = 'Default';
 
 export const FONTS = [
   FONTS_DISABLED,
+  // The previous default, kept as an option.
+  'Pterra',
   'Verdana',
   'Arial',
   'Arial Black',
@@ -38,6 +40,35 @@ export const FONTS = [
   'Trebuchet MS',
   'Courier New',
   'Lucida Console',
+];
+
+/** Language and accent classes that keep their own font under a custom font. */
+export const FONT_OVERRIDE_EXEMPT = [
+  'sans',
+  'papyrus',
+  'robot',
+  'clown',
+  'his_grace',
+  'human',
+  'elf',
+  'dwarf',
+  'sandspeak',
+  'delf',
+  'hellspeak',
+  'undead',
+  'orc',
+  'beast',
+  'reptile',
+  'grenzelhoftian',
+  'kazengunese',
+  'otavan',
+  'posh',
+  'etruscan',
+  'gronnic',
+  'aavnic',
+  'abyssal',
+  'canilunzt',
+  'merar',
 ];
 
 export const WARN_AFTER_HIGHLIGHT_AMT = 10;

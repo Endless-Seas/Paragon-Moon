@@ -14,3 +14,11 @@
 /// Parameters (in order):
 /// icon_file, icon_state, dir, frame, transform, color
 #define uni_icon(I, icon_state, rest...) new /datum/universal_icon(I, icon_state, ##rest)
+
+/// Source Code Pro, the menu font. Spliced into each asset list whose stylesheet
+/// loads it by relative URL, so the files sit beside that stylesheet.
+#define SOURCE_CODE_PRO_FONT_ASSETS \
+	"SourceCodePro-Regular.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Regular.ttf', \
+	"SourceCodePro-Bold.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Bold.ttf', \
+	"SourceCodePro-Italic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-Italic.ttf', \
+	"SourceCodePro-BoldItalic.ttf" = 'interface/fonts/source-code-pro/SourceCodePro-BoldItalic.ttf'

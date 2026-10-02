@@ -1,0 +1,7 @@
+author: "Paragon Moon contributors"
+delete-after: true
+changes:
+  - server: "Require BYOND 516.1688 or newer and a current 32-bit WebView2 runtime, including for administrators."
+  - code_imp: "Modernize the TGUI application and chat panel while preserving Paragon interfaces, themes and native-window preferences."
+  - bugfix: "Bound large UI submissions, reject stale window actions, and preserve local state updater behavior."
+  - server: "Pin Windows build dependencies and native artifacts, repair CI and retire obsolete Docker packaging."

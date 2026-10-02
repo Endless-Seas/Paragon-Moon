@@ -237,22 +237,26 @@
 	var/list/New
 
 	if(top_left_corner != nw)
-		cut_overlay(top_left_corner)
+		if(top_left_corner)
+			cut_overlay(top_left_corner)
 		top_left_corner = nw
 		LAZYADD(New, nw)
 
 	if(top_right_corner != ne)
-		cut_overlay(top_right_corner)
+		if(top_right_corner)
+			cut_overlay(top_right_corner)
 		top_right_corner = ne
 		LAZYADD(New, ne)
 
 	if(bottom_right_corner != sw)
-		cut_overlay(bottom_right_corner)
+		if(bottom_right_corner)
+			cut_overlay(bottom_right_corner)
 		bottom_right_corner = sw
 		LAZYADD(New, sw)
 
 	if(bottom_left_corner != se)
-		cut_overlay(bottom_left_corner)
+		if(bottom_left_corner)
+			cut_overlay(bottom_left_corner)
 		bottom_left_corner = se
 		LAZYADD(New, se)
 
@@ -375,6 +379,10 @@
 
 //SSicon_smooth
 /proc/queue_smooth_neighbors(atom/A)
+	// During initial map load every smoothing atom queues itself; requeueing
+	// neighbours there only rebuilds a 3x3 orange() per atom for nothing.
+	if(!SSicon_smooth?.smoothing_started)
+		return
 	for(var/V in orange(1,A))
 		var/atom/T = V
 		if(T.smooth)

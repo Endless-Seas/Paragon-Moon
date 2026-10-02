@@ -36,7 +36,7 @@
 
 //Actual cost after cast. Hooked into 'after_cast'.
 /obj/effect/proc_holder/spell/proc/spark_check(mob/living/carbon/human/H)
-	if(!spark_immune & !miracle)//We don't care about miracles.
+	if(!spark_immune && !miracle)//We don't care about miracles.
 		H.lessen_spark(21 * (src.spell_tier))
 
 //Debuffs.

@@ -1086,9 +1086,16 @@
 /mob/living/carbon/human/species
 	var/race = null
 
+// Start with the fixed race so human/Initialize sets the species up once,
+// instead of setting up the default /datum/species/human and then replacing it.
+/mob/living/carbon/human/species/create_dna()
+	. = ..()
+	if(race && dna.species?.type != race)
+		dna.species = new race()
+
 /mob/living/carbon/human/species/Initialize(mapload)
 	. = ..()
-	if(race)
+	if(race && dna?.species?.type != race)
 		set_species(race)
 
 //Vrell - Moving this here to fix load order bugs

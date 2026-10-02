@@ -192,8 +192,8 @@ window "statwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		font-family = "Pterra"
-		font-size = 12
+		font-family = "Source Code Pro"
+		font-size = 9
 		font-style = "6"
 		text-color = #d6dbd5
 		background-color = #000000
@@ -202,8 +202,8 @@ window "statwindow"
 		highlight-color = #f9bb00
 		tab-text-color = #d6dbd5
 		tab-background-color = #000000
-		tab-font-family = "Blackmoor LET"
-		tab-font-size = 20
+		tab-font-family = "Source Code Pro"
+		tab-font-size = 10
 		prefix-color = #f9bb00
 		suffix-color = #d6dbd5
 

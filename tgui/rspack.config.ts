@@ -28,7 +28,6 @@ export default defineConfig({
   entry: {
     tgui: './packages/tgui',
     'tgui-panel': './packages/tgui-panel',
-    // 'tgui-say': './packages/tgui-say',
   },
   mode: 'production',
   module: {
@@ -99,7 +98,7 @@ export default defineConfig({
     emitOnErrors: false,
   },
   output: {
-    path: 'public',
+    path: path.resolve(dirname, 'public'),
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     chunkLoadTimeout: 15000,
