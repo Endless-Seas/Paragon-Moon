@@ -1,39 +1,9 @@
 #!/bin/bash
+set -euo pipefail
 
-./InstallDeps.sh
-
-set -e
-set -x
-
-#load dep exports
-#need to switch to game dir for Dockerfile weirdness
 original_dir=$PWD
-cd "$1"
-. dependencies.sh
-cd "$original_dir"
+cd "${1:?Pass the TGS game directory}"
 
-
-# update rust-g
-if [ ! -d "rust-g" ]; then
-	echo "Cloning rust-g..."
-	git clone https://github.com/Rotwood-Vale/rust-g
-	cd rust-g
-	~/.cargo/bin/rustup target add i686-unknown-linux-gnu
-else
-	echo "Fetching rust-g..."
-	cd rust-g
-	git fetch
-	~/.cargo/bin/rustup target add i686-unknown-linux-gnu
-fi
-
-echo "Deploying rust-g..."
-git checkout "$RUST_G_VERSION"
-git pull
-env PKG_CONFIG_ALLOW_CROSS=1 ~/.cargo/bin/cargo build --ignore-rust-version --release --target=i686-unknown-linux-gnu
-mv target/i686-unknown-linux-gnu/release/librust_g.so "$1/librust_g.so"
-cd ..
-
-# compile tgui
-echo "Compiling tgui..."
-cd "$1"
-env TG_BOOTSTRAP_CACHE="$original_dir" TG_BOOTSTRAP_NODE_LINUX=1 CBT_BUILD_MODE="TGS" tools/bootstrap/javascript.sh tools/build/build.ts
+# Use the same release and verified artifact as CI; never build a floating fork.
+bash tools/ci/install_rust_g.sh
+env TG_BOOTSTRAP_CACHE="$original_dir/bootstrap" CBT_BUILD_MODE=TGS tools/bootstrap/javascript.sh tools/build/build.ts

@@ -8,6 +8,7 @@ if %errorlevel%==0 (
 )
 
 call %powershellCmd% -NoLogo -ExecutionPolicy Bypass -File "%~dp0\javascript_.ps1" Download-Bun
+if errorlevel 1 exit /b %errorlevel%
 for /f "tokens=* USEBACKQ" %%s in (`
     call %powershellCmd% -NoLogo -ExecutionPolicy Bypass -File "%~dp0\javascript_.ps1" Get-Path
 `) do (

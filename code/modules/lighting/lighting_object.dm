@@ -57,6 +57,14 @@
 		qdel(src, TRUE)
 		return
 
+	var/list/corners = myturf.corners
+	// Most startup overlays have no light corners. Preserve sunlight's separate luminosity.
+	if(!corners && !myturf.outdoor_effect?.sunlight_overlay?.luminosity)
+		icon_state = "dark"
+		color = null
+		luminosity = 0
+		return
+
 	// To the future coder who sees this and thinks
 	// "Why didn't he just use a loop?"
 	// Well my man, it's because the loop performed like shit.
@@ -68,7 +76,6 @@
 	// See LIGHTING_CORNER_DIAGONAL in lighting_corner.dm for why these values are what they are.
 	var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
 
-	var/list/corners = myturf.corners
 	var/datum/lighting_corner/cr = dummy_lighting_corner
 	var/datum/lighting_corner/cg = dummy_lighting_corner
 	var/datum/lighting_corner/cb = dummy_lighting_corner

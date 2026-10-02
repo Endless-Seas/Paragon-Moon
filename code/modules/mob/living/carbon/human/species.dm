@@ -376,6 +376,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 //Will regenerate missing organs
 /datum/species/proc/regenerate_organs(mob/living/carbon/C, datum/species/old_species, replace_current=TRUE, list/excluded_zones, datum/preferences/pref_load)
+	var/mob/living/carbon/human/H = ishuman(C) ? C : null
+	H?.defer_bodypart_updates()
+	try
+		. = regenerate_organs_internal(C, old_species, replace_current, excluded_zones, pref_load)
+	catch(var/exception/error)
+		// A failed organ operation must not leave future body updates deferred.
+		H?.resume_bodypart_updates()
+		throw error
+	H?.resume_bodypart_updates()
+
+/datum/species/proc/regenerate_organs_internal(mob/living/carbon/C, datum/species/old_species, replace_current, list/excluded_zones, datum/preferences/pref_load)
 	/// Add DNA and create organs from prefs
 	if(pref_load)
 		/// Clear the dna

@@ -1,22 +1,15 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-import { useDispatch, useSelector } from 'tgui/backend';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { Section, Stack, Tabs } from 'tgui-core/components';
 
-import { ChatPageSettings } from '../chat';
-import { changeSettingsTab } from './actions';
+import { ChatPageSettings } from '../chat/ChatPageSettings';
+import { activeSettingsTabAtom } from './atoms';
 import { SETTINGS_TABS } from './constants';
-import { selectActiveTab } from './selectors';
 import { SettingsGeneral } from './SettingsGeneral';
 import { TextHighlightSettings } from './TextHighlight';
 
-export function SettingsPanel(props) {
-  const activeTab = useSelector(selectActiveTab);
-  const dispatch = useDispatch();
+export function SettingsPanel() {
+  const activeTab = useAtomValue(activeSettingsTabAtom);
+  const setActiveTab = useSetAtom(activeSettingsTabAtom);
 
   return (
     <Stack fill>
@@ -27,13 +20,7 @@ export function SettingsPanel(props) {
               <Tabs.Tab
                 key={tab.id}
                 selected={tab.id === activeTab}
-                onClick={() =>
-                  dispatch(
-                    changeSettingsTab({
-                      tabId: tab.id,
-                    }),
-                  )
-                }
+                onClick={() => setActiveTab(tab.id)}
               >
                 {tab.name}
               </Tabs.Tab>
@@ -45,7 +32,6 @@ export function SettingsPanel(props) {
         {activeTab === 'general' && <SettingsGeneral />}
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
-        {/* {activeTab === 'statPanel' && <SettingsStatPanel />} */}
       </Stack.Item>
     </Stack>
   );

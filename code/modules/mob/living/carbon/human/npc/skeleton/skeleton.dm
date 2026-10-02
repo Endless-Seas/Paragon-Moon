@@ -39,7 +39,17 @@
 		after_creation()
 
 /mob/living/carbon/human/species/skeleton/after_creation()
-	..()
+	// Limb swaps, eye swap and outfit each request a body redraw; draw once at the end.
+	defer_bodypart_updates()
+	try
+		..()
+		skeleton_after_creation()
+	catch(var/exception/error)
+		resume_bodypart_updates()
+		throw error
+	resume_bodypart_updates()
+
+/mob/living/carbon/human/species/skeleton/proc/skeleton_after_creation()
 	if(src.dna && src.dna.species)
 		src.dna.species.species_traits |= NOBLOOD
 		src.dna.species.soundpack_m = new /datum/voicepack/skeleton()

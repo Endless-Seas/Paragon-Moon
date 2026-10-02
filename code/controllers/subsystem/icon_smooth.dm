@@ -6,6 +6,12 @@ SUBSYSTEM_DEF(icon_smooth)
 	flags = SS_TICKER
 	var/list/smooth_queue = list()
 	var/list/deferred = list()
+	/// Until this is set, every smoothing atom is still queued by its own Initialize,
+	/// so neighbours do not need requeueing (see queue_smooth_neighbors).
+	var/smoothing_started = FALSE
+
+/datum/controller/subsystem/icon_smooth/Recover()
+	smoothing_started = SSicon_smooth.smoothing_started
 
 /datum/controller/subsystem/icon_smooth/fire()
 	var/list/cached = smooth_queue
@@ -27,6 +33,7 @@ SUBSYSTEM_DEF(icon_smooth)
 			can_fire = 0
 
 /datum/controller/subsystem/icon_smooth/Initialize()
+	smoothing_started = TRUE
 	var/list/queue = smooth_queue
 	smooth_queue = list()
 	for(var/V in queue)

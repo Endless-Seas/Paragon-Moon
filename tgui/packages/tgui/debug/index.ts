@@ -6,5 +6,3 @@
 
 export { useDebug } from './hooks';
 export { KitchenSink } from './KitchenSink';
-export { debugMiddleware, relayMiddleware } from './middleware';
-export { debugReducer } from './reducer';

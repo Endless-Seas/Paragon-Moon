@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   LabeledList,
@@ -10,18 +9,12 @@ import {
 import { toFixed } from 'tgui-core/math';
 import { capitalize } from 'tgui-core/string';
 
-import { updateSettings } from './actions';
-import { selectSettings } from './selectors';
+import { useSettings } from './use-settings';
 
-const TabsViews = ['default', 'classic', 'scrollable'];
-const LinkedToChat = () => (
-  <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
-);
+const TABS_VIEWS = ['default', 'classic', 'scrollable'];
 
-export function SettingsStatPanel(props) {
-  const { statLinked, statFontSize, statTabsStyle } =
-    useSelector(selectSettings);
-  const dispatch = useDispatch();
+export function SettingsStatPanel() {
+  const { settings, updateSettings } = useSettings();
 
   return (
     <Section fill>
@@ -29,14 +22,12 @@ export function SettingsStatPanel(props) {
         <Stack.Item>
           <LabeledList>
             <LabeledList.Item label="Tabs" verticalAlign="middle">
-              {TabsViews.map((view) => (
+              {TABS_VIEWS.map((view) => (
                 <Button
                   key={view}
                   color="transparent"
-                  selected={statTabsStyle === view}
-                  onClick={() =>
-                    dispatch(updateSettings({ statTabsStyle: view }))
-                  }
+                  selected={settings.statTabsStyle === view}
+                  onClick={() => updateSettings({ statTabsStyle: view })}
                 >
                   {capitalize(view)}
                 </Button>
@@ -44,8 +35,10 @@ export function SettingsStatPanel(props) {
             </LabeledList.Item>
             <LabeledList.Item label="Font size">
               <Stack.Item grow>
-                {statLinked ? (
-                  <LinkedToChat />
+                {settings.statLinked ? (
+                  <NoticeBox color="red">
+                    Unlink Stat Panel from chat!
+                  </NoticeBox>
                 ) : (
                   <Slider
                     width="100%"
@@ -53,11 +46,11 @@ export function SettingsStatPanel(props) {
                     stepPixelSize={20}
                     minValue={8}
                     maxValue={32}
-                    value={statFontSize}
+                    value={settings.statFontSize}
                     unit="px"
                     format={(value) => toFixed(value)}
                     onChange={(e, value) =>
-                      dispatch(updateSettings({ statFontSize: value }))
+                      updateSettings({ statFontSize: value })
                     }
                   />
                 )}
@@ -69,13 +62,11 @@ export function SettingsStatPanel(props) {
         <Stack.Item textAlign="center">
           <Button
             fluid
-            icon={statLinked ? 'unlink' : 'link'}
-            color={statLinked ? 'bad' : 'good'}
-            onClick={() =>
-              dispatch(updateSettings({ statLinked: !statLinked }))
-            }
+            icon={settings.statLinked ? 'unlink' : 'link'}
+            color={settings.statLinked ? 'bad' : 'good'}
+            onClick={() => updateSettings({ statLinked: !settings.statLinked })}
           >
-            {statLinked ? 'Unlink from chat' : 'Link to chat'}
+            {settings.statLinked ? 'Unlink from chat' : 'Link to chat'}
           </Button>
         </Stack.Item>
       </Stack>

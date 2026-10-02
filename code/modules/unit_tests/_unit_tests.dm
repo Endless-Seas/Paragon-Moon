@@ -95,6 +95,7 @@
 #include "spawn_humans.dm"
 #include "species_whitelists.dm"
 #include "subsystem_init.dm"
+#include "tgui_transport.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
 // END_INCLUDE

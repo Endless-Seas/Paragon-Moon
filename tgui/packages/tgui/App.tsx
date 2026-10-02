@@ -1,13 +1,16 @@
-import { globalStore } from './backend';
+import { useBackend } from './backend';
 import { IconProvider } from './Icons';
 
 export function App() {
+  const { config, suspended } = useBackend();
   const { getRoutedComponent } = require('./routes');
-  const Component = getRoutedComponent(globalStore);
+  const Component = getRoutedComponent();
+
+  if (suspended) return null;
 
   return (
     <>
-      <Component />
+      <Component key={config.window?.session} />
       <IconProvider />
     </>
   );

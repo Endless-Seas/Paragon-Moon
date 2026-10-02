@@ -4,58 +4,39 @@
  * @license MIT
  */
 
-// Themes
 import './styles/main.scss';
 
 import { perf } from 'common/perf';
-import { combineReducers } from 'common/redux';
-import { setGlobalStore } from 'tgui/backend';
 import { captureExternalLinks } from 'tgui/links';
 import { render } from 'tgui/renderer';
-import { configureStore } from 'tgui/store';
+import { EventBus } from 'tgui-core/eventbus';
 import { setupGlobalEvents } from 'tgui-core/events';
 import { setupHotReloading } from 'tgui-dev-server/link/client';
 
-import { audioMiddleware, audioReducer } from './audio';
-import { chatMiddleware, chatReducer } from './chat';
-import { gameMiddleware, gameReducer } from './game';
-import { Panel } from './Panel';
+import { App } from './app';
+import { listeners } from './events/listeners';
 import { setupPanelFocusHacks } from './panelFocus';
-import { pingMiddleware, pingReducer } from './ping';
-import { settingsMiddleware, settingsReducer } from './settings';
-import { telemetryMiddleware } from './telemetry';
 
 perf.mark('inception', window.performance?.timeOrigin);
 perf.mark('init');
 
-const store = configureStore({
-  reducer: combineReducers({
-    audio: audioReducer,
-    chat: chatReducer,
-    game: gameReducer,
-    ping: pingReducer,
-    settings: settingsReducer,
-  }),
-  middleware: {
-    pre: [
-      chatMiddleware,
-      pingMiddleware,
-      telemetryMiddleware,
-      settingsMiddleware,
-      audioMiddleware,
-      gameMiddleware,
-    ],
-  },
-});
+const bus = new EventBus(listeners);
+
+function installPanelStackAugmentor(): void {
+  const previous = (window as any).__augmentStack__;
+  (window as any).__augmentStack__ = (stack: string, error?: Error) => {
+    const base =
+      typeof previous === 'function' ? previous(stack, error) : stack;
+    return `${base}\nTGUI panel window: ${Byond.windowId}`;
+  };
+}
 
 function setupApp() {
-  // Delay setup
+  // Delay setup until the browser output has a document.
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupApp);
+    document.addEventListener('DOMContentLoaded', setupApp, { once: true });
     return;
   }
-
-  setGlobalStore(store);
 
   setupGlobalEvents({
     ignoreWindowFocus: true,
@@ -63,44 +44,29 @@ function setupApp() {
 
   setupPanelFocusHacks();
   captureExternalLinks();
+  installPanelStackAugmentor();
 
-  // Re-render UI on store updates
-  store.subscribe(() => render(<Panel />));
+  render(<App />);
 
-  // Dispatch incoming messages as store actions
-  Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
+  // Dispatch incoming messages to panel-owned event handlers. No Redux root
+  // store is created for this window.
+  Byond.subscribe((type, payload) => bus.dispatch({ type, payload }));
 
-  // Unhide the panel
+  // Unhide the panel.
   Byond.winset('outputwindow.legacy_output_selector', {
     left: 'output_browser',
   });
 
-  // Resize the panel to match the non-browser output
+  // Resize the panel to match the non-browser output.
   Byond.winget('legacy_output_selector').then((output: { size: string }) => {
     Byond.winset('browseroutput', {
       size: output.size,
     });
   });
 
-  // Enable hot module reloading
   if (import.meta.webpackHot) {
     setupHotReloading();
-
-    import.meta.webpackHot.accept(
-      [
-        './audio',
-        './chat',
-        './game',
-        './Notifications',
-        './Panel',
-        './ping',
-        './settings',
-        './telemetry',
-      ],
-      () => {
-        render(<Panel />);
-      },
-    );
+    import.meta.webpackHot.accept(['./app', './Panel'], () => render(<App />));
   }
 }
 
