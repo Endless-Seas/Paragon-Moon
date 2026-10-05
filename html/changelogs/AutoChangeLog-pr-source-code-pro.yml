@@ -1,0 +1,4 @@
+author: "Paragon Moon contributors"
+delete-after: true
+changes:
+  - qol: "Use Source Code Pro for the Stat Panel and Character Creator."

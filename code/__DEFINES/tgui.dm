@@ -19,6 +19,11 @@
 
 /// Maximum amount of chunks a payload can be split up into
 #define TGUI_MAX_CHUNKS 32
+/// Bound encoded chunk storage and simultaneous transfers per window.
+#define TGUI_MAX_CHUNK_SIZE 1024
+#define TGUI_MAX_PAYLOADS 2
+#define TGUI_PAYLOAD_TIMEOUT (30 SECONDS)
+#define TGUI_PAYLOAD_LIFETIME (2 MINUTES)
 
 /// Window does not exist
 #define TGUI_WINDOW_CLOSED 0

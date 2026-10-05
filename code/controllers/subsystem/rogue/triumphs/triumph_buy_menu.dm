@@ -37,10 +37,6 @@
 			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 			<style>
-				@import url('https://fonts.googleapis.com/css2?family=Aclonica&display=swap');
-				@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-				@import url('https://fonts.googleapis.com/css2?family=Nosifer&display=swap');
-				@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
 			</style>
 			<link rel='stylesheet' type='text/css' href='slop_menustyle3.css'>
 		</head>

@@ -745,7 +745,7 @@ export const AdminTicketPanel = (props) => {
                           </Section>
                         </Stack.Item>
                       )}
-                    </>
+                  </>
 
 
                 </>

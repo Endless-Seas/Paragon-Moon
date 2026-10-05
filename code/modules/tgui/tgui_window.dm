@@ -27,6 +27,11 @@
 	var/initial_inline_css
 
 	var/list/oversized_payloads = list()
+	var/list/completed_payloads = list()
+	/// Changes whenever a pooled window changes owners; never reuse an old action.
+	var/session_id = 0
+	/// Session already reinitialized for a stale cached bundle; once per session stops reload loops.
+	var/stale_bundle_reinit_session = -1
 
 /**
  * public
@@ -71,6 +76,7 @@
 	if(!client)
 		return
 	src.initial_fancy = fancy
+	src.initial_strict_mode = strict_mode
 	src.initial_assets = assets
 	src.initial_inline_html = inline_html
 	src.initial_inline_js = inline_js
@@ -175,6 +181,8 @@
  * optional ui /datum/tgui
  */
 /datum/tgui_window/proc/acquire_lock(datum/tgui/ui)
+	clear_oversized_payloads()
+	session_id++
 	locked = TRUE
 	locked_by = ui
 
@@ -184,6 +192,8 @@
  * Release the window lock.
  */
 /datum/tgui_window/proc/release_lock()
+	clear_oversized_payloads()
+	session_id++
 	// Clean up assets sent by tgui datum which requested the lock
 	if(locked)
 		sent_assets = list()
@@ -220,6 +230,7 @@
  * optional can_be_suspended bool
  */
 /datum/tgui_window/proc/close(can_be_suspended = TRUE)
+	clear_oversized_payloads()
 	if(!client)
 		return
 	if(can_be_suspended && can_be_suspended())
@@ -340,6 +351,18 @@
  * Callback for handling incoming tgui messages.
  */
 /datum/tgui_window/proc/on_message(type, payload, href_list)
+	if(!istext(type))
+		return
+	// A delayed close request must not close the next owner of a pooled window.
+	if(type == "suspend" && href_list["windowSession"] != "[session_id]")
+		return
+	if(copytext(type, 1, 5) == "act/" || type == "setSharedState")
+		if(!can_accept_payload() || href_list["windowSession"] != "[session_id]")
+			// Old cached bundles cannot attach actions to the current owner.
+			if(locked && !href_list["windowSession"] && stale_bundle_reinit_session != session_id)
+				stale_bundle_reinit_session = session_id
+				reinitialize()
+			return
 	// Status can be READY if user has refreshed the window.
 	if(type == "ready" && status == TGUI_WINDOW_READY)
 		// Resend the assets
@@ -380,48 +403,120 @@
 			client << link(href_list["url"])
 		if("cacheReloaded")
 			reinitialize()
-		// if("chat/resend")
-		// 	SSchat.handle_resend(client, payload)
+		if("chat/resend")
+			if(client?.tgui_panel?.window == src && isnum(payload) && payload >= 0 && payload == round(payload))
+				SSchat.handle_resend(client, payload)
 		if("oversizedPayloadRequest")
+			if(!islist(payload))
+				return
 			var/payload_id = payload["id"]
 			var/chunk_count = payload["chunkCount"]
-			var/permit_payload = chunk_count <= TGUI_MAX_CHUNKS
-			if(permit_payload)
-				create_oversized_payload(payload_id, payload["type"], chunk_count)
-			send_message("oversizePayloadResponse", list("allow" = permit_payload, "id" = payload_id))
+			var/permit_payload = create_oversized_payload(payload_id, payload["type"], chunk_count, payload["session"])
+			var/interval = 750
+			var/minute_limit = CONFIG_GET(number/minute_topic_limit)
+			var/second_limit = CONFIG_GET(number/second_topic_limit)
+			if(minute_limit)
+				interval = max(interval, 61000 / minute_limit)
+			if(second_limit)
+				interval = max(interval, 1100 / second_limit)
+			send_message("oversizePayloadResponse", list("allow" = permit_payload, "id" = payload_id, "interval" = interval))
 		if("payloadChunk")
-			var/payload_id = payload["id"]
-			append_payload_chunk(payload_id, payload["chunk"])
-			send_message("acknowlegePayloadChunk", list("id" = payload_id))
+			if(islist(payload))
+				append_payload_chunk(payload["id"], payload["chunk"], payload["index"], payload["session"])
+		if("cancelPayload")
+			if(islist(payload) && payload["session"] == session_id && istext(payload["id"]))
+				remove_oversized_payload(payload["id"])
 
 /datum/tgui_window/vv_edit_var(var_name, var_value)
 	return var_name != NAMEOF(src, id) && ..()
 
-/datum/tgui_window/proc/create_oversized_payload(payload_id, message_type, chunk_count)
-	if(oversized_payloads[payload_id])
-		stack_trace("Attempted to create oversized tgui payload with duplicate ID.")
-		return
+/datum/tgui_window/proc/can_accept_payload()
+	if(!client || !locked || QDELETED(locked_by) || locked_by.closing || QDELETED(locked_by.user) || locked_by.user.client != client || QDELETED(locked_by.src_object))
+		return FALSE
+	locked_by.process_status()
+	return locked_by.status == UI_INTERACTIVE
+
+/datum/tgui_window/proc/create_oversized_payload(payload_id, message_type, chunk_count, session)
+	if(!can_accept_payload() || session != session_id)
+		return FALSE
+	if(!istext(payload_id) || !length(payload_id) || length(payload_id) > 80)
+		return FALSE
+	if(!istext(message_type) || copytext(message_type, 1, 5) != "act/" || length(message_type) > 128)
+		return FALSE
+	if(!isnum(chunk_count) || chunk_count != round(chunk_count) || chunk_count < 1 || chunk_count > TGUI_MAX_CHUNKS)
+		return FALSE
+	var/list/existing = oversized_payloads[payload_id]
+	if(existing)
+		return existing["type"] == message_type && existing["count"] == chunk_count
+	if(length(oversized_payloads) >= TGUI_MAX_PAYLOADS || completed_payloads[payload_id])
+		return FALSE
 	oversized_payloads[payload_id] = list(
 		"type" = message_type,
 		"count" = chunk_count,
 		"chunks" = list(),
-		"timeout" = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+		"session" = session,
+		"owner" = locked_by,
+		"created" = world.time,
+		"timeout" = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), TGUI_PAYLOAD_TIMEOUT, TIMER_STOPPABLE)
 	)
+	return TRUE
 
-/datum/tgui_window/proc/append_payload_chunk(payload_id, chunk)
+/datum/tgui_window/proc/append_payload_chunk(payload_id, chunk, chunk_index, session)
+	if(!istext(payload_id) || session != session_id)
+		return
 	var/list/payload = oversized_payloads[payload_id]
+	var/list/completed = completed_payloads[payload_id]
+	if(completed && completed["index"] == chunk_index && completed["expires"] > world.time)
+		send_message("acknowledgePayloadChunk", list("id" = payload_id, "index" = chunk_index))
+		return
 	if(!payload)
+		send_message("rejectPayload", list("id" = payload_id))
+		return
+	if(!can_accept_payload() || payload["owner"] != locked_by || payload["session"] != session_id || world.time > payload["created"] + TGUI_PAYLOAD_LIFETIME)
+		remove_oversized_payload(payload_id)
+		send_message("rejectPayload", list("id" = payload_id))
+		return
+	if(!istext(chunk) || !length(chunk) || length(url_encode(chunk)) > TGUI_MAX_CHUNK_SIZE || !isnum(chunk_index) || chunk_index != round(chunk_index) || chunk_index < 0)
+		remove_oversized_payload(payload_id)
+		send_message("rejectPayload", list("id" = payload_id))
 		return
 	var/list/chunks = payload["chunks"]
+	// Retries acknowledge the same index without appending or executing twice.
+	if(chunk_index < length(chunks) && chunks[chunk_index + 1] == chunk)
+		send_message("acknowledgePayloadChunk", list("id" = payload_id, "index" = chunk_index))
+		return
+	if(chunk_index != length(chunks))
+		remove_oversized_payload(payload_id)
+		send_message("rejectPayload", list("id" = payload_id))
+		return
 	chunks += chunk
-	if(length(chunks) >= payload["count"])
-		deltimer(payload["timeout"])
+	if(length(chunks) == payload["count"])
 		var/message_type = payload["type"]
 		var/final_payload = chunks.Join()
 		remove_oversized_payload(payload_id)
-		on_message(message_type, json_decode(final_payload), list("type" = message_type, "payload" = final_payload, "tgui" = TRUE, "window_id" = id))
+		if(copytext(final_payload, 1, 2) != "{" || !rustg_json_is_valid(final_payload))
+			send_message("rejectPayload", list("id" = payload_id))
+			return
+		var/list/decoded = json_decode(final_payload)
+		if(!islist(decoded))
+			return
+		if(length(completed_payloads) >= 16)
+			completed_payloads.Cut(1, 2)
+		completed_payloads[payload_id] = list("index" = chunk_index, "expires" = world.time + TGUI_PAYLOAD_TIMEOUT)
+		send_message("acknowledgePayloadChunk", list("id" = payload_id, "index" = chunk_index))
+		on_message(message_type, decoded, list("type" = message_type, "payload" = final_payload, "tgui" = TRUE, "window_id" = id, "windowSession" = "[session_id]"))
 	else
-		payload["timeout"] = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE)
+		deltimer(payload["timeout"])
+		payload["timeout"] = addtimer(CALLBACK(src, PROC_REF(remove_oversized_payload), payload_id), TGUI_PAYLOAD_TIMEOUT, TIMER_STOPPABLE)
+		send_message("acknowledgePayloadChunk", list("id" = payload_id, "index" = chunk_index))
 
 /datum/tgui_window/proc/remove_oversized_payload(payload_id)
+	var/list/payload = oversized_payloads[payload_id]
+	if(payload)
+		deltimer(payload["timeout"])
 	oversized_payloads -= payload_id
+
+/datum/tgui_window/proc/clear_oversized_payloads()
+	for(var/payload_id in oversized_payloads.Copy())
+		remove_oversized_payload(payload_id)
+	completed_payloads.Cut()

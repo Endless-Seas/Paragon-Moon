@@ -336,6 +336,22 @@
   };
 
   Byond.loadJs = function (url, sync) {
+    if (Byond.IS_BYOND && (Byond.BLINK === null || Byond.BLINK < 123)) {
+      var showBrowserRequirement = function () {
+        var root = document.getElementById('react-root');
+        if (root) {
+          root.style.cssText = 'background:#fff;color:#111;padding:20px;font:16px sans-serif';
+          root.textContent = 'This interface requires Microsoft Edge WebView2 123 or newer (32-bit). Update WebView2, restart BYOND, and reconnect.';
+          Byond.winset(Byond.windowId, { titlebar: true, 'is-visible': true });
+        }
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', showBrowserRequirement, { once: true });
+      } else {
+        showBrowserRequirement();
+      }
+      return;
+    }
     loadAsset({ url: url, sync: sync, type: 'js' });
   };
 

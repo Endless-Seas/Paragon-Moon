@@ -4,7 +4,7 @@
 $ErrorActionPreference = "Stop"
 
 # Check minimum PowerShell version and required cmdlets
-if ($PSVersionTable.PSVersion.Major -lt 5 -or $PSVersionTable.PSVersion.Minor -lt 1) {
+if ($PSVersionTable.PSVersion -lt [version]'5.1') {
     Write-Error "This script requires PowerShell 5.1 or newer. Your version: $($PSVersionTable.PSVersion)"
     exit 1
 }
@@ -99,7 +99,6 @@ function Test-BunHash {
     param(
         [bool]$Baseline = $false
     )
-    $Tries = $Tries + 1
     $BunRelease = $BunPlatform
     if ($Baseline) {
         $BunRelease = "$BunPlatform-baseline"
@@ -109,7 +108,7 @@ function Test-BunHash {
     $FileHash = Get-FileHash $BunZip -Algorithm SHA256
     $ActualSha = $FileHash.Hash
     $LoginResponse = Invoke-WebRequest "https://github.com/oven-sh/bun/releases/download/bun-v$BunVersion/SHASUMS256.txt" -UseBasicParsing
-    $ContentString = [System.Text.Encoding]::UTF8.GetString($LoginResponse.Content)
+    $ContentString = if ($LoginResponse.Content -is [byte[]]) { [System.Text.Encoding]::UTF8.GetString($LoginResponse.Content) } else { [string]$LoginResponse.Content }
     $ShaArray = $ContentString -split "`n"
     foreach ($ShaArrayEntry in $ShaArray) {
         $EntrySplit = $ShaArrayEntry -split "\s+"
@@ -122,19 +121,11 @@ function Test-BunHash {
     }
 
     if ($null -eq $ExpectedSha) {
-        Write-Output "Failed to determine the correct checksum value. This is probably fine."
-        return
+        throw 'The Bun release checksum was not found. Download aborted.'
     }
 
     if ($ExpectedSha -ne $ActualSha) {
-        Write-Output "$ExpectedSha != $ActualSha"
-        if ($Tries -gt 3) {
-            Write-Output "Failed to verify Bun checksum three times. Aborting."
-            exit 1
-        }
-        Write-Output "Checksum mismatch on Bun. Retrying."
-        Remove-Item $BunTargetDir -Recurse -Force
-        Get-Bun
+        throw "Bun checksum mismatch: expected $ExpectedSha, received $ActualSha"
     }
 }
 

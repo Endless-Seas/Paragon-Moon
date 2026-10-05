@@ -1,87 +1,61 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-import { Component, createRef } from 'react';
+import { useAtom, useAtomValue } from 'jotai';
+import { useEffect, useRef } from 'react';
 import { Button } from 'tgui-core/components';
-import { shallowDiffers } from 'tgui-core/react';
 
+import {
+  chatPagesRecordAtom,
+  currentPageIdAtom,
+  scrollTrackingAtom,
+} from './atom';
 import { chatRenderer } from './renderer';
+import type { Page } from './types';
 
 type Props = {
-  fontSize?: string;
-  lineHeight: string;
+  fontSize?: string | number;
+  lineHeight: string | number;
 };
 
-type State = {
-  scrollTracking: boolean;
-};
+export function ChatPanel({ fontSize, lineHeight }: Props) {
+  const ref = useRef<HTMLDivElement>(null);
+  const scrollTracking = useAtomValue(scrollTrackingAtom);
+  const currentPageId = useAtomValue(currentPageIdAtom);
+  const [pagesRecord, setPagesRecord] = useAtom(chatPagesRecordAtom);
 
-export class ChatPanel extends Component<Props, State> {
-  ref: React.RefObject<HTMLDivElement | null>;
-  handleScrollTrackingChange: (value: boolean) => void;
-
-  constructor(props) {
-    super(props);
-    this.ref = createRef();
-    this.state = {
-      scrollTracking: true,
-    };
-    this.handleScrollTrackingChange = (value) =>
-      this.setState({
-        scrollTracking: value,
-      });
-  }
-
-  componentDidMount() {
-    chatRenderer.mount(this.ref.current);
-    chatRenderer.events.on(
-      'scrollTrackingChanged',
-      this.handleScrollTrackingChange,
-    );
-    this.componentDidUpdate(null);
-  }
-
-  componentWillUnmount() {
-    chatRenderer.events.off(
-      'scrollTrackingChanged',
-      this.handleScrollTrackingChange,
-    );
-  }
-
-  componentDidUpdate(prevProps) {
-    requestAnimationFrame(() => {
-      chatRenderer.ensureScrollTracking();
-    });
-    const shouldUpdateStyle =
-      !prevProps || shallowDiffers(this.props, prevProps);
-    if (shouldUpdateStyle) {
-      chatRenderer.assignStyle({
-        width: '100%',
-        'white-space': 'pre-wrap',
-        'font-size': this.props.fontSize,
-        'line-height': this.props.lineHeight,
-      });
+  useEffect(() => {
+    if (ref.current) {
+      chatRenderer.mount(ref.current);
     }
-  }
+  }, []);
 
-  render() {
-    const { scrollTracking } = this.state;
-    return (
-      <>
-        <div className="Chat" ref={this.ref} />
-        {!scrollTracking && (
-          <Button
-            className="Chat__scrollButton"
-            icon="arrow-down"
-            onClick={() => chatRenderer.scrollToBottom()}
-          >
-            Scroll to bottom
-          </Button>
-        )}
-      </>
-    );
-  }
+  useEffect(() => {
+    if (!scrollTracking) return;
+    const page = pagesRecord[currentPageId];
+    if (!page?.unreadCount) return;
+    const nextPage: Page = { ...page, unreadCount: 0 };
+    setPagesRecord({ ...pagesRecord, [currentPageId]: nextPage });
+  }, [currentPageId, pagesRecord, scrollTracking, setPagesRecord]);
+
+  useEffect(() => {
+    chatRenderer.assignStyle({
+      width: '100%',
+      'white-space': 'pre-wrap',
+      'font-size': fontSize,
+      'line-height': lineHeight,
+    });
+  }, [fontSize, lineHeight]);
+
+  return (
+    <>
+      <div className="Chat" ref={ref} />
+      {!scrollTracking && (
+        <Button
+          className="Chat__scrollButton"
+          icon="arrow-down"
+          onClick={() => chatRenderer.scrollToBottom()}
+        >
+          Scroll to bottom
+        </Button>
+      )}
+    </>
+  );
 }

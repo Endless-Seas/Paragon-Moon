@@ -29,4 +29,5 @@
 		"aavnic.ttf" = 'interface/fonts/languages/aavnic.ttf',
 		"merar.ttf" = 'interface/fonts/languages/merar.ttf',
 		"abyssal.ttf" = 'interface/fonts/languages/abyssal.ttf',
+		SOURCE_CODE_PRO_FONT_ASSETS,
 	)

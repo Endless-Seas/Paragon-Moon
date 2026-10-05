@@ -2,99 +2,59 @@ name: BYOND Build
 
 on:
   push:
-    branches:
-      - main
+    branches: [master]
   pull_request:
-    branches:
-      - main
+    branches: [master]
+  workflow_dispatch:
 
-env:
-  BYOND_MAJOR: 516
-  BYOND_MINOR: 1673
-  SPACEMAN_DMM_VERSION: suite-1.11
+permissions:
+  contents: read
 
 jobs:
   run-linters:
-    if: ( !contains(github.event.head_commit.message, '[ci skip]') )
     name: Run Linters
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Setup cache
-        uses: actions/cache@v4
-        with:
-          path: ~/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm-${{ hashFiles('dependencies.sh') }}
-          restore-keys: |
-            ${{ runner.os }}-spacemandmm-
-      - name: Restore Rust cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo
-          key: ${{ runner.os }}-rust-${{ hashFiles('tools/ci/ci_dependencies.sh')}}
-          restore-keys: |
-            ${{ runner.os }}-rust-
-      - name: Install Tools
-        run: |
-          pip3 install setuptools
-          bash tools/ci/install_spaceman_dmm.sh dreamchecker
-          bash tools/ci/install_ripgrep.sh
-          tools/bootstrap/python -c ''
-      - name: Run Linters
-        run: |
-          bash tools/ci/check_filedirs.sh roguetown.dme
-          bash tools/ci/check_changelogs.sh
-          find . -name "*.php" -print0 | xargs -0 -n1 php -l
-          # bash tools/ci/check_grep.sh # TODO: fix indentation etc
-          # tools/bootstrap/python tools/ci/validate_dme.py < roguetown.dme # TODO: fix unincluded files
-          tools/bootstrap/python -m dmi.test
-          tools/bootstrap/python -m mapmerge2.dmm_test
-          ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: always()
-        with:
-          outputFile: output-annotations.txt
-
-      - name: Give Linters A Go
-        id: linter-setup
-        run: ":"
-      - name: Run Grep Checks
-        if: steps.linter-setup.conclusion == 'success' && !cancelled()
-        run: bash tools/ci/check_grep.sh
+    uses: ./.github/workflows/run_linters.yml
 
   build:
-    runs-on: ubuntu-latest
+    name: Windows BYOND and TGUI
+    runs-on: windows-2022
+    timeout-minutes: 25
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Restore BYOND cache
-        uses: actions/cache@v4
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
         with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-BYOND-${{ env.BYOND_MAJOR }}-${{ env.BYOND_MINOR }}
-      
-      - name: Install BYOND
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update -qq
-          sudo apt-get install -y make gcc unzip libcurl4:i386
-          bash tools/ci/install_byond.sh
+          path: tools/bootstrap/.cache
+          key: windows-bootstrap-${{ hashFiles('dependencies.sh') }}
+      - name: Compile matched Windows artifacts
+        shell: pwsh
+        run: ./tools/ci/build.ps1
+      - name: Upload compiled artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: paragon-windows-${{ github.sha }}
+          if-no-files-found: error
+          path: |
+            roguetown.dmb
+            roguetown.rsc
+            tgui/public/*.bundle.*
+            tgui/public/*.ttf
+            tgui/public/*.min.js
+            tgui/public/*.min.css
+            rust_g.dll
+            dependencies.sh
 
-      - name: Compile BYOND project
+  frontend:
+    name: Frontend contracts
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: tools/bootstrap/.cache
+          key: windows-bootstrap-${{ hashFiles('dependencies.sh') }}
+      - name: Type check, lint and test all maintained UI sources
+        shell: pwsh
         run: |
-          ls -h $HOME/
-          source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build.sh
-
-      - name: Check for errors
-        id: check-errors
-        run: |
-          if grep -q "error" *.log; then
-            echo "::error ::Compilation failed with errors."
-            exit 1
-          else
-            echo "Compilation succeeded without critical errors."
-          fi
+          & tools/build/build.bat --ci tgui-tsc tgui-eslint tgui-test
+          exit $LASTEXITCODE

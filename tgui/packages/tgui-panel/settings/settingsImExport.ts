@@ -1,15 +1,29 @@
-import { useDispatch } from 'tgui/backend';
+import { storage } from 'common/storage';
 
-import type { Page } from '../chat/types';
-import { importSettings } from './actions';
+import { chatPagesRecordAtom } from '../chat/atom';
+import { importChatState, saveChatToStorage } from '../chat/helpers';
+import { store } from '../events/store';
+import { currentStoredSettings, startSettingsMigration } from './migration';
 
-export function exportChatSettings(
-  settings: Record<string, any>,
-  pages: Record<string, Page>[],
-) {
+export function exportChatSettings(): void {
+  const settings = currentStoredSettings();
+  const pages = store.get(chatPagesRecordAtom);
+  const exportObject = { ...settings, chatPages: pages };
+  const suggestedName = `ss13-chatsettings-${new Date()
+    .toJSON()
+    .slice(0, 10)}.json`;
+
+  if (typeof window.showSaveFilePicker !== 'function') {
+    const blob = new Blob([JSON.stringify(exportObject)], {
+      type: 'application/json',
+    });
+    Byond.saveBlob(blob, suggestedName, '.json');
+    return;
+  }
+
   const opts: SaveFilePickerOptions = {
     id: `ss13-chatprefs-${Date.now()}`,
-    suggestedName: `ss13-chatsettings-${new Date().toJSON().slice(0, 10)}.json`,
+    suggestedName,
     types: [
       {
         description: 'SS13 file',
@@ -18,37 +32,60 @@ export function exportChatSettings(
     ],
   };
 
-  const pagesEntry = { chatPages: pages };
-
-  const exportObject = Object.assign(settings, pagesEntry);
-
   window
     .showSaveFilePicker(opts)
-    .then((fileHandle) => {
-      fileHandle.createWritable().then((writableHandle) => {
-        writableHandle.write(JSON.stringify(exportObject));
-        writableHandle.close();
-      });
+    .then(async (fileHandle) => {
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(exportObject));
+      await writable.close();
     })
-    .catch((e) => {
-      // Log the error if the error has nothing to do with the user aborting the download
-      if (e.name !== 'AbortError') {
-        console.error(e);
+    .catch((error) => {
+      if (error?.name !== 'AbortError') {
+        console.error('Failed to export chat settings:', error);
       }
     });
 }
 
-export function importChatSettings(settings: string | string[]) {
-  const dispatch = useDispatch();
-  if (Array.isArray(settings)) {
-    return;
-  }
-  const ourImport = JSON.parse(settings);
-  if (!ourImport?.version) {
-    return;
-  }
-  const pageRecord = ourImport.chatPages;
-  delete ourImport.chatPages;
+type FileSelection = string | string[] | File | File[] | FileList | null;
 
-  dispatch(importSettings(ourImport, pageRecord));
+export function importChatSettings(selection: FileSelection): void {
+  if (!selection) return;
+  if (typeof selection === 'string') {
+    applyImportedSettings(selection);
+    return;
+  }
+  if (Array.isArray(selection)) {
+    const first = selection[0];
+    if (typeof first === 'string') {
+      applyImportedSettings(first);
+    } else if (first) {
+      void first.text().then(applyImportedSettings);
+    }
+    return;
+  }
+  if (typeof FileList !== 'undefined' && selection instanceof FileList) {
+    const first = selection.item(0);
+    if (first) void first.text().then(applyImportedSettings);
+    return;
+  }
+  if (typeof File !== 'undefined' && selection instanceof File) {
+    void selection.text().then(applyImportedSettings);
+  }
+}
+
+function applyImportedSettings(raw: string): void {
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object' || !parsed.version) return;
+
+    const { chatPages, ...settings } = parsed;
+    startSettingsMigration(settings);
+    if (chatPages && typeof chatPages === 'object') {
+      importChatState(chatPages);
+    }
+    void storage.set('panel-settings', currentStoredSettings());
+    void saveChatToStorage();
+  } catch (error) {
+    console.error('Failed to import chat settings:', error);
+  }
 }

@@ -10,7 +10,13 @@
 
 // Causes any affecting light sources to be queued for a visibility update, for example a door got opened.
 /turf/proc/reconsider_lights()
-	for(var/datum/lighting_corner/corner as anything in get_corners())
+	if (!IS_DYNAMIC_LIGHTING(src) && !light_sources)
+		return
+	if (!lighting_corners_initialised)
+		generate_missing_corners()
+	// Opacity has already changed when callers notify us. Even newly opaque
+	// turfs must invalidate the sources that were lighting their corners.
+	for(var/datum/lighting_corner/corner as anything in corners)
 		corner.vis_update()
 
 /turf/proc/lighting_clear_overlay()

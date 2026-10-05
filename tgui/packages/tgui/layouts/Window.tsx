@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { useAtomValue } from 'jotai';
 import {
   type ComponentProps,
   type PropsWithChildren,
@@ -12,12 +13,12 @@ import {
   useLayoutEffect,
   useState,
 } from 'react';
-import type { Box } from 'tgui-core/components';
+import { type Box, NoticeBox } from 'tgui-core/components';
 import { UI_DISABLED, UI_INTERACTIVE } from 'tgui-core/constants';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { decodeHtmlEntities } from 'tgui-core/string';
 
-import { backendSuspendStart, globalStore, useBackend } from '../backend';
+import { useBackend } from '../backend';
 import { useDebug } from '../debug';
 import {
   dragStartHandler,
@@ -25,6 +26,9 @@ import {
   resizeStartHandler,
   setWindowKey,
 } from '../drag';
+import { actionErrorAtom } from '../events/act';
+import { store } from '../events/store';
+import { suspendStart } from '../events/window';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
 import { TitleBar } from './TitleBar';
@@ -54,6 +58,7 @@ export const Window = (props: Props) => {
   } = props;
 
   const { config, suspended } = useBackend();
+  const actionError = useAtomValue(actionErrorAtom, { store });
   const { debugLayout = false } = useDebug();
   const [isReadyToRender, setIsReadyToRender] = useState(false);
 
@@ -66,7 +71,7 @@ export const Window = (props: Props) => {
     setIsReadyToRender(true);
   }, []);
 
-  const { scale } = config.window;
+  const scale = config.window?.scale;
 
   useEffect(() => {
     if (!suspended && isReadyToRender) {
@@ -101,7 +106,6 @@ export const Window = (props: Props) => {
     }
   }, [isReadyToRender, width, height, scale]);
 
-  const dispatch = globalStore.dispatch;
   const fancy = config.window?.fancy;
 
   // Determine when to show dimmer
@@ -119,13 +123,14 @@ export const Window = (props: Props) => {
         onDragStart={dragStartHandler}
         onClose={() => {
           logger.log('pressed close');
-          dispatch(backendSuspendStart());
+          suspendStart();
         }}
         canClose={canClose}
       >
         {buttons}
       </TitleBar>
       <div className={classes(['Window__rest', debugLayout && 'debug-layout'])}>
+        {actionError && <NoticeBox danger>{actionError}</NoticeBox>}
         {!suspended && children}
         {showDimmer && <div className="Window__dimmer" />}
       </div>
@@ -165,7 +170,6 @@ const WindowContent = (props: ContentProps) => {
     <Layout.Content
       className={classes(['Window__content', className])}
       {...rest}
-      
     >
       {(fitted && children) || (
         <div className="Window__contentPadding">{children}</div>

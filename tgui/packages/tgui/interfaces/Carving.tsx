@@ -10,14 +10,14 @@ import {
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
-type Carving = {
+type CarvingRecipe = {
   name: string;
   ref: string;
   icon: string;
 };
 
 type Data = {
-  carvings: Carving[];
+  carvings: CarvingRecipe[];
 };
 
 export const Carving = (props) => {
@@ -48,7 +48,7 @@ export const Carveless = (props) => {
       <Stack.Item>
         <Stack vertical align="center" justify="center">
           <Stack.Item fontSize={2}>Woe is you, there is nothing to carve.</Stack.Item>
-          <Stack.Item fontSize={1}>You shouldn't be seeing this!</Stack.Item>
+          <Stack.Item fontSize={1}>You shouldn&apos;t be seeing this!</Stack.Item>
         </Stack>
       </Stack.Item>
     </Stack>

@@ -276,6 +276,9 @@ There are several things that need to be remembered:
 /* --------------------------------------- */
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
+	if(bodypart_update_defer_count)
+		regenerate_icons_pending = TRUE
+		return
 	if(!..())
 		icon_render_key = null //invalidate bodyparts cache
 		if(dna.species)
@@ -2057,7 +2060,29 @@ generate/load female uniform sprites matching all previously decided variables
 					observers = null
 					break
 
+/mob/living/carbon/human/proc/defer_bodypart_updates()
+	bodypart_update_defer_count++
+
+/mob/living/carbon/human/proc/resume_bodypart_updates()
+	if(bodypart_update_defer_count)
+		bodypart_update_defer_count--
+	if(bodypart_update_defer_count)
+		return
+	if(regenerate_icons_pending)
+		regenerate_icons_pending = FALSE
+		regenerate_icons()
+	if(!bodypart_update_pending)
+		return
+	var/redraw = bodypart_redraw_pending
+	bodypart_update_pending = FALSE
+	bodypart_redraw_pending = FALSE
+	update_body_parts(redraw)
+
 /mob/living/carbon/human/update_body_parts(redraw = FALSE)
+	if(bodypart_update_defer_count)
+		bodypart_update_pending = TRUE
+		bodypart_redraw_pending |= redraw
+		return
 	var/oldkey = icon_render_key
 	icon_render_key = generate_icon_render_key()
 	if(oldkey == icon_render_key && !redraw)
