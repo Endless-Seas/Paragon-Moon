@@ -214,6 +214,7 @@
 			<style>
 			</style>
 			<link rel='stylesheet' type='text/css' href='slop_menustyle2.css'>
+			[paragon_theme_style_for(linked_client)]
 		</head>
 	"}
 
@@ -315,6 +316,7 @@
 			<style>
 			</style>
 			<link rel='stylesheet' type='text/css' href='slop_menustyle2.css'>
+			[paragon_theme_style_for(linked_client)]
 		</head>
 		<body>
 			<div id="top_bloc">

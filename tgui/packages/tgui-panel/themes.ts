@@ -1,14 +1,21 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
+//@file
+//@copyright 2020 Aleksej Komarov
+//@license MIT
 
-export const THEMES = ['dark', 'qud'];
+export const THEMES = [
+  'dark',
+  'paragon_classic',
+  'paragon_orange',
+  'paragon_grey',
+  'paragon_navy',
+];
 
 export const THEME_NAMES: Record<string, string> = {
   dark: 'Dark',
-  qud: 'Paragon Classic',
+  paragon_classic: 'Paragon Classic',
+  paragon_orange: 'Paragon Orange',
+  paragon_grey: 'Paragon Grey',
+  paragon_navy: 'Paragon Navy',
 };
 
 const COLORS = {
@@ -18,13 +25,31 @@ const COLORS = {
     BUTTON: '#202020',
     TEXT: '#D6DBD5',
   },
-  // Caves of Qud palette, keep in sync with interface/skin.dmf and
-  // styles/themes/qud.scss
-  QUD: {
+  //Paragon palettes, keep in sync with tgui/styles/paragon_palettes.scss
+  //(void, panel, raised, text) and interface/skin.dmf
+  PARAGON_CLASSIC: {
     BG_BASE: '#04100F',
     BG_SECOND: '#0B2423',
     BUTTON: '#0F3B3A',
     TEXT: '#B1C9C3',
+  },
+  PARAGON_ORANGE: {
+    BG_BASE: '#110904',
+    BG_SECOND: '#1E1209',
+    BUTTON: '#33200F',
+    TEXT: '#D6C3AE',
+  },
+  PARAGON_GREY: {
+    BG_BASE: '#0E0E0F',
+    BG_SECOND: '#18181A',
+    BUTTON: '#26262A',
+    TEXT: '#C2C2C6',
+  },
+  PARAGON_NAVY: {
+    BG_BASE: '#060B17',
+    BG_SECOND: '#0B1426',
+    BUTTON: '#132344',
+    TEXT: '#B6C4DE',
   },
   LIGHT: {
     BG_BASE: '#EEEEEE',
@@ -36,26 +61,24 @@ const COLORS = {
 
 let setClientThemeTimer: NodeJS.Timeout;
 
-/**
- * Darkmode preference, originally by Kmc2000.
- *
- * This lets you switch client themes by using winset.
- *
- * If you change ANYTHING in interface/skin.dmf you need to change it here.
- *
- * There's no way round it. We're essentially changing the skin by hand.
- * It's painful but it works, and is the way Lummox suggested.
- */
+//Darkmode preference, originally by Kmc2000.
+//
+//This lets you switch client themes by using winset.
+//
+//If you change ANYTHING in interface/skin.dmf you need to change it here.
+//
+//There's no way round it. We're essentially changing the skin by hand.
+//It's painful but it works, and is the way Lummox suggested.
 export const setClientTheme = (name) => {
-  // Transmit once for fast updates and again in a little while in case we won
-  // the race against statbrowser init.
+  //Transmit once for fast updates and again in a little while in case we won
+  //the race against statbrowser init.
   clearInterval(setClientThemeTimer);
   Byond.command(`.output statbrowser:set_theme ${name}`);
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
   }, 1500);
 
-  // Chat-side styling lives in styles/themes/<name>.scss, scoped to this class
+  //Chat-side styling lives in styles/themes/<name>.scss, scoped to this class
   for (const theme of THEMES) {
     document.body.classList.toggle(`chat-${theme}`, theme === name);
   }
@@ -66,7 +89,7 @@ export const setClientTheme = (name) => {
   }
 
   return Byond.winset({
-    // Main windows
+    //Main windows
     'infobuttons.background-color': themeColor.BG_BASE,
     'infobuttons.text-color': themeColor.TEXT,
     'infowindow.background-color': themeColor.BG_BASE,
@@ -80,7 +103,7 @@ export const setClientTheme = (name) => {
     'outputwindow.text-color': themeColor.TEXT,
     'mainwindow.background-color': themeColor.BG_BASE,
     'split.background-color': themeColor.BG_BASE,
-    // Buttons
+    //Buttons
     'changelog.background-color': themeColor.BUTTON,
     'changelog.text-color': themeColor.TEXT,
     'rules.background-color': themeColor.BUTTON,
@@ -95,10 +118,10 @@ export const setClientTheme = (name) => {
     'report-issue.text-color': themeColor.TEXT,
     'fullscreen-toggle.background-color': themeColor.BUTTON,
     'fullscreen-toggle.text-color': themeColor.TEXT,
-    // Status and verb tabs
+    //Status and verb tabs
     'output.background-color': themeColor.BG_BASE,
     'output.text-color': themeColor.TEXT,
-    // Say, OOC, me Buttons etc.
+    //Say, OOC, me Buttons etc.
     'saybutton.background-color': themeColor.BG_BASE,
     'saybutton.text-color': themeColor.TEXT,
     'oocbutton.background-color': themeColor.BG_BASE,

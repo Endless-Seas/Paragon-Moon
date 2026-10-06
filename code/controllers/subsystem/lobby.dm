@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(lobbymenu)
 		"Wretch",
 		"Court Agent"
 	)
-	actor_list += "<hr><div class='qudHeading'>Classes</div>"
+	actor_list += "<hr><div class='paragonHeading'>Classes</div>"
 	for (var/mob/dead/new_player/player in GLOB.player_list)
 		if (player.client?.ckey in GLOB.hiderole)
 			continue

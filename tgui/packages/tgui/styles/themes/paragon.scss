@@ -1,0 +1,313 @@
+//Paragon window themes, one per palette in ../paragon_palettes.scss: paragon_classic,
+//paragon_orange, paragon_grey and paragon_navy. Palette and frame mirror html/browser/common.css.
+
+@use 'sass:map';
+@use 'sass:meta';
+@use 'sass:string';
+@use '../paragon_palettes' as pal;
+
+//Reassigned for each palette below
+$void: #04100f;
+$panel: #0b2423;
+$viridian: #0f3b3a;
+$line: #155352;
+$hatch: #2a6b68;
+$frame: #4f8f8a;
+$text: #b1c9c3;
+$bright: #e8efe9;
+$cyan: #40a4b9;
+$cyan-bright: #77bfcf;
+$gold: #cfc041;
+$green: #00c420;
+$red: #d74200;
+$orange: #e99f10;
+
+$scanlines: repeating-linear-gradient(
+  0deg,
+  #ffffff05 0 1px,
+  transparent 1px 3px
+);
+
+//The small pronged ornament under section titles, drawn in [color]
+@function ornament($color) {
+  $hex: string.slice(meta.inspect($color), 2);
+  @return url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12' shape-rendering='crispEdges' fill='%23#{$hex}'%3E%3Crect x='10' y='0' width='2' height='12'/%3E%3Crect x='6' y='2' width='2' height='8'/%3E%3Crect x='14' y='2' width='2' height='8'/%3E%3Crect x='4' y='5' width='14' height='2'/%3E%3C/svg%3E");
+}
+
+//Bright pixel corner brackets
+@mixin corner-brackets($fill) {
+  background:
+    linear-gradient($bright, $bright) left top / 8px 2px no-repeat,
+    linear-gradient($bright, $bright) left top / 2px 8px no-repeat,
+    linear-gradient($bright, $bright) right top / 8px 2px no-repeat,
+    linear-gradient($bright, $bright) right top / 2px 8px no-repeat,
+    linear-gradient($bright, $bright) left bottom / 8px 2px no-repeat,
+    linear-gradient($bright, $bright) left bottom / 2px 8px no-repeat,
+    linear-gradient($bright, $bright) right bottom / 8px 2px no-repeat,
+    linear-gradient($bright, $bright) right bottom / 2px 8px no-repeat,
+    $fill;
+}
+
+@each $id, $p in pal.$palettes {
+  $void: map.get($p, void) !global;
+  $panel: map.get($p, panel) !global;
+  $viridian: map.get($p, raised) !global;
+  $line: map.get($p, line) !global;
+  $hatch: map.get($p, hatch) !global;
+  $frame: map.get($p, frame) !global;
+  $text: map.get($p, text) !global;
+  $bright: map.get($p, bright) !global;
+  $cyan: map.get($p, accent) !global;
+  $cyan-bright: map.get($p, accent2) !global;
+  $gold: map.get($p, gold) !global;
+  $green: map.get($p, green) !global;
+  $red: map.get($p, red) !global;
+  $orange: map.get($p, orange) !global;
+
+  .theme-#{$id}:root {
+    --color-base: #{$panel};
+    --color-base-start: #{$panel};
+    --color-base-end: #{$panel};
+    --color-section: #{$void};
+
+    --font-size: 12px;
+    --font-family: 'Source Code Pro', monospace;
+    --line-height: 1.4;
+    --color-text: #{$text};
+    --color-label: #{$cyan};
+    --color-good: #{$green};
+    --color-average: #{$orange};
+    --color-bad: #{$red};
+    --color-hyperlink: #{$cyan-bright};
+    --color-hyperlink-visited: #{$cyan};
+
+    --color-scrollbar-base: #{$void};
+    --color-scrollbar-thumb: #{$line};
+    scrollbar-color: #{$line} #{$void};
+
+    --section-background: #{$void};
+    --section-separator-color: #{$line};
+    --section-title-color: #{$cyan-bright};
+
+    --button-border-radius: 0;
+    --button-color: #{$text};
+    --button-background-default: #{$panel};
+    --button-background-selected: #{$viridian};
+    --button-background-caution: #{$orange};
+    --button-background-danger: #{$red};
+
+    --input-border-radius: 0;
+    --input-background: #{$void};
+    --input-color: #{$text};
+    --input-border-color: #{$line};
+    --input-border-color-focus: #{$gold};
+    --number-input-border-radius: 0;
+    --number-input-background: #{$void};
+    --number-input-border-color: #{$line};
+
+    --tab-border-radius: 0;
+    --tab-color: #{$cyan};
+    --tab-color-selected: #{$gold};
+    --tab-background-selected: #{$viridian};
+
+    --tooltip-border-radius: 0;
+    --tooltip-background: #{$void};
+    --tooltip-color: #{$text};
+
+    --dropdown-menu-border-radius: 0;
+    --dropdown-menu-background: #{$void};
+    --dropdown-menu-border: 1px solid #{$frame};
+    --dropdown-entry-border-radius: 0;
+    --dropdown-entry-background-hover: #{$viridian};
+    --dropdown-entry-background-selected: #{$viridian};
+
+    --progress-bar-border-radius: 0;
+    --progress-bar-background: #{$void};
+
+    --candystripe-odd: #{$void};
+    --candystripe-even: #{rgba($panel, 0.6)};
+
+    --divider-color: #{$line};
+
+    //Raw palette for interfaces that draw their own Paragon frames (e.g. Paperdoll.scss)
+    --paragon-void: #{$void};
+    --paragon-panel: #{$panel};
+    --paragon-viridian: #{$viridian};
+    --paragon-line: #{$line};
+    --paragon-frame: #{$frame};
+    --paragon-text: #{$text};
+    --paragon-bright: #{$bright};
+    --paragon-cyan: #{$cyan};
+    --paragon-cyan-bright: #{$cyan-bright};
+    --paragon-gold: #{$gold};
+    --paragon-green: #{$green};
+    --paragon-red: #{$red};
+    --paragon-orange: #{$orange};
+
+    //Window body: scanlines over viridian, framed in a hatched border
+    .Layout__content {
+      background: $scanlines $panel;
+      border: 6px solid $line;
+      border-top-width: 0;
+      border-image: repeating-linear-gradient(
+          45deg,
+          $hatch 0 2px,
+          $panel 2px 4px
+        )
+        6;
+      box-shadow:
+        inset 0 0 0 2px $void,
+        inset 0 0 0 3px $frame;
+    }
+
+    .Window__contentPadding {
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+    //Title bar: centred off-white title over a thin rule
+    .TitleBar {
+      background: $scanlines $panel;
+      border-bottom: 1px solid $text;
+      box-shadow: none;
+    }
+
+    .TitleBar__title {
+      padding-left: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      color: $bright;
+    }
+
+    .TitleBar__close {
+      color: $cyan;
+
+      &:hover {
+        color: $gold;
+        background-color: $viridian;
+      }
+    }
+
+    //Sections as Paragon tiles, with an ornament under the title
+    .Section {
+      @include corner-brackets($void);
+      border: 2px solid $frame;
+      border-radius: 0;
+    }
+
+    //Nested sections sit inside the outer tile, so they drop the frame
+    .Section .Section {
+      background: transparent;
+      border: none;
+    }
+
+    .Section__title {
+      text-align: center;
+      border-bottom: none;
+      padding-bottom: 14px;
+      background:
+        ornament($text) center bottom / 22px 12px no-repeat,
+        linear-gradient(
+            to right,
+            $line calc(50% - 14px),
+            transparent calc(50% - 14px) calc(50% + 14px),
+            $line calc(50% + 14px)
+          )
+          center
+          calc(100% - 6px) /
+          100%
+          1px
+          no-repeat;
+    }
+
+    .Section__titleText {
+      color: $cyan-bright;
+      font-weight: bold;
+    }
+
+    .Button {
+      border: 1px solid $line;
+    }
+
+    .Button--selected {
+      color: $gold;
+      border-color: $gold;
+    }
+
+    .Button--color--transparent {
+      --button-color-transparent: #{$text};
+      border-color: transparent;
+      --button-background-hover: #{$viridian};
+      --button-background-active: #{$viridian};
+
+      &:hover {
+        color: $cyan-bright;
+      }
+    }
+
+    //List inputs (faith, patron, etc.) read like journal entries
+    .ListInput__Section .candystripe .Button__content:before {
+      content: '[ ] ';
+      color: $frame;
+    }
+
+    .ListInput__Section .candystripe.Button--selected {
+      color: $gold;
+      background: $viridian;
+      border-color: transparent;
+
+      .Button__content:before {
+        content: '> [\25AA] ';
+        color: $gold;
+      }
+    }
+
+    .input-button {
+      &__submit,
+      &__cancel {
+        font-weight: 600;
+        background: $void;
+        border: 1px solid $frame;
+      }
+
+      &__submit {
+        color: $green;
+      }
+
+      &__cancel {
+        color: $red;
+      }
+
+      &__submit:hover,
+      &__cancel:hover {
+        color: $gold;
+        border-color: $gold;
+        background: $viridian;
+      }
+    }
+
+    .Divider {
+      border-color: $line;
+    }
+
+    .Tooltip {
+      border: 1px solid $frame;
+    }
+
+    a:link {
+      color: $cyan-bright;
+      background-color: transparent;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: $cyan;
+    }
+
+    a:hover,
+    a:active {
+      color: $gold;
+    }
+  }
+}

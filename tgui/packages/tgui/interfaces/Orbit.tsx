@@ -107,25 +107,21 @@ function getAntagFamilyLabel(item: OrbitTargetIndexed) {
     return 'Vampires';
   }
 
-  if (
-    role.includes('werewolf') ||
-    role.includes('verevolf')
-  ) {
+  if (role.includes('werewolf') || role.includes('verevolf')) {
     return 'Werewolves';
   }
 
-  if (
-    role === 'lich' ||
-    role.includes('lich') ||
-    role === 'death knight'
-  ) {
+  if (role === 'lich' || role.includes('lich') || role === 'death knight') {
     return 'Lich';
   }
 
   return null;
 }
 
-function getAntagTier(item: OrbitTargetIndexed, familyLabel: string | null): AntagTier | null {
+function getAntagTier(
+  item: OrbitTargetIndexed,
+  familyLabel: string | null,
+): AntagTier | null {
   const antagTier = mapAntagGroupToTier(item.antag_group);
   if (antagTier === 'Major') {
     return antagTier;
@@ -171,8 +167,10 @@ function sortAliveNormalGroups(groups: RoleGroup[]) {
   const unknownGroupIndex = ALIVE_NORMAL_GROUP_ORDER.length;
 
   return [...groups].sort((a, b) => {
-    const aIndex = ALIVE_NORMAL_GROUP_ORDER_INDEX.get(a.label) ?? unknownGroupIndex;
-    const bIndex = ALIVE_NORMAL_GROUP_ORDER_INDEX.get(b.label) ?? unknownGroupIndex;
+    const aIndex =
+      ALIVE_NORMAL_GROUP_ORDER_INDEX.get(a.label) ?? unknownGroupIndex;
+    const bIndex =
+      ALIVE_NORMAL_GROUP_ORDER_INDEX.get(b.label) ?? unknownGroupIndex;
 
     if (aIndex !== bIndex) {
       return aIndex - bIndex;
@@ -379,9 +377,11 @@ type OrbitTargetButtonProps = {
 
 const OrbitTargetButton = memo((props: OrbitTargetButtonProps) => {
   const { item, selected, sectionColor, colorMode, showRole, onOrbit } = props;
-  const appliedColor = colorMode === 'health' ? item.healthStateColor : item.selection_color;
+  const appliedColor =
+    colorMode === 'health' ? item.healthStateColor : item.selection_color;
   const hasSelectionColor = !!appliedColor;
-  const textColor = colorMode === 'health' ? item.healthTextColor : item.roleTextColor;
+  const textColor =
+    colorMode === 'health' ? item.healthTextColor : item.roleTextColor;
   const buttonStyle = hasSelectionColor
     ? {
         backgroundColor: appliedColor,
@@ -403,7 +403,9 @@ const OrbitTargetButton = memo((props: OrbitTargetButtonProps) => {
         <Stack>
           <Stack.Item>
             {item.displayName}
-            {showRole && item.roleLabel !== UNASSIGNED_ROLE_LABEL && ` [${item.roleLabel}]`}
+            {showRole &&
+              item.roleLabel !== UNASSIGNED_ROLE_LABEL &&
+              ` [${item.roleLabel}]`}
           </Stack.Item>
           {!!item.orbiters && (
             <Stack.Item>
@@ -429,25 +431,31 @@ export const Orbit = () => {
   const ghostTargets = data.ghosts || EMPTY_TARGETS;
 
   const normalizedQuery = query.trim().toLowerCase();
-  const handleOrbit = useCallback((ref: string) => act('orbit', { ref }), [act]);
+  const handleOrbit = useCallback(
+    (ref: string) => act('orbit', { ref }),
+    [act],
+  );
   const handleRefresh = useCallback(() => act('refresh'), [act]);
   const toggleColorMode = useCallback(() => {
     setColorMode((mode) => (mode === 'role' ? 'health' : 'role'));
   }, []);
 
   const indexedData = useMemo(() => {
-    return SECTIONS.reduce((indexed, section) => {
-      const source =
-        section.key === 'alive'
-          ? aliveTargets
-          : section.key === 'dead'
-            ? deadTargets
-            : ghostTargets;
-      indexed[section.key] = source.map((item) =>
-        buildIndexedTarget(item, section.key),
-      );
-      return indexed;
-    }, {} as Record<OrbitSectionKey, OrbitTargetIndexed[]>);
+    return SECTIONS.reduce(
+      (indexed, section) => {
+        const source =
+          section.key === 'alive'
+            ? aliveTargets
+            : section.key === 'dead'
+              ? deadTargets
+              : ghostTargets;
+        indexed[section.key] = source.map((item) =>
+          buildIndexedTarget(item, section.key),
+        );
+        return indexed;
+      },
+      {} as Record<OrbitSectionKey, OrbitTargetIndexed[]>,
+    );
   }, [aliveTargets, deadTargets, ghostTargets]);
 
   const sections = useMemo(() => {
@@ -494,7 +502,11 @@ export const Orbit = () => {
                   />
                 </Stack.Item>
                 <Stack.Item>
-                  <Button icon="sync-alt" onClick={handleRefresh} tooltip="Refresh" />
+                  <Button
+                    icon="sync-alt"
+                    onClick={handleRefresh}
+                    tooltip="Refresh"
+                  />
                 </Stack.Item>
                 <Stack.Item>
                   <Button
@@ -520,7 +532,10 @@ export const Orbit = () => {
               )}
 
               {sections.map((section) => (
-                <Collapsible key={section.key} title={`${section.title} - (${section.items.length})`}>
+                <Collapsible
+                  key={section.key}
+                  title={`${section.title} - (${section.items.length})`}
+                >
                   {section.key === 'ghosts' ? (
                     <Stack wrap>
                       {section.items.map((item) => (

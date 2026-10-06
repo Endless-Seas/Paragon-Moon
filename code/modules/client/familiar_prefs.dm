@@ -26,7 +26,7 @@
 		// --- Familiar species display using mapping ---
 	if (familiar_specie && GLOB.familiar_display_names[familiar_specie])
 		var/specie_type = GLOB.familiar_display_names[familiar_specie] ? GLOB.familiar_display_names[familiar_specie] : "Unknown Species"
-		dat += "<div align='center'><font size=4 color='#77bfcf'>[specie_type]</font></div>"
+		dat += "<div align='center'><font size=4 style='color: var(--pg-accent2, #77bfcf)'>[specie_type]</font></div>"
 
 	dat += "<br><b>Familiar Name:</b> <a href='?_src_=familiar_prefs;preference=familiar_name;task=input'>[familiar_name] (Set name)</a>"
 

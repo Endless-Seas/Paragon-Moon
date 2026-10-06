@@ -79,8 +79,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(current_version < 35)
 		patreon_say_color = "ff7a05"
 		patreon_say_color_enabled = FALSE
-	if(current_version < 39) // Move everyone onto the Qud TGUI theme once; they may cycle away after
-		tgui_theme = "qud"
+	if(current_version < 39) //Move everyone onto Paragon Classic once; they may cycle away after
+		tgui_theme = "paragon_classic"
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)

@@ -59,6 +59,9 @@
 /atom/movable/screen/devil/soul_counter/proc/clear()
 	invisibility = INVISIBILITY_ABSTRACT
 
+/datum/hud/human
+	show_worn_items = FALSE
+
 /datum/hud/human/New(mob/living/carbon/human/owner)
 
 	..()
@@ -69,7 +72,6 @@
 		widescreen_layout = FALSE
 */
 	var/atom/movable/screen/using
-	var/atom/movable/screen/inventory/inv_box
 
 	ui_style = ui_style
 
@@ -183,158 +185,28 @@
 
 	build_hand_slots()
 
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "ring"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "ring"
-	inv_box.screen_loc = rogueui_ringr
-	inv_box.slot_id = SLOT_RING
-	inv_box.hud = src
-	static_inventory += inv_box
+	//Worn equipment lives in the Equipment / Inventory popups (paperdoll.dm), not on the HUD
+	using = new /atom/movable/screen/paperdoll_button/equipment()
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
 
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "wrists"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "wrist"
-	inv_box.screen_loc = rogueui_wrists
-	inv_box.slot_id = SLOT_WRISTS
-	inv_box.hud = src
-	static_inventory += inv_box
+	using = new /atom/movable/screen/paperdoll_button/inventory()
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
 
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "mask"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "mask"
-	inv_box.screen_loc = rogueui_mask
-	inv_box.slot_id = SLOT_WEAR_MASK
-	inv_box.hud = src
-	static_inventory += inv_box
+	using = new /atom/movable/screen/paperdoll_button/skills()
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
 
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "neck"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "neck"
-	inv_box.screen_loc = rogueui_neck
-	inv_box.slot_id = SLOT_NECK
-	inv_box.hud = src
-	static_inventory += inv_box
+	using = new /atom/movable/screen/paperdoll_button/attributes()
+	using.icon = ui_style
+	using.hud = src
+	static_inventory += using
 
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "backl"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "back"
-	inv_box.screen_loc = rogueui_backl
-	inv_box.slot_id = SLOT_BACK_L
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "backr"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "back"
-	inv_box.screen_loc = rogueui_backr
-	inv_box.slot_id = SLOT_BACK_R
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "gloves"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "gloves"
-	inv_box.screen_loc = rogueui_gloves
-	inv_box.slot_id = SLOT_GLOVES
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "head"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "head"
-	inv_box.screen_loc = rogueui_head
-	inv_box.slot_id = SLOT_HEAD
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "shoes"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "shoes"
-	inv_box.screen_loc = rogueui_shoes
-	inv_box.slot_id = SLOT_SHOES
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "belt"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "belt"
-	inv_box.screen_loc = rogueui_belt
-	inv_box.slot_id = SLOT_BELT
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "hip r"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "hip"
-	inv_box.screen_loc = rogueui_beltr
-	inv_box.slot_id = SLOT_BELT_R
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "hip l"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "hip"
-	inv_box.screen_loc = rogueui_beltl
-	inv_box.slot_id = SLOT_BELT_L
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "shirt"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "shirt"
-	inv_box.screen_loc = rogueui_shirt
-	inv_box.slot_id = SLOT_SHIRT
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "trou"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "pants"
-	inv_box.screen_loc = rogueui_pants
-	inv_box.slot_id = SLOT_PANTS
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "armor"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "armor"
-	inv_box.screen_loc = rogueui_armor
-	inv_box.slot_id = SLOT_ARMOR
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "cloak"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "cloak"
-	inv_box.screen_loc = rogueui_cloak
-	inv_box.slot_id = SLOT_CLOAK
-	inv_box.hud = src
-	static_inventory += inv_box
-
-	inv_box = new /atom/movable/screen/inventory()
-	inv_box.name = "mouth"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "mouth"
-	inv_box.screen_loc = rogueui_mouth
-	inv_box.slot_id = SLOT_MOUTH
-	inv_box.hud = src
-	static_inventory += inv_box
+	build_quickbar()
 
 	using = new /atom/movable/screen/drop()
 	using.icon = ui_style
@@ -669,6 +541,8 @@
 
 	var/mob/screenmob = viewer || H
 
+	if(!show_worn_items)
+		return
 	if(screenmob.hud_used.inventory_shown && screenmob.hud_used.hud_shown)
 		if(H.shoes)
 			H.shoes.screen_loc = rogueui_shoes
@@ -734,7 +608,7 @@
 
 	var/mob/screenmob = viewer || H
 
-	if(screenmob.hud_used)
+	if(screenmob.hud_used && show_worn_items)
 		if(screenmob.hud_used.hud_shown)
 			if(H.wear_ring)
 				H.wear_ring.screen_loc = ui_id

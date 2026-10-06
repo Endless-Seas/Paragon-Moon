@@ -97,6 +97,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 		bonus_html = span_highlight("No bonus! Ready up!")
 	client << output(bonus_html, "lobby_window.browser:update_ready_bonus")
 	client << output(actor_list, "lobby_window.browser:update_jobs")
+	client << output(url_encode(paragon_theme_style_for(client)), "lobby_window.browser:set_paragon_theme")
 
 /mob/dead/new_player/proc/open_lobby()
 	if (!client)

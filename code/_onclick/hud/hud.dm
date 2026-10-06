@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
 	var/hud_version = HUD_STYLE_STANDARD	//Current displayed version of the HUD
 	var/inventory_shown = TRUE		//Equipped item inventory
+	//Whether worn items are drawn on the HUD in their slots. FALSE for HUDs that use the Equipment popup (paperdoll.dm) instead.
+	var/show_worn_items = TRUE
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/atom/movable/screen/ling/chems/lingchemdisplay

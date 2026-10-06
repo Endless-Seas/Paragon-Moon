@@ -337,14 +337,15 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_PANTS]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(istype(wear_pants, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = wear_pants
 		U.screen_loc = rogueui_pants
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
-				client.screen += wear_pants
+				if(hud_used.show_worn_items)
+					client.screen += wear_pants
 		update_observer_view(wear_pants,1)
 
 		if(wear_armor && (wear_armor.flags_inv & HIDEJUMPSUIT))
@@ -384,7 +385,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_NECK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_NECK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_neck)
 		var/mutable_appearance/neck_overlay
@@ -415,14 +416,15 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_RING]
-		inv.update_icon()
+		inv?.update_icon()
 
 	var/mutable_appearance/id_overlay
 
 	if(wear_ring)
 		wear_ring.screen_loc = rogueui_ringr
 		if(client && hud_used && hud_used.hud_shown)
-			client.screen += wear_ring
+			if(hud_used.show_worn_items)
+				client.screen += wear_ring
 		update_observer_view(wear_ring)
 		if(dna && dna.species.sexes)
 			if((gender == FEMALE && !dna.species.use_m) || dna.species.use_f)
@@ -451,7 +453,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_GLOVES])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_GLOVES]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(!gloves && bloody_hands)
 		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
@@ -471,7 +473,8 @@ There are several things that need to be remembered:
 		gloves.screen_loc = rogueui_gloves
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
-				client.screen += gloves
+				if(hud_used.show_worn_items)
+					client.screen += gloves
 		update_observer_view(gloves,1)
 		if(dna && dna.species.sexes)
 			var/racecustom
@@ -520,13 +523,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_WRISTS])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WRISTS]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_wrists)
 		wear_wrists.screen_loc = rogueui_wrists
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
-				client.screen += wear_wrists
+				if(hud_used.show_worn_items)
+					client.screen += wear_wrists
 		update_observer_view(wear_wrists,1)
 		if(dna && dna.species.sexes)
 			var/racecustom
@@ -580,13 +584,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_GLASSES]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(glasses)
 		glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open ...
-				client.screen += glasses				//Either way, add the item to the HUD
+				if(hud_used.show_worn_items)
+					client.screen += glasses				//Either way, add the item to the HUD
 		update_observer_view(glasses,1)
 		if(!(head && (head.flags_inv & HIDEEYES)) && !(wear_mask && (wear_mask.flags_inv & HIDEEYES)))
 			overlays_standing[GLASSES_LAYER] = glasses.build_worn_icon(default_layer = GLASSES_LAYER, default_icon_file = 'icons/mob/clothing/eyes.dmi')
@@ -610,13 +615,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_MASK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(ears)
 		ears.screen_loc = ui_ears	//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += ears					//add it to the client's screen
+				if(hud_used.show_worn_items)
+					client.screen += ears					//add it to the client's screen
 		update_observer_view(ears,1)
 		overlays_standing[MASK_LAYER] = ears.build_worn_icon(default_layer = MASK_LAYER, default_icon_file = 'icons/mob/clothing/ears.dmi')
 		var/mutable_appearance/ears_overlay = overlays_standing[MASK_LAYER]
@@ -636,7 +642,7 @@ There are several things that need to be remembered:
 	remove_overlay(SHOESLEEVE_LAYER)
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_SHOES]
-		inv.update_icon()
+		inv?.update_icon()
 
 	var/obj/item/bodypart/taur/taur = get_taur_tail()
 	var/icon/c_mask = taur?.clip_mask_legs || taur?.clip_mask
@@ -645,7 +651,8 @@ There are several things that need to be remembered:
 		shoes.screen_loc = rogueui_shoes					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += shoes					//add it to client's screen
+				if(hud_used.show_worn_items)
+					client.screen += shoes					//add it to client's screen
 		update_observer_view(shoes,1)
 		if(dna && dna.species.sexes)
 			var/footindex = get_limbloss_index(LEG_RIGHT, LEG_LEFT)
@@ -685,12 +692,13 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_S_STORE]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(s_store)
 		s_store.screen_loc = ui_sstore1
 		if(client && hud_used && hud_used.hud_shown)
-			client.screen += s_store
+			if(hud_used.show_worn_items)
+				client.screen += s_store
 		update_observer_view(s_store)
 		var/t_state = s_store.item_state
 		if(!t_state)
@@ -718,7 +726,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_HEAD])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HEAD]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(head)
 		update_hud_head(head)
@@ -752,11 +760,11 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_BELT]
-		inv.update_icon()
+		inv?.update_icon()
 		inv = hud_used.inv_slots[SLOT_BELT_R]
-		inv.update_icon()
+		inv?.update_icon()
 		inv = hud_used.inv_slots[SLOT_BELT_L]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(beltr)
 		if(beltr.bigboy)
@@ -764,7 +772,8 @@ There are several things that need to be remembered:
 		else
 			beltr.screen_loc = rogueui_beltr
 		if(client && hud_used && hud_used.hud_shown)
-			client.screen += beltr
+			if(hud_used.show_worn_items)
+				client.screen += beltr
 		update_observer_view(beltr)
 		if(!(cloak && (cloak.flags_inv & HIDEBELT)))
 			var/mutable_appearance/onbelt_overlay
@@ -825,7 +834,8 @@ There are several things that need to be remembered:
 		else
 			beltl.screen_loc = rogueui_beltl
 		if(client && hud_used && hud_used.hud_shown)
-			client.screen += beltl
+			if(hud_used.show_worn_items)
+				client.screen += beltl
 		update_observer_view(beltl)
 		if(!(cloak && (cloak.flags_inv & HIDEBELT)))
 			var/mutable_appearance/onbelt_overlay
@@ -883,7 +893,8 @@ There are several things that need to be remembered:
 	if(belt)
 		belt.screen_loc = rogueui_belt
 		if(client && hud_used && hud_used.hud_shown)
-			client.screen += belt
+			if(hud_used.show_worn_items)
+				client.screen += belt
 		update_observer_view(belt)
 		if(!(cloak && (cloak.flags_inv & HIDEBELT)))
 			if(dna && dna.species.sexes)
@@ -936,13 +947,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_ARMOR]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(istype(wear_armor, /obj/item/clothing/suit))
 		wear_armor.screen_loc = rogueui_armor
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)
-				client.screen += wear_armor
+				if(hud_used.show_worn_items)
+					client.screen += wear_armor
 		update_observer_view(wear_armor,1)
 		overlays_standing[ARMOR_LAYER] = wear_armor.build_worn_icon(default_layer = ARMOR_LAYER, default_icon_file = 'icons/mob/clothing/suit.dmi')
 		var/mutable_appearance/suit_overlay = overlays_standing[ARMOR_LAYER]
@@ -961,21 +973,23 @@ There are several things that need to be remembered:
 		var/atom/movable/screen/inventory/inv
 
 		inv = hud_used.inv_slots[SLOT_L_STORE]
-		inv.update_icon()
+		inv?.update_icon()
 
 		inv = hud_used.inv_slots[SLOT_R_STORE]
-		inv.update_icon()
+		inv?.update_icon()
 
 		if(l_store)
 			l_store.screen_loc = ui_storage1
 			if(hud_used.hud_shown)
-				client.screen += l_store
+				if(hud_used.show_worn_items)
+					client.screen += l_store
 			update_observer_view(l_store)
 
 		if(r_store)
 			r_store.screen_loc = ui_storage2
 			if(hud_used.hud_shown)
-				client.screen += r_store
+				if(hud_used.show_worn_items)
+					client.screen += r_store
 			update_observer_view(r_store)*/
 
 
@@ -1011,11 +1025,11 @@ There are several things that need to be remembered:
 	var/list/backbehind = list()
 	if(client && hud_used && hud_used.inv_slots[SLOT_BACK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_BACK]
-		inv.update_icon()
+		inv?.update_icon()
 		inv = hud_used.inv_slots[SLOT_BACK_R]
-		inv.update_icon()
+		inv?.update_icon()
 		inv = hud_used.inv_slots[SLOT_BACK_L]
-		inv.update_icon()
+		inv?.update_icon()
 	if(backr)
 		if(backr.alternate_worn_layer == CLOAK_BEHIND_LAYER)
 			update_inv_cloak()
@@ -1155,7 +1169,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_CLOAK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	var/list/cloaklays = list()
 
@@ -1163,7 +1177,8 @@ There are several things that need to be remembered:
 		cloak.screen_loc = rogueui_cloak					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += cloak					//add it to client's screen
+				if(hud_used.show_worn_items)
+					client.screen += cloak					//add it to client's screen
 		update_observer_view(cloak,1)
 		if(dna && dna.species.sexes)
 			var/racecustom
@@ -1292,13 +1307,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_SHIRT]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_shirt)
 		wear_shirt.screen_loc = rogueui_shirt					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += wear_shirt					//add it to client's screen
+				if(hud_used.show_worn_items)
+					client.screen += wear_shirt					//add it to client's screen
 		update_observer_view(wear_shirt,1)
 		if(dna && dna.species.sexes)
 			var/mutable_appearance/shirt_overlay
@@ -1397,13 +1413,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_ARMOR]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_armor)
 		wear_armor.screen_loc = rogueui_armor					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += wear_armor					//add it to client's screen
+				if(hud_used.show_worn_items)
+					client.screen += wear_armor					//add it to client's screen
 		update_observer_view(wear_armor,1)
 		if(dna && dna.species.sexes)
 			var/racecustom
@@ -1506,13 +1523,14 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_PANTS]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_pants)
 		wear_pants.screen_loc = rogueui_pants					//move the item to the appropriate screen loc
 		if(client && hud_used && hud_used.hud_shown)
 			if(hud_used.inventory_shown)			//if the inventory is open
-				client.screen += wear_pants					//add it to client's screen
+				if(hud_used.show_worn_items)
+					client.screen += wear_pants					//add it to client's screen
 		update_observer_view(wear_pants,1)
 		if(dna && dna.species.sexes)
 			var/racecustom
@@ -1576,7 +1594,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_MOUTH])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_MOUTH]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(mouth)
 		if(!(SLOT_MOUTH in check_obscured_slots()))
@@ -1658,7 +1676,8 @@ There are several things that need to be remembered:
 	I.screen_loc = rogueui_head
 	if(client && hud_used && hud_used.hud_shown)
 		if(hud_used.inventory_shown)
-			client.screen += I
+			if(hud_used.show_worn_items)
+				client.screen += I
 	update_observer_view(I,1)
 
 //update whether our mask item appears on our hud.
@@ -1666,14 +1685,16 @@ There are several things that need to be remembered:
 	I.screen_loc = rogueui_mask
 	if(client && hud_used && hud_used.hud_shown)
 		if(hud_used.inventory_shown)
-			client.screen += I
+			if(hud_used.show_worn_items)
+				client.screen += I
 	update_observer_view(I,1)
 
 /mob/living/carbon/human/update_hud_mouth(obj/item/I)
 	I.screen_loc = rogueui_mouth
 	if(client && hud_used && hud_used.hud_shown)
 		if(hud_used.inventory_shown)
-			client.screen += I
+			if(hud_used.show_worn_items)
+				client.screen += I
 	update_observer_view(I,1)
 
 //update whether our neck item appears on our hud.
@@ -1681,14 +1702,16 @@ There are several things that need to be remembered:
 	I.screen_loc = rogueui_neck
 	if(client && hud_used && hud_used.hud_shown)
 		if(hud_used.inventory_shown)
-			client.screen += I
+			if(hud_used.show_worn_items)
+				client.screen += I
 	update_observer_view(I,1)
 
 //update whether our back item appears on our hud.
 /mob/living/carbon/human/update_hud_back(obj/item/I)
 	I.screen_loc = ui_back
 	if(client && hud_used && hud_used.hud_shown)
-		client.screen += I
+		if(hud_used.show_worn_items)
+			client.screen += I
 	update_observer_view(I)
 
 //update whether our back item appears on our hud.
@@ -1698,7 +1721,8 @@ There are several things that need to be remembered:
 	else
 		I.screen_loc = rogueui_backr
 	if(client && hud_used && hud_used.hud_shown)
-		client.screen += I
+		if(hud_used.show_worn_items)
+			client.screen += I
 	update_observer_view(I)
 
 //update whether our back item appears on our hud.
@@ -1708,7 +1732,8 @@ There are several things that need to be remembered:
 	else
 		I.screen_loc = rogueui_backl
 	if(client && hud_used && hud_used.hud_shown)
-		client.screen += I
+		if(hud_used.show_worn_items)
+			client.screen += I
 	update_observer_view(I)
 
 /*
@@ -2046,6 +2071,8 @@ generate/load female uniform sprites matching all previously decided variables
 
 
 /mob/living/carbon/human/proc/update_observer_view(obj/item/I, inventory)
+	if(hud_used && !hud_used.show_worn_items)
+		return
 	if(observers && observers.len)
 		for(var/M in observers)
 			var/mob/dead/observe = M

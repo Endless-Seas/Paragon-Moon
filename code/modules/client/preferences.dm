@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
-	var/tgui_theme = "qud"
+	var/tgui_theme = "paragon_classic"
 	var/windowflashing = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/floating_text_toggles = TOGGLES_TEXT_DEFAULT
@@ -575,11 +575,11 @@ GLOBAL_LIST_EMPTY(chosen_names)
 					dat += "<b>Preferred Gender:</b> <a href='?_src_=prefs;preference=gender_choice'>[gender_choice ? gender_choice : "Any Gender"]</a><BR>"
 					var/species_text
 					if(xenophobe_pref == 1)
-						species_text = "<font color='#e99f10'>Same Race</font>"
+						species_text = "<font style='color: var(--pg-orange, #e99f10)'>Same Race</font>"
 					else if(xenophobe_pref == 2 && restricted_species_pref)
-						species_text = "<font color='#d74200'>[restricted_species_pref] Only</font>"
+						species_text = "<font style='color: var(--pg-red, #d74200)'>[restricted_species_pref] Only</font>"
 					else
-						species_text = "<font color='#00c420'>Unrestricted</font>"
+						species_text = "<font style='color: var(--pg-green, #00c420)'>Unrestricted</font>"
 					dat += "<b>Restrict Species:</b> <a href='?_src_=prefs;preference=species_choice'>[species_text]</a><BR>"
 			if(length(pref_species.custom_selection))
 				var/race_bonus_display
@@ -614,9 +614,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				var/obj/item/bodypart/taur/T = taur_type
 				var/name = ispath(T) ? T::name : "None"
 				dat += "<b>Taur Body Type:</b> <a href='?_src_=prefs;preference=taur_type;task=input'>[name]</a><BR>"
-				dat += "<b>Taur Color:</b> <span style='border: 1px solid #155352; background-color: #[taur_color];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_color;task=input'>Change</a><BR>"
-				dat += "<b>Taur Markings:</b> <span style='border: 1px solid #155352; background-color: #[taur_markings];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_markings;task=input'>Change</a><BR>"
-				dat += "<b>Taur Tertiary:</b> <span style='border: 1px solid #155352; background-color: #[taur_tertiary];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_tertiary;task=input'>Change</a><BR>"
+				dat += "<b>Taur Color:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[taur_color];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_color;task=input'>Change</a><BR>"
+				dat += "<b>Taur Markings:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[taur_markings];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_markings;task=input'>Change</a><BR>"
+				dat += "<b>Taur Tertiary:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[taur_tertiary];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_tertiary;task=input'>Change</a><BR>"
 
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><BR>"
 			dat += "<b>Origin:</b> <a href='?_src_=prefs;preference=origin;task=input'>[origin ? origin.name : "None"]</a><BR>"
@@ -709,9 +709,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 			if((MUTCOLORS in pref_species.species_traits) || (MUTCOLORS_PARTSONLY in pref_species.species_traits))
 
-				dat += "<b>Mutant Color #1:</b> <span style='border: 1px solid #155352; background-color: #[features["mcolor"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color;task=input'>Change</a><BR>"
-				dat += "<b>Mutant Color #2:</b> <span style='border: 1px solid #155352; background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a><BR>"
-				dat += "<b>Mutant Color #3:</b> <span style='border: 1px solid #155352; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
+				dat += "<b>Mutant Color #1:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color;task=input'>Change</a><BR>"
+				dat += "<b>Mutant Color #2:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a><BR>"
+				dat += "<b>Mutant Color #3:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
 
 			dat += "<br><b>Voice Color: </b><a href='?_src_=prefs;preference=voice;task=input'>Change</a>"
 			dat += "<br><b>Nickname Color: </b> </b><a href='?_src_=prefs;preference=highlight_color;task=input'>Change</a>"
@@ -726,9 +726,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			if(headshot_link != null)
 				dat += "<br><img src='[headshot_link]' width='100px' height='100px'>"
 
-			dat += "<br><b>[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "<font color = '#d74200'>" : ""]Flavortext:[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=flavortext;task=input'>Change</a>"
+			dat += "<br><b>[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "<font style='color: var(--pg-red, #d74200)'>" : ""]Flavortext:[(length(flavortext) < MINIMUM_FLAVOR_TEXT) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=flavortext;task=input'>Change</a>"
 			dat += "<br><b>NSFW Flavortext:</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=nsfwflavortext;task=input'>Change</a>"
-			dat += "<br><b>[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "<font color = '#d74200'>" : ""]OOC Notes:[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=ooc_notes;task=input'>Change</a>"
+			dat += "<br><b>[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "<font style='color: var(--pg-red, #d74200)'>" : ""]OOC Notes:[(length(ooc_notes) < MINIMUM_OOC_NOTES) ? "</font>" : ""]</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><a href='?_src_=prefs;preference=ooc_notes;task=input'>Change</a>"
 
 			// Rumours / Gossip
 			dat += "<br><b>Rumours & Noble Gossip:</b><a href='?_src_=prefs;preference=formathelp;task=input'>(?)</a><br><a href='?_src_=prefs;preference=rumour;task=input'>Set Rumours</a><a href='?_src_=prefs;preference=gossip;task=input'>Set Gossip</a><a href='?_src_=prefs;preference=rumour_preview;task=input'><i>Preview</i></a>"
@@ -771,7 +771,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 //			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
 //			dat += "<b>Hotkey mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Default"]</a><br>"
 //			dat += "<br>"
-//			dat += "<b>PDA Color:</b> <span style='border: 1px solid #155352; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
+//dat += "<b>PDA Color:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
 //			dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
 //			dat += "<br>"
 //			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(chat_toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</a><br>"
@@ -856,7 +856,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<h2>Special Role Settings</h2>"
 
 			if(is_banned_from(user.ckey, ROLE_SYNDICATE))
-				dat += "<font color='#d74200'><b>I am banned from antagonist roles.</b></font><br>"
+				dat += "<font style='color: var(--pg-red, #d74200)'><b>I am banned from antagonist roles.</b></font><br>"
 				src.be_special = list()
 
 
@@ -869,7 +869,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 						days_remaining = get_remaining_days(user.client)
 
 					if(days_remaining)
-						dat += "<b>[capitalize(i)]:</b> <font color='#d74200'> \[IN [days_remaining] DAYS]</font><br>"
+						dat += "<b>[capitalize(i)]:</b> <font style='color: var(--pg-red, #d74200)'> \[IN [days_remaining] DAYS]</font><br>"
 					else
 						dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
 //			dat += "<br>"
@@ -893,7 +893,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 					dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</a><br>"
 
 				if(unlock_content || check_rights_for(user.client, R_ADMIN))
-					dat += "<b>OOC Color:</b> <span style='border: 1px solid #155352; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'>Change</a><br>"
+					dat += "<b>OOC Color:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'>Change</a><br>"
 
 			dat += "</td>"
 
@@ -913,7 +913,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Hide Prayers:</b> <a href = '?_src_=prefs;preference=toggle_prayers'>[(chat_toggles & CHAT_PRAYER)?"Shown":"Hidden"]</a><br>"
 				if(CONFIG_GET(flag/allow_admin_asaycolor))
 					dat += "<br>"
-					dat += "<b>ASAY Color:</b> <span style='border: 1px solid #155352; background-color: [asaycolor ? asaycolor : "#FF4500"];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=asaycolor;task=input'>Change</a><br>"
+					dat += "<b>ASAY Color:</b> <span style='border: 1px solid var(--pg-line, #155352); background-color: [asaycolor ? asaycolor : "#FF4500"];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=asaycolor;task=input'>Change</a><br>"
 
 				//deadmin
 				dat += "<h2>Deadmin While Playing</h2>"
@@ -1132,11 +1132,11 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				continue
 			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
 			if(required_playtime_remaining)
-				HTML += "[used_name]</td> <td><font color='#d74200'> \[ [get_exp_format(required_playtime_remaining)] as [job.get_exp_req_type()] \] </font></td></tr>"
+				HTML += "[used_name]</td> <td><font style='color: var(--pg-red, #d74200)'> \[ [get_exp_format(required_playtime_remaining)] as [job.get_exp_req_type()] \] </font></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				HTML += "[used_name]</td> <td><font color='#d74200'> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
+				HTML += "[used_name]</td> <td><font style='color: var(--pg-red, #d74200)'> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
 				continue
 			#ifdef USES_PQ
 			if(!job.required && !isnull(job.min_pq) && (get_playerquality(user.ckey) < job.min_pq))
@@ -1218,7 +1218,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 .tutorialhover {
 	position: relative;
 	display: inline-block;
-	border-bottom: 1px dotted #4f8f8a;
+	border-bottom: 1px dotted var(--pg-frame, #4f8f8a);
 }
 
 .tutorialhover a {
@@ -1227,27 +1227,27 @@ GLOBAL_LIST_EMPTY(chosen_names)
 }
 
 .tutorialhover a:hover {
-	background: #0f3b3a;
+	background: var(--pg-raised, #0f3b3a);
 }
 
 .tutorialhover .tutorial {
 
 	visibility: hidden;
 	width: 280px;
-	color: #b1c9c3;
+	color: var(--pg-text, #b1c9c3);
 	text-align: left;
 	padding: 8px;
-	border: 2px solid #4f8f8a;
+	border: 2px solid var(--pg-frame, #4f8f8a);
 	background:
-		linear-gradient(#e8efe9, #e8efe9) left top / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left top / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right top / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right top / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left bottom / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left bottom / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right bottom / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right bottom / 2px 8px no-repeat,
-		#04100f;
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 2px 8px no-repeat,
+		var(--pg-void, #04100f);
 
 	position: absolute;
 	z-index: 1;
@@ -1279,7 +1279,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			switch(job_preferences[job.title])
 				if(JP_HIGH)
 					prefLevelLabel = "High"
-					prefLevelColor = "#77bfcf"
+					prefLevelColor = "var(--pg-accent2, #77bfcf)"
 					prefUpperLevel = 4
 					prefLowerLevel = 2
 					var/mob/dead/new_player/P = user
@@ -1287,17 +1287,17 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						P.topjob = job.title
 				if(JP_MEDIUM)
 					prefLevelLabel = "Medium"
-					prefLevelColor = "#00c420"
+					prefLevelColor = "var(--pg-green, #00c420)"
 					prefUpperLevel = 1
 					prefLowerLevel = 3
 				if(JP_LOW)
 					prefLevelLabel = "Low"
-					prefLevelColor = "#e99f10"
+					prefLevelColor = "var(--pg-orange, #e99f10)"
 					prefUpperLevel = 2
 					prefLowerLevel = 4
 				else
 					prefLevelLabel = "NEVER"
-					prefLevelColor = "#d74200"
+					prefLevelColor = "var(--pg-red, #d74200)"
 					prefUpperLevel = 3
 					prefLowerLevel = 1
 
@@ -1311,7 +1311,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 //				HTML += "</a></td></tr>"
 //				continue
 
-			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font>"
+			HTML += "<font style='color: [prefLevelColor]'>[prefLevelLabel]</font>"
 			HTML += "</a></td></tr>"
 
 		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
@@ -1471,7 +1471,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 
 	if(is_banned_from(user.ckey, ROLE_SYNDICATE))
-		dat += "<font color='#d74200'><b>I am banned from antagonist roles.</b></font><br>"
+		dat += "<font style='color: var(--pg-red, #d74200)'><b>I am banned from antagonist roles.</b></font><br>"
 		src.be_special = list()
 
 
@@ -1484,7 +1484,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 				days_remaining = get_remaining_days(user.client)
 
 			if(days_remaining)
-				dat += "<b>[capitalize(i)]:</b> <font color='#d74200'> \[IN [days_remaining] DAYS]</font><br>"
+				dat += "<b>[capitalize(i)]:</b> <font style='color: var(--pg-red, #d74200)'> \[IN [days_remaining] DAYS]</font><br>"
 			else
 				dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;preference=antag;task=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
 
@@ -3424,7 +3424,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	if(V.desc)
 		dat += "<font size = 3>[span_purple(V.desc)]</font><br>"
 	if(length(V.added_skills))
-		dat += "<font color = '#77bfcf'><font size = 3>This Virtue adds the following skills: <br>"
+		dat += "<font style='color: var(--pg-accent2, #77bfcf)'><font size = 3>This Virtue adds the following skills: <br>"
 		for(var/list/L in V.added_skills)
 			var/name
 			if(ispath(L[1],/datum/skill))
@@ -3433,12 +3433,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			dat += "["\Roman[L[2]]"] level[L[2] > 1 ? "s" : ""] of <b>[name]</b>[L[3] ? ", up to <b>[SSskills.level_names_plain[L[3]]]</b>" : ""] <br>"
 		dat += "</font>"
 	if(length(V.added_traits))
-		dat += "<font color = '#00c420'><font size = 3>This Virtue grants the following traits: <br>"
+		dat += "<font style='color: var(--pg-green, #00c420)'><font size = 3>This Virtue grants the following traits: <br>"
 		for(var/TR in V.added_traits)
 			dat += "[TR] — <font size = 2>[GLOB.roguetraits[TR]]</font><br>"
 		dat += "</font>"
 	if(length(V.added_stashed_items))
-		dat += "<font color = '#cfc041'><font size = 3>This Virtue adds the following items to your stash: <br>"
+		dat += "<font style='color: var(--pg-gold, #cfc041)'><font size = 3>This Virtue adds the following items to your stash: <br>"
 		for(var/I in V.added_stashed_items)
 			dat += "<i>[I]</i> <br>"
 		dat += "</font>"

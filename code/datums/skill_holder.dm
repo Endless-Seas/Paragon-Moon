@@ -309,6 +309,36 @@
 			return "#33cc66" // Green
 	return "#cc3333"
 
+//Progress towards the next level of [i]: percent, whether it is capped or legendary, and how many sleep ranks are
+//banked (1 = one rank ready, 2 = two). Shared by print_levels() and the Skills tab of the paper doll.
+/datum/skill_holder/proc/get_skill_progress(datum/skill/i)
+	var/skill_level = get_skill_level(i.type)
+	var/raw_skill_level = known_skills[i]
+	var/is_legendary = (skill_level >= SKILL_LEVEL_LEGENDARY)
+	var/is_capped = !is_legendary && (skill_level >= get_effective_skill_cap(i))
+	var/stars = 0
+	if(current?.mind?.sleep_adv.enough_sleep_xp_to_advance(i.type, 2))
+		stars = 2
+	else if(current?.mind?.sleep_adv.enough_sleep_xp_to_advance(i.type, 1))
+		stars = 1
+	var/percent = 0
+	if(!is_capped && !is_legendary)
+		if(raw_skill_level >= SKILL_LEVEL_APPRENTICE)
+			//Apprentice+ uses sleep XP system for progression
+			var/datum/sleep_adv/sadv = current?.mind?.sleep_adv
+			if(sadv)
+				var/sleep_xp = sadv.get_sleep_xp(i.type)
+				var/needed_xp = sadv.get_requried_sleep_xp_for_skill(i.type, 1)
+				if(needed_xp > 0)
+					percent = clamp(round(sleep_xp * 100 / needed_xp), 0, 200)
+		else
+			//Below Apprentice, XP is tracked directly on skill_experience
+			var/list/brackets = get_xp_brackets(raw_skill_level)
+			var/bracket_range = brackets[2] - brackets[1]
+			if(bracket_range > 0)
+				percent = clamp(round((skill_experience[i] - brackets[1]) * 100 / bracket_range), 0, 100)
+	return list("percent" = percent, "capped" = is_capped, "legendary" = is_legendary, "stars" = stars)
+
 /datum/skill_holder/proc/print_levels(user)
 	var/list/shown_skills = list()
 	for(var/i in known_skills)
@@ -334,41 +364,17 @@
 	msg += "</tr>"
 	for(var/datum/skill/i in sorted_skills)
 		var/skill_level = get_skill_level(i.type)
-		var/raw_skill_level = known_skills[i]
-		var/effective_cap = get_effective_skill_cap(i)
-		var/is_legendary = (skill_level >= SKILL_LEVEL_LEGENDARY)
-		var/is_capped = !is_legendary && (skill_level >= effective_cap)
-
-		var/can_advance_post = current?.mind?.sleep_adv.enough_sleep_xp_to_advance(i.type, 1)
-		var/capped_post = current?.mind?.sleep_adv.enough_sleep_xp_to_advance(i.type, 2)
-		var/rankup_postfix = capped_post ? span_nicegreen(" ★") : can_advance_post ? span_nicegreen(" ☆") : ""
+		var/list/progress = get_skill_progress(i)
+		var/rankup_postfix = progress["stars"] == 2 ? span_nicegreen(" ★") : progress["stars"] == 1 ? span_nicegreen(" ☆") : ""
 		// Progress column
 		var/progress_col
-		if(is_capped)
+		if(progress["capped"])
 			progress_col = "<b style='color: #cc3333;'>CAPPED</b>"
-		else if(is_legendary)
+		else if(progress["legendary"])
 			progress_col = "<span style='color: #555555;'>---</span>"
 		else
-			var/percent = 0
-			if(raw_skill_level >= SKILL_LEVEL_APPRENTICE)
-				// Apprentice+ uses sleep XP system for progression
-				var/datum/sleep_adv/sadv = current?.mind?.sleep_adv
-				if(sadv)
-					var/sleep_xp = sadv.get_sleep_xp(i.type)
-					var/needed_xp = sadv.get_requried_sleep_xp_for_skill(i.type, 1)
-					if(needed_xp > 0)
-						percent = clamp(round(sleep_xp * 100 / needed_xp), 0, 200)
-			else
-				// Below Apprentice, XP is tracked directly on skill_experience
-				var/list/brackets = get_xp_brackets(raw_skill_level)
-				var/current_xp = skill_experience[i]
-				var/bracket_start = brackets[1]
-				var/bracket_end = brackets[2]
-				var/bracket_range = bracket_end - bracket_start
-				if(bracket_range > 0)
-					percent = clamp(round((current_xp - bracket_start) * 100 / bracket_range), 0, 100)
-			var/pct_color = get_progress_color(percent)
-			progress_col = "<span style='color: [pct_color];'>[percent]%</span>"
+			var/pct_color = get_progress_color(progress["percent"])
+			progress_col = "<span style='color: [pct_color];'>[progress["percent"]]%</span>"
 
 		msg += "<tr style='border-bottom: 1px solid [bc];'>"
 		msg += {"<td style='padding: 1px 4px; border-right: 1px solid [bc];'><span style='color: [i.color]'>[i]</span></td>"}

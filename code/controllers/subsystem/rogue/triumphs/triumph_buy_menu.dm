@@ -39,6 +39,7 @@
 			<style>
 			</style>
 			<link rel='stylesheet' type='text/css' href='slop_menustyle3.css'>
+			[paragon_theme_style_for(linked_client)]
 		</head>
 	"}
 

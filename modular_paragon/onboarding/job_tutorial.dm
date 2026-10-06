@@ -168,7 +168,7 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 		dat += "\n<br><b>- - -</b><br>"
 
 	if(vault_hook)
-		dat += "<FONT color='#40A4B9'><b>You will do a great many things.</b></font><br>"
+		dat += "<FONT style='color: var(--pg-accent, #40A4B9)'><b>You will do a great many things.</b></font><br>"
 
 		dat += "<b><small>You've lived many lives. The presence beneath the estate assures such. \
 		No manner of death, collapse or catastrophe can avert the tethers of fate. <br>\
@@ -237,7 +237,7 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 
 		dat += "\n<br><br>"
 
-		dat += "\n<br><FONT color='#E99F10'>The Pantheon</font><br><br>"
+		dat += "\n<br><FONT style='color: var(--pg-orange, #E99F10)'>The Pantheon</font><br><br>"
 
 		dat += "\n<br>"
 
@@ -248,7 +248,7 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 
 		dat += "\n<br><br>"
 
-		dat += "\n<br><FONT color='#40A4B9'>The Maker's Own</font><br><br>"
+		dat += "\n<br><FONT style='color: var(--pg-accent, #40A4B9)'>The Maker's Own</font><br><br>"
 
 		dat += "\n<br>"
 
@@ -298,7 +298,7 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 
 		dat += "\n<br><br>"
 
-		dat += "\n<br><FONT color='#E99F10'>The Pantheon</font><br><br>"
+		dat += "\n<br><FONT style='color: var(--pg-orange, #E99F10)'>The Pantheon</font><br><br>"
 
 		dat += "\n<br>"
 
@@ -309,7 +309,7 @@ Why not now? Because it's not THAT big, but I expect we'll size it up.
 
 		dat += "\n<br><br>"
 
-		dat += "\n<br><FONT color='#40A4B9'>The Maker's Own</font><br><br>"
+		dat += "\n<br><FONT style='color: var(--pg-accent, #40A4B9)'>The Maker's Own</font><br><br>"
 
 		dat += "\n<br>"
 

@@ -94,6 +94,8 @@
 	new_head_content += "<link rel='stylesheet' type='text/css' href='[common_asset.get_url_mappings()["common.css"]]'>"
 	for(var/file in stylesheets)
 		new_head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
+	//Paragon theme colours for common.css and friends, after the stylesheets so they win
+	new_head_content += paragon_theme_style_for(user)
 
 	for(var/file in scripts)
 		new_head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"

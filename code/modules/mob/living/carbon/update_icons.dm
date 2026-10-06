@@ -354,7 +354,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_WEAR_MASK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_MASK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_mask)
 		if(!(SLOT_WEAR_MASK in check_obscured_slots()))
@@ -368,7 +368,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_NECK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_NECK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_neck)
 		if(!(SLOT_NECK in check_obscured_slots()))
@@ -382,7 +382,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_BACK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_BACK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(back)
 		overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
@@ -398,7 +398,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_HEAD])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HEAD]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(head)
 		if(hide_nonstandard && (head.worn_x_dimension != 32 || head.worn_y_dimension != 32))

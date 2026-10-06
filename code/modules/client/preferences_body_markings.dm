@@ -114,9 +114,9 @@
 	dat += "Use a <b>markings preset</b>: <a href='?_src_=prefs;preference=use_preset;task=change_marking'>Choose</a>  | <a href='?_src_=prefs;preference=reset_all_colors;task=change_marking'>Reset marking colors</a>"
 	/*
 	dat += "<table width='100%' align='center'>"
-	dat += " Mutant color #1:<span style='border: 1px solid #155352; background-color: #[features["mcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color;task=input'>Change</a>"
-	dat += " Mutant color #2:<span style='border: 1px solid #155352; background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a>"
-	dat += " Mutant color #3:<span style='border: 1px solid #155352; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a>"
+	dat += " Mutant color #1:<span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color;task=input'>Change</a>"
+	dat += " Mutant color #2:<span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a>"
+	dat += " Mutant color #3:<span style='border: 1px solid var(--pg-line, #155352); background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a>"
 	dat += "</table>"
 	*/
 	dat += "<table width='100%'>"
@@ -142,7 +142,7 @@
 			if(BODY_ZONE_PRECISE_L_HAND)
 				named_zone = "Left Hand"
 		dat += "<center><h3>[named_zone]</h3></center>"
-		dat += "<table align='center'; width='100%'; height='100px'; style='background-color:#04100f'>"
+		dat += "<table align='center'; width='100%'; height='100px'; style='background-color:var(--pg-void, #04100f)'>"
 		dat += "<tr style='vertical-align:top'>"
 		dat += "<td width=10%><font size=2> </font></td>"
 		dat += "<td width=10%><font size=2> </font></td>"
@@ -193,7 +193,7 @@
 
 /datum/preferences/proc/ShowMarkings(mob/user)
 	var/list/dat = list()
-	dat += "<style>span.color_holder_box{display: inline-block; width: 20px; height: 8px; border:1px solid #155352; padding: 0px;}</style>"
+	dat += "<style>span.color_holder_box{display: inline-block; width: 20px; height: 8px; border:1px solid var(--pg-line, #155352); padding: 0px;}</style>"
 	dat += print_body_markings_page()
 	var/datum/browser/popup = new(user, "markings_cusotmization", "<div align='center'>Markings customization</div>", 650, 710)
 	popup.set_content(dat.Join())

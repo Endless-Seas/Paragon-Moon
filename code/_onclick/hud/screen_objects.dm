@@ -231,7 +231,8 @@
 				if(H.client.legacycraft)
 					C.roguecraft(location, control, params, H)
 				else
-					C.ui_interact(H)
+					//The crafting menu lives in the Crafting tab of the Equipment window (paperdoll.dm)
+					H.open_paperdoll(H, "crafting")
 			else
 				testing("what")
 

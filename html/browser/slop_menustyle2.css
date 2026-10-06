@@ -1,6 +1,6 @@
-/* Class select menus, Caves of Qud style.
+/* Class select menus, Paragon style.
  * Palette and frame mirror html/browser/common.css; see
- * https://wiki.cavesofqud.com/wiki/Visual_Style */
+ * the Paragon visual style */
 
 @font-face {
 	font-family: "Source Code Pro";
@@ -41,11 +41,11 @@ body {
 	margin: 0;
 	padding: 14px 14px 40px 14px;
 	font-family: "Source Code Pro", monospace;
-	color: #b1c9c3;
-	background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px) #0b2423;
-	border: 6px solid #155352;
-	border-image: repeating-linear-gradient(45deg, #2a6b68 0 2px, #0b2423 2px 4px) 6;
-	box-shadow: inset 0 0 0 2px #04100f, inset 0 0 0 3px #4f8f8a;
+	color: var(--pg-text, #b1c9c3);
+	background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px) var(--pg-panel, #0b2423);
+	border: 6px solid var(--pg-line, #155352);
+	border-image: repeating-linear-gradient(45deg, var(--pg-hatch, #2a6b68) 0 2px, var(--pg-panel, #0b2423) 2px 4px) 6;
+	box-shadow: inset 0 0 0 2px var(--pg-void, #04100f), inset 0 0 0 3px var(--pg-frame, #4f8f8a);
 }
 
 /* Crest on the top edge of the frame */
@@ -57,7 +57,7 @@ body:before {
 	width: 30px;
 	height: 16px;
 	margin-left: -15px;
-	background: #0b2423 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='16' shape-rendering='crispEdges' fill='%2377bfcf'%3E%3Crect x='14' y='0' width='2' height='16'/%3E%3Crect x='9' y='3' width='2' height='8'/%3E%3Crect x='19' y='3' width='2' height='8'/%3E%3Crect x='5' y='1' width='2' height='6'/%3E%3Crect x='23' y='1' width='2' height='6'/%3E%3Crect x='5' y='7' width='20' height='2'/%3E%3Crect x='9' y='11' width='12' height='2'/%3E%3C/svg%3E") center no-repeat;
+	background: var(--pg-panel, #0b2423) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='16' shape-rendering='crispEdges' fill='%2377bfcf'%3E%3Crect x='14' y='0' width='2' height='16'/%3E%3Crect x='9' y='3' width='2' height='8'/%3E%3Crect x='19' y='3' width='2' height='8'/%3E%3Crect x='5' y='1' width='2' height='6'/%3E%3Crect x='23' y='1' width='2' height='6'/%3E%3Crect x='5' y='7' width='20' height='2'/%3E%3Crect x='9' y='11' width='12' height='2'/%3E%3C/svg%3E") center no-repeat;
 }
 
 /* Window title, with the ornament rule beneath it */
@@ -67,9 +67,9 @@ body:before {
 	font-size: 17px;
 	letter-spacing: 0.08em;
 	text-align: center;
-	color: #e8efe9;
+	color: var(--pg-bright, #e8efe9);
 	padding: 4px 0 6px 0;
-	border-bottom: 1px solid #b1c9c3;
+	border-bottom: 1px solid var(--pg-text, #b1c9c3);
 	margin-bottom: 20px;
 	position: relative;
 }
@@ -83,7 +83,7 @@ body:before {
 	height: 12px;
 	background:
 		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12' shape-rendering='crispEdges' fill='%23b1c9c3'%3E%3Crect x='10' y='0' width='2' height='12'/%3E%3Crect x='6' y='2' width='2' height='8'/%3E%3Crect x='14' y='2' width='2' height='8'/%3E%3Crect x='4' y='5' width='14' height='2'/%3E%3C/svg%3E") center / 22px 12px no-repeat,
-		linear-gradient(to right, #155352 calc(50% - 14px), transparent calc(50% - 14px) calc(50% + 14px), #155352 calc(50% + 14px)) center / 100% 1px no-repeat;
+		linear-gradient(to right, var(--pg-line, #155352) calc(50% - 14px), transparent calc(50% - 14px) calc(50% + 14px), var(--pg-line, #155352) calc(50% + 14px)) center / 100% 1px no-repeat;
 }
 
 #class_select_box_div {
@@ -93,7 +93,7 @@ body:before {
 }
 
 #green_plussa {
-	color: #00c420;
+	color: var(--pg-green, #00c420);
 }
 
 img.ninetysskull {
@@ -105,7 +105,7 @@ img.ninetysskull {
 	padding: 1px 0;
 }
 
-/* Class entries read like Qud's journal list: "[ ] name", "> [*] name" on hover */
+/* Class entries read like a journal list: "[ ] name", "> [*] name" on hover */
 a.vagrant:link,
 a.vagrant:visited,
 a.vagrant:active,
@@ -115,7 +115,7 @@ a.vagrant:active,
 	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
 	font-size: 15px;
-	color: #b1c9c3;
+	color: var(--pg-text, #b1c9c3);
 	text-decoration: none;
 	text-align: left;
 	background: transparent;
@@ -126,19 +126,19 @@ a.vagrant:active,
 
 a.vagrant:before {
 	content: "[ ] ";
-	color: #4f8f8a;
+	color: var(--pg-frame, #4f8f8a);
 }
 
 a.vagrant:hover {
-	color: #77bfcf;
-	background: #0f3b3a;
+	color: var(--pg-accent2, #77bfcf);
+	background: var(--pg-raised, #0f3b3a);
 	font-weight: 700;
 	padding-left: 6px;
 }
 
 a.vagrant:hover:before {
 	content: "> [\25AA] ";
-	color: #cfc041;
+	color: var(--pg-gold, #cfc041);
 }
 
 /* Category dropdowns: centred cyan section headings with the ornament rule */
@@ -146,7 +146,7 @@ a.vagrant:hover:before {
 	margin: 2px 0 6px 0;
 	text-align: left;
 	font-family: "Source Code Pro", monospace;
-	color: #b1c9c3;
+	color: var(--pg-text, #b1c9c3);
 }
 
 .class_dropdown summary {
@@ -154,22 +154,22 @@ a.vagrant:hover:before {
 	font-size: 16px;
 	font-weight: 700;
 	text-align: center;
-	color: #40a4b9;
+	color: var(--pg-accent, #40a4b9);
 	padding: 4px 0;
 	list-style: none;
 }
 
 .class_dropdown summary:hover {
-	color: #77bfcf;
+	color: var(--pg-accent2, #77bfcf);
 }
 
 .class_dropdown summary:before {
 	content: "+ ";
-	color: #4f8f8a;
+	color: var(--pg-frame, #4f8f8a);
 }
 
 .class_dropdown[open] summary {
-	color: #cfc041;
+	color: var(--pg-gold, #cfc041);
 }
 
 .class_dropdown[open] summary:before {
@@ -185,7 +185,7 @@ a.vagrant:hover:before {
 	content: "";
 }
 
-/* Bottom action links, as bracketed Qud keybind hints */
+/* Bottom action links, as bracketed Paragon keybind hints */
 a.bottom_buttons,
 a.bottom_buttons:link,
 a.bottom_buttons:visited,
@@ -204,8 +204,8 @@ a.class_desc_YES_LINK:active {
 	font-size: 15px;
 	text-decoration: none;
 	text-align: center;
-	background: #04100f;
-	border: 1px solid #4f8f8a;
+	background: var(--pg-void, #04100f);
+	border: 1px solid var(--pg-frame, #4f8f8a);
 	padding: 2px 8px;
 	margin: 2px 2px 2px 0;
 	cursor: pointer;
@@ -215,35 +215,35 @@ a.class_desc_YES_LINK,
 a.class_desc_YES_LINK:link,
 a.class_desc_YES_LINK:visited,
 a.class_desc_YES_LINK:active {
-	color: #00c420;
+	color: var(--pg-green, #00c420);
 }
 
 a.bottom_buttons,
 a.bottom_buttons:link,
 a.bottom_buttons:visited,
 a.bottom_buttons:active {
-	color: #d74200;
+	color: var(--pg-red, #d74200);
 }
 
 a.mo_bottom_buttons,
 a.mo_bottom_buttons:link,
 a.mo_bottom_buttons:visited,
 a.mo_bottom_buttons:active {
-	color: #77bfcf;
+	color: var(--pg-accent2, #77bfcf);
 }
 
 a.bottom_buttons:hover,
 a.mo_bottom_buttons:hover,
 a.class_desc_YES_LINK:hover {
-	color: #cfc041;
-	border-color: #cfc041;
-	background: #0f3b3a;
+	color: var(--pg-gold, #cfc041);
+	border-color: var(--pg-gold, #cfc041);
+	background: var(--pg-raised, #0f3b3a);
 }
 
 .bottom_button_cost {
 	font-family: "Source Code Pro", monospace;
 	font-size: 12px;
-	color: #cfc041;
+	color: var(--pg-gold, #cfc041);
 }
 
 .footer {
@@ -259,7 +259,7 @@ a.class_desc_YES_LINK:hover {
 	align-self: flex-end;
 	margin-top: 14px;
 	padding-top: 10px;
-	border-top: 1px solid #155352;
+	border-top: 1px solid var(--pg-line, #155352);
 }
 
 /* Class description window */
@@ -272,7 +272,7 @@ a.class_desc_YES_LINK:hover {
 	font-family: "Source Code Pro", monospace;
 	font-weight: 700;
 	font-size: 15px;
-	color: #cfc041;
+	color: var(--pg-gold, #cfc041);
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 }
@@ -280,13 +280,13 @@ a.class_desc_YES_LINK:hover {
 .post_title_shit {
 	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
-	color: #b1c9c3;
+	color: var(--pg-text, #b1c9c3);
 }
 
 .subclass_title {
 	font-family: "Source Code Pro", monospace;
 	font-weight: 400;
-	color: #77bfcf;
+	color: var(--pg-accent2, #77bfcf);
 	position: relative;
 	display: inline-block;
 	cursor: help;
@@ -294,27 +294,27 @@ a.class_desc_YES_LINK:hover {
 
 .subclass_title:before {
 	content: "[ ] ";
-	color: #4f8f8a;
+	color: var(--pg-frame, #4f8f8a);
 }
 
-/* Subclass popup as a Qud tile with bright corner brackets */
+/* Subclass popup as a Paragon tile with bright corner brackets */
 .subclass_title .subclasses {
 	visibility: hidden;
 	width: 280px;
-	color: #b1c9c3;
+	color: var(--pg-text, #b1c9c3);
 	text-align: left;
 	padding: 8px;
-	border: 2px solid #4f8f8a;
+	border: 2px solid var(--pg-frame, #4f8f8a);
 	background:
-		linear-gradient(#e8efe9, #e8efe9) left top / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left top / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right top / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right top / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left bottom / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) left bottom / 2px 8px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right bottom / 8px 2px no-repeat,
-		linear-gradient(#e8efe9, #e8efe9) right bottom / 2px 8px no-repeat,
-		#04100f;
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 2px 8px no-repeat,
+		var(--pg-void, #04100f);
 	position: absolute;
 	z-index: 1;
 	top: 100%;
@@ -327,10 +327,10 @@ a.class_desc_YES_LINK:hover {
 
 ::-webkit-scrollbar {
 	width: 10px;
-	background-color: #04100f;
+	background-color: var(--pg-void, #04100f);
 }
 
 ::-webkit-scrollbar-thumb {
-	background-color: #155352;
-	border: 1px solid #0f3b3a;
+	background-color: var(--pg-line, #155352);
+	border: 1px solid var(--pg-raised, #0f3b3a);
 }

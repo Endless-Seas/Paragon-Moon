@@ -51,8 +51,8 @@
 	var/is_vet = FALSE
 	var/is_naked = FALSE
 	var/nsfw_examine_always = FALSE
-	// Placeholder headshot matches the viewer's TGUI theme
-	var/placeholder_headshot = (user.client?.prefs?.tgui_theme == "qud") ? "headshot_qud.png" : "headshot_red.png"
+	//Placeholder headshot matches the viewer's TGUI theme
+	var/placeholder_headshot = (findtext(user.client?.prefs?.tgui_theme, "paragon_") == 1) ? "headshot_paragon.png" : "headshot_red.png"
 
 	if(ishuman(holder))
 		var/mob/living/carbon/human/holder_human = holder
@@ -195,5 +195,5 @@
 	assets = list(
 		"headshot_background.png" = 'icons/tgui/headshot_background.png',
 		"headshot_red.png" = 'icons/tgui/headshot_red.png',
-		"headshot_qud.png" = 'icons/tgui/headshot_qud.png',
+		"headshot_paragon.png" = 'icons/tgui/headshot_paragon.png',
 		)
