@@ -211,7 +211,7 @@
 
 //From the "legs" feature or an innately digitigrade species.
 /mob/living/carbon/proc/wants_digitigrade_legs()
-	if(!dna)
+	if(!dna || is_digitigrade_npc())
 		return FALSE
 	if(dna.features["legs"] == DIGITIGRADE_LEGS)
 		return TRUE
@@ -223,6 +223,13 @@
 		if(leg?.use_digitigrade)
 			return TRUE
 	return FALSE
+
+//NPCs never get digitigrade legs, not even from a foreign leg.
+/mob/living/carbon/proc/is_digitigrade_npc()
+	return !!ai_controller
+
+/mob/living/carbon/human/is_digitigrade_npc()
+	return ..() || mode != NPC_AI_OFF
 
 //Updates the legs in place so their markings, wounds etc. are kept.
 /mob/living/carbon/proc/update_digitigrade_legs()
@@ -241,6 +248,7 @@
 	if(!changed)
 		return
 	update_body_parts()
+	update_damage_overlays()
 	update_inv_pants()
 	update_inv_shoes()
 

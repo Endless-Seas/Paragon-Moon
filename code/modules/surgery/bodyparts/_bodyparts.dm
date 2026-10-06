@@ -538,6 +538,9 @@
 		should_draw_greyscale = FALSE
 		no_update = TRUE
 
+	if((body_zone == BODY_ZONE_L_LEG || body_zone == BODY_ZONE_R_LEG) && owner?.is_digitigrade_npc())
+		use_digitigrade = NOT_DIGITIGRADE
+
 	if(no_update)
 		return
 

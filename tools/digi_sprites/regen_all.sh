@@ -28,6 +28,14 @@ SKIRTS="skip=loincloth,plate_skirt,chain_skirt,skirt,chainkilt,achainkilt,ichain
 
 CLAWS="claws=$R/mob/bodies/m/mta.dmi,$R/mob/bodies/f/fma.dmi"
 for f in plain_markings sock_markings spotted_markings tiger_markings tips_markings gradient_markings construct_plating; do
-	bases=$(./dmi.exe list "$I/mob/body_markings/$f.dmi" _leg | awk 'NR>1 && $1 !~ /_digi/ {print $1}')
+	bases=$(./dmi.exe list "$I/mob/body_markings/$f.dmi" _leg | awk 'NR>1 && $1 !~ /_digi/ {print $1}') bothlegs
 	./dmi.exe digiapply "$I/mob/body_markings/$f.dmi" $bases "$CLAWS"
 done
+
+#Damage, bandage and wound overlays for the legs (dna.species.dam_icon / dam_icon_f)
+D="$R/mob/bodies/dam"
+./dmi.exe digiapply "$D/dam_male.dmi" $(./dmi.exe list "$D/dam_male.dmi" _leg | awk 'NR>1 && $1 !~ /_digi/ {print $1}') bothlegs
+./dmi.exe digiapply "$D/dam_female.dmi" $(./dmi.exe list "$D/dam_female.dmi" _leg | awk 'NR>1 && $1 !~ /_digi/ {print $1}') female bothlegs
+
+#Dismemberment masks: cut a missing digi leg out of digi clothing
+./dmi.exe maskdigi "$O/helpers/dismemberment.dmi" r_leg l_leg r_leg_f l_leg_f r_leg_dwarf l_leg_dwarf r_leg_f_dwarf l_leg_f_dwarf

@@ -182,10 +182,10 @@ public static class Digi {
 				if (Lone(res, w, h, x, y) && !Lone(src, w, h, x, y)) res[y * w + x] = 0;
 	}
 
-	public static DmiState MakeDigi(DmiState s, int w, int h, Shape shape, string digiName) {
+	public static DmiState MakeDigi(DmiState s, int w, int h, Shape shape, string digiName, bool bothLegs = false) {
 		var d = new DmiState { Name = digiName, Dirs = s.Dirs, Frames = s.Frames, Extra = new List<string>(s.Extra) };
 		for (int f = 0; f < s.Frames; f++) for (int dir = 0; dir < s.Dirs; dir++)
-			d.Icons.Add(s.Dirs >= 4 && dir < 4 ? Transform(s.Get(dir, f), w, h, dir, shape, 0, LegSide(s.Name)) : (int[])s.Get(dir, f).Clone());
+			d.Icons.Add(s.Dirs >= 4 && dir < 4 ? Transform(s.Get(dir, f), w, h, dir, shape, 0, bothLegs ? 0 : LegSide(s.Name)) : (int[])s.Get(dir, f).Clone());
 		return d;
 	}
 
@@ -262,7 +262,9 @@ public static class Digi {
 				var skip = new HashSet<string>(pos.Where(x => x.StartsWith("skip=")).SelectMany(x => x.Substring(5).Split(',')));
 				//claws=<male body.dmi>,<female body.dmi>: keep the reference bodies' black claws uncovered (markings)
 				var clawRefs = pos.Where(x => x.StartsWith("claws=")).Select(x => x.Substring(6).Split(',').Select(Dmi.Load).ToArray()).FirstOrDefault();
-				pos = pos.Where(x => !x.StartsWith("skip=") && !x.StartsWith("claws=")).ToList();
+				//bothlegs: side views fill both digi legs even for *_l_leg_* states (damage sheets draw the side view on one state only)
+				bool bothLegs = pos.Contains("bothlegs");
+				pos = pos.Where(x => !x.StartsWith("skip=") && !x.StartsWith("claws=") && x != "bothlegs").ToList();
 				var dmi = Dmi.Load(pos[0]); int made = 0;
 				Func<string, bool> isDigi = n => n.EndsWith("_digi") || n.Contains("_digi_");
 				var names = new HashSet<string>(dmi.States.Where(s => !isDigi(s.Name)).Select(s => s.Name));
@@ -275,11 +277,24 @@ public static class Digi {
 					var shape = Shape.For(s.Name, female, top);
 					string dn = DigiName(s.Name, names);
 					dmi.States.RemoveAll(x => x.Name == dn || x.Name == s.Name + "_digi");
-					var digi = MakeDigi(s, dmi.W, dmi.H, shape, dn);
+					var digi = MakeDigi(s, dmi.W, dmi.H, shape, dn, bothLegs);
 					if (clawRefs != null) MaskClaws(digi, clawRefs[shape.Female && clawRefs.Length > 1 ? 1 : 0], LegSide(s.Name));
 					dmi.States.Insert(dmi.States.IndexOf(s) + 1, digi); made++;
 				}
 				dmi.Save(pos[0]); Console.WriteLine(made + " digi states written to " + pos[0]); return 0;
+			}
+			case "maskdigi": { //maskdigi dismemberment.dmi state... : the transparent leg hole of each mask is reshaped like a leg sprite
+				var dmi = Dmi.Load(a[1]); var names = new HashSet<string>(dmi.States.Select(s => s.Name));
+				foreach (var name in a.Skip(2)) {
+					var s = dmi.Find(name); if (s == null) { Console.Error.WriteLine("missing " + name); return 1; }
+					var hole = new DmiState { Name = s.Name, Dirs = s.Dirs, Frames = s.Frames, Extra = s.Extra };
+					foreach (var ic in s.Icons) hole.Icons.Add(ic.Select(c => Opaque(c) ? 0 : unchecked((int)0xFF000000)).ToArray());
+					var digi = MakeDigi(hole, dmi.W, dmi.H, Shape.For(s.Name, false, -1), DigiName(s.Name, names));
+					for (int i = 0; i < digi.Icons.Count; i++) digi.Icons[i] = digi.Icons[i].Select(c => Opaque(c) ? 0 : unchecked((int)0xFFFFFFFF)).ToArray();
+					dmi.States.RemoveAll(x => x.Name == digi.Name);
+					dmi.States.Insert(dmi.States.IndexOf(s) + 1, digi);
+				}
+				dmi.Save(a[1]); Console.WriteLine((a.Length - 2) + " digi masks written to " + a[1]); return 0;
 			}
 			case "digipreview": { //digipreview out.png scale spec... [female] [top=N]  (each spec rendered normal then digi)
 				bool female; int top; var pos = Options(a.Skip(1), out female, out top);

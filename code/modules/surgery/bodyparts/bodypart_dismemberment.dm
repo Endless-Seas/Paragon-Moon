@@ -604,6 +604,10 @@
 	C.updatehealth()
 	C.mark_zone_selector_hud_dirty()
 	C.queue_icon_update(PENDING_UPDATE_BODY | PENDING_UPDATE_HAIR | PENDING_UPDATE_DAMAGE)
+	if(body_zone == BODY_ZONE_L_LEG || body_zone == BODY_ZONE_R_LEG)
+		update_limb()
+		C.update_inv_pants()
+		C.update_inv_shoes()
 	if(!special)
 		C.update_mobility()
 	return TRUE
