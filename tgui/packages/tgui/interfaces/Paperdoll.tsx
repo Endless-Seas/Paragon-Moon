@@ -6,6 +6,7 @@ import { Box, Button, Input } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
+import { focusMap } from '../focus';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
 
@@ -156,10 +157,10 @@ const LAYOUT: Record<string, [number, number]> = {
   backl: [0, 1],
   cloak: [1, 1],
   neck: [2, 1],
-  ring: [3, 1],
+  wrists: [3, 1],
   backr: [4, 1],
   hand1: [0, 2],
-  wrists: [1, 2],
+  ring: [1, 2],
   armor: [2, 2],
   gloves: [3, 2],
   hand2: [4, 2],
@@ -186,11 +187,12 @@ const WIRES: [string, string][] = [
   ['head', 'neck'],
   ['backl', 'cloak'],
   ['cloak', 'neck'],
-  ['neck', 'ring'],
-  ['ring', 'backr'],
+  ['neck', 'wrists'],
+  ['wrists', 'backr'],
+  ['wrists', 'gloves'],
   ['neck', 'armor'],
-  ['hand1', 'wrists'],
-  ['wrists', 'armor'],
+  ['hand1', 'ring'],
+  ['ring', 'armor'],
   ['armor', 'gloves'],
   ['gloves', 'hand2'],
   ['armor', 'belt'],
@@ -239,8 +241,17 @@ export const capacityText = (capacity: Capacity) =>
     ? `${capacity.total - capacity.used} of ${capacity.total} ${capacity.unit} free`
     : `${capacity.used} ${capacity.unit}`;
 
-export const iconSrc = (icon: string | null) =>
-  icon ? `data:image/png;base64,${icon}` : undefined;
+//Item pictures are png assets the server sends once and the client caches; the data carries their URL
+export const iconSrc = (icon: string | null) => icon || undefined;
+
+//After a click anywhere but a text box, hand keyboard focus back to the map so movement keys work at once
+export const refocusMap = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  if (target.closest('input, textarea')) {
+    return;
+  }
+  setTimeout(focusMap);
+};
 
 //Mouse info for the DM side, so item Click() sees the same modifiers as a HUD click
 const clickInfo = (e: MouseEvent, button: string) => ({
@@ -1207,7 +1218,7 @@ export const Paperdoll = () => {
   return (
     <Window title={stripping ? owner_name : label} width={900} height={840}>
       <Window.Content scrollable>
-        <div className="Paperdoll">
+        <div className="Paperdoll" onMouseUp={refocusMap}>
           {!stripping && (
             <div className="Paperdoll__tabs">
               {TABS.map((entry) => (

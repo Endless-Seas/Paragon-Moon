@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(paragon_theme_styles)
 	if(!istype(C))
 		return
 	C.tgui_panel?.send_theme()
+	C.mob?.hud_used?.paragon_recolor()
 	if(isnewplayer(C.mob))
 		C << output(url_encode(paragon_theme_style(tgui_theme)), "lobby_window.browser:set_paragon_theme")
 

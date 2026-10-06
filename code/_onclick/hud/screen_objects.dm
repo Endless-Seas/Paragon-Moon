@@ -160,44 +160,50 @@
 	var/list/modifiers = params2list(params)
 
 	if(modifiers["right"])
-		var/ht
 		var/mob/living/L = usr
-		to_chat(L, "*----*")
-		if(ishuman(usr))
-			var/mob/living/carbon/human/M = usr
-			if(length(M.vices))
-				for(var/datum/charflaw/vice in M.vices)
-					to_chat(M, "<span class='info'><small>[vice.desc]</small></span>")
-				to_chat(M, "*----*")
-			else if(M.charflaw)
-				to_chat(M, "<span class='info'>[M.charflaw.desc]</span>")
-				to_chat(M, "*----*")
-			if(M.mind)
-				if(M.mind.language_holder)
-					var/finn
-					for(var/X in M.mind.language_holder.languages)
-						if(!X || !ispath(X, /datum/language))
-							continue
-						var/datum/language/LA = new X()
-						finn = TRUE
-						to_chat(M, "<span class='info'>[LA.name] - ,[LA.key]</span>")
-					if(!finn)
-						to_chat(M, "<span class='warning'>I don't know any languages.</span>")
-					else // open_language_menu
-						to_chat(M, "<a href='?src=[REF(M)];task=open_language_menu;'>Language Menu</a>")
-					to_chat(M, "*----*")
-		for(var/X in GLOB.roguetraits)
-			if(HAS_TRAIT(L, X))
-				to_chat(L, "[X] - <span class='info'>[GLOB.roguetraits[X]]</span>")
-				ht = TRUE
-		if(!ht)
-			to_chat(L, "<span class='warning'>I have no special traits.</span>")
-		to_chat(L, "*----*")
+		if(istype(L))
+			L.print_traits_summary()
 		return
 
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.print_levels(H)
+
+//Vices, languages and traits, as right-clicking the old skills button printed them
+/mob/living/proc/print_traits_summary()
+	var/ht
+	var/mob/living/L = src
+	to_chat(L, "*----*")
+	if(ishuman(src))
+		var/mob/living/carbon/human/M = src
+		if(length(M.vices))
+			for(var/datum/charflaw/vice in M.vices)
+				to_chat(M, "<span class='info'><small>[vice.desc]</small></span>")
+			to_chat(M, "*----*")
+		else if(M.charflaw)
+			to_chat(M, "<span class='info'>[M.charflaw.desc]</span>")
+			to_chat(M, "*----*")
+		if(M.mind)
+			if(M.mind.language_holder)
+				var/finn
+				for(var/X in M.mind.language_holder.languages)
+					if(!X || !ispath(X, /datum/language))
+						continue
+					var/datum/language/LA = new X()
+					finn = TRUE
+					to_chat(M, "<span class='info'>[LA.name] - ,[LA.key]</span>")
+				if(!finn)
+					to_chat(M, "<span class='warning'>I don't know any languages.</span>")
+				else // open_language_menu
+					to_chat(M, "<a href='?src=[REF(M)];task=open_language_menu;'>Language Menu</a>")
+				to_chat(M, "*----*")
+	for(var/X in GLOB.roguetraits)
+		if(HAS_TRAIT(L, X))
+			to_chat(L, "[X] - <span class='info'>[GLOB.roguetraits[X]]</span>")
+			ht = TRUE
+	if(!ht)
+		to_chat(L, "<span class='warning'>I have no special traits.</span>")
+	to_chat(L, "*----*")
 
 /atom/movable/screen/craft
 	name = "crafting menu"
@@ -613,6 +619,25 @@
 		if(length(border_slots) >= 2)
 			set_rogintent_slot(border_slots[1], "intentselected", used_index, 0.01, roguehud_icon)
 			set_rogintent_slot(border_slots[2], used, other, 0.01, roguehud_icon)
+		light_selected_intent(used_index)
+
+//Swaps the selected intent's chip for its lit "_sel" state, where the HUD sheet has one (paragon_hud.dm)
+/atom/movable/screen/act_intent/rogintent/proc/light_selected_intent(selected_index)
+	var/static/list/sel_states_by_icon = list()
+	for(var/index in 1 to length(intent_slots))
+		var/atom/movable/screen/hud_component/layer/slot = intent_slots[index]
+		if(!slot.icon || !slot.icon_state)
+			continue
+		var/base_state = replacetext(slot.icon_state, "_sel", "")
+		var/list/sel_states = sel_states_by_icon["[slot.icon]"]
+		if(!sel_states)
+			sel_states = list()
+			for(var/state in icon_states(slot.icon))
+				sel_states[state] = TRUE
+			sel_states_by_icon["[slot.icon]"] = sel_states
+		var/new_state = (index == selected_index && sel_states["[base_state]_sel"]) ? "[base_state]_sel" : base_state
+		if(slot.icon_state != new_state)
+			slot.icon_state = new_state
 
 /atom/movable/screen/act_intent/rogintent/Click(location, control, params)
 
@@ -2045,7 +2070,7 @@
 		R.name = RI.name
 		R.desc = RI.desc
 		shown_intents += R
-		R.screen_loc = "WEST-4:0,SOUTH+8:[i]"
+		R.screen_loc = M.hud_used?.paragon_layout ? "EAST+1,NORTH-3:-[i + 2]" : "WEST-4:0,SOUTH+8:[i]"
 		R.layer = layer+they
 		i += 15
 		they += 0.01

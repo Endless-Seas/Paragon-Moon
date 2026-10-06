@@ -5,6 +5,7 @@
 		clear_fullscreen(category, FALSE)
 		screens[category] = screen = new type()
 		screen.category = category
+		hud_used?.paragon_fit_fullscreen(screen)
 	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
 		// doesn't need to be updated
 		return screen

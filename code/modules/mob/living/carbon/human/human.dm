@@ -530,6 +530,7 @@
 /mob/living/carbon/human/update_health_hud()
 	if(!hud_used)
 		return
+	hud_used.update_paragon_status()
 	if(dna.species.update_health_hud())
 		return
 	else

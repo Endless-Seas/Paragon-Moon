@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(paperdoll_slots, list(
 	list("id" = SLOT_BACK_R, "key" = "backr", "name" = "Back (Right)", "glyph" = "back"),
 	list("id" = SLOT_ARMOR, "key" = "armor", "name" = "Armor", "glyph" = "armor"),
 	list("id" = SLOT_SHIRT, "key" = "shirt", "name" = "Shirt", "glyph" = "shirt"),
-	list("id" = SLOT_WRISTS, "key" = "wrists", "name" = "Wrists", "glyph" = "wrist"),
+	list("id" = SLOT_WRISTS, "key" = "wrists", "name" = "Bracers", "glyph" = "wrist"),
 	list("id" = SLOT_GLOVES, "key" = "gloves", "name" = "Gloves", "glyph" = "gloves"),
 	list("id" = SLOT_RING, "key" = "ring", "name" = "Ring", "glyph" = "ring"),
 	list("id" = SLOT_BELT, "key" = "belt", "name" = "Belt", "glyph" = "belt"),
@@ -35,8 +35,22 @@ GLOBAL_LIST_INIT(paperdoll_slots, list(
 	list("id" = SLOT_SHOES, "key" = "shoes", "name" = "Shoes", "glyph" = "shoes"),
 ))
 
-//"icon|state|color" => base64 png, so each sprite is only flattened once per round
+//"icon|state|color" => asset name. Each picture is flattened once per round and registered with the asset
+//cache as a png; clients are sent it once (paperdoll_asset_url()) and keep it, so window updates only carry its URL.
 GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
+
+//Registers [flat] as a png asset under a name derived from [key], and returns that name
+/proc/paperdoll_register_icon(key, icon/flat)
+	var/asset_name = "pd_[md5(key)].png"
+	SSassets.transport.register_asset(asset_name, flat)
+	return asset_name
+
+//The URL a window uses to show [asset_name], sending the picture to [C] first if it has not had it yet
+/proc/paperdoll_asset_url(asset_name, client/C)
+	if(!asset_name || !C)
+		return null
+	SSassets.transport.send_assets(C, asset_name)
+	return SSassets.transport.get_asset_url(asset_name)
 
 /proc/paperdoll_icon(icon_file, icon_state, color)
 	if(!icon_file)
@@ -49,7 +63,7 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 		var/icon/flat = icon(icon_file, icon_state, SOUTH, 1)
 		if(istext(color))
 			flat.Blend(color, ICON_MULTIPLY)
-		result = icon2base64(flat)
+		result = paperdoll_register_icon(key, flat)
 	GLOB.paperdoll_icon_cache[key] = result
 	return result
 
@@ -68,9 +82,113 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	var/mutable_appearance/look = new(I)
 	look.underlays = list()
 	look.dir = SOUTH
-	var/result = icon2base64(getFlatIcon(look, SOUTH, no_anim = TRUE))
+	var/result = paperdoll_register_icon(key, getFlatIcon(look, SOUTH, no_anim = TRUE))
 	GLOB.paperdoll_icon_cache[key] = result
 	return result
+
+//Sent on a human when something is equipped, taken off, picked up, or the active hand changes
+#define COMSIG_PARAGON_INVENTORY_CHANGED "paragon_inventory_changed"
+
+/mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_PARAGON_INVENTORY_CHANGED)
+
+/mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_PARAGON_INVENTORY_CHANGED)
+
+/mob/living/carbon/human/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_PARAGON_INVENTORY_CHANGED)
+
+/mob/living/carbon/human/swap_hand(held_index)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_PARAGON_INVENTORY_CHANGED)
+
+//Keeps a tgui window (the paper doll, the container view) up to date by change instead of on a timer. The window's
+//autoupdate is off; this listens to what it shows (the mobs, the items they carry, the insides of every bag)
+//and refreshes it when any of that changes, a few changes in one tick making one refresh. A slow backstop
+//refresh catches what has no signal, such as wear on an item.
+/datum/paragon_ui_watcher
+	//The tgui src_object being kept up to date
+	var/datum/host
+	var/list/atom/watched = list()
+	var/backstop_timer
+
+/datum/paragon_ui_watcher/New(datum/host)
+	. = ..()
+	src.host = host
+
+/datum/paragon_ui_watcher/Destroy(force)
+	unwatch()
+	if(backstop_timer)
+		deltimer(backstop_timer)
+	host = null
+	return ..()
+
+//Starts watching once the window opens
+/datum/paragon_ui_watcher/proc/start(datum/tgui/ui)
+	ui.set_autoupdate(FALSE)
+	rewatch()
+	if(!backstop_timer)
+		backstop_timer = addtimer(CALLBACK(src, PROC_REF(backstop)), 5 SECONDS, TIMER_STOPPABLE)
+
+/datum/paragon_ui_watcher/proc/unwatch()
+	for(var/atom/A as anything in watched)
+		UnregisterSignal(A, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED, COMSIG_PARAGON_INVENTORY_CHANGED, COMSIG_MOVABLE_MOVED))
+	watched.Cut()
+
+//Watches the host's current paragon_watch_targets() (things move between bags, so this is redone each refresh)
+/datum/paragon_ui_watcher/proc/rewatch()
+	unwatch()
+	var/list/targets = host.paragon_watch_targets()
+	for(var/atom/A as anything in targets)
+		if(QDELETED(A))
+			continue
+		var/list/signals = list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_EXITED)
+		if(ishuman(A))
+			signals += COMSIG_PARAGON_INVENTORY_CHANGED
+		if(targets[A] == "moves")
+			signals += COMSIG_MOVABLE_MOVED
+		RegisterSignal(A, signals, PROC_REF(on_change))
+		watched += A
+
+/datum/paragon_ui_watcher/proc/on_change()
+	SIGNAL_HANDLER
+	addtimer(CALLBACK(src, PROC_REF(refresh)), 1, TIMER_UNIQUE)
+
+/datum/paragon_ui_watcher/proc/refresh()
+	if(QDELETED(host))
+		return
+	if(SStgui.update_uis(host))
+		rewatch()
+	else
+		unwatch()
+
+/datum/paragon_ui_watcher/proc/backstop()
+	backstop_timer = null
+	if(QDELETED(host) || !SStgui.update_uis(host))
+		unwatch()
+		return
+	rewatch()
+	backstop_timer = addtimer(CALLBACK(src, PROC_REF(backstop)), 5 SECONDS, TIMER_STOPPABLE)
+
+//What a watched window shows: atoms whose contents changing should refresh it. An atom associated with "moves"
+//also refreshes it when it moves.
+/datum/proc/paragon_watch_targets()
+	return list()
+
+//[holder], everything it carries, and every item inside those, down to [depth] bags deep
+/proc/paragon_carried_atoms(atom/holder, depth = 4)
+	. = list(holder)
+	if(depth <= 0)
+		return
+	for(var/obj/item/I in holder)
+		. |= paragon_carried_atoms(I, depth - 1)
+		var/datum/component/storage/storage = I.GetComponent(/datum/component/storage)
+		var/atom/inside = storage?.real_location()
+		if(inside && inside != I)
+			. |= paragon_carried_atoms(inside, depth - 1)
 
 /mob
 	var/datum/paperdoll/paperdoll
@@ -94,15 +212,18 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	var/mob/living/carbon/human/owner
 	var/mob/viewer
 	var/tab = PAPERDOLL_TAB_EQUIPMENT
+	var/datum/paragon_ui_watcher/watcher
 
 /datum/paperdoll/New(mob/viewer, mob/living/carbon/human/owner)
 	. = ..()
 	src.viewer = viewer
 	src.owner = owner
 	RegisterSignal(owner, COMSIG_PARENT_QDELETING, PROC_REF(on_owner_deleted))
+	watcher = new(src)
 
 /datum/paperdoll/Destroy(force)
 	SStgui.close_uis(src)
+	QDEL_NULL(watcher)
 	if(viewer?.paperdoll == src)
 		viewer.paperdoll = null
 	viewer = null
@@ -133,6 +254,13 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	if(!ui)
 		ui = new(user, src, "Paperdoll")
 		ui.open()
+		watcher.start(ui)
+
+//Refreshes on what the owner wears and carries, and on their moving while the Crafting tab lists what is to hand
+/datum/paperdoll/paragon_watch_targets()
+	. = paragon_carried_atoms(owner)
+	if(tab == PAPERDOLL_TAB_CRAFTING)
+		.[owner] = "moves"
 
 /datum/paperdoll/ui_static_data(mob/user)
 	var/hud_icon = user.client?.prefs ? user.client.prefs.get_roguehud_icon() : 'icons/mob/roguehud.dmi'
@@ -142,11 +270,15 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 			"id" = slot["id"],
 			"key" = slot["key"],
 			"name" = slot["name"],
-			"glyph" = paperdoll_icon(hud_icon, slot["glyph"]),
+			"glyph" = paperdoll_asset_url(paperdoll_icon(hud_icon, slot["glyph"]), user.client),
 		))
-	var/list/data = list("slot_info" = slots, "compendium" = paperdoll_compendium())
+	var/list/data = list("slot_info" = slots)
+	//The two heavy lists are only sent while their tab is open; switching to it refreshes the static data
 	if(!stripping())
-		data["crafting_recipes"] = build_crafting_recipes(user)
+		if(tab == PAPERDOLL_TAB_CRAFTING)
+			data["crafting_recipes"] = build_crafting_recipes(user)
+		if(tab == PAPERDOLL_TAB_COMPENDIUM)
+			data["compendium"] = paperdoll_compendium()
 	return data
 
 /datum/paperdoll/proc/item_data(obj/item/I, with_stats = FALSE)
@@ -154,7 +286,7 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 		"ref" = REF(I),
 		"name" = I.name,
 		"segments" = paperdoll_name_segments(I),
-		"icon" = paperdoll_item_icon(I),
+		"icon" = paperdoll_asset_url(paperdoll_item_icon(I), viewer?.client),
 	)
 	//Same thresholds the HUD slots used for their damaged / broken frames
 	if(I.max_integrity && I.obj_integrity < I.max_integrity)
@@ -247,9 +379,11 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 			data["extras"] = !!owner.modular_strippanel_chastity_row()
 #endif
 	else
-		data["inventory"] = build_inventory()
-		data["containers"] = build_containers()
-		data["quickbar"] = owner.quickbar_refs()
+		//Each tab's data is only built while it is open; ui_data runs on every refresh
+		if(tab == PAPERDOLL_TAB_INVENTORY)
+			data["inventory"] = build_inventory()
+			data["containers"] = build_containers()
+			data["quickbar"] = owner.quickbar_refs()
 		if(tab == PAPERDOLL_TAB_SKILLS)
 			data["skills"] = build_skills()
 		if(tab == PAPERDOLL_TAB_ATTRIBUTES)
@@ -377,10 +511,12 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	var/mob/user = ui.user
 	if(action == "tab")
 		if(params["tab"] in list(PAPERDOLL_TAB_EQUIPMENT, PAPERDOLL_TAB_INVENTORY, PAPERDOLL_TAB_SKILLS, PAPERDOLL_TAB_ATTRIBUTES, PAPERDOLL_TAB_CRAFTING, PAPERDOLL_TAB_COMPENDIUM))
+			var/old_tab = tab
 			tab = params["tab"]
-			if(tab == PAPERDOLL_TAB_CRAFTING)
-				//Recipes are static data; refresh them in case something new was learned since the window opened
+			//Recipes and the compendium are static data sent only with their tab (ui_static_data)
+			if(tab != old_tab && (tab in list(PAPERDOLL_TAB_CRAFTING, PAPERDOLL_TAB_COMPENDIUM, old_tab)))
 				update_static_data(user)
+			watcher.rewatch()
 		return TRUE
 	if(stripping())
 		return strip_act(action, params, user)
@@ -569,6 +705,7 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 
 /datum/container_view
 	var/mob/viewer
+	var/datum/paragon_ui_watcher/watcher
 	var/datum/component/storage/root
 	//The storage shown on the left; a bag inside [root] when the player has opened one
 	var/datum/component/storage/focus
@@ -579,9 +716,11 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	root = storage
 	focus = storage
 	RegisterSignal(storage.parent, COMSIG_PARENT_QDELETING, PROC_REF(on_container_deleted))
+	watcher = new(src)
 
 /datum/container_view/Destroy(force)
 	SStgui.close_uis(src)
+	QDEL_NULL(watcher)
 	if(viewer?.container_view == src)
 		viewer.container_view = null
 	viewer = null
@@ -611,6 +750,11 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 	if(!ui)
 		ui = new(user, src, "Container")
 		ui.open()
+		watcher.start(ui)
+
+//Refreshes on the opened container and everything in it, and on what the viewer carries (the right-hand list)
+/datum/container_view/paragon_watch_targets()
+	. = paragon_carried_atoms(root.parent) | paragon_carried_atoms(viewer)
 
 /datum/container_view/ui_close(mob/user)
 	. = ..()
@@ -644,7 +788,7 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 		"ref" = REF(I),
 		"name" = I.name,
 		"segments" = paperdoll_name_segments(I),
-		"icon" = paperdoll_item_icon(I),
+		"icon" = paperdoll_asset_url(paperdoll_item_icon(I), viewer?.client),
 		"category" = paperdoll_category(I),
 		"size" = weightclass2text(I.w_class),
 	)
@@ -1053,7 +1197,7 @@ GLOBAL_LIST_INIT(paperdoll_quality_words, list("ruined", "awful", "crude", "roug
 			R.build_display_cache()
 		var/list/entry = R.cached_display_data.Copy()
 		entry["category"] = R.cached_category
-		entry["icon"] = paperdoll_recipe_icon(R)
+		entry["icon"] = paperdoll_asset_url(paperdoll_recipe_icon(R), user?.client)
 		recipes += list(entry)
 	return recipes
 

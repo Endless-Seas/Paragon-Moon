@@ -13,6 +13,7 @@ import {
   iconSrc,
   type Item,
   ItemName,
+  refocusMap,
 } from './Paperdoll';
 
 type Node = Item & {
@@ -173,7 +174,7 @@ export const Container = () => {
   return (
     <Window title={title} width={980} height={620}>
       <Window.Content>
-        <div className="Container">
+        <div className="Container" onMouseUp={refocusMap}>
           <div className="Container__header">
             <span className="Container__title">
               {path.map((crumb, i) => (

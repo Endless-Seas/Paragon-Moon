@@ -574,7 +574,14 @@
 		if (drag.prop === 'size') { x = Math.max(200, x); y = Math.max(120, y); }
 		go('byond://winset?id=' + win + '&' + drag.prop + '=' + x + ',' + y);
 	});
-	document.addEventListener('mouseup', function () { drag = null; });
+	document.addEventListener('mouseup', function (e) {
+		drag = null;
+		//Unless a text field was clicked, hand keyboard focus back to the map so movement keys work at once.
+		//Deferred so a link's own byond:// call goes out first.
+		var tag = (e.target && e.target.tagName || '').toLowerCase();
+		if (tag === 'input' || tag === 'textarea' || tag === 'select') { return; }
+		setTimeout(function () { go('byond://winset?mapwindow.map.focus=true'); }, 150);
+	});
 })();
 </script>
 "}

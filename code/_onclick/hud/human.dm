@@ -122,15 +122,13 @@
 	static_inventory += rmb_intent
 	rmb_intent.update_icon()
 
+	//The heart, temperature gem and vertical bars are replaced by the bars in the top strip (paragon_hud.dm).
+	//They are still built: their update and click code is what the new bars read and call.
 	bloods = new /atom/movable/screen/healths/blood
 	claim_screen(bloods)
-	bloods.screen_loc = rogueui_blood
-	static_inventory += bloods
 
 	temperature = new /atom/movable/screen/temperature()
 	temperature.hud = src
-	temperature.screen_loc = rogueui_temperature
-	infodisplay += temperature
 
 	quad_intents = new /atom/movable/screen/quad_intents
 	quad_intents.hud = src
@@ -147,18 +145,6 @@
 	give_intent = new /atom/movable/screen/give_intent
 	give_intent.hud = src
 	static_inventory += give_intent
-
-	backhudl =  new /atom/movable/screen/backhudl()
-	backhudl.hud = src
-	static_inventory += backhudl
-
-	hsover =  new /atom/movable/screen/heatstamover()
-	hsover.hud = src
-	static_inventory += hsover
-
-	tempover =  new /atom/movable/screen/tempbase()
-	tempover.hud = src
-	static_inventory += tempover
 
 	fov = new /atom/movable/screen/fov()
 	fov.hud = src
@@ -185,27 +171,6 @@
 
 	build_hand_slots()
 
-	//Worn equipment lives in the Equipment / Inventory popups (paperdoll.dm), not on the HUD
-	using = new /atom/movable/screen/paperdoll_button/equipment()
-	using.icon = ui_style
-	using.hud = src
-	static_inventory += using
-
-	using = new /atom/movable/screen/paperdoll_button/inventory()
-	using.icon = ui_style
-	using.hud = src
-	static_inventory += using
-
-	using = new /atom/movable/screen/paperdoll_button/skills()
-	using.icon = ui_style
-	using.hud = src
-	static_inventory += using
-
-	using = new /atom/movable/screen/paperdoll_button/attributes()
-	using.icon = ui_style
-	using.hud = src
-	static_inventory += using
-
 	build_quickbar()
 
 	using = new /atom/movable/screen/drop()
@@ -230,16 +195,6 @@
 	using.icon = ui_style
 	using.screen_loc = rogueui_stance
 	using.hud = src
-	static_inventory += using
-
-	using = new/atom/movable/screen/skills
-	using.icon = ui_style
-	using.screen_loc = rogueui_skills
-	static_inventory += using
-
-	using = new/atom/movable/screen/craft
-	using.icon = ui_style
-	using.screen_loc = rogueui_craft
 	static_inventory += using
 
 
@@ -284,10 +239,7 @@
 	static_inventory += zone_select
 
 	stamina = new /atom/movable/screen/stamina()
-	infodisplay += stamina
-
 	energy = new /atom/movable/screen/energy()
-	infodisplay += energy
 	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			inv.hud = src
@@ -296,6 +248,10 @@
 
 	update_locked_slots()
 	mymob.update_a_intents()
+
+	//Status strip on top, action strip below (paragon_hud.dm)
+	build_paragon_hud()
+	apply_paragon_layout()
 
 	//OLD SLOTS ////////////////////////////////////
 /*
@@ -633,7 +589,7 @@
 
 	if(hud_version != HUD_STYLE_NOHUD)
 		for(var/obj/item/I in H.held_items)
-			I.screen_loc = ui_hand_position(H.get_held_index_of_item(I))
+			I.screen_loc = ui_hand_position(H.get_held_index_of_item(I), paragon_layout)
 			screenmob.client.screen += I
 	else
 		for(var/obj/item/I in H.held_items)

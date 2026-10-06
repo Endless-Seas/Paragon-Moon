@@ -206,8 +206,8 @@
 	. = ..()
 	if(new_index)
 		index = new_index
-	//Slots sit in a 3 x 2 block under the Equip / Pack buttons
-	screen_loc = "WEST-[4 - ((index - 1) % 3)],SOUTH+[3 - round((index - 1) / 3)]"
+	//Slots sit in a 3 x 2 block under the hands in the right-hand column (paragon_hud.dm)
+	screen_loc = "EAST+[1 + ((index - 1) % 3)]:16,SOUTH+[1 - round((index - 1) / 3)]"
 	maptext = "<span style='font-family:\"Small Fonts\"; font-size:6px; color:#cfc041; -dm-text-outline:1px #04100f'>[index]</span>"
 	maptext_x = 3
 	maptext_y = 20

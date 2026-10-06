@@ -32,7 +32,9 @@
 #define ui_belt "CENTER-3:14,SOUTH:5"
 #define ui_back "CENTER-2:14,SOUTH:5"
 
-/proc/ui_hand_position(i) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
+/proc/ui_hand_position(i, paragon = FALSE) //values based on old hand ui positions (CENTER:-/+16,SOUTH:5)
+	if(paragon) //Hands in the right-hand column (paragon_hud.dm)
+		return (i == 2) ? "EAST+3,SOUTH+2" : "EAST+2,SOUTH+2"
 	if (i == 2)
 		return"WEST-2:-16,SOUTH+7"
 	if (i == 1)
