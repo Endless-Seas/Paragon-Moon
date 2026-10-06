@@ -693,7 +693,9 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 				return FALSE
 	if(M.active_storage)
 		M.active_storage.hide_from(M)
-	M.open_container_view(src)
+	//Async: show_to also runs from refresh_mob_views() during a storage's Destroy(), which must not sleep,
+	//and opening a tgui window can
+	INVOKE_ASYNC(M, TYPE_PROC_REF(/mob, open_container_view), src)
 	return TRUE
 
 /mob/proc/open_container_view(datum/component/storage/storage)
