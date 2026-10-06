@@ -81,9 +81,10 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	var/cause = dead.get_death_cause()
 	var/accent = death_screen_accent(cause)
 
+	// Death is a cut to black, not a fade - the black is there at once, and only the card builds in over it.
 	var/atom/movable/screen/death_screen/backdrop/backdrop = new()
 	backdrop.owner = src
-	add_part(backdrop, 0, 1 SECONDS)
+	add_part(backdrop, 0, 0)
 
 	if(cause == DEATH_CAUSE_BLED || cause == DEATH_CAUSE_WOUNDS || cause == DEATH_CAUSE_BEHEADED)
 		var/atom/movable/screen/death_screen/pool = new()
@@ -111,11 +112,14 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	viewer = null
 	return ..()
 
-/// Adds a piece to the screen, fading it in after a delay.
+/// Adds a piece to the screen, fading it in after a delay. No delay and no fade puts it up at once.
 /datum/death_screen/proc/add_part(atom/movable/screen/death_screen/part, delay, fade)
 	parts += part
-	part.alpha = 0
 	viewer.screen += part
+	if(!delay && !fade)
+		part.alpha = 255
+		return
+	part.alpha = 0
 	animate(part, alpha = 0, time = delay)
 	animate(alpha = 255, time = fade, easing = SINE_EASING)
 

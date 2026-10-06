@@ -167,6 +167,8 @@ The sounds are synthesized by tools/dying_audio - rerun its build.bat if you twe
 	/// We took the death cutscene off death() and still owe it to the player.
 	var/cutscene_pending = FALSE
 	var/final_beat_started = FALSE
+	/// The black that covers the whole screen from the cutoff until the death screen is up.
+	var/atom/movable/screen/death_screen/backdrop/blackout
 
 /datum/dying_decline/New(mob/living/carbon/new_owner)
 	owner = new_owner
@@ -185,6 +187,7 @@ The sounds are synthesized by tools/dying_audio - rerun its build.bat if you twe
 			play_owed_cutscene()
 		if(owner.dying_decline == src)
 			owner.dying_decline = null
+	lift_blackout()
 	owner = null
 	listener = null
 	return ..()
@@ -299,6 +302,7 @@ The sounds are synthesized by tools/dying_audio - rerun its build.bat if you twe
 	if(owner.stat != DEAD && owner.client == listener)
 		// Revived. Back to normal life (or another slow decline, if they're still in a bad way).
 		clear_visuals()
+		lift_blackout()
 		cutscene_pending = FALSE
 		state = DYING_STATE_DECLINE
 		intensity = 0
@@ -312,6 +316,8 @@ The sounds are synthesized by tools/dying_audio - rerun its build.bat if you twe
 		clear_visuals()
 		if(owner.client == listener)
 			play_owed_cutscene()
+		else
+			lift_blackout()
 	if(since < DYING_DEATH_HOLD)
 		apply_ducking(listener, 0)
 		return
@@ -335,22 +341,28 @@ The sounds are synthesized by tools/dying_audio - rerun its build.bat if you twe
 	drone_peak = 0
 	owner.clear_fullscreen("dying_pulse", 0)
 	last_pulse_severity = 0
-	if(!cutscene_pending)
-		clear_visuals()
+	clear_visuals()
+	if(!cutscene_pending || !listener)
 		return
-	if(!colour)
-		colour = owner.add_client_colour(/datum/client_colour/dying)
-	if(colour)
-		colour.colour = list(0,0,0, 0,0,0, 0,0,0, 0,0,0)
-		if(owner.client && length(owner.client_colours) && owner.client_colours[1] == colour)
-			animate(owner.client, color = colour.colour, time = 0)
+	// The whole screen goes black at once - map, HUD, everything - and stays that way until the death screen,
+	// whose own black backdrop takes over without a seam.
+	blackout = new()
+	blackout.alpha = 255
+	listener.screen += blackout
+
+/datum/dying_decline/proc/lift_blackout()
+	if(!blackout)
+		return
+	listener?.screen -= blackout
+	QDEL_NULL(blackout)
 
 /// What death() would have shown, had we not held it back.
 /datum/dying_decline/proc/play_owed_cutscene()
 	cutscene_pending = FALSE
 	owner.playsound_local(owner, 'sound/misc/deth.ogg', 100)
-	owner.show_death_cutscene()
+	owner.show_death_cutscene() // puts its own black up first, so ours can come down underneath it
 	owner.add_client_colour(/datum/client_colour/monochrome)
+	lift_blackout()
 
 /// Intensity rescaled so the visuals and heartbeat bottom out together with the sound, when the grind is at full.
 /datum/dying_decline/proc/get_depth()
