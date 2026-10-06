@@ -1,10 +1,5 @@
-/*
-THE CHROME PYRAMID
-A towering lostech construct. Slow, but every 10 seconds while it has a target,
-it marks patches of ground around itself and detonates them shortly after.
-It is immune to its own detonations.
-On death it shakes itself apart over 10 seconds, then vanishes and leaves loot behind.
-*/
+//War is such a silly game we play!~
+//Boss mob.
 
 #define CHROME_PYRAMID_BARRAGE_COOLDOWN (10 SECONDS)
 #define CHROME_PYRAMID_DETONATION_DELAY (5 SECONDS)
@@ -12,7 +7,7 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid
 	name = "PYRAMID"
-	desc = "The vision fills with ancient spacetime that has come to kill you. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell."
+	desc = "The vision fills with ancient, malignant spacetime that has come to kill you. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell."
 	mob_biotypes = NONE
 	gender = NEUTER
 	faction = list("abberant")
@@ -50,17 +45,14 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	deathmessage = "groans as a thousand sun-weights collapse its chrome skin!"
 	del_on_death = TRUE
-	//The collapsing husk does the vibrating, the collapse sound, and drops the real loot when it finishes.
-	loot = list(/obj/effect/temp_visual/chrome_pyramid_collapse)
-	/// world.time at which the ambient hum may next play
+	loot = list(/obj/effect/temp_visual/chrome_pyramid_collapse) //hgouhguh this is so fucking janky but whatever
+	/// world.time at which the ambient hum may next play and when the next barrage will happen
 	var/next_ambience = 0
-	/// world.time at which the next mark-and-detonate barrage may fire
 	var/next_barrage = 0
-	/// How far from the pyramid barrage areas may be placed
+
+	// How far from the pyramid barrage areas can be placed up to (pretty sure it's +1 this but whatever), followed by area amt and dmg
 	var/barrage_range = 7
-	/// How many 3x3 areas to mark per barrage (one extra is always placed on the target)
 	var/barrage_areas = 5
-	/// Damage dealt to each living thing caught in a detonation
 	var/barrage_damage = 50
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/Initialize(mapload)
@@ -71,7 +63,7 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, TRAIT_GENERIC)
 
-/mob/living/simple_animal/hostile/boss/chrome_pyramid/simple_add_wound(datum/wound/wound, silent = FALSE, crit_message = FALSE) //it's a solid block of metal
+/mob/living/simple_animal/hostile/boss/chrome_pyramid/simple_add_wound(datum/wound/wound, silent = FALSE, crit_message = FALSE)
 	return
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/Life()
@@ -88,7 +80,7 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 	next_barrage = world.time + CHROME_PYRAMID_BARRAGE_COOLDOWN
 	mark_barrage()
 
-/// Picks several 3x3 areas around the pyramid (plus one on the target), telegraphs them, and schedules the detonation.
+//this code is so abysmally dogshit. someone needs to optimize this at some point
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/proc/mark_barrage()
 	var/turf/origin = get_turf(src)
 	if(!origin)
@@ -125,7 +117,6 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 	playsound(origin, 'modular_paragon/sound_library/pyramidlaser_charge.wav', 100, TRUE, 6)
 	addtimer(CALLBACK(src, PROC_REF(detonate_barrage), marked_turfs), CHROME_PYRAMID_DETONATION_DELAY)
 
-/// Blows up every marked turf. The pyramid itself is never harmed.
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/proc/detonate_barrage(list/marked_turfs)
 	if(QDELETED(src) || stat == DEAD)
 		return
@@ -141,14 +132,14 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 			shake_camera(victim, 3, 2)
 			to_chat(victim, span_userdanger("CRUSHED."))
 
-/// Telegraph marker for the pyramid's detonations. Lasts exactly as long as the fuse.
+//DON'T SPAM LIGHTING!! HEY!!
 /obj/effect/temp_visual/trap/chrome_pyramid
 	icon_state = "trapdouble"
-	light_outer_range = 0 // a barrage marks dozens of tiles, don't spam SSlighting
+	light_outer_range = 0
 	duration = CHROME_PYRAMID_DETONATION_DELAY
 	color = "#9fd3ff"
 
-/// The pyramid's death throes. Shakes violently while the collapse sound plays, then vanishes and leaves loot.
+//so fucking jank
 /obj/effect/temp_visual/chrome_pyramid_collapse
 	name = "PYRAMID"
 	desc = "It is coming apart."
@@ -158,22 +149,15 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 	anchored = TRUE
 	randomdir = FALSE
 	duration = CHROME_PYRAMID_COLLAPSE_TIME
-	/// What actually drops once the collapse finishes
+	// LOOT. do this at your leisure
 	var/list/collapse_loot = list(
 		/obj/item/roguegem/diamond,
-		/obj/item/roguecoin/gold/pile,
-		/obj/item/roguecoin/gold/pile,
-		/obj/item/reagent_containers/stimpen,
-		/obj/item/reagent_containers/stimpen,
-		/obj/item/lightsphere,
+		/obj/item/roguegem/diamond
 	)
-	/// Number of extra random gems on top of collapse_loot
-	var/bonus_gems = 2
 
 /obj/effect/temp_visual/chrome_pyramid_collapse/Initialize(mapload)
 	. = ..()
 	playsound(src, 'modular_paragon/sound_library/pyramidcollapse.ogg', 100, FALSE, 10)
-	//Chain a handful of random jitters and loop them for the whole collapse.
 	animate(src, pixel_x = rand(-4, 4), pixel_y = rand(-4, 4), time = 0.5, loop = -1)
 	for(var/i in 1 to 7)
 		animate(pixel_x = rand(-4, 4), pixel_y = rand(-4, 4), time = 0.5)
@@ -186,9 +170,6 @@ On death it shakes itself apart over 10 seconds, then vanishes and leaves loot b
 		visible_message(span_boldannounce("[src] folds in on itself and is gone."))
 		for(var/loot_type in collapse_loot)
 			new loot_type(T)
-		for(var/i in 1 to bonus_gems)
-			var/gem_type = pick(/obj/item/roguegem/green, /obj/item/roguegem/blue, /obj/item/roguegem/yellow, /obj/item/roguegem/violet, /obj/item/roguegem/ruby)
-			new gem_type(T)
 	return ..()
 
 #undef CHROME_PYRAMID_BARRAGE_COOLDOWN
