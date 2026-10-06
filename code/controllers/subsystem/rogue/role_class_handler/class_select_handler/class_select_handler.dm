@@ -219,7 +219,7 @@
 	"}
 
 	//Body tag start
-	data += "<body>"
+	data += "<body>[paragon_window_chrome("class_handler_main", "Class Selection", FALSE, TRUE)]"
 
 	//Class href fill-in
 	data += "<div id='top_handwriting'> The fates giveth... </div>"
@@ -302,7 +302,7 @@
 	</html>
 	"}
 
-	linked_client << browse(data, "window=class_handler_main;size=400x520;can_close=0;can_minimize=0;can_maximize=0;can_resize=1;titlebar=1")
+	linked_client << browse(data, "window=class_handler_main;size=400x520;can_close=0;can_minimize=0;can_maximize=0;can_resize=0;titlebar=0")
 
 /datum/class_select_handler/proc/class_select_slop()
 
@@ -319,6 +319,7 @@
 			[paragon_theme_style_for(linked_client)]
 		</head>
 		<body>
+			[paragon_window_chrome("class_select_yea", "[cur_picked_class]", FALSE, FALSE)]
 			<div id="top_bloc">
 				<span class="title_shit">Class Name:</span> <span class="post_title_shit">[cur_picked_class]</span><br>
 				<span class="title_shit">Description:</span> <span class="post_title_shit">[cur_picked_class.tutorial]</span>"}
@@ -341,9 +342,9 @@
 	</html>
 	"}
 	if(!cur_picked_class.classes)
-		linked_client << browse(data, "window=class_select_yea;size=610x350;can_close=0;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1")
+		linked_client << browse(data, "window=class_select_yea;size=610x350;can_close=0;can_minimize=0;can_maximize=0;can_resize=0;titlebar=0")
 	else
-		linked_client << browse(data, "window=class_select_yea;size=610x405;can_close=0;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1")
+		linked_client << browse(data, "window=class_select_yea;size=610x405;can_close=0;can_minimize=0;can_maximize=0;can_resize=0;titlebar=0")
 
 /datum/class_select_handler/Topic(href, href_list)
 	. = ..()

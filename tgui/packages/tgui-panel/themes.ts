@@ -24,6 +24,8 @@ const COLORS = {
     BG_SECOND: '#000000',
     BUTTON: '#202020',
     TEXT: '#D6DBD5',
+    TAB_TEXT: '#D6DBD5',
+    HIGHLIGHT: '#FFFFFF',
   },
   //Paragon palettes, keep in sync with tgui/styles/paragon_palettes.scss
   //(void, panel, raised, text) and interface/skin.dmf
@@ -32,30 +34,40 @@ const COLORS = {
     BG_SECOND: '#0B2423',
     BUTTON: '#0F3B3A',
     TEXT: '#B1C9C3',
+    TAB_TEXT: '#77BFCF',
+    HIGHLIGHT: '#CFC041',
   },
   PARAGON_ORANGE: {
     BG_BASE: '#110904',
     BG_SECOND: '#1E1209',
     BUTTON: '#33200F',
     TEXT: '#D6C3AE',
+    TAB_TEXT: '#F4AE6A',
+    HIGHLIGHT: '#F0CC58',
   },
   PARAGON_GREY: {
     BG_BASE: '#0E0E0F',
     BG_SECOND: '#18181A',
     BUTTON: '#26262A',
     TEXT: '#C2C2C6',
+    TAB_TEXT: '#C6CED8',
+    HIGHLIGHT: '#D2BC64',
   },
   PARAGON_NAVY: {
     BG_BASE: '#060B17',
     BG_SECOND: '#0B1426',
     BUTTON: '#132344',
     TEXT: '#B6C4DE',
+    TAB_TEXT: '#84B2EE',
+    HIGHLIGHT: '#E2C262',
   },
   LIGHT: {
     BG_BASE: '#EEEEEE',
     BG_SECOND: '#FFFFFF',
     BUTTON: '#FFFFFF',
     TEXT: '#000000',
+    TAB_TEXT: '#000000',
+    HIGHLIGHT: '#000000',
   },
 };
 
@@ -134,5 +146,18 @@ export const setClientTheme = (name) => {
     'tooltip.text-color': themeColor.TEXT,
     'input.background-color': themeColor.BG_SECOND,
     'input.text-color': themeColor.TEXT,
+    'statwindow.background-color': themeColor.BG_BASE,
+    'statwindow.text-color': themeColor.TEXT,
+    'output_browser.background-color': themeColor.BG_BASE,
+    'output_legacy.background-color': themeColor.BG_BASE,
+    'character_preview_map.background-color': themeColor.BG_BASE,
+    //Stat panel (the native tabs: RoundInfo, IC, OOC...)
+    'stat.background-color': themeColor.BG_BASE,
+    'stat.text-color': themeColor.TEXT,
+    'stat.tab-background-color': themeColor.BG_SECOND,
+    'stat.tab-text-color': themeColor.TAB_TEXT,
+    'stat.highlight-color': themeColor.HIGHLIGHT,
+    'stat.prefix-color': themeColor.HIGHLIGHT,
+    'stat.suffix-color': themeColor.TEXT,
   });
 };

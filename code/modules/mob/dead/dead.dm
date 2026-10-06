@@ -102,10 +102,11 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 /mob/dead/new_player/proc/open_lobby()
 	if (!client)
 		return
-	client << browse(
-		file("html/lobby/lobby.html"),
-		"window=lobby_window;size=330x430"
-	)
+	//Frameless, with the Paragon title bar in place of the Windows one
+	var/static/lobby_html
+	if(!lobby_html)
+		lobby_html = replacetext(file2text("html/lobby/lobby.html"), "<body>", "<body>[paragon_window_chrome("lobby_window", "Paragon Moon", TRUE, FALSE)]")
+	client << browse(lobby_html, "window=lobby_window;size=330x430;titlebar=0;can_resize=0;can_minimize=0;can_maximize=0")
 /mob/dead/proc/server_hop()
 	set category = "OOC"
 	set name = "Server Hop!"

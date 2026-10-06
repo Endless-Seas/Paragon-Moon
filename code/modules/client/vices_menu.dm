@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	fix_duplicate_vices()
 
 	var/html_content = generate_vices_html(user)
-	user << browse(html_content, "window=character_custom;size=750x500")
+	user << browse(html_content, "window=character_custom;size=750x500;titlebar=0;can_resize=0;can_minimize=0;can_maximize=0")
 
 /datum/preferences/proc/fix_duplicate_vices()
 	// Remove duplicate vices across slots
@@ -963,6 +963,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 			};
 		</script>
 		<body>
+			[paragon_window_chrome("character_custom", "Character Customization")]
 			<div class="header">
 				<h1>Character Customization</h1>
 				<p>Configure all your character features</p>
