@@ -205,18 +205,52 @@
 		O.drop_limb(1)
 		qdel(O)
 		N.attach_limb(src)
-	if(body_plan_changed && ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.wear_pants)
-			var/obj/item/clothing/under/U = H.wear_pants
-			if(U.mutantrace_variation)
-				if(swap_back)
-					U.adjusted = NORMAL_STYLE
-				else
-					U.adjusted = DIGITIGRADE_STYLE
-				H.update_inv_w_uniform()
-		if(H.shoes && !swap_back)
-			H.dropItemToGround(H.shoes)
+	if(body_plan_changed)
+		update_inv_pants()
+		update_inv_shoes()
+
+//From the "legs" feature or an innately digitigrade species.
+/mob/living/carbon/proc/wants_digitigrade_legs()
+	if(!dna || is_digitigrade_npc())
+		return FALSE
+	if(dna.features["legs"] == DIGITIGRADE_LEGS)
+		return TRUE
+	return dna.species && (DIGITIGRADE in dna.species.species_traits)
+
+/mob/living/carbon/proc/is_digitigrade()
+	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		var/obj/item/bodypart/leg = get_bodypart(zone)
+		if(leg?.use_digitigrade)
+			return TRUE
+	return FALSE
+
+//NPCs never get digitigrade legs, not even from a foreign leg.
+/mob/living/carbon/proc/is_digitigrade_npc()
+	return !!ai_controller
+
+/mob/living/carbon/human/is_digitigrade_npc()
+	return ..() || mode != NPC_AI_OFF
+
+//Updates the legs in place so their markings, wounds etc. are kept.
+/mob/living/carbon/proc/update_digitigrade_legs()
+	var/wanted = wants_digitigrade_legs()
+	var/changed = FALSE
+	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		var/obj/item/bodypart/leg = get_bodypart(zone)
+		if(!leg)
+			continue
+		var/new_style = (wanted && leg.supports_digitigrade()) ? FULL_DIGITIGRADE : NOT_DIGITIGRADE
+		if(leg.use_digitigrade == new_style)
+			continue
+		leg.use_digitigrade = new_style
+		leg.invalidate_limb_cache()
+		changed = TRUE
+	if(!changed)
+		return
+	update_body_parts()
+	update_damage_overlays()
+	update_inv_pants()
+	update_inv_shoes()
 
 /mob/living/carbon/proc/ensure_not_taur()
 	SHOULD_NOT_SLEEP(TRUE)

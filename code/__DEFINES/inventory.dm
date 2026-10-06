@@ -237,6 +237,10 @@
 #define FULL_DIGITIGRADE			1
 #define SQUISHED_DIGITIGRADE		2
 
+//Digitigrade legs draw "<state>_digi" when it exists in the same icon file, else "<state>".
+//Leg art adapted from tgstation (CC BY-SA 3.0), see README.md and tools/digi_sprites.
+#define DIGITIGRADE_SUFFIX "_digi"
+
 //flags for covering body parts
 #define GLASSESCOVERSEYES	(1<<0)
 #define MASKCOVERSEYES		(1<<1)		// get rid of some of the other silliness in these flags
