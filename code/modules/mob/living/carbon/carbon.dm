@@ -925,6 +925,7 @@
 
 	if(!client)
 		return
+	handle_dying_decline()
 	if(cmode)
 		overlay_fullscreen("CMODE", /atom/movable/screen/fullscreen/crit/cmode)
 	else
