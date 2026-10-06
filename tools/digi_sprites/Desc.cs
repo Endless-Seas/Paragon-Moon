@@ -1,0 +1,1 @@
+public static class Desc { public static void Run(string p) { var b = System.IO.File.ReadAllBytes(p); var m = typeof(Dmi).GetMethod("ReadDescription", System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static); System.Console.Write((string)m.Invoke(null, new object[]{b})); } }

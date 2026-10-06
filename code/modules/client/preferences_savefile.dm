@@ -794,6 +794,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["taur_color"]			>> taur_color
 	S["taur_markings"]		>> taur_markings
 	S["taur_tertiary"]		>> taur_tertiary
+	S["feature_legs"]		>> features["legs"]
 
 /datum/preferences/proc/_load_familiar_prefs(S)
 	S["familiar_name"]					>> familiar_prefs.familiar_name
@@ -1019,7 +1020,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["mcolor2"]	= sanitize_hexcolor(features["mcolor2"], 6, 0)
 	features["mcolor3"]	= sanitize_hexcolor(features["mcolor3"], 6, 0)
 	features["ethcolor"]	= copytext(features["ethcolor"],1,7)
-	features["feature_lizard_legs"]	= sanitize_inlist(features["legs"], GLOB.legs_list, "Normal Legs")
+	features["legs"]	= sanitize_inlist(features["legs"], list(NORMAL_LEGS, DIGITIGRADE_LEGS), NORMAL_LEGS)
 	var/list/valid_taur_types = pref_species.get_taur_list()
 	if(!(taur_type in valid_taur_types))
 		taur_type = null
@@ -1136,6 +1137,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["taur_color"]			, taur_color)
 	WRITE_FILE(S["taur_markings"]		, taur_markings)
 	WRITE_FILE(S["taur_tertiary"]		, taur_tertiary)
+	WRITE_FILE(S["feature_legs"]		, features["legs"])
 	WRITE_FILE(S["culinary_preferences"], culinary_preferences)
 
 	//Custom names

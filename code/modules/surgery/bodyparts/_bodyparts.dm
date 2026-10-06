@@ -136,7 +136,7 @@
 			var/gendaar = (human_owner.gender == FEMALE) ? "f" : "m"
 			render_limb_string = "[render_limb_string]_[gendaar]"
 
-		var/mutable_appearance/accessory_overlay = mutable_appearance(BM.icon, "[BM.icon_state]_[render_limb_string]", -specific_layer)
+		var/mutable_appearance/accessory_overlay = mutable_appearance(BM.icon, digitigrade_state(BM.icon, "[BM.icon_state]_[render_limb_string]"), -specific_layer)
 		if(override_color)
 			accessory_overlay.color = "#[override_color]"
 		else
@@ -538,6 +538,9 @@
 		should_draw_greyscale = FALSE
 		no_update = TRUE
 
+	if((body_zone == BODY_ZONE_L_LEG || body_zone == BODY_ZONE_R_LEG) && owner?.is_digitigrade_npc())
+		use_digitigrade = NOT_DIGITIGRADE
+
 	if(no_update)
 		return
 
@@ -581,6 +584,9 @@
 
 	if(dropping_limb)
 		no_update = TRUE //when attached, the limb won't be affected by the appearance changes of its mob owner.
+
+	if(body_zone == BODY_ZONE_L_LEG || body_zone == BODY_ZONE_R_LEG)
+		use_digitigrade = (H.wants_digitigrade_legs() && supports_digitigrade()) ? FULL_DIGITIGRADE : NOT_DIGITIGRADE
 
 	invalidate_limb_cache()
 
@@ -631,6 +637,15 @@
 	)
 	return key_parts.Join("-")
 
+//Bodies without digi art (harpy, small anthro) stay plantigrade so clothing and markings still line up.
+/obj/item/bodypart/proc/supports_digitigrade()
+	return icon_exists(species_icon, "[body_zone][DIGITIGRADE_SUFFIX]")
+
+/obj/item/bodypart/proc/digitigrade_state(file, state)
+	if(use_digitigrade && icon_exists(file, "[state][DIGITIGRADE_SUFFIX]"))
+		return "[state][DIGITIGRADE_SUFFIX]"
+	return state
+
 /// Invalidates the cached limb appearance
 /obj/item/bodypart/proc/invalidate_limb_cache()
 	limb_appearance_cache_key = null
@@ -672,15 +687,12 @@
 		if(is_organic)
 			if(should_draw_greyscale)
 				limb.icon = species_icon
-				if(use_digitigrade)
-					limb.icon_state = "digitigrade_[use_digitigrade]_[body_zone]"
-				else
-					limb.icon_state = "[body_zone][skel]"
+				limb.icon_state = digitigrade_state(limb.icon, "[body_zone][skel]")
 			else
 				limb.icon = 'icons/mob/human_parts.dmi'
-				limb.icon_state = should_draw_gender ? "[species_id]_[body_zone]_[icon_gender]" : "[species_id]_[body_zone]"
+				limb.icon_state = digitigrade_state(limb.icon, should_draw_gender ? "[species_id]_[body_zone]_[icon_gender]" : "[species_id]_[body_zone]")
 			if(aux_zone && !hideaux)
-				aux = image(limb.icon, "[aux_zone][skel]", -aux_layer, image_dir)
+				aux = image(limb.icon, digitigrade_state(limb.icon, "[aux_zone][skel]"), -aux_layer, image_dir)
 				. += aux
 		else
 			limb.icon = species_icon

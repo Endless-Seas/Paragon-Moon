@@ -152,7 +152,11 @@
 #define G_FEMALE 2
 #define G_PLURAL 3
 
-#define MANDATORY_FEATURE_LIST list("mcolor" = "FFF", "mcolor2" = "FFF", "mcolor3" = "FFF", "ethcolor" = "9c3030", "legs" = "Normal Legs", "body_size" = BODY_SIZE_NORMAL)
+//dna.features["legs"] values
+#define NORMAL_LEGS "Normal Legs"
+#define DIGITIGRADE_LEGS "Digitigrade Legs"
+
+#define MANDATORY_FEATURE_LIST list("mcolor" = "FFF", "mcolor2" = "FFF", "mcolor3" = "FFF", "ethcolor" = "9c3030", "legs" = NORMAL_LEGS, "body_size" = BODY_SIZE_NORMAL)
 
 #define BODY_SIZE_NORMAL 1.00
 #define BODY_SIZE_MAX 1.15

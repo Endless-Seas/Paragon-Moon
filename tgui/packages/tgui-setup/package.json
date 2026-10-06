@@ -4,8 +4,8 @@
 	"description": "Minifies assets to inject into tgui.html",
 	"private": true,
 	"scripts": {
-		"build:helpers": "terser helpers.js -f ascii_only,comments=false > ../../public/helpers.min.js",
-		"build:style": "cleancss ntos-error.css > ../../public/ntos-error.min.css"
+		"build:helpers": "bun build.js",
+		"build:style": "bun build.js"
 	},
 	"dependencies": {
 		"clean-css-cli": "^5.6.3",
