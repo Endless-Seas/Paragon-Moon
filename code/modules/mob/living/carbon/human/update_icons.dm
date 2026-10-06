@@ -649,14 +649,15 @@ There are several things that need to be remembered:
 		update_observer_view(shoes,1)
 		if(dna && dna.species.sexes)
 			var/footindex = get_limbloss_index(LEG_RIGHT, LEG_LEFT)
+			var/digi = is_digitigrade()
 			var/racecustom
 			var/mutable_appearance/shoes_overlay
 			if(dna.species.custom_clothes)
 				racecustom = dna.species.clothes_id
 			if((gender == FEMALE && !dna.species.use_m) || dna.species.use_f)
-				shoes_overlay = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = footindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask)
+				shoes_overlay = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = footindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask, digitigrade = digi)
 			else
-				shoes_overlay = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = FALSE, customi = racecustom, sleeveindex = footindex, clip_mask = c_mask)
+				shoes_overlay = shoes.build_worn_icon(default_layer = SHOES_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = FALSE, customi = racecustom, sleeveindex = footindex, clip_mask = c_mask, digitigrade = digi)
 
 			if(OFFSET_SHOES in dna.species.offset_features)
 				shoes_overlay.pixel_x += dna.species.offset_features[OFFSET_SHOES][1]
@@ -666,7 +667,7 @@ There are several things that need to be remembered:
 			//add sleeve overlays, then offset
 			var/list/sleeves = list()
 			if(shoes.sleeved && footindex > 0 && !should_hide_sleeves_for_layer(SHOESLEEVE_LAYER))
-				sleeves = get_sleeves_layer(shoes,footindex,SHOESLEEVE_LAYER)
+				sleeves = get_sleeves_layer(shoes,footindex,SHOESLEEVE_LAYER,digi)
 			if(sleeves)
 				for(var/mutable_appearance/S as anything in sleeves)
 					if(OFFSET_SHOES in dna.species.offset_features)
@@ -1517,6 +1518,7 @@ There are several things that need to be remembered:
 		if(dna && dna.species.sexes)
 			var/racecustom
 			var/legsindex = get_limbloss_index(LEG_RIGHT, LEG_LEFT)
+			var/digi = is_digitigrade()
 			var/mutable_appearance/pants_overlay
 			if(isharpy(src))
 				clip_mask_init = icon(icon = 'icons/roguetown/mob/bodies/f/harpy.dmi', icon_state = "harpy_clipmask")
@@ -1524,12 +1526,12 @@ There are several things that need to be remembered:
 			if(dna.species.custom_clothes) // should prolly make it a separate limb or just use clipmask then
 				racecustom = dna.species.clothes_id
 			if(gender == FEMALE && !dna.species.use_m)
-				pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = legsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask)
+				pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = legsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask, digitigrade = digi)
 			else
 				if(dna.species.use_f)
-					pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = legsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask)
+					pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = legsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask, digitigrade = digi)
 				else
-					pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = FALSE, customi = racecustom, sleeveindex = legsindex, clip_mask = c_mask)
+					pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = FALSE, customi = racecustom, sleeveindex = legsindex, clip_mask = c_mask, digitigrade = digi)
 
 			if(gender == MALE)
 				if(OFFSET_PANTS in dna.species.offset_features)
@@ -1545,9 +1547,12 @@ There are several things that need to be remembered:
 			var/list/sleeves = list()
 			var/femw = ((gender == FEMALE && !dna.species.use_m) || dna.species.use_f) ? "_f" : ""
 			if(wear_pants.sleeved && legsindex > 0 && wear_pants.adjustable != CADJUSTED && !should_hide_sleeves_for_layer(LEGSLEEVE_LAYER))
-				sleeves = get_sleeves_layer(wear_pants,legsindex,LEGSLEEVE_LAYER)
+				sleeves = get_sleeves_layer(wear_pants,legsindex,LEGSLEEVE_LAYER,digi)
 			if(wear_pants.adjustable == CADJUSTED)
-				var/mutable_appearance/overleg = mutable_appearance(wear_pants.mob_overlay_icon, "[wear_pants.icon_state][femw][racecustom ? "_[racecustom]" : ""]", -LEGSLEEVE_LAYER)
+				var/overleg_state = "[wear_pants.icon_state][femw][racecustom ? "_[racecustom]" : ""]"
+				if(digi && icon_exists(wear_pants.mob_overlay_icon, "[overleg_state][DIGITIGRADE_SUFFIX]"))
+					overleg_state += DIGITIGRADE_SUFFIX
+				var/mutable_appearance/overleg = mutable_appearance(wear_pants.mob_overlay_icon, overleg_state, -LEGSLEEVE_LAYER)
 				sleeves += overleg
 			if(sleeves)
 				for(var/mutable_appearance/S as anything in sleeves)
@@ -1736,7 +1741,13 @@ generate/load female uniform sprites matching all previously decided variables
 
 
 */
-/obj/item/proc/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state = null, female = FALSE, customi = null, sleeveindex, boobed_overlay = FALSE, icon/clip_mask = null)
+//Falls back to base_state when the digi variant lacks this overlay.
+/proc/digitigrade_overlay_state(file, state, base_state, suffix)
+	if(state == base_state || icon_exists(file, "[state][suffix]"))
+		return "[state][suffix]"
+	return "[base_state][suffix]"
+
+/obj/item/proc/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state = null, female = FALSE, customi = null, sleeveindex, boobed_overlay = FALSE, icon/clip_mask = null, digitigrade = FALSE)
 	var/t_state
 	var/sleevejazz = sleevetype
 	if(override_state)
@@ -1766,6 +1777,11 @@ generate/load female uniform sprites matching all previously decided variables
 		file2use = mob_overlay_icon
 	if(!file2use)
 		file2use = default_icon_file
+
+	//"<state>_digi" is used when sprited; boob/detail overlays fall back to base_state individually.
+	var/base_state = t_state
+	if(digitigrade && !isinhands && icon_exists(file2use, "[t_state][DIGITIGRADE_SUFFIX]"))
+		t_state += DIGITIGRADE_SUFFIX
 
 	//Find a valid layer from variables+arguments
 	var/layer2use
@@ -1800,30 +1816,30 @@ generate/load female uniform sprites matching all previously decided variables
 //			MA.blend_mode = BLEND_MULTIPLY
 		standing.overlays.Add(worn_overlays)
 	if(!isinhands && boobed_overlay && boobed)
-		var/mutable_appearance/boob_overlay = mutable_appearance(file2use, "[t_state]_boob", -layer2use)
+		var/mutable_appearance/boob_overlay = mutable_appearance(file2use, digitigrade_overlay_state(file2use, t_state, base_state, "_boob"), -layer2use)
 		standing.overlays.Add(boob_overlay)
 
 	if(get_detail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[t_state][get_detail_tag()]"), -layer2use)
+		var/mutable_appearance/pic = mutable_appearance(icon(file2use, digitigrade_overlay_state(file2use, t_state, base_state, get_detail_tag())), -layer2use)
 		pic.appearance_flags = RESET_COLOR
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		standing.overlays.Add(pic)
 		if(!isinhands && boobed_overlay && boobed_detail && boobed)
-			pic = mutable_appearance(icon(file2use, "[t_state]_boob[get_detail_tag()]"), -layer2use)
+			pic = mutable_appearance(icon(file2use, digitigrade_overlay_state(file2use, t_state, base_state, "_boob[get_detail_tag()]")), -layer2use)
 			pic.appearance_flags = RESET_COLOR
 			if(get_detail_color())
 				pic.color = get_detail_color()
 			standing.overlays.Add(pic)
 
 	if(get_altdetail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[t_state][get_altdetail_tag()]"), -layer2use)
+		var/mutable_appearance/pic = mutable_appearance(icon(file2use, digitigrade_overlay_state(file2use, t_state, base_state, get_altdetail_tag())), -layer2use)
 		pic.appearance_flags = RESET_COLOR
 		if(get_altdetail_color())
 			pic.color = get_altdetail_color()
 		standing.overlays.Add(pic)
 		if(!isinhands && boobed_overlay && boobed_detail && boobed)
-			pic = mutable_appearance(icon(file2use, "[t_state]_boob[get_altdetail_tag()]"), -layer2use)
+			pic = mutable_appearance(icon(file2use, digitigrade_overlay_state(file2use, t_state, base_state, "_boob[get_altdetail_tag()]")), -layer2use)
 			pic.appearance_flags = RESET_COLOR
 			if(get_altdetail_color())
 				pic.color = get_altdetail_color()
@@ -1840,7 +1856,7 @@ generate/load female uniform sprites matching all previously decided variables
 			else
 				clothing_icon = icon(file2use, t_state)
 			if(boobed_overlay && boobed)
-				clothing_icon.Blend(icon(file2use, "[t_state]_boob"), ICON_OVERLAY)
+				clothing_icon.Blend(icon(file2use, digitigrade_overlay_state(file2use, t_state, base_state, "_boob")), ICON_OVERLAY)
 			clothing_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			clothing_icon.Blend(icon(bloody_icon, bloody_icon_state), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]"] = fcopy_rsc(clothing_icon)
@@ -1894,7 +1910,7 @@ generate/load female uniform sprites matching all previously decided variables
 				return TRUE
 	return FALSE
 
-/mob/living/carbon/proc/get_sleeves_layer(obj/item/I,sleeveindex,layer2use)
+/mob/living/carbon/proc/get_sleeves_layer(obj/item/I,sleeveindex,layer2use,digitigrade = FALSE)
 	if(!I)
 		return
 	var/list/sleeves = list()
@@ -1931,13 +1947,16 @@ generate/load female uniform sprites matching all previously decided variables
 		if(!sleeveindex)
 			if(rightused)
 				used = "xr_[index]"
+		var/base_used = used
+		if(digitigrade && icon_exists(I.sleeved, "[used][DIGITIGRADE_SUFFIX]"))
+			used += DIGITIGRADE_SUFFIX
 		var/mutable_appearance/r_sleeve = mutable_appearance(I.sleeved, used, layer=-layer2use)
 		r_sleeve.color = I.color
 		r_sleeve.alpha = I.alpha
 		sleeves += r_sleeve
 
 		if(I.get_detail_tag() && I.sleeved_detail)
-			var/mutable_appearance/pic = mutable_appearance(icon(I.sleeved, "[used][I.get_detail_tag()]"), layer=-layer2use)
+			var/mutable_appearance/pic = mutable_appearance(icon(I.sleeved, digitigrade_overlay_state(I.sleeved, used, base_used, I.get_detail_tag())), layer=-layer2use)
 //			pic.appearance_flags = RESET_COLOR
 			if(I.get_detail_color())
 				pic.color = I.get_detail_color()
@@ -1958,13 +1977,16 @@ generate/load female uniform sprites matching all previously decided variables
 		if(!sleeveindex)
 			if(leftused)
 				used = "xl_[index]"
+		var/base_used = used
+		if(digitigrade && icon_exists(I.sleeved, "[used][DIGITIGRADE_SUFFIX]"))
+			used += DIGITIGRADE_SUFFIX
 		var/mutable_appearance/l_sleeve = mutable_appearance(I.sleeved, used, layer=-layer2use)
 		l_sleeve.color = I.color
 		l_sleeve.alpha = I.alpha
 		sleeves += l_sleeve
 
 		if(I.get_detail_tag() && I.sleeved_detail)
-			var/mutable_appearance/pic = mutable_appearance(icon(I.sleeved, "[used][I.get_detail_tag()]"), layer=-layer2use)
+			var/mutable_appearance/pic = mutable_appearance(icon(I.sleeved, digitigrade_overlay_state(I.sleeved, used, base_used, I.get_detail_tag())), layer=-layer2use)
 //			pic.appearance_flags = RESET_COLOR
 			if(I.get_detail_color())
 				pic.color = I.get_detail_color()
