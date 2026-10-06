@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(last_words)
 	SSdroning.kill_rain(src.client)
 	SSdroning.kill_loop(src.client)
 	SSdroning.kill_droning(src.client)
-	// The dying decline can hold the death cutscene back on the dying player's screen and play it itself.
+	//The dying decline can hold the cutscene back and play it itself.
 	var/cutscene_held = !nocutscene && client && hold_death_cutscene(gibbed)
 	if(!nocutscene && !cutscene_held)
 		src.playsound_local(src, 'sound/misc/deth.ogg', 100)
@@ -132,8 +132,6 @@ GLOBAL_LIST_EMPTY(last_words)
 		client.move_delay = initial(client.move_delay)
 		if(!nocutscene && !cutscene_held)
 			show_death_cutscene()
-//		flick("gameover",H)
-//		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom/movable/screen/gameover, Fade)), 29)
 		mob_timers["lastdied"] = world.time
 //		addtimer(CALLBACK(client, PROC_REF(ghostize), 1, src), 150)
 		if(!cutscene_held)
@@ -173,11 +171,11 @@ GLOBAL_LIST_EMPTY(last_words)
 
 	return TRUE
 
-/// Return TRUE to take over the death cutscene (sound, game over splash, monochrome) and play it later yourself.
+//Return TRUE to take over the death cutscene (sound, death screen, monochrome) and play it later yourself.
 /mob/living/proc/hold_death_cutscene(gibbed)
 	return FALSE
 
-/// The death screen - see modular_paragon/dying/death_screen.dm.
+//See modular_paragon/dying/death_screen.dm.
 /mob/living/proc/show_death_cutscene()
 	if(!client)
 		return

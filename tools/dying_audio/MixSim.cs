@@ -1,11 +1,10 @@
-// Mix simulation for the dying decline: plays the layers together the way dying_decline.dm's apply_layers() mixes
-// them, at a spread of intensities and start offsets, and reports the worst peak - anything over ~0.95 will crackle.
-// The layer windows below mirror the DYING_* defines; keep them in step if you change either.
-// Build: csc /platform:x64 /out:mixsim.exe MixSim.cs   Run: mixsim.exe <repo>\sound\health 0.87 0.21 0.85
-//   (the three numbers are DYING_CREST_ONE, DYING_CREST_STEP, DYING_DRONE_TARGET). Set NOBEAT=1 to leave the heartbeat out.
+//Mix simulation for the dying decline: plays the layers together the way dying_decline.dm's apply_layers() mixes
+//them, at a spread of intensities and start offsets, and reports the worst peak - anything over ~0.95 will crackle.
+//The layer windows below mirror the DYING_* defines; keep them in step if you change either.
+//Build: csc /platform:x64 /out:mixsim.exe MixSim.cs   Run: mixsim.exe <repo>\sound\health 0.87 0.21 0.85
+//(the three numbers are DYING_CREST_ONE, DYING_CREST_STEP, DYING_DRONE_TARGET). Set NOBEAT=1 to leave the heartbeat out.
 using System;
 using System.Runtime.InteropServices;
-// Simulates the in-game dying mix (dying_decline.dm apply_layers + heartbeat cap) across intensities and start offsets.
 static class MixSim
 {
 	[StructLayout(LayoutKind.Sequential)] struct SF_INFO { public long frames; public int samplerate, channels, format, sections, seekable; }

@@ -1,13 +1,5 @@
-/*
-The death screen, after Casualties: Unknown's. Replaces the old "You have perished" splash.
-
-CU shows you your own body as it died - lying still, in a pool of blood, or blurred and blue if you drowned - over the
-cause and a handful of stats about the run. This does the same with the player's actual character: their sprite, lying
-dead and scaled up, treated to match how they went, with the cause as the headline and their stats underneath.
-
-Client side like the rest of the decline: built from screen objects on the dead player's client only.
-It fades out on its own after DEATH_SCREEN_TIME, or straight away on a click.
-*/
+//The death screen, after Casualties: Unknown's: the player's own body as it died, treated by cause, over the cause and
+//a few stats about the run. Client side only. Fades out after DEATH_SCREEN_TIME, or on a click.
 
 #define DEATH_SCREEN_TIME (20 SECONDS)
 #define DEATH_SCREEN_FADE (2 SECONDS)
@@ -24,11 +16,11 @@ It fades out on its own after DEATH_SCREEN_TIME, or straight away on a click.
 #define DEATH_CAUSE_SUFFOCATED "suffocated"
 #define DEATH_CAUSE_WOUNDS "wounds"
 
-/// Deaths per ckey this round, for the "death #" line.
+//Deaths per ckey this round, for the "death #" line.
 GLOBAL_LIST_EMPTY(death_screen_counts)
 
 /mob/living
-	/// world.time a player first took this body, for the "survived" line.
+	//world.time a player first took this body, for the "survived" line.
 	var/first_inhabited = 0
 
 /mob/living/Login()
@@ -36,7 +28,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	if(!first_inhabited)
 		first_inhabited = world.time
 
-/// What killed us, as one of the DEATH_CAUSE_ defines. Worked out from what's left at the moment we're looked at.
+//One of the DEATH_CAUSE_ defines, from the state of the body.
 /mob/living/proc/get_death_cause()
 	var/brute = getBruteLoss()
 	var/burn = getFireLoss()
@@ -59,7 +51,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 		return DEATH_CAUSE_DROWNED
 	if(blood_volume < BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE) && !(dna?.species && (NOBLOOD in dna.species.species_traits)))
 		return DEATH_CAUSE_BLED
-	// Wasting away only counts if nothing more violent got there first.
+	//Wasting away only counts if nothing more violent got there first.
 	if(getBruteLoss() + getFireLoss() < 50)
 		if(hydration <= 0)
 			return DEATH_CAUSE_THIRST
@@ -67,7 +59,6 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 			return DEATH_CAUSE_STARVED
 	return ..()
 
-/// The death screen itself. Owns its screen objects and cleans them up.
 /datum/death_screen
 	var/client/viewer
 	var/list/parts = list()
@@ -81,7 +72,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	var/cause = dead.get_death_cause()
 	var/accent = death_screen_accent(cause)
 
-	// Death is a cut to black, not a fade - the black is there at once, and only the card builds in over it.
+	//Death is a cut to black: the backdrop is up at once and only the card builds in over it.
 	var/atom/movable/screen/death_screen/backdrop/backdrop = new()
 	backdrop.owner = src
 	add_part(backdrop, 0, 0)
@@ -112,7 +103,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	viewer = null
 	return ..()
 
-/// Adds a piece to the screen, fading it in after a delay. No delay and no fade puts it up at once.
+//No delay and no fade puts it up at once.
 /datum/death_screen/proc/add_part(atom/movable/screen/death_screen/part, delay, fade)
 	parts += part
 	viewer.screen += part
@@ -131,7 +122,6 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 		animate(part, alpha = 0, time = DEATH_SCREEN_FADE, easing = SINE_EASING)
 	QDEL_IN(src, DEATH_SCREEN_FADE)
 
-/// Their own body, lying as it fell, scaled up and treated to match how they died.
 /datum/death_screen/proc/make_portrait(mob/living/dead, cause)
 	var/atom/movable/screen/death_screen/portrait = new()
 	var/mutable_appearance/body = new(dead)
@@ -204,7 +194,6 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 			return "#a0a0a0"
 	return "#9a1a1a"
 
-/// The run, in a few lines - CU shows depth, how long you lasted, your mood and how many times you've died.
 /proc/death_screen_stats(mob/living/dead)
 	var/list/lines = list()
 	var/alive_for = dead.first_inhabited ? world.time - dead.first_inhabited : 0
@@ -250,7 +239,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	appearance_flags = APPEARANCE_UI | NO_CLIENT_COLOR | PIXEL_SCALE
 
-/// Solid black across the whole screen, map and HUD alike. Click it to look away.
+//Solid black over map and HUD alike. Click it to look away.
 /atom/movable/screen/death_screen/backdrop
 	icon = 'icons/gameover.dmi'
 	icon_state = "blank"
@@ -260,7 +249,7 @@ GLOBAL_LIST_EMPTY(death_screen_counts)
 
 /atom/movable/screen/death_screen/backdrop/New()
 	. = ..()
-	transform = matrix(4, 0, 0, 0, 4, 0) // 640x480 scaled up from the middle covers any view size
+	transform = matrix(4, 0, 0, 0, 4, 0) //covers any view size
 
 /atom/movable/screen/death_screen/backdrop/Click()
 	owner?.dismiss()

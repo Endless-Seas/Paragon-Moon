@@ -183,7 +183,7 @@ SUBSYSTEM_DEF(soundloopers)
 				new_volume = new_volume / 4
 
 			new_volume = new_volume * (prefs.mastervol * 0.01) //Modify it at the end by the player's volume setting
-			// Music fades while dying. Floored above 0, since update_sound_volume() ignores a 0 and would leave it loud.
+			//Music fades while dying. Floored above 0, since update_sound_volume() ignores a 0.
 			new_volume = max(new_volume * get_loop_duck(loop), 0.1)
 
 			// Always clear MUTESTATUS when in range, regardless of whether volume changed.

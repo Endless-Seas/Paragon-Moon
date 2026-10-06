@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(droning)
 		return volume
 	return volume * listener.music_duck
 
-/// The player's preferred volume for a channel, before anything (like the dying decline) ducks it.
+//The player's preferred volume, before the dying decline ducks it.
 /datum/controller/subsystem/droning/proc/get_base_channel_volume(client/listener, channel)
 	if(channel == CHANNEL_BUZZ || channel == CHANNEL_CMUSIC1 || channel == CHANNEL_CMUSIC2 || channel == CHANNEL_CMUSIC3 || channel == CHANNEL_CMUSIC4)
 		var/combat_volume = listener.prefs.combatmusicvol
