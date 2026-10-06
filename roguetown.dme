@@ -3117,6 +3117,7 @@
 #include "modular_hearthstone\code\modules\mob\living\simple_animal\rogue\rogue_corpse.dm"
 #include "modular_hearthstone\code\modules\reagents\reagent_containers\lux.dm"
 #include "modular_helmsguard\code\modules\mobs\farm\horse.dm"
+#include "modular_paragon\chrome_pyramid\chrome_pyramid.dm"
 #include "modular_paragon\combat_indicator.dm"
 #include "modular_paragon\compendium.dm"
 #include "modular_paragon\lostech\lightspheres.dm"
