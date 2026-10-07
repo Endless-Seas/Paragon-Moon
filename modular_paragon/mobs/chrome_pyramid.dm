@@ -29,7 +29,7 @@
 	minimum_distance = 1
 	retreat_distance = 0
 	move_to_delay = 8
-	base_intents = list(/datum/intent/simple/bite)
+	base_intents = list(/datum/intent/simple/bite/pyramid)
 	attack_verb_continuous = "crushes"
 	attack_verb_simple = "crush"
 	attack_sound = 'sound/misc/explode/bomb.ogg' //im a placeholder im a placeholder im a fat fucking placeholder
@@ -41,7 +41,7 @@
 	STAPER = 15
 	STACON = 20
 	STAWIL = 20
-	STASPD = 6
+	STASPD = 15
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	light_outer_range = 6
 	light_power = 2
@@ -144,7 +144,7 @@
 		if(11)
 			visible_message(span_userdanger("UNABLE TO UPDATE: MASTER-SERVER OUT OF RANGE."))
 		else
-			visible_message(span_userdanger("DIE."))
+			visible_message(span_userdanger("PROTOCOL FOUR: SELF-PRESERVATION."))
 	play_barrage_sound('modular_paragon/sound_library/pyramidlaser_charge.wav', marked_turfs)
 	addtimer(CALLBACK(src, PROC_REF(detonate_barrage), marked_turfs), CHROME_PYRAMID_DETONATION_DELAY)
 
@@ -225,6 +225,21 @@
 		for(var/loot_type in collapse_loot)
 			new loot_type(T)
 	return ..()
+
+//intent
+/datum/intent/simple/bite/pyramid
+	name = "distort"
+	icon_state = "instrike"
+	attack_verb = list("bludgeons", "distorts", "quantum-harmonizes", "sickeningly unfolds", "")
+	animname = "blank22"
+	blade_class = BCLASS_CUT
+	hitsound = "smallslash"
+	chargetime = 0
+	penfactor = 50
+	swingdelay = 2
+	candodge = TRUE
+	canparry = FALSE
+	item_d_type = "stab"
 
 #undef CHROME_PYRAMID_BARRAGE_COOLDOWN
 #undef CHROME_PYRAMID_DETONATION_DELAY
