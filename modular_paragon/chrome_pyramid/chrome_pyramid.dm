@@ -43,6 +43,9 @@
 	STAWIL = 20
 	STASPD = 6
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	light_outer_range = 6
+	light_power = 2
+	light_color = LIGHT_COLOR_PURPLE
 	deathmessage = "groans as a thousand sun-weights collapse its chrome skin!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/temp_visual/chrome_pyramid_collapse) //hgouhguh this is so fucking janky but whatever
