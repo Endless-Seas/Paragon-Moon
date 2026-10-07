@@ -1,13 +1,13 @@
 //War is such a silly game we play!~
 //Boss mob.
 
-#define CHROME_PYRAMID_BARRAGE_COOLDOWN (10 SECONDS)
-#define CHROME_PYRAMID_DETONATION_DELAY (5 SECONDS)
+#define CHROME_PYRAMID_BARRAGE_COOLDOWN (8 SECONDS)
+#define CHROME_PYRAMID_DETONATION_DELAY (6 SECONDS)
 #define CHROME_PYRAMID_COLLAPSE_TIME (10 SECONDS)
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid
 	name = "PYRAMID"
-	desc = "My vision fills with ancient, malignant spacetime that has come to kill me. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell. /n /n When God realized what the Eaters have done to His creation, He was full of grief; and so He did weep."
+	desc = "Ancient, malignant spacetime that has come to kill me. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell. /n /n When God realized what the Eaters did to His creation, He was full of grief; and so He did weep."
 	mob_biotypes = NONE
 	gender = NEUTER
 	faction = list("abberant")
@@ -57,6 +57,7 @@
 	var/barrage_range = 7
 	var/barrage_areas = 5
 	var/barrage_damage = 50
+	var/yappers = 1
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/Initialize(mapload)
 	. = ..()
@@ -73,7 +74,7 @@
 	. = ..()
 	if(stat == DEAD || world.time < next_ambience)
 		return
-	next_ambience = world.time + rand(30 SECONDS, 60 SECONDS)
+	next_ambience = world.time + rand(15 SECONDS, 25 SECONDS)
 	playsound(src, 'modular_paragon/sound_library/pyramidambience.ogg', 70, FALSE, 8)
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/handle_automated_action()
@@ -116,7 +117,34 @@
 
 	for(var/turf/T as anything in marked_turfs)
 		new /obj/effect/temp_visual/trap/chrome_pyramid(T)
-	visible_message(span_danger("[src] hums, and the ground around it begins to glow!"))
+
+//yappers here
+	yappers = rand(1,12)
+	switch(yappers)
+		if(1)
+			visible_message(span_userdanger("PASSING JUDGEMENT..."))
+		if(2)
+			visible_message(span_userdanger("PROTOCOL ONE: GUARD."))
+		if(3)
+			visible_message(span_userdanger("CALCUATING TARGET SOLUTION..."))
+		if(4)
+			visible_message(span_userdanger("DODGE."))
+		if(5)
+			visible_message(span_userdanger("PROTOCOL TWO: EXPUNGE."))
+		if(6)
+			visible_message(span_userdanger("RECALCULATING. RECALCULATING. FIRING."))
+		if(7)
+			visible_message(span_userdanger("PROTOCOL THREE: TRANQUILIZE."))
+		if(8)
+			visible_message(span_userdanger("ARE YOU HAVING FUN YET?"))
+		if(9)
+			visible_message(span_userdanger("HA. HA-HA. HA-HA-HA."))
+		if(10)
+			visible_message(span_userdanger("TARGETING ROUTINE OUT OF DATE...UPDATE FAILED."))
+		if(11)
+			visible_message(span_userdanger("UNABLE TO UPDATE: MASTER-SERVER OUT OF RANGE."))
+		else
+			visible_message(span_userdanger("DIE."))
 	play_barrage_sound('modular_paragon/sound_library/pyramidlaser_charge.wav', marked_turfs)
 	addtimer(CALLBACK(src, PROC_REF(detonate_barrage), marked_turfs), CHROME_PYRAMID_DETONATION_DELAY)
 
