@@ -1749,43 +1749,6 @@
 		holder = null
 	return ..()
 
-/atom/movable/screen/gameover
-	icon = 'icons/gameover.dmi'
-	icon_state = ""
-	screen_loc = ui_backhudl
-	layer = SPLASHSCREEN_LAYER
-	plane = SPLASHSCREEN_PLANE
-
-/atom/movable/screen/gameover/proc/Fade(out = FALSE, qdel_after = FALSE)
-	if(QDELETED(src))
-		return
-	if(out)
-		animate(src, alpha = 0, time = 30, flags = ANIMATION_PARALLEL)
-	else
-		alpha = 0
-		animate(src, alpha = 255, time = 30, flags = ANIMATION_PARALLEL)
-	if(qdel_after)
-		QDEL_IN(src, 30)
-
-
-/atom/movable/screen/gameover/hog
-	icon_state = "hog"
-	alpha = 0
-
-/atom/movable/screen/gameover/hog/Fade(out = FALSE, qdel_after = FALSE)
-	if(QDELETED(src))
-		return
-//	icon_state = "blank"
-//	var/image/MA = image(icon, "hog")
-//	MA.alpha = 0
-//	add_overlay(MA)
-//	animate(MA, alpha = 255, time = 30)
-	if(!out)
-		animate(src, alpha = 255, time = 30, flags = ANIMATION_PARALLEL)
-	else
-		animate(src, alpha = 0, time = 30, flags = ANIMATION_PARALLEL)
-		QDEL_IN(src, 30)
-
 /atom/movable/screen/component_button
 	var/atom/movable/screen/parent
 

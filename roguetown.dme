@@ -3119,6 +3119,8 @@
 #include "modular_helmsguard\code\modules\mobs\farm\horse.dm"
 #include "modular_paragon\combat_indicator.dm"
 #include "modular_paragon\compendium.dm"
+#include "modular_paragon\dying\death_screen.dm"
+#include "modular_paragon\dying\dying_decline.dm"
 #include "modular_paragon\lostech\lightspheres.dm"
 #include "modular_paragon\lostech\prophecy.dm"
 #include "modular_paragon\lostech\shield_walls.dm"

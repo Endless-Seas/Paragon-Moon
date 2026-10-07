@@ -127,7 +127,7 @@
 				if(BEAT_FAST)
 					heartbeat_sound = fastbeat
 			if(heartbeat_sound)
-				H.playsound_local(null, heartbeat_sound, 40, FALSE, channel = CHANNEL_HEARTBEAT)
+				H.playsound_local(null, heartbeat_sound, H.get_heartbeat_volume(40), FALSE, channel = CHANNEL_HEARTBEAT)
 	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
 		if(owner.stat == CONSCIOUS)
 			owner.visible_message(span_danger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"), \
