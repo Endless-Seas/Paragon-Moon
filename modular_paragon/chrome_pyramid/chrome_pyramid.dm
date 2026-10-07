@@ -7,7 +7,7 @@
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid
 	name = "PYRAMID"
-	desc = "The vision fills with ancient, malignant spacetime that has come to kill you. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell."
+	desc = "My vision fills with ancient, malignant spacetime that has come to kill me. The Mother Superior said that Angels were good and brought joy, but this one has staticized the World to bring it Hell. /n /n When God realized what the Eaters have done to His creation, He was full of grief; and so He did weep."
 	mob_biotypes = NONE
 	gender = NEUTER
 	faction = list("abberant")
@@ -114,13 +114,34 @@
 	for(var/turf/T as anything in marked_turfs)
 		new /obj/effect/temp_visual/trap/chrome_pyramid(T)
 	visible_message(span_danger("[src] hums, and the ground around it begins to glow!"))
-	playsound(origin, 'modular_paragon/sound_library/pyramidlaser_charge.wav', 100, TRUE, 6)
+	play_barrage_sound('modular_paragon/sound_library/pyramidlaser_charge.wav', marked_turfs)
 	addtimer(CALLBACK(src, PROC_REF(detonate_barrage), marked_turfs), CHROME_PYRAMID_DETONATION_DELAY)
+
+/// Plays a sound once to each nearby player, coming from whichever marked turf is closest to them.
+/// Playing it from every marked turf would stack dozens of copies.
+/mob/living/simple_animal/hostile/boss/chrome_pyramid/proc/play_barrage_sound(soundfile, list/marked_turfs)
+	var/turf/origin = get_turf(src)
+	if(!origin || !length(marked_turfs))
+		return
+	var/channel = SSsounds.random_available_channel()
+	for(var/mob/listener as anything in get_hearers_in_range(world.view + barrage_range, origin, RECURSIVE_CONTENTS_CLIENT_MOBS))
+		var/turf/listener_turf = get_turf(listener)
+		if(!listener_turf)
+			continue
+		var/turf/closest
+		var/closest_dist = INFINITY
+		for(var/turf/T as anything in marked_turfs)
+			var/dist = get_dist(listener_turf, T)
+			if(dist < closest_dist)
+				closest = T
+				closest_dist = dist
+		//vary is off: it forces ~44.1kHz playback, which slows down these 48kHz wavs
+		listener.playsound_local(closest, soundfile, 100, FALSE, channel = channel)
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/proc/detonate_barrage(list/marked_turfs)
 	if(QDELETED(src) || stat == DEAD)
 		return
-	playsound(get_turf(src), 'modular_paragon/sound_library/pyramidlaser_fire.wav', 100, TRUE, 8)
+	play_barrage_sound('modular_paragon/sound_library/pyramidlaser_fire.wav', marked_turfs)
 	var/list/already_hit = list()
 	for(var/turf/T as anything in marked_turfs)
 		new /obj/effect/temp_visual/explosion/fast(T)
@@ -142,7 +163,7 @@
 //so fucking jank
 /obj/effect/temp_visual/chrome_pyramid_collapse
 	name = "PYRAMID"
-	desc = "It is coming apart."
+	desc = "Spacetime is unhewing. These things weigh heavy on the heart."
 	icon = 'modular_paragon/lostech/icons/vault_entrance.dmi'
 	icon_state = "cube" //codersprite
 	layer = ABOVE_MOB_LAYER
@@ -155,9 +176,11 @@
 		/obj/item/roguegem/diamond
 	)
 
-/obj/effect/temp_visual/chrome_pyramid_collapse/Initialize(mapload)
+/obj/effect/temp_visual/chrome_pyramid_collapse/Initialize(mapload) //pipe shit directly to ppl in view, shake, delete
 	. = ..()
-	playsound(src, 'modular_paragon/sound_library/pyramidcollapse.ogg', 100, FALSE, 10)
+	var/channel = SSsounds.random_available_channel()
+	for(var/mob/listener as anything in get_hearers_in_view(world.view, src, RECURSIVE_CONTENTS_CLIENT_MOBS))
+		listener.playsound_local(null, 'modular_paragon/sound_library/pyramidcollapse.ogg', 100, FALSE, channel = channel)
 	animate(src, pixel_x = rand(-4, 4), pixel_y = rand(-4, 4), time = 0.5, loop = -1)
 	for(var/i in 1 to 7)
 		animate(pixel_x = rand(-4, 4), pixel_y = rand(-4, 4), time = 0.5)
