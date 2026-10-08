@@ -1,0 +1,740 @@
+//Paperdoll: Equipment and Inventory popups.
+//Colours come from the active Paragon theme (--paragon-* in styles/themes/paragon.scss),
+//with Paragon Classic values as fallbacks for any other theme.
+
+$void: var(--paragon-void, #04100f);
+$panel: var(--paragon-panel, #0b2423);
+$viridian: var(--paragon-viridian, #0f3b3a);
+$line: var(--paragon-line, #155352);
+$frame: var(--paragon-frame, #4f8f8a);
+$text: var(--paragon-text, #b1c9c3);
+$bright: var(--paragon-bright, #e8efe9);
+$cyan: var(--paragon-cyan, #40a4b9);
+$cyan-bright: var(--paragon-cyan-bright, #77bfcf);
+$gold: var(--paragon-gold, #cfc041);
+$green: var(--paragon-green, #00c420);
+$red: var(--paragon-red, #d74200);
+$orange: var(--paragon-orange, #e99f10);
+
+.Paperdoll {
+  user-select: none;
+
+  //Top bar: one strip of boxed tabs split by thin rules
+  &__tabs {
+    display: flex;
+    margin: 0 0 12px;
+    border: 1px solid $line;
+    background: $void;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  &__tab {
+    flex: 1;
+    text-align: center;
+    padding: 5px 0;
+    color: $frame;
+    cursor: pointer;
+    border-right: 1px solid $line;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover {
+      color: $cyan-bright;
+    }
+
+    &--active {
+      color: $bright;
+      background: $viridian;
+      box-shadow: inset 0 -2px 0 $gold;
+    }
+  }
+
+  //Two-pane screens (Skills, Attributes): list on the left, details on the right
+  &__split {
+    display: flex;
+    gap: 14px;
+    min-height: 690px;
+  }
+
+  &__splitList {
+    flex: 3;
+    min-width: 0;
+  }
+
+  &__splitDetail {
+    flex: 2;
+    border-left: 1px solid $line;
+    padding: 6px 0 0 14px;
+    text-align: center;
+
+    &--list {
+      text-align: left;
+    }
+  }
+
+  &__group {
+    display: flex;
+    gap: 8px;
+    padding: 3px 8px;
+    margin-top: 4px;
+    background: $viridian;
+    cursor: pointer;
+  }
+
+  &__groupToggle {
+    color: $frame;
+  }
+
+  &__groupName {
+    flex: 1;
+    color: $cyan-bright;
+  }
+
+  &__groupCount {
+    color: $green;
+  }
+
+  &__skill {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px 8px 1px 46px;
+    color: $text;
+    cursor: pointer;
+
+    &:hover {
+      background: $panel;
+    }
+
+    &--unlearned {
+      color: $frame;
+    }
+
+    &--selected {
+      background: $viridian;
+      box-shadow: inset 2px 0 0 $gold;
+    }
+  }
+
+  &__skillLevel {
+    color: $text;
+    white-space: nowrap;
+  }
+
+  &__star {
+    color: $green;
+  }
+
+  &__bigName {
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: $bright;
+    margin-top: 8px;
+  }
+
+  &__subName {
+    color: $green;
+    margin-bottom: 10px;
+  }
+
+  &__detailText {
+    margin-top: 10px;
+    color: $text;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  &__track--detail {
+    margin: 4px 0 6px;
+  }
+
+  &__who {
+    margin-bottom: 4px;
+
+    .Paperdoll__bigName {
+      margin-top: 0;
+    }
+
+    .Paperdoll__subName {
+      color: $orange;
+      margin-bottom: 2px;
+    }
+  }
+
+  //Section rule with its title set into the line
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 14px 0 8px;
+    color: $cyan-bright;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+
+    &:after {
+      content: '';
+      flex: 1;
+      border-top: 1px solid $line;
+    }
+  }
+
+  &__statRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  //Stat tile with notched corners
+  &__statBox {
+    position: relative;
+    width: 70px;
+    padding: 4px 0;
+    text-align: center;
+    background: $void;
+    border: 1px solid $frame;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border: 1px solid $frame;
+      background: $panel;
+    }
+
+    &:before {
+      left: -4px;
+      top: -4px;
+    }
+
+    &:after {
+      right: -4px;
+      bottom: -4px;
+    }
+
+    &--selected {
+      border-color: $gold;
+    }
+  }
+
+  &__statKey {
+    color: $cyan;
+    font-size: 12px;
+  }
+
+  &__statValue {
+    color: $bright;
+    font-size: 16px;
+  }
+
+  &__statMod {
+    color: $frame;
+    font-size: 11px;
+
+    &--up {
+      color: $green;
+    }
+
+    &--down {
+      color: $red;
+    }
+  }
+
+  &__trait {
+    padding: 2px 6px;
+    color: $text;
+    cursor: pointer;
+
+    &:hover {
+      background: $panel;
+    }
+
+    &--vice {
+      color: $orange;
+    }
+
+    &--selected {
+      background: $viridian;
+      box-shadow: inset 2px 0 0 $gold;
+    }
+  }
+
+  &__hint {
+    font-size: 11px;
+    color: $text;
+
+    b {
+      color: $gold;
+      font-weight: normal;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid $line;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+
+  //===== Equipment =====
+  &__doll {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 92px);
+    grid-auto-rows: 100px;
+    justify-content: center;
+    column-gap: 10px;
+  }
+
+  //Connector wires between body slots, drawn under the slots
+  &__wire {
+    position: absolute;
+    background: $line;
+    z-index: 0;
+  }
+
+  &__slot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.15;
+    color: $text;
+    cursor: pointer;
+    z-index: 1;
+
+    &--tall {
+      grid-row: span 2;
+    }
+
+    &:hover .Paperdoll__box {
+      border-color: $cyan-bright;
+    }
+
+    &--full .Paperdoll__label {
+      color: $bright;
+    }
+
+    &--active .Paperdoll__box {
+      border-color: $gold;
+      box-shadow: 0 0 0 1px $gold;
+    }
+
+    &--active .Paperdoll__label {
+      color: $gold;
+    }
+
+    &--disabled {
+      cursor: default;
+      opacity: 0.45;
+    }
+  }
+
+  &__box {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    background: $void;
+    border: 1px solid $frame;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    //Slot notches on the top-left and bottom-right corners
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border: 1px solid $frame;
+      background: $panel;
+    }
+
+    &:before {
+      left: -4px;
+      top: -4px;
+    }
+
+    &:after {
+      right: -4px;
+      bottom: -4px;
+    }
+
+    .Paperdoll__slot--tall & {
+      height: 164px;
+    }
+
+    &--damaged {
+      border-color: $orange;
+    }
+
+    &--broken {
+      border-color: $red;
+    }
+  }
+
+  &__img {
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+
+    &--empty {
+      opacity: 0.28;
+    }
+  }
+
+  //A picture from a spritesheet asset (the recipe sheet): the inner span carries the sheet's classes
+  &__sprite {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+
+    > span {
+      display: block;
+    }
+
+    &--large {
+      width: 96px;
+      height: 96px;
+      margin-top: 10px;
+
+      > span {
+        zoom: 3;
+      }
+    }
+  }
+
+  &__label {
+    margin-top: 5px;
+  }
+
+  &__covered {
+    color: $frame;
+    font-size: 10px;
+  }
+
+  &__detail {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 4px;
+    min-height: 58px;
+    padding: 6px 10px;
+    background: $void;
+    border: 1px solid $frame;
+
+    .Paperdoll__img {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &__detailBody {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__desc {
+    color: $text;
+    font-style: italic;
+    margin: 2px 0 4px;
+  }
+
+  //Stat lines come from the item's hover tooltip, two to a row
+  &__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 14px;
+    font-size: 11px;
+    color: $text;
+
+    b {
+      color: $cyan-bright;
+    }
+  }
+
+  &__held {
+    color: $gold;
+  }
+
+  &__bound {
+    color: $gold;
+    font-size: 12px;
+    margin-left: 6px;
+  }
+
+  &__bindPicker {
+    margin-left: 4px;
+  }
+
+  &__capacity {
+    margin-top: 8px;
+  }
+
+  &__capacityRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  &__capacityName {
+    width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__track {
+    position: relative;
+    flex: 1;
+    height: 14px;
+    border: 1px solid $frame;
+    background: $void;
+  }
+
+  &__fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: $line;
+  }
+
+  &__trackText {
+    position: absolute;
+    inset: 0;
+    text-align: center;
+    line-height: 13px;
+    font-size: 11px;
+    color: $bright;
+  }
+
+  &__name {
+    color: $text;
+    font-weight: bold;
+  }
+
+  &__extras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+
+  //===== Inventory =====
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  &__filter {
+    padding: 2px 8px;
+    border: 1px solid $line;
+    background: $void;
+    color: $cyan;
+    cursor: pointer;
+
+    &:hover {
+      color: $cyan-bright;
+    }
+
+    &--active {
+      color: $gold;
+      border-color: $gold;
+    }
+  }
+
+  &__list {
+    border: 1px solid $frame;
+    background: $void;
+  }
+
+  &__category {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 10px;
+    background: $viridian;
+    color: $cyan-bright;
+    font-weight: bold;
+    border-top: 1px solid $frame;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    span:last-child {
+      color: $text;
+      font-weight: normal;
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    align-items: center;
+    gap: 6px;
+    padding: 1px 10px;
+    color: $text;
+    cursor: pointer;
+
+    &:hover {
+      background: $viridian;
+    }
+
+    &--unreachable {
+      color: $frame;
+    }
+
+    .Paperdoll__img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__where {
+    color: $frame;
+    font-size: 11px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  &__tag {
+    color: $frame;
+    font-size: 12px;
+    margin-left: 6px;
+
+    &--damaged {
+      color: $orange;
+    }
+
+    &--broken {
+      color: $red;
+    }
+  }
+
+  &__open {
+    color: $cyan-bright;
+    margin-left: 8px;
+
+    &:hover {
+      color: $gold;
+    }
+  }
+
+  &__search {
+    width: 180px;
+  }
+
+  &__empty {
+    padding: 10px;
+    text-align: center;
+    color: $frame;
+  }
+}
+
+//===== Crafting and Compendium tabs =====
+.Paperdoll {
+  &__warning {
+    margin: 4px 0;
+    padding: 3px 8px;
+    color: $red;
+    border: 1px solid $red;
+  }
+
+  &__recipe {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px 0 30px;
+    color: $bright;
+    cursor: pointer;
+
+    &:hover {
+      background: $panel;
+    }
+
+    .Paperdoll__img {
+      width: 32px;
+      height: 32px;
+    }
+
+    &--missing {
+      color: $frame;
+
+      .Paperdoll__img {
+        opacity: 0.45;
+      }
+    }
+  }
+
+  &__missing {
+    color: $orange;
+    margin-bottom: 10px;
+  }
+
+  &__img--large {
+    width: 96px;
+    height: 96px;
+    margin-top: 10px;
+  }
+
+  &__recipeFacts {
+    margin-top: 8px;
+    text-align: left;
+    line-height: 1.6;
+    color: $text;
+
+    b {
+      color: $cyan-bright;
+      font-weight: normal;
+    }
+  }
+
+  &__craftButtons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+
+  &__splitList--narrow {
+    flex: 1;
+  }
+
+  &__splitDetail--wide {
+    flex: 3;
+    text-align: left;
+    padding-right: 10px;
+  }
+
+  //Lore text: comfortable reading width, nested <details> styled as collapsible headers
+  &__lore {
+    line-height: 1.6;
+
+    small {
+      color: $frame;
+    }
+
+    em {
+      color: $cyan-bright;
+    }
+  }
+}

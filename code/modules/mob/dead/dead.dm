@@ -97,14 +97,16 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 		bonus_html = span_highlight("No bonus! Ready up!")
 	client << output(bonus_html, "lobby_window.browser:update_ready_bonus")
 	client << output(actor_list, "lobby_window.browser:update_jobs")
+	client << output(url_encode(paragon_theme_style_for(client)), "lobby_window.browser:set_paragon_theme")
 
 /mob/dead/new_player/proc/open_lobby()
 	if (!client)
 		return
-	client << browse(
-		file("html/lobby/lobby.html"),
-		"window=lobby_window;size=330x430"
-	)
+	//Frameless, with the Paragon title bar in place of the Windows one
+	var/static/lobby_html
+	if(!lobby_html)
+		lobby_html = replacetext(file2text("html/lobby/lobby.html"), "<body>", "<body>[paragon_window_chrome("lobby_window", "Paragon Moon", TRUE, FALSE)]")
+	client << browse(lobby_html, "window=lobby_window;size=330x430;titlebar=0;can_resize=0;can_minimize=0;can_maximize=0")
 /mob/dead/proc/server_hop()
 	set category = "OOC"
 	set name = "Server Hop!"

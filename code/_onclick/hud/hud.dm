@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
 	var/hud_version = HUD_STYLE_STANDARD	//Current displayed version of the HUD
 	var/inventory_shown = TRUE		//Equipped item inventory
+	//Whether worn items are drawn on the HUD in their slots. FALSE for HUDs that use the Equipment popup (paperdoll.dm) instead.
+	var/show_worn_items = TRUE
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/atom/movable/screen/ling/chems/lingchemdisplay
@@ -296,6 +298,12 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 				screenmob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
+	//Fill the map pane past this HUD with empty panel (paragon_hud.dm); again whenever the map pane is resized,
+	//and a few times while logging in, since BYOND restores the saved splitter after the window opens
+	if(paragon_layout)
+		winset(screenmob.client, null, "mapwindow.map.on-size=.paragon_fit_map")
+	for(var/delay in list(1 SECONDS, 4 SECONDS, 12 SECONDS))
+		addtimer(CALLBACK(screenmob.client, TYPE_PROC_REF(/client, fit_map_to_hud)), delay)
 	persistent_inventory_update(screenmob)
 	screenmob.update_action_buttons(1)
 	reorganize_alerts()
@@ -323,6 +331,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	. = ..()
 	if(!.)
 		return
+	apply_paragon_layout()
 	var/mob/screenmob = viewmob || mymob
 	hidden_inventory_update(screenmob)
 
@@ -409,7 +418,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 			var/mob/living/liv_mymob = mymob
 			if(i == liv_mymob.domhand)
 				hand_box.icon_state += "_dom"
-		hand_box.screen_loc = ui_hand_position(i)
+		hand_box.screen_loc = ui_hand_position(i, paragon_layout)
 		hand_box.held_index = i
 		hand_slots["[i]"] = hand_box
 		claim_screen(hand_box)
@@ -435,6 +444,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 
 /datum/hud/proc/initialize_bloodpool()
 	bloodpool = new /atom/movable/screen/bloodpool(null, src)
+	if(paragon_layout)
+		bloodpool.screen_loc = "EAST+3,NORTH-1"
 	infodisplay += bloodpool
 	show_hud(HUD_STYLE_STANDARD)
 

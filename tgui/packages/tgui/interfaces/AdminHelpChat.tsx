@@ -172,7 +172,13 @@ export const AdminHelpChat = (props) => {
                             }}
                           />
                         ) : (
-                          <Box mt={0.5} style={{ wordWrap: 'break-word', whiteSpace: 'pre-wrap' }}>
+                          <Box
+                            mt={0.5}
+                            style={{
+                              wordWrap: 'break-word',
+                              whiteSpace: 'pre-wrap',
+                            }}
+                          >
                             {msg.message}
                           </Box>
                         )}

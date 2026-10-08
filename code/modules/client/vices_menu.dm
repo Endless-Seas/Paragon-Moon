@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	fix_duplicate_vices()
 
 	var/html_content = generate_vices_html(user)
-	user << browse(html_content, "window=character_custom;size=750x500")
+	user << browse(html_content, "window=character_custom;size=750x500;titlebar=0;can_resize=0;can_minimize=0;can_maximize=0")
 
 /datum/preferences/proc/fix_duplicate_vices()
 	// Remove duplicate vices across slots
@@ -676,13 +676,13 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 /datum/preferences/proc/generate_vices_html(mob/user)
 	// Use same colors as main character creation menu
 	var/list/theme = list(
-		"bg" = "#100000",
-		"text" = "#aa8f8f",
-		"label" = "#aa8f8f",
-		"border" = "#7b5353",
-		"panel" = "#00000066",
-		"panel_dark" = "#00000044",
-		"button_hover" = "rgba(123, 83, 83, 0.3)"
+		"bg" = "var(--pg-panel, #0b2423)",
+		"text" = "var(--pg-text, #b1c9c3)",
+		"label" = "var(--pg-accent, #40a4b9)",
+		"border" = "var(--pg-frame, #4f8f8a)",
+		"panel" = "var(--pg-void, #04100f)",
+		"panel_dark" = "var(--pg-panel, #0b2423)",
+		"button_hover" = "var(--pg-raised, #0f3b3a)"
 	)
 
 	var/html = {"
@@ -690,10 +690,11 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 		<html lang="en">
 		<meta charset='UTF-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
+		[paragon_theme_style_for(user)]
 		<style>
 			body {
 				font-family: Verdana, Arial, sans-serif;
-				background: #100000 url('flowers.png') repeat;
+				background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px) var(--pg-panel, #0b2423);
 				color: [theme["text"]];
 				margin: 0;
 				padding: 0;
@@ -785,8 +786,8 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 				font-weight: bold;
 			}
 			.slot-cost {
-				background: #4CAF50;
-				color: #1C0000;
+				background: var(--pg-green, #00c420);
+				color: var(--pg-void, #04100f);
 				padding: 1px 5px;
 				font-size: 0.65em;
 				font-weight: bold;
@@ -827,36 +828,36 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 				border-color: [theme["border"]];
 			}
 			.btn-select {
-				background: rgba(76, 175, 80, 0.3);
-				border-color: #4CAF50;
-				color: #4CAF50;
+				background: rgba(0, 196, 32, 0.3);
+				border-color: var(--pg-green, #00c420);
+				color: var(--pg-green, #00c420);
 			}
 			.btn-select:hover {
-				background: rgba(76, 175, 80, 0.5);
+				background: rgba(0, 196, 32, 0.5);
 			}
 			.btn-clear {
-				background: rgba(244, 67, 54, 0.3);
-				border-color: #f44336;
-				color: #f44336;
+				background: rgba(215, 66, 0, 0.3);
+				border-color: var(--pg-red, #d74200);
+				color: var(--pg-red, #d74200);
 			}
 			.btn-clear:hover {
-				background: rgba(244, 67, 54, 0.5);
+				background: rgba(215, 66, 0, 0.5);
 			}
 			.btn-customize {
-				background: rgba(33, 150, 243, 0.3);
-				border-color: #2196F3;
-				color: #2196F3;
+				background: rgba(119, 191, 207, 0.3);
+				border-color: var(--pg-accent2, #77bfcf);
+				color: var(--pg-accent2, #77bfcf);
 			}
 			.btn-customize:hover {
-				background: rgba(33, 150, 243, 0.5);
+				background: rgba(119, 191, 207, 0.5);
 			}
 			.btn-color {
-				background: rgba(156, 39, 176, 0.3);
-				border-color: #9C27B0;
-				color: #9C27B0;
+				background: rgba(177, 84, 207, 0.3);
+				border-color: #b154cf;
+				color: #b154cf;
 			}
 			.btn-color:hover {
-				background: rgba(156, 39, 176, 0.5);
+				background: rgba(177, 84, 207, 0.5);
 			}
 			.empty-slot {
 				text-align: center;
@@ -903,7 +904,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 				font-size: 0.8em;
 			}
 			.statpack-stats {
-				color: #4CAF50;
+				color: var(--pg-green, #00c420);
 				font-style: italic;
 				font-size: 0.75em;
 			}
@@ -962,6 +963,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 			};
 		</script>
 		<body>
+			[paragon_window_chrome("character_custom", "Character Customization")]
 			<div class="header">
 				<h1>Character Customization</h1>
 				<p>Configure all your character features</p>
@@ -1162,11 +1164,11 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	html += {"
 			<div class='statpack-section'>
 				<div style='font-size: 0.85em; margin-bottom: 5px;'>
-					<span style='color: #4CAF50;'>Available Points: [loadout_remaining]</span> |
+					<span style='color: var(--pg-green, #00c420);'>Available Points: [loadout_remaining]</span> |
 					<span style='color: [theme["text"]];'>Spent (Loadout): [loadout_spent]</span> /
 					<span>Total Points: [total_points]</span>
 				</div>
-				<div style='background: rgba(123, 83, 83, 0.2); border: 1px solid [theme["border"]]; padding: 8px; margin-top: 8px; font-size: 0.7em;'>
+				<div style='background: rgba(79, 143, 138, 0.2); border: 1px solid [theme["border"]]; padding: 8px; margin-top: 8px; font-size: 0.7em;'>
 					<div style='font-weight: bold; color: [theme["text"]]; margin-bottom: 4px;'>⚠ Loadout Item Modifications:</div>
 					<div style='color: [theme["label"]]; line-height: 1.4;'>
 						<b>ARMOR:</b> Set to armour minor protection (15 armor to all damage types) • Crit prevention removed • Armor class set to Light<br>
@@ -1203,7 +1205,7 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 			var/item_desc = initial(sample.desc)
 
 			html += "<div style='display: flex; align-items: center; margin-bottom: 6px;'>"
-			html += "<div style='width: 48px; height: 48px; background: rgba(0,0,0,0.6); border: 1px solid #444; margin-right: 8px; display: flex; align-items: center; justify-content: center;'>"
+			html += "<div style='width: 48px; height: 48px; background: var(--pg-void, #04100f); border: 1px solid var(--pg-line, #155352); margin-right: 8px; display: flex; align-items: center; justify-content: center;'>"
 
 			// Use the item's icon with caching
 			if(icon_file && icon_state)
@@ -1266,10 +1268,10 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 	var/lang_remaining = total_triumphs - lang_spent
 
 	html += {"
-			<div class='statpack-section' style='background: rgba(76, 175, 80, 0.1); border: 1px solid #4CAF50; padding: 15px; margin-bottom: 20px;'>
+			<div class='statpack-section' style='background: rgba(0, 196, 32, 0.1); border: 1px solid var(--pg-green, #00c420); padding: 15px; margin-bottom: 20px;'>
 				<p style='margin: 0 0 10px 0;'>ℹ You get <b>one free language</b> from background, plus up to 2 additional languages. Slot 1 costs 2 Triumphs, Slot 2 costs 4 Triumphs. Your race may grant languages by default.</p>
 				<div style='font-size: 1em;'>
-					<span style='color: #4CAF50;'>Available Triumphs: [lang_remaining]</span> |
+					<span style='color: var(--pg-green, #00c420);'>Available Triumphs: [lang_remaining]</span> |
 					<span style='color: [theme["text"]];'>Spent (Languages): [lang_spent]</span> /
 					<span>Total Triumphs: [total_triumphs]</span>
 				</div>
@@ -1285,10 +1287,10 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 		free_lang = new extra_language()
 
 	if(origin_lang)
-		html += "<div class='vice-slot' style='border-color: #7b5353;'>"
+		html += "<div class='vice-slot' style='border-color: var(--pg-line, #155352);'>"
 		html += "<div class='slot-header'>"
 		html += "<span class='slot-number'>Free Language</span>"
-		html += "<span class='slot-cost' style='background: #7b5353; color: #ffcccc;'>LOCKED BY ORIGIN</span>"
+		html += "<span class='slot-cost' style='background: var(--pg-raised, #0f3b3a); color: var(--pg-bright, #e8efe9);'>LOCKED BY ORIGIN</span>"
 		html += "</div>"
 		html += "<div class='vice-display'>"
 		html += "<div class='vice-info'>"
@@ -1296,10 +1298,10 @@ GLOBAL_LIST_EMPTY(cached_loadout_icons)
 		html += "<div class='vice-desc'>Granted by your origin ([origin.name]). Cannot be changed.</div>"
 		html += "</div></div></div>"
 	else
-		html += "<div class='vice-slot' style='border-color: #4CAF50;'>"
+		html += "<div class='vice-slot' style='border-color: var(--pg-green, #00c420);'>"
 		html += "<div class='slot-header'>"
 		html += "<span class='slot-number'>Free Language</span>"
-		html += "<span class='slot-cost' style='background: #4CAF50; color: [theme["bg"]];'>FREE</span>"
+		html += "<span class='slot-cost' style='background: var(--pg-green, #00c420); color: [theme["bg"]];'>FREE</span>"
 		html += "</div>"
 		if(free_lang)
 			html += "<div class='vice-display'>"

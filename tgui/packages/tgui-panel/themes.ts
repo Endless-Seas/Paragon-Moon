@@ -1,46 +1,109 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
+//@file
+//@copyright 2020 Aleksej Komarov
+//@license MIT
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = [
+  'dark',
+  'paragon_classic',
+  'paragon_orange',
+  'paragon_grey',
+  'paragon_navy',
+  'paragon_crimson',
+];
+
+export const THEME_NAMES: Record<string, string> = {
+  dark: 'Dark',
+  paragon_classic: 'Paragon Classic',
+  paragon_orange: 'Paragon Orange',
+  paragon_grey: 'Paragon Grey',
+  paragon_navy: 'Paragon Navy',
+  paragon_crimson: 'Paragon Crimson',
+};
 
 const COLORS = {
   DARK: {
-    BG_BASE: '#202020',
-    BG_SECOND: '#151515',
-    BUTTON: '#404040',
-    TEXT: '#A6A6A6',
+    BG_BASE: '#000000',
+    BG_SECOND: '#000000',
+    BUTTON: '#202020',
+    TEXT: '#D6DBD5',
+    TAB_TEXT: '#D6DBD5',
+    HIGHLIGHT: '#FFFFFF',
+  },
+  //Paragon palettes, keep in sync with tgui/styles/paragon_palettes.scss
+  //(void, panel, raised, text) and interface/skin.dmf
+  PARAGON_CLASSIC: {
+    BG_BASE: '#04100F',
+    BG_SECOND: '#0B2423',
+    BUTTON: '#0F3B3A',
+    TEXT: '#B1C9C3',
+    TAB_TEXT: '#77BFCF',
+    HIGHLIGHT: '#CFC041',
+  },
+  PARAGON_ORANGE: {
+    BG_BASE: '#110904',
+    BG_SECOND: '#1E1209',
+    BUTTON: '#33200F',
+    TEXT: '#D6C3AE',
+    TAB_TEXT: '#F4AE6A',
+    HIGHLIGHT: '#F0CC58',
+  },
+  PARAGON_GREY: {
+    BG_BASE: '#0E0E0F',
+    BG_SECOND: '#18181A',
+    BUTTON: '#26262A',
+    TEXT: '#C2C2C6',
+    TAB_TEXT: '#C6CED8',
+    HIGHLIGHT: '#D2BC64',
+  },
+  PARAGON_NAVY: {
+    BG_BASE: '#060B17',
+    BG_SECOND: '#0B1426',
+    BUTTON: '#132344',
+    TEXT: '#B6C4DE',
+    TAB_TEXT: '#84B2EE',
+    HIGHLIGHT: '#E2C262',
+  },
+  PARAGON_CRIMSON: {
+    BG_BASE: '#120605',
+    BG_SECOND: '#1F0C09',
+    BUTTON: '#36150F',
+    TEXT: '#D8BDB4',
+    TAB_TEXT: '#E8876A',
+    HIGHLIGHT: '#E0B85A',
   },
   LIGHT: {
     BG_BASE: '#EEEEEE',
     BG_SECOND: '#FFFFFF',
     BUTTON: '#FFFFFF',
     TEXT: '#000000',
+    TAB_TEXT: '#000000',
+    HIGHLIGHT: '#000000',
   },
 };
 
 let setClientThemeTimer: NodeJS.Timeout;
 
-/**
- * Darkmode preference, originally by Kmc2000.
- *
- * This lets you switch client themes by using winset.
- *
- * If you change ANYTHING in interface/skin.dmf you need to change it here.
- *
- * There's no way round it. We're essentially changing the skin by hand.
- * It's painful but it works, and is the way Lummox suggested.
- */
+//Darkmode preference, originally by Kmc2000.
+//
+//This lets you switch client themes by using winset.
+//
+//If you change ANYTHING in interface/skin.dmf you need to change it here.
+//
+//There's no way round it. We're essentially changing the skin by hand.
+//It's painful but it works, and is the way Lummox suggested.
 export const setClientTheme = (name) => {
-  // Transmit once for fast updates and again in a little while in case we won
-  // the race against statbrowser init.
+  //Transmit once for fast updates and again in a little while in case we won
+  //the race against statbrowser init.
   clearInterval(setClientThemeTimer);
   Byond.command(`.output statbrowser:set_theme ${name}`);
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
   }, 1500);
+
+  //Chat-side styling lives in styles/themes/<name>.scss, scoped to this class
+  for (const theme of THEMES) {
+    document.body.classList.toggle(`chat-${theme}`, theme === name);
+  }
 
   const themeColor = COLORS[name.toUpperCase()];
   if (!themeColor) {
@@ -48,7 +111,7 @@ export const setClientTheme = (name) => {
   }
 
   return Byond.winset({
-    // Main windows
+    //Main windows
     'infobuttons.background-color': themeColor.BG_BASE,
     'infobuttons.text-color': themeColor.TEXT,
     'infowindow.background-color': themeColor.BG_BASE,
@@ -62,7 +125,7 @@ export const setClientTheme = (name) => {
     'outputwindow.text-color': themeColor.TEXT,
     'mainwindow.background-color': themeColor.BG_BASE,
     'split.background-color': themeColor.BG_BASE,
-    // Buttons
+    //Buttons
     'changelog.background-color': themeColor.BUTTON,
     'changelog.text-color': themeColor.TEXT,
     'rules.background-color': themeColor.BUTTON,
@@ -77,10 +140,10 @@ export const setClientTheme = (name) => {
     'report-issue.text-color': themeColor.TEXT,
     'fullscreen-toggle.background-color': themeColor.BUTTON,
     'fullscreen-toggle.text-color': themeColor.TEXT,
-    // Status and verb tabs
+    //Status and verb tabs
     'output.background-color': themeColor.BG_BASE,
     'output.text-color': themeColor.TEXT,
-    // Say, OOC, me Buttons etc.
+    //Say, OOC, me Buttons etc.
     'saybutton.background-color': themeColor.BG_BASE,
     'saybutton.text-color': themeColor.TEXT,
     'oocbutton.background-color': themeColor.BG_BASE,
@@ -93,5 +156,18 @@ export const setClientTheme = (name) => {
     'tooltip.text-color': themeColor.TEXT,
     'input.background-color': themeColor.BG_SECOND,
     'input.text-color': themeColor.TEXT,
+    'statwindow.background-color': themeColor.BG_BASE,
+    'statwindow.text-color': themeColor.TEXT,
+    'output_browser.background-color': themeColor.BG_BASE,
+    'output_legacy.background-color': themeColor.BG_BASE,
+    'character_preview_map.background-color': themeColor.BG_BASE,
+    //Stat panel (the native tabs: RoundInfo, IC, OOC...)
+    'stat.background-color': themeColor.BG_BASE,
+    'stat.text-color': themeColor.TEXT,
+    'stat.tab-background-color': themeColor.BG_SECOND,
+    'stat.tab-text-color': themeColor.TAB_TEXT,
+    'stat.highlight-color': themeColor.HIGHLIGHT,
+    'stat.prefix-color': themeColor.HIGHLIGHT,
+    'stat.suffix-color': themeColor.TEXT,
   });
 };

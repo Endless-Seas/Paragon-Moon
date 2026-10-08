@@ -211,11 +211,16 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(!input)
 		input = "..."
 
-	if(copytext(input, length(input) - 1) == "!!")
+	var/yelling = copytext(input, length(input) - 1) == "!!"
+	if(yelling)
 		spans |= SPAN_YELL
 
 	input = parsemarkdown_basic(input, limited = TRUE, barebones = TRUE)
-	var/spanned = attach_spans(input, spans)
+	//A yell gets its own outer span, so its larger size scales an accent's font size instead of being
+	//overridden by it
+	var/spanned = attach_spans(input, yelling ? (spans - SPAN_YELL) : spans)
+	if(yelling)
+		spanned = "<span class='[SPAN_YELL]'>[spanned]</span>"
 	if(isliving(src))
 		var/mob/living/L = src
 		if(L.cmode)

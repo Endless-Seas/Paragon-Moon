@@ -3,6 +3,7 @@ import { storage } from 'common/storage';
 import { setMusicVolume } from '../audio/handlers';
 import { chatRenderer } from '../chat/renderer';
 import { store } from '../events/store';
+import { THEMES } from '../themes';
 import {
   defaultHighlightSetting,
   defaultSettings,
@@ -75,13 +76,13 @@ function normalizeHighlightState(input: unknown): HighlightState {
   };
 }
 
-/** Chat font size default before settings version 2. */
+//Chat font size default before settings version 2.
 const LEGACY_DEFAULT_FONT_SIZE = 19;
 
 function normalizeFontSize(source: Record<string, unknown>): number {
   if (typeof source.fontSize !== 'number') return defaultSettings.fontSize;
   const version = typeof source.version === 'number' ? source.version : 1;
-  // Move players still on the old default to the new one, once.
+  //Move players still on the old default to the new one, once.
   if (version < 2 && source.fontSize === LEGACY_DEFAULT_FONT_SIZE) {
     return defaultSettings.fontSize;
   }
@@ -117,9 +118,14 @@ function normalizeSettings(input: unknown) {
       typeof source.statTabsStyle === 'string'
         ? source.statTabsStyle
         : defaultSettings.statTabsStyle,
-    // Paragon ships the dark chat stylesheet; do not import a donor theme
-    // through a stale persisted preference.
-    theme: 'dark',
+    //Only keep themes Paragon ships; a stale donor theme falls back.
+    //The old "qud" id is Paragon Classic now
+    theme:
+      source.theme === 'qud'
+        ? 'paragon_classic'
+        : THEMES.includes(source.theme as string)
+          ? (source.theme as string)
+          : defaultSettings.theme,
     initialized: true,
     view: defaultSettings.view,
   };

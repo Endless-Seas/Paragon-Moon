@@ -205,7 +205,8 @@
 
 	return //RTchange
 
-/mob/living/carbon/human/show_inv(mob/user)
+//The old HTML strip menu. Still reachable from the paper doll for the extra rows it has (underwear, legwear and so on).
+/mob/living/carbon/human/proc/show_inv_legacy(mob/user)
 	user.set_machine(src)
 	var/list/obscured = check_obscured_slots()
 	var/list/dat = list()
@@ -529,6 +530,7 @@
 /mob/living/carbon/human/update_health_hud()
 	if(!hud_used)
 		return
+	hud_used.update_paragon_status()
 	if(dna.species.update_health_hud())
 		return
 	else
