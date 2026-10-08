@@ -81,7 +81,7 @@ SUBSYSTEM_DEF(soundloopers)
 	if(!our_sound)
 		return //something fucked up and the loop has no cursound, wups. this should basically never happen
 
-	mob.playsound_local(parent_turf, PS.cursound, PS.volume, PS.vary, PS.frequency, PS.falloff, PS.channel, FALSE, our_sound, repeat = PS)
+	mob.playsound_local(parent_turf, PS.cursound, PS.volume * get_loop_duck(PS), PS.vary, PS.frequency, PS.falloff, PS.channel, FALSE, our_sound, repeat = PS)
 
 /client/proc/update_sounds()
 	//Now we check how far away etc we are
@@ -183,6 +183,8 @@ SUBSYSTEM_DEF(soundloopers)
 				new_volume = new_volume / 4
 
 			new_volume = new_volume * (prefs.mastervol * 0.01) //Modify it at the end by the player's volume setting
+			//Music fades while dying. Floored above 0, since update_sound_volume() ignores a 0.
+			new_volume = max(new_volume * get_loop_duck(loop), 0.1)
 
 			// Always clear MUTESTATUS when in range, regardless of whether volume changed.
 			// Previously this was inside if(old_volume != new_volume), meaning a sound that

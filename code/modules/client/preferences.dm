@@ -618,6 +618,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Taur Markings:</b> <span style='border: 1px solid #161616; background-color: #[taur_markings];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_markings;task=input'>Change</a><BR>"
 				dat += "<b>Taur Tertiary:</b> <span style='border: 1px solid #161616; background-color: #[taur_tertiary];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=taur_tertiary;task=input'>Change</a><BR>"
 
+			if(!taur_type)
+				dat += "<b>Digitigrade Legs:</b> <a href='?_src_=prefs;preference=digitigrade_legs'>[features["legs"] == DIGITIGRADE_LEGS ? "Yes" : "No"]</a><BR>"
+
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><BR>"
 			dat += "<b>Origin:</b> <a href='?_src_=prefs;preference=origin;task=input'>[origin ? origin.name : "None"]</a><BR>"
 
@@ -2703,6 +2706,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						to_chat(user, "<font color='red'>Your character will now use a [friendlyGenders[pickedGender]] sprite.</font>")
 						//random_character(gender)
 					genderize_customizer_entries()
+				if("digitigrade_legs")
+					features["legs"] = (features["legs"] == DIGITIGRADE_LEGS) ? NORMAL_LEGS : DIGITIGRADE_LEGS
 				if("domhand")
 					if(domhand == 1)
 						domhand = 2
@@ -3289,6 +3294,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	else if(character_setup)
 		// This should only ever ~do~ anything for previews
 		character.ensure_not_taur()
+	if(!taur_type)
+		character.update_digitigrade_legs()
 
 	if(icon_updates)
 		character.update_body()

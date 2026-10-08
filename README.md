@@ -86,3 +86,8 @@ The TGS DMAPI is licensed as a subproject under the MIT license.
 See the footer of [code/__DEFINES/tgs.dm](./code/__DEFINES/tgs.dm) and [code/modules/tgs/LICENSE](./code/modules/tgs/LICENSE) for the MIT license.
 
 All assets including icons and sound are under a [Creative Commons 3.0 BY-SA license](https://creativecommons.org/licenses/by-sa/3.0/) unless otherwise indicated.
+
+### Digitigrade sprites
+
+The digitigrade leg art (`l_leg_digi`, `r_leg_digi` and their `_above` states in `icons/roguetown/mob/bodies/`) is adapted from the digitigrade legs by the [tgstation](https://github.com/tgstation/tgstation) contributors (`icons/mob/human/species/lizard/bodyparts.dmi`), as carried by [NovaSector](https://github.com/NovaSector/NovaSector) and [Meridian-Rift](https://github.com/Aphelion-Moon/Meridian-Rift), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The art was recoloured to Roguetown's body palettes and refitted to female and dwarf bodies.
+The `_digi` states of legwear and footwear are Roguetown clothing reshaped onto that tgstation digitigrade silhouette with [tools/digi_sprites](./tools/digi_sprites), and are likewise CC BY-SA 3.0.

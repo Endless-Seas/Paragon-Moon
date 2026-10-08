@@ -1,0 +1,1 @@
+public static class Probe { public static void Run(string spec) { int w,h; var ic = Program.Compose(spec, out w, out h); var set = new System.Collections.Generic.SortedSet<string>(); foreach (var d in ic) foreach (var c in d) if (((c>>24)&0xFF)!=0) set.Add(((uint)c).ToString("X8")); System.Console.WriteLine(string.Join(" ", set)); } }

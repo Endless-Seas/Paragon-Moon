@@ -109,7 +109,9 @@ GLOBAL_LIST_EMPTY(last_words)
 	SSdroning.kill_rain(src.client)
 	SSdroning.kill_loop(src.client)
 	SSdroning.kill_droning(src.client)
-	if(!nocutscene)
+	//The dying decline can hold the cutscene back and play it itself.
+	var/cutscene_held = !nocutscene && client && hold_death_cutscene(gibbed)
+	if(!nocutscene && !cutscene_held)
 		src.playsound_local(src, 'sound/misc/deth.ogg', 100)
 
 	set_drugginess(0)
@@ -128,17 +130,12 @@ GLOBAL_LIST_EMPTY(last_words)
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed) 
 	if(client)
 		client.move_delay = initial(client.move_delay)
-		if(!nocutscene)
-			var/atom/movable/screen/gameover/hog/H = new()
-			H.layer = SPLASHSCREEN_LAYER+0.1
-			client.screen += H
-			H.Fade()
-			addtimer(CALLBACK(H, TYPE_PROC_REF(/atom/movable/screen/gameover, Fade), TRUE), 100)
-//		flick("gameover",H)
-//		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom/movable/screen/gameover, Fade)), 29)
+		if(!nocutscene && !cutscene_held)
+			show_death_cutscene()
 		mob_timers["lastdied"] = world.time
 //		addtimer(CALLBACK(client, PROC_REF(ghostize), 1, src), 150)
-		add_client_colour(/datum/client_colour/monochrome)
+		if(!cutscene_held)
+			add_client_colour(/datum/client_colour/monochrome)
 		client.verbs.Add(GLOB.ghost_verbs)
 		if(last_words)
 			GLOB.last_words |= last_words
@@ -173,6 +170,16 @@ GLOBAL_LIST_EMPTY(last_words)
 	// AZURE EDIT END
 
 	return TRUE
+
+//Return TRUE to take over the death cutscene (sound, death screen, monochrome) and play it later yourself.
+/mob/living/proc/hold_death_cutscene(gibbed)
+	return FALSE
+
+//See modular_paragon/dying/death_screen.dm.
+/mob/living/proc/show_death_cutscene()
+	if(!client)
+		return
+	new /datum/death_screen(src)
 
 /mob/living/proc/prepare_deathsight_message()
 	var/area/A = get_area(src)
