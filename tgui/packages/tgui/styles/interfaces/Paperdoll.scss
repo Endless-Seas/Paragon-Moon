@@ -393,6 +393,29 @@ $orange: var(--paragon-orange, #e99f10);
     }
   }
 
+  //A picture from a spritesheet asset (the recipe sheet): the inner span carries the sheet's classes
+  &__sprite {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+
+    > span {
+      display: block;
+    }
+
+    &--large {
+      width: 96px;
+      height: 96px;
+      margin-top: 10px;
+
+      > span {
+        zoom: 3;
+      }
+    }
+  }
+
   &__label {
     margin-top: 5px;
   }

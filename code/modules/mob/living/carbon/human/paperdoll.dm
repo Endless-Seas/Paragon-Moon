@@ -90,7 +90,12 @@ GLOBAL_LIST_EMPTY(paperdoll_icon_cache)
 #define COMSIG_PARAGON_INVENTORY_CHANGED "paragon_inventory_changed"
 
 /mob/living/carbon/human/equip_to_slot(obj/item/I, slot, initial = FALSE)
+	var/was_held = (I in held_items)
 	. = ..()
+	//Carbon equip_to_slot() empties the hand an item came from without redrawing it, which left the item
+	//drawn in hand when the quickbar or the paper doll put it straight on
+	if(was_held && !(I in held_items))
+		update_inv_hands()
 	SEND_SIGNAL(src, COMSIG_PARAGON_INVENTORY_CHANGED)
 
 /mob/living/carbon/human/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, silent = FALSE)
@@ -1199,20 +1204,56 @@ GLOBAL_LIST_INIT(paperdoll_quality_words, list("ruined", "awful", "crude", "roug
 			R.build_display_cache()
 		var/list/entry = R.cached_display_data.Copy()
 		entry["category"] = R.cached_category
-		entry["icon"] = paperdoll_asset_url(paperdoll_recipe_icon(R), user?.client)
+		entry["icon"] = paperdoll_recipe_sprite(R)
 		recipes += list(entry)
 	return recipes
 
-//Picture of what a recipe makes, from the result type's icon
-/proc/paperdoll_recipe_icon(datum/crafting_recipe/R)
+//The type a recipe makes (the first, if it makes several)
+/proc/paperdoll_recipe_result(datum/crafting_recipe/R)
 	var/result = R.result
 	if(islist(result))
 		var/list/results = result
 		result = length(results) ? results[1] : null
-	if(!ispath(result, /atom))
+	return ispath(result, /atom) ? result : null
+
+//CSS classes that draw a recipe's result from the recipe spritesheet, or null if it has no picture
+/proc/paperdoll_recipe_sprite(datum/crafting_recipe/R)
+	var/result = paperdoll_recipe_result(R)
+	if(!result)
 		return null
-	var/atom/result_type = result
-	return paperdoll_icon(initial(result_type.icon), initial(result_type.icon_state))
+	var/datum/asset/spritesheet/paragon_recipes/sheet = get_asset_datum(/datum/asset/spritesheet/paragon_recipes)
+	return sheet.icon_class_name(sanitize_css_class_name("pdr_[result]"))
+
+//Every recipe result's picture on one sheet, built in the background at server start (and kept between rounds
+//when asset caching is on). The Crafting tab sends the sheet once and each recipe only names its sprite, so
+//opening the tab does no icon work at all, and the client keeps the sheet.
+/datum/asset/spritesheet/paragon_recipes
+	name = "paragon_recipes"
+
+/datum/asset/spritesheet/paragon_recipes/create_spritesheets()
+	var/list/inserted = list()
+	for(var/datum/crafting_recipe/R as anything in GLOB.crafting_recipes)
+		//The tab's text for each recipe is cached too, so the first player to open it does not pay for it
+		if(!R.cached_display_data)
+			R.build_display_cache()
+		var/atom/result = paperdoll_recipe_result(R)
+		if(!result || inserted[result])
+			continue
+		inserted[result] = TRUE
+		var/icon_file = initial(result.icon)
+		var/icon_state = initial(result.icon_state)
+		if(icon_file && icon_state)
+			Insert(sanitize_css_class_name("pdr_[result]"), icon_file, icon_state)
+
+//One size for every sprite, so the sheet is a single image and the tab can scale them all alike
+/datum/asset/spritesheet/paragon_recipes/ModifyInserted(icon/pre_asset)
+	var/icon/sprite = pre_asset
+	if(sprite.Width() != 32 || sprite.Height() != 32)
+		sprite.Scale(32, 32)
+	return sprite
+
+/datum/paperdoll/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/spritesheet/paragon_recipes))
 
 //Crafting tab, live part: what can be made right now with what is to hand
 /datum/paperdoll/proc/build_crafting_state(mob/user)

@@ -298,11 +298,12 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 				screenmob.client.screen -= infodisplay
 
 	hud_version = display_hud_version
-	//Size the map pane to this HUD's shape (paragon_hud.dm); again whenever the window is resized
+	//Fill the map pane past this HUD with empty panel (paragon_hud.dm); again whenever the map pane is resized,
+	//and a few times while logging in, since BYOND restores the saved splitter after the window opens
 	if(paragon_layout)
-		winset(screenmob.client, "mainwindow", "on-size=.paragon_fit_map")
-	addtimer(CALLBACK(screenmob.client, TYPE_PROC_REF(/client, fit_map_to_hud)), 1 SECONDS)
-	addtimer(CALLBACK(screenmob.client, TYPE_PROC_REF(/client, fit_map_to_hud)), 4 SECONDS)
+		winset(screenmob.client, null, "mapwindow.map.on-size=.paragon_fit_map")
+	for(var/delay in list(1 SECONDS, 4 SECONDS, 12 SECONDS))
+		addtimer(CALLBACK(screenmob.client, TYPE_PROC_REF(/client, fit_map_to_hud)), delay)
 	persistent_inventory_update(screenmob)
 	screenmob.update_action_buttons(1)
 	reorganize_alerts()

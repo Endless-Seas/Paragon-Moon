@@ -1046,10 +1046,9 @@ const CraftingTab = () => {
                     onClick={() => setSelected(recipe.path)}
                   >
                     {recipe.icon ? (
-                      <img
-                        className="Paperdoll__img"
-                        src={iconSrc(recipe.icon)}
-                      />
+                      <span className="Paperdoll__sprite">
+                        <span className={recipe.icon} />
+                      </span>
                     ) : (
                       <span />
                     )}
@@ -1086,10 +1085,9 @@ const CraftingTab = () => {
         {chosen ? (
           <>
             {!!chosen.icon && (
-              <img
-                className="Paperdoll__img Paperdoll__img--large"
-                src={iconSrc(chosen.icon)}
-              />
+              <span className="Paperdoll__sprite Paperdoll__sprite--large">
+                <span className={chosen.icon} />
+              </span>
             )}
             <div className="Paperdoll__bigName">{chosen.name}</div>
             <div

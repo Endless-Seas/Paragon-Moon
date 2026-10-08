@@ -39,15 +39,15 @@
 #define QUD_WHITE "#ffffff"
 //Where the menu buttons start, and so where the bars end
 #define PARAGON_BUTTONS_COLUMN 13
-//Map shape of the old left-panel layout, still used by ghosts and other mobs
-#define PANEL_HUD_WIDTH 20
-#define PANEL_HUD_HEIGHT 15
 
 /datum/hud
 	//TRUE for HUDs laid out in top and bottom strips (paragon_hud.dm) instead of the left-hand panel
 	var/paragon_layout = FALSE
 	var/atom/movable/screen/paragon_strip/strip_top
 	var/atom/movable/screen/paragon_strip/strip_bottom
+	//Empty black columns left of the map, so the HUD meets the chat however wide the map pane is (fit_map_to_hud())
+	var/atom/movable/screen/paragon_strip/filler_left
+	var/paragon_filler_columns = 0
 	//Rules and dividers between the strip sections, recoloured with the theme
 	var/list/atom/movable/screen/paragon_strip/paragon_rules
 	//The status line: name, temperature, hunger and thirst, tags on the left; time and place on the right
@@ -67,7 +67,9 @@
 /datum/hud/proc/build_paragon_hud()
 	strip_top = new(null, "WEST,NORTH+1 to EAST+4,NORTH+2")
 	strip_bottom = new(null, "EAST+1,SOUTH to EAST+4,NORTH")
-	static_inventory += list(strip_top, strip_bottom)
+	filler_left = new(null, null)
+	filler_left.color = "#000000"
+	static_inventory += list(strip_top, strip_bottom, filler_left)
 
 	paragon_rules = list()
 	//Edges: a bright outer line round both, and the lines where they meet the map
@@ -162,6 +164,10 @@
 	//The CRT overlay was drawn for the old 20x15 tile box; stretch it over the new 19x17 one
 	if(scannies)
 		paragon_fit_fullscreen(scannies)
+	//Fullscreens made while this HUD was being built (the lighting and sunlight backdrops) missed the fit in
+	//overlay_fullscreen(), since hud_used is not set until New() returns
+	for(var/category in mymob?.screens)
+		paragon_fit_fullscreen(mymob.screens[category])
 	//These two were offset by half the old panel's width to stay centred on the view; offset them by half
 	//of the right-hand column and the top strip instead
 	for(var/plane in plane_masters)
@@ -646,49 +652,59 @@ GLOBAL_LIST_EMPTY(paragon_bar_icon_cache)
 		return
 	return ..()
 
-//Sizes the map pane to the HUD's shape, so the map fills it without black bars at the side.
-//Runs when a HUD is shown and whenever the game window is resized.
+//Keeps the HUD against the chat, however wide the player drags the chat, without moving the splitter. The map is
+//drawn at the HUD's shape (19x17 tiles), so a wider pane left a black bar beside it; that space is now taken up by
+//empty black columns on the left of the map, which push the view and the column right to meet the chat. Less than
+//a tile of black can remain at the edges, since the map only grows by whole tiles. Runs when a HUD is shown and
+//whenever the map pane is resized.
 /client/proc/fit_map_to_hud()
+	//The filler changing the map's shape can resize the pane on some skins, which calls this again; one fit at a time
+	if(paragon_map_fitting)
+		return
+	paragon_map_fitting = TRUE
+	try
+		paragon_fit_map_pane()
+	catch(var/exception/error)
+		log_runtime("fit_map_to_hud: [error] on [error.file]:[error.line]")
+	paragon_map_fitting = FALSE
+
+/client/proc/paragon_fit_map_pane()
 	var/datum/hud/hud = mob?.hud_used
-	var/paragon = hud?.paragon_layout
-	//Only touch the splitter for the strip layout, or to put it back after the strip layout moved it
-	if(!paragon && !paragon_map_fitted)
+	if(!hud?.paragon_layout || !hud.filler_left)
 		return
-	paragon_map_fitted = paragon
-	//Keep the drawn map centred in its pane
 	winset(src, "mapwindow.map", "letterbox=true")
-	var/aspect = paragon ? (PARAGON_HUD_WIDTH / PARAGON_HUD_HEIGHT) : (PANEL_HUD_WIDTH / PANEL_HUD_HEIGHT)
-	//Prefer the shape the map is really drawn at, so anything widening the screen is accounted for
-	var/list/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
-	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
-	var/list/split_size = splittext(sizes["mainwindow.split.size"], "x")
-	if(length(map_size) < 2 || length(split_size) < 2)
+	var/list/pane = splittext(winget(src, "mapwindow.map", "size"), "x")
+	if(length(pane) < 2)
 		return
-	var/list/view_size = splittext(winget(src, "mapwindow.map", "view-size"), "x")
-	if(length(view_size) == 2)
-		var/view_width = text2num(view_size[1])
-		var/view_height = text2num(view_size[2])
-		//Only trust it when it shows letterboxing; otherwise it is just the pane's own size
-		if(view_width > 0 && view_height > 0 && (view_width < text2num(map_size[1]) - 2 || view_height < text2num(map_size[2]) - 2))
-			aspect = view_width / view_height
-	var/desired_width = round(text2num(map_size[2]) * aspect)
-	var/split_width = text2num(split_size[1])
-	if(!split_width || abs(text2num(map_size[1]) - desired_width) <= 2)
+	var/pane_width = text2num(pane[1])
+	var/pane_height = text2num(pane[2])
+	if(!pane_width || !pane_height)
 		return
-	//+4 pixels for the splitter's handle; then nudge until the map pane is the right width
-	var/pct = clamp(100 * (desired_width + 4) / split_width, 20, 85)
-	winset(src, "mainwindow.split", "splitter=[pct]")
-	for(var/attempt in 1 to 6)
-		var/list/after = splittext(winget(src, "mapwindow", "size"), "x")
-		var/got_width = text2num(after[1])
-		if(abs(got_width - desired_width) <= 2)
+	var/columns = 0
+	if(text2num(winget(src, "mapwindow.map", "icon-size")) > 0)
+		//Fixed zoom: the tile size is the drawn width over the columns drawn now (filler included), which also
+		//allows for Windows display scaling
+		var/list/drawn = splittext(winget(src, "mapwindow.map", "view-size"), "x")
+		var/drawn_width = length(drawn) == 2 ? text2num(drawn[1]) : 0
+		if(!drawn_width)
 			return
-		pct = clamp(pct + 100 * (desired_width - got_width) / split_width, 20, 85)
-		winset(src, "mainwindow.split", "splitter=[pct]")
+		var/tile = drawn_width / (PARAGON_HUD_WIDTH + hud.paragon_filler_columns)
+		columns = round(pane_width / tile) - PARAGON_HUD_WIDTH
+	else
+		//Stretched to fit: the height sets the tile size while the pane is wider than the HUD
+		columns = round(pane_width * PARAGON_HUD_HEIGHT / pane_height) - PARAGON_HUD_WIDTH
+	hud.set_paragon_filler(max(columns, 0))
+
+//[columns] tiles of empty black to the left of the map
+/datum/hud/proc/set_paragon_filler(columns)
+	if(!filler_left || columns == paragon_filler_columns)
+		return
+	paragon_filler_columns = columns
+	filler_left.screen_loc = columns ? "WEST-[columns],SOUTH to WEST-1,NORTH+2" : null
 
 /client
-	//TRUE once fit_map_to_hud() has sized the map pane for the strip layout
-	var/paragon_map_fitted = FALSE
+	//TRUE while fit_map_to_hud() is filling the map pane
+	var/paragon_map_fitting = FALSE
 
 /client/verb/paragon_fit_map()
 	set hidden = TRUE
@@ -711,5 +727,3 @@ GLOBAL_LIST_EMPTY(paragon_bar_icon_cache)
 #undef QUD_GREY
 #undef QUD_WHITE
 #undef PARAGON_BUTTONS_COLUMN
-#undef PANEL_HUD_WIDTH
-#undef PANEL_HUD_HEIGHT

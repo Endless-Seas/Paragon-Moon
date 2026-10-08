@@ -2,7 +2,8 @@
 //Bind an item by dragging it onto a slot, or with [bind] in the Inventory popup. Then press the slot
 //(or its keybind) to pull the item into your active hand from wherever you carry it; press again while
 //holding it to put it back where it came from (its bag, sheath or worn slot). When a bound item is used up, the slot
-//remembers its type and picks up the next one you carry. Right-click a slot to clear it.
+//remembers its type and picks up the next one you carry. Right-click a slot to open a bound bag or use a bound
+//worn item's right-click (a helmet's visor, say); middle-click a slot to clear it.
 
 #define QUICKBAR_SIZE 6
 
@@ -153,6 +154,25 @@
 			quickbar_origins[index] = WEAKREF(container)
 	update_quickbar()
 
+//Right-click on a slot: what right-clicking the item itself does. Bags, pouches and other containers open in the
+//container window wherever they are carried; worn or held items get the right-click their old HUD slot gave them
+//(a helmet's visor, a hood, and so on).
+/mob/living/carbon/human/proc/quickbar_alt_use(index)
+	if(!isnum(index) || index < 1 || index > QUICKBAR_SIZE)
+		return
+	if(world.time <= next_move || incapacitated())
+		return
+	var/obj/item/I = quickbar_resolve(index)
+	if(!I || !(I in get_carried_items()))
+		return
+	if(paperdoll_capacity(I))
+		SEND_SIGNAL(I, COMSIG_TRY_STORAGE_SHOW, src)
+		return
+	if(I.loc == src)
+		I.Click(null, null, "right=1")
+		return
+	to_chat(src, span_warning("I need to take [I] out first."))
+
 //Puts a held bound item back where the slot took it from, or failing that into any bag, sheath or slot that fits
 /mob/living/carbon/human/proc/quickbar_return(index, obj/item/I)
 	if(HAS_TRAIT(I, TRAIT_NODROP))
@@ -251,8 +271,11 @@
 	if(!istype(H) || H != hud?.mymob)
 		return
 	var/list/modifiers = params2list(params)
-	if(modifiers["right"])
+	if(modifiers["middle"])
 		H.quickbar_clear(index)
+		return
+	if(modifiers["right"])
+		H.quickbar_alt_use(index)
 		return
 	if(modifiers["shift"])
 		var/obj/item/I = H.quickbar_resolve(index)
