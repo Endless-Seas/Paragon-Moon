@@ -3129,6 +3129,7 @@
 #include "modular_paragon\mage_resource\_mage_defines.dm"
 #include "modular_paragon\mage_resource\mage_recovery.dm"
 #include "modular_paragon\mage_resource\mage_resource.dm"
+#include "modular_paragon\misc_turfs\water_hazards.dm"
 #include "modular_paragon\mobs\chrome_pyramid.dm"
 #include "modular_paragon\onboarding\job_tutorial.dm"
 #include "modular_paragon\spells\astrata.dm"
