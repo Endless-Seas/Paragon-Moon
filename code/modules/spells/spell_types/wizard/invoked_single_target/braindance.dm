@@ -46,7 +46,7 @@
 		"<span class='his_grace'><b>You find yourself needing to suck in a breath. Your eyes forced to gaze beyond the veil.</span> <br>\
 		<span class='danger'>You see a figure. A sack over their shoulder. Nae, a body. You recognise it, yet you do not know how. \
 		Or who, for that matter.</b></span>",
-		"<span class='danger'><b>The lifeblood in your veins burns. It hurts. \
+		"<span class='danger'><b>The lifeblood in your veins burn. It hurts. \
 		Just as it becomes unbearable, ome unseen force protects you from yourself.</b></span>",
 		"<span class='danger'><b>You die. You do not know how. You do not know when. \
 		What you see, however, is truly horrific. For you no longer have a face. \
@@ -64,7 +64,7 @@
 		You suffer a fate worse than death, as the void consumes what remains of your mind.</b></span>",
 		"<span class='danger'><b>You kick, scratch and bite. No matter how much you fight or beg, they force the cordage around your throat. \
 		The chair is kicked out from under you. It is a slow, painful death. A show, for the masses. <br>\
-		They burn your body. You feel every moment of it, for no one truly dies in damned place.</b></span>")
+		They burn your body. You feel every moment of it, for no one truly dies in this damned place.</b></span>")
 
 	var/mob/living/L = targets
 	to_chat(L, "<small>Your mind is temporarily in freefall...</small> <br>\
