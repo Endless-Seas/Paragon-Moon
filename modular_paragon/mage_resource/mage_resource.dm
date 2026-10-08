@@ -24,7 +24,7 @@
 
 /mob/living/carbon/human/proc/lessen_spark(change)
 	if(spark <= SPARK_LEVEL_FADED)
-		src.add_nausea(100)
+		src.add_nausea(12)
 		src.blood_volume = max(src.blood_volume-35, 0)
 		src.handle_blood()
 		new /obj/effect/decal/cleanable/blood/puddle(src.loc)
@@ -47,6 +47,14 @@
 	duration = -1
 	needs_processing = FALSE
 
+//We do this, as a sort of 'STOP CASTING' and to alert mages they really should recover.
+//To force engagement with the mechanic, and to stop 'WHY AM I DYING'.
+/datum/status_effect/debuff/spark_low/on_apply()
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
+		loud_warning_ohmylord(C)
+	return ..()
+
 /atom/movable/screen/alert/status_effect/debuff/spark_low
 	name = "Drained"
 	desc = "I've strained my capability to cast!  <br>\
@@ -54,6 +62,34 @@
 	<font color=green>I should recover, whether by potion or arcyne recovery.</font>"
 	icon = 'modular_paragon/mage_resource/icons/mob/mage_resource.dmi'
 	icon_state = "spark_low"
+
+#define FILTER_SPARKLOSS "spark_low_glow"
+
+/mob/proc/mageloss_curse()
+	sleep(2)
+	overlay_fullscreen("ANATHEMA", /atom/movable/screen/fullscreen/curse)
+	sleep(2)
+	clear_fullscreen("ANATHEMA")
+
+//This is just to make it VERY CLEAR that continuing to cast is a VERY DUMB idea.
+//Rest and gather your strength, m'lord. Stop spamming arcane bolt.
+/datum/status_effect/debuff/spark_low/proc/loud_warning_ohmylord(mob/living/carbon/H)
+	ADD_TRAIT(H, TRAIT_SPELLCOCKBLOCK, MAGIC_TRAIT)
+	H.add_filter(FILTER_SPARKLOSS, 2, list("type" = "outline", "color" = "#FFFFFF", "alpha" = 30, "size" = 1))
+	to_chat(H, span_warning("I've pushed myself beyond safe arcyne limits! I should rest and recover!"))
+	H.visible_message("[H]'s frame shimmers...")
+	addtimer(CALLBACK(src, PROC_REF(loud_warning_finished), H), wait = 10 SECONDS)//Half a counterspell duration.
+	H.blur_eyes(5)
+	H.mageloss_curse()
+	return TRUE
+
+/datum/status_effect/debuff/spark_low/proc/loud_warning_finished(mob/living/carbon/H)
+	REMOVE_TRAIT(H, TRAIT_SPELLCOCKBLOCK, MAGIC_TRAIT)
+	H.remove_filter(FILTER_SPARKLOSS)
+	H.visible_message("[H]'s frame shimmers...")
+	H.mageloss_curse()
+
+#undef FILTER_SPARKLOSS
 
 /datum/status_effect/debuff/spark_death
 	id = "spark_gone"
@@ -69,3 +105,4 @@
 	Any further casting will be to my own detriment, for only a skilled Magos can escape this state.</font>"
 	icon = 'modular_paragon/mage_resource/icons/mob/mage_resource.dmi'
 	icon_state = "spark_death"
+
