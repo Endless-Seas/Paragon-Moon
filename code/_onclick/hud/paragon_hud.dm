@@ -193,7 +193,7 @@
 /datum/hud/proc/paragon_recolor()
 	if(!paragon_layout || !strip_top)
 		return
-	paragon_palette = GLOB.paragon_theme_palettes[mymob?.client?.prefs?.tgui_theme] || GLOB.paragon_theme_palettes["paragon_classic"]
+	paragon_palette = GLOB.paragon_theme_palettes[mymob?.client?.prefs?.tgui_theme] || GLOB.paragon_theme_palettes["paragon_grey"]
 	strip_top.color = paragon_palette["void"]
 	strip_bottom.color = paragon_palette["void"]
 	for(var/atom/movable/screen/paragon_strip/rule/rule as anything in paragon_rules)
@@ -227,7 +227,7 @@
 		en_bar.set_value(owner.energy / owner.max_energy, "EN", "[round(owner.energy)] / [round(owner.max_energy)]")
 
 	//The status line, as text and colour pairs for paragon_text. In the font, "{~~}" draws ├──┤.
-	var/list/palette = paragon_palette || GLOB.paragon_theme_palettes["paragon_classic"]
+	var/list/palette = paragon_palette || GLOB.paragon_theme_palettes["paragon_grey"]
 	var/dim = palette["frame"]
 	var/list/line = list(owner.real_name, palette["bright"], " {~~} ", dim, "T: ", palette["text"])
 
@@ -282,7 +282,7 @@
 /datum/hud/proc/update_paragon_effects(count = length(mymob?.alerts))
 	if(!paragon_layout || !effects_label)
 		return
-	var/list/palette = paragon_palette || GLOB.paragon_theme_palettes["paragon_classic"]
+	var/list/palette = paragon_palette || GLOB.paragon_theme_palettes["paragon_grey"]
 	var/list/heading = list("ACTIVE EFFECTS:", palette["text"])
 	if(!count)
 		heading += list(" none", palette["frame"])
@@ -601,7 +601,7 @@ GLOBAL_LIST_EMPTY(paragon_bar_icon_cache)
 		value = new_value
 		if(length(fill.filters))
 			animate(fill.filters[1], x = reveal_offset(), time = 3)
-	var/list/colours = palette || GLOB.paragon_theme_palettes["paragon_classic"]
+	var/list/colours = palette || GLOB.paragon_theme_palettes["paragon_grey"]
 	if(slim)
 		label_text.set_segments(list(label, colours["text"]))
 		value_text.set_segments(list(value_string, colours["bright"]))

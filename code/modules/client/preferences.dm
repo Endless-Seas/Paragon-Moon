@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
-	var/tgui_theme = "paragon_classic"
+	var/tgui_theme = "paragon_grey"
 	var/windowflashing = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/floating_text_toggles = TOGGLES_TEXT_DEFAULT

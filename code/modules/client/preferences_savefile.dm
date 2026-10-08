@@ -7,7 +7,7 @@
 //	where you would want the updater procs below to run
 
 //	This also works with decimals.
-#define SAVEFILE_VERSION_MAX	39
+#define SAVEFILE_VERSION_MAX	40
 
 // Safely extract a type path from datums or type values; returns null if unset/invalid.
 /proc/preferences_typepath_or_null(value)
@@ -81,6 +81,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		patreon_say_color_enabled = FALSE
 	if(current_version < 39) //Move everyone onto Paragon Classic once; they may cycle away after
 		tgui_theme = "paragon_classic"
+	if(current_version < 40 && tgui_theme == "paragon_classic") //Paragon Grey is the default now; anyone who picked another theme keeps it
+		tgui_theme = "paragon_grey"
 
 /datum/preferences/proc/update_character(current_version, savefile/S)
 	if(current_version < 19)

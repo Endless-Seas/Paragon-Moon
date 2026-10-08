@@ -12,6 +12,7 @@ GLOBAL_LIST_INIT(tgui_theme_names, list(
 	"paragon_orange" = "Paragon Orange",
 	"paragon_grey" = "Paragon Grey",
 	"paragon_navy" = "Paragon Navy",
+	"paragon_crimson" = "Paragon Crimson",
 ))
 
 //Paragon palettes for the HTML menus and lobby, which read them as --pg-* CSS variables
@@ -26,15 +27,17 @@ GLOBAL_LIST_INIT(paragon_theme_palettes, list(
 		"text" = "#c2c2c6", "bright" = "#ececee", "accent" = "#98a2ae", "accent2" = "#c6ced8", "gold" = "#d2bc64", "green" = "#52b456", "red" = "#d24c3c", "orange" = "#e09c34"),
 	"paragon_navy" = list("void" = "#060b17", "panel" = "#0b1426", "raised" = "#132344", "line" = "#1c3260", "hatch" = "#2b4884", "frame" = "#5a78b2",
 		"text" = "#b6c4de", "bright" = "#e6ecf8", "accent" = "#4a8ad6", "accent2" = "#84b2ee", "gold" = "#e2c262", "green" = "#44c274", "red" = "#e24c3c", "orange" = "#e8a234"),
+	"paragon_crimson" = list("void" = "#120605", "panel" = "#1f0c09", "raised" = "#36150f", "line" = "#521f16", "hatch" = "#7a3222", "frame" = "#a64a2e",
+		"text" = "#d8bdb4", "bright" = "#f4e6e1", "accent" = "#c4573a", "accent2" = "#e8876a", "gold" = "#e0b85a", "green" = "#6fb84e", "red" = "#f0503a", "orange" = "#ec9a30"),
 ))
 
 //theme id => "<style>" block setting the --pg-* variables, built once
 GLOBAL_LIST_EMPTY(paragon_theme_styles)
 
-//A <style> block that recolours the Paragon HTML menus to [theme] (defaults to Paragon Classic)
+//A <style> block that recolours the Paragon HTML menus to [theme] (defaults to Paragon Grey)
 /proc/paragon_theme_style(theme)
 	if(!(theme in GLOB.paragon_theme_palettes))
-		theme = "paragon_classic"
+		theme = "paragon_grey"
 	if(GLOB.paragon_theme_styles[theme])
 		return GLOB.paragon_theme_styles[theme]
 	var/list/palette = GLOB.paragon_theme_palettes[theme]

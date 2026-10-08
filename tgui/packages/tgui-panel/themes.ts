@@ -8,6 +8,7 @@ export const THEMES = [
   'paragon_orange',
   'paragon_grey',
   'paragon_navy',
+  'paragon_crimson',
 ];
 
 export const THEME_NAMES: Record<string, string> = {
@@ -16,6 +17,7 @@ export const THEME_NAMES: Record<string, string> = {
   paragon_orange: 'Paragon Orange',
   paragon_grey: 'Paragon Grey',
   paragon_navy: 'Paragon Navy',
+  paragon_crimson: 'Paragon Crimson',
 };
 
 const COLORS = {
@@ -60,6 +62,14 @@ const COLORS = {
     TEXT: '#B6C4DE',
     TAB_TEXT: '#84B2EE',
     HIGHLIGHT: '#E2C262',
+  },
+  PARAGON_CRIMSON: {
+    BG_BASE: '#120605',
+    BG_SECOND: '#1F0C09',
+    BUTTON: '#36150F',
+    TEXT: '#D8BDB4',
+    TAB_TEXT: '#E8876A',
+    HIGHLIGHT: '#E0B85A',
   },
   LIGHT: {
     BG_BASE: '#EEEEEE',
