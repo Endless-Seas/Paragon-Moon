@@ -230,7 +230,7 @@
 /datum/intent/simple/bite/pyramid
 	name = "distort"
 	icon_state = "instrike"
-	attack_verb = list("bludgeons", "distorts", "quantum-harmonizes", "sickeningly unfolds", "")
+	attack_verb = list("bludgeons", "distorts", "quantum-harmonizes", "sickeningly unfolds")
 	animname = "blank22"
 	blade_class = BCLASS_CUT
 	hitsound = "smallslash"
