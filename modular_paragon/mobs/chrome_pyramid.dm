@@ -4,6 +4,8 @@
 #define CHROME_PYRAMID_BARRAGE_COOLDOWN (8 SECONDS)
 #define CHROME_PYRAMID_DETONATION_DELAY (6 SECONDS)
 #define CHROME_PYRAMID_COLLAPSE_TIME (10 SECONDS)
+#define CHROME_PYRAMID_DISTORTION_INTERVAL (5 SECONDS)
+#define CHROME_PYRAMID_DISTORTION_FADE (2 SECONDS)
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid
 	name = "PYRAMID"
@@ -59,6 +61,9 @@
 	var/barrage_damage = 50
 	var/yappers = 1
 
+	/// Warps the world around us, see pulse_distortion()
+	var/atom/movable/distortion_effect/distortion
+
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOFIRE, "[type]")
@@ -66,6 +71,19 @@
 	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, TRAIT_GENERIC)
+	distortion = new(null, 64, 48) //center of the 128x96 sprite
+	vis_contents += distortion
+	addtimer(CALLBACK(src, PROC_REF(pulse_distortion)), CHROME_PYRAMID_DISTORTION_INTERVAL, TIMER_LOOP)
+
+/mob/living/simple_animal/hostile/boss/chrome_pyramid/Destroy()
+	vis_contents -= distortion
+	QDEL_NULL(distortion)
+	return ..()
+
+/mob/living/simple_animal/hostile/boss/chrome_pyramid/proc/pulse_distortion()
+	if(stat == DEAD || QDELETED(distortion))
+		return
+	distortion.pulse(CHROME_PYRAMID_DISTORTION_FADE)
 
 /mob/living/simple_animal/hostile/boss/chrome_pyramid/simple_add_wound(datum/wound/wound, silent = FALSE, crit_message = FALSE)
 	return
@@ -244,3 +262,5 @@
 #undef CHROME_PYRAMID_BARRAGE_COOLDOWN
 #undef CHROME_PYRAMID_DETONATION_DELAY
 #undef CHROME_PYRAMID_COLLAPSE_TIME
+#undef CHROME_PYRAMID_DISTORTION_INTERVAL
+#undef CHROME_PYRAMID_DISTORTION_FADE
