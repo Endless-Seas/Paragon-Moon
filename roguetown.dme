@@ -3124,6 +3124,7 @@
 #include "modular_paragon\distortion\distortion_planes.dm"
 #include "modular_paragon\dying\death_screen.dm"
 #include "modular_paragon\dying\dying_decline.dm"
+#include "modular_paragon\lostech\forcering.dm"
 #include "modular_paragon\lostech\lightspheres.dm"
 #include "modular_paragon\lostech\prophecy.dm"
 #include "modular_paragon\lostech\shield_walls.dm"
