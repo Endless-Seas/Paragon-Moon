@@ -91,3 +91,7 @@ All assets including icons and sound are under a [Creative Commons 3.0 BY-SA lic
 
 The digitigrade leg art (`l_leg_digi`, `r_leg_digi` and their `_above` states in `icons/roguetown/mob/bodies/`) is adapted from the digitigrade legs by the [tgstation](https://github.com/tgstation/tgstation) contributors (`icons/mob/human/species/lizard/bodyparts.dmi`), as carried by [NovaSector](https://github.com/NovaSector/NovaSector) and [Meridian-Rift](https://github.com/Aphelion-Moon/Meridian-Rift), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The art was recoloured to Roguetown's body palettes and refitted to female and dwarf bodies.
 The `_digi` states of legwear and footwear are Roguetown clothing reshaped onto that tgstation digitigrade silhouette with [tools/digi_sprites](./tools/digi_sprites), and are likewise CC BY-SA 3.0.
+
+### Meridian mapping tiles
+
+The floor and wall icons in `modular_paragon/meridian_tiles/icons/` are by the [tgstation](https://github.com/tgstation/tgstation) and [NovaSector](https://github.com/NovaSector/NovaSector) contributors, as carried by [Meridian-Rift](https://github.com/Aphelion-Moon/Meridian-Rift), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The smoothing sets were cut from their bitmask templates into Roguetown's 4-corner smoothing states.
