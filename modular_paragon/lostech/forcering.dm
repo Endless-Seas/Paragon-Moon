@@ -5,13 +5,12 @@
 #define FORCE_RING_COLOUR "#00FFFF"
 #define FORCE_RING_DURATION 20 SECONDS
 #define FORCE_RING_COOLDOWN 2 MINUTES
-#define FORCE_RING_GLOW_DURATION 3 SECONDS
 #define FORCE_RING_ARMOR list("blunt" = 100, "slash" = 100, "stab" = 100, "piercing" = 100, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/ring/force_ring
 	name = "force ring"
-	desc = "A small hexagonal dial sits 'pon an unadorned ring. <br>\
-	<small>It seems the hexagonal dial turns to the <b>right</b>.</small>"
+	desc = "The gem is deep and colorful 'til the pixelcut reaches its unseen photon potential; and then, electric-auger force erupts one of its many vertices into brilliant light.<br>\
+	<small>It seems the hexagonal gem turns to the <b>right</b>.</small>"
 	icon = 'modular_paragon/icons/clothing/misc.dmi'
 	icon_state = "forcering"
 	mob_overlay_icon = 'modular_paragon/icons/clothing/onmob.dmi'
@@ -22,10 +21,12 @@
 	blocksound = PLATEHIT
 	sellprice = 2000 //idk lmfao
 
+//very self explanatory
 	var/active = FALSE
 	var/next_use = 0
 	var/mob/living/carbon/human/shielded
 	var/fade_timer
+	var/glowduration = 20 SECONDS
 
 /obj/item/clothing/ring/force_ring/Destroy()
 	deactivate()
@@ -57,7 +58,7 @@
 	shielded = H
 	next_use = world.time + FORCE_RING_COOLDOWN
 
-	armor = getArmor(arglist(FORCE_RING_ARMOR))
+	armor = getArmor(arglist(FORCE_RING_ARMOR)) //kinda cheating, we're using forcering stuff for this but whatever :3
 	body_parts_covered = COVERAGE_FULL | COVERAGE_HEAD_NOSE | NECK | HANDS | FEET
 	body_parts_covered_dynamic = body_parts_covered
 	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_STAB, BCLASS_PIERCE, BCLASS_PICK, BCLASS_BLUNT)
@@ -67,7 +68,7 @@
 	H.apply_status_effect(/datum/status_effect/buff/force_field)
 	H.visible_message(span_warning("[H] twists [src], and a force bubble pops into being around [H.p_them()]!")) //literal qud dialogue. are we on the nose? yeah, probably
 	playsound(H, "modular_paragon/lostech/sound/shields/shield_pass_[rand(1,2)].ogg", 100, FALSE)
-	H.mob_light(FORCE_RING_COLOUR, 3, 3, FORCE_RING_GLOW_DURATION)
+	H.mob_light(FORCE_RING_COLOUR, 3, 3, glowduration)
 
 	var/atom/movable/distortion_effect/ripple = new(get_turf(H))
 	ripple.pulse(1 SECONDS, 0.1, 0.3) //weaker than the collapse ripple
@@ -160,5 +161,4 @@
 #undef FORCE_RING_COLOUR
 #undef FORCE_RING_DURATION
 #undef FORCE_RING_COOLDOWN
-#undef FORCE_RING_GLOW_DURATION
 #undef FORCE_RING_ARMOR
