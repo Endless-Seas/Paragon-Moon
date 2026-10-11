@@ -46,55 +46,135 @@ const RIMS = [
 
 const STAMP_PREVIEW_STYLE: Record<string, React.CSSProperties> = {
   royal: {
-    display: 'inline-block', width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #4a1a6e', background: '#f9f3e3', lineHeight: '58px',
-    fontSize: '8px', fontWeight: 'bold', color: '#4a1a6e', textAlign: 'center', letterSpacing: '1px',
+    display: 'inline-block',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #4a1a6e',
+    background: '#f9f3e3',
+    lineHeight: '58px',
+    fontSize: '8px',
+    fontWeight: 'bold',
+    color: '#4a1a6e',
+    textAlign: 'center',
+    letterSpacing: '1px',
   },
   inquisitor: {
-    display: 'inline-block', width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #6b0000', background: '#fff8f5', lineHeight: '58px',
-    fontSize: '8px', fontWeight: 'bold', color: '#6b0000', textAlign: 'center',
+    display: 'inline-block',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #6b0000',
+    background: '#fff8f5',
+    lineHeight: '58px',
+    fontSize: '8px',
+    fontWeight: 'bold',
+    color: '#6b0000',
+    textAlign: 'center',
   },
   merchant: {
-    display: 'inline-block', width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #8b6914', background: '#fdfbe8', lineHeight: '58px',
-    fontSize: '8px', fontWeight: 'bold', color: '#8b6914', textAlign: 'center',
+    display: 'inline-block',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #8b6914',
+    background: '#fdfbe8',
+    lineHeight: '58px',
+    fontSize: '8px',
+    fontWeight: 'bold',
+    color: '#8b6914',
+    textAlign: 'center',
   },
   steward: {
-    display: 'inline-block', width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #1a3a1a', background: '#f5fdf5', lineHeight: '58px',
-    fontSize: '8px', fontWeight: 'bold', color: '#1a3a1a', textAlign: 'center',
+    display: 'inline-block',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #1a3a1a',
+    background: '#f5fdf5',
+    lineHeight: '58px',
+    fontSize: '8px',
+    fontWeight: 'bold',
+    color: '#1a3a1a',
+    textAlign: 'center',
   },
   kingsfield: {
-    display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #1a2e4a', background: '#eef4ff',
-    fontSize: '8px', fontWeight: 'bold', color: '#1a2e4a', textAlign: 'center',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #1a2e4a',
+    background: '#eef4ff',
+    fontSize: '8px',
+    fontWeight: 'bold',
+    color: '#1a2e4a',
+    textAlign: 'center',
   },
   kf_academy: {
-    display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px double #2a0a6e', background: '#f4f0ff',
-    fontSize: '7px', fontWeight: 'bold', color: '#2a0a6e', textAlign: 'center',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px double #2a0a6e',
+    background: '#f4f0ff',
+    fontSize: '7px',
+    fontWeight: 'bold',
+    color: '#2a0a6e',
+    textAlign: 'center',
     boxShadow: 'inset 0 0 8px #8060d0',
   },
   kf_army: {
-    display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    width: '64px', height: '64px', borderRadius: '50%',
-    border: '3px solid #1c1c1c', background: '#e8e8ec',
-    fontSize: '7px', fontWeight: 'bold', color: '#1c1c1c', textAlign: 'center', letterSpacing: '1px',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '3px solid #1c1c1c',
+    background: '#e8e8ec',
+    fontSize: '7px',
+    fontWeight: 'bold',
+    color: '#1c1c1c',
+    textAlign: 'center',
+    letterSpacing: '1px',
   },
   kf_tax: {
-    display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    width: '64px', height: '64px', borderRadius: '50%',
-    border: '2px solid #6b4400', background: '#fffae8',
-    fontSize: '6px', fontWeight: 'bold', color: '#6b4400', textAlign: 'center', lineHeight: '1.5',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '64px',
+    height: '64px',
+    borderRadius: '50%',
+    border: '2px solid #6b4400',
+    background: '#fffae8',
+    fontSize: '6px',
+    fontWeight: 'bold',
+    color: '#6b4400',
+    textAlign: 'center',
+    lineHeight: '1.5',
   },
   kf_council: {
-    display: 'inline-flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-    width: '78px', height: '78px', borderRadius: '50%',
-    border: '4px double #8b6914', background: '#fffdf0',
-    fontSize: '9px', fontWeight: 'bold', color: '#7a5500', textAlign: 'center',
+    display: 'inline-flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '78px',
+    height: '78px',
+    borderRadius: '50%',
+    border: '4px double #8b6914',
+    background: '#fffdf0',
+    fontSize: '9px',
+    fontWeight: 'bold',
+    color: '#7a5500',
+    textAlign: 'center',
     boxShadow: 'inset 0 0 12px #e0b840, 0 0 6px #c9a84c',
   },
 };
@@ -104,18 +184,50 @@ const STAMP_LABELS: Record<string, React.ReactNode> = {
   inquisitor: '✠ OTAVAN ✠',
   merchant: '⚖ GUILD ⚖',
   steward: '❧ STEWARD ❧',
-  kingsfield: <><span>CITY OF</span><span>KINGSFIELD</span></>,
-  kf_academy: <><span>KINGSFIELD</span><span>ACADEMY</span></>,
-  kf_army: <><span>KINGSFIELD</span><span>ARMY</span></>,
-  kf_tax: <><span>KINGSFIELD</span><span>TAXATION</span><span>OFFICE</span></>,
-  kf_council: <><span>HIGH</span><span>COUNCIL</span></>,
+  kingsfield: (
+    <>
+      <span>CITY OF</span>
+      <span>KINGSFIELD</span>
+    </>
+  ),
+  kf_academy: (
+    <>
+      <span>KINGSFIELD</span>
+      <span>ACADEMY</span>
+    </>
+  ),
+  kf_army: (
+    <>
+      <span>KINGSFIELD</span>
+      <span>ARMY</span>
+    </>
+  ),
+  kf_tax: (
+    <>
+      <span>KINGSFIELD</span>
+      <span>TAXATION</span>
+      <span>OFFICE</span>
+    </>
+  ),
+  kf_council: (
+    <>
+      <span>HIGH</span>
+      <span>COUNCIL</span>
+    </>
+  ),
 };
 
 const RIM_PREVIEW_STYLE: Record<string, React.CSSProperties> = {
   simple: { border: '8px solid #2c1a0e' },
-  ornate: { border: '12px double #8b6914', boxShadow: 'inset 0 0 14px #c9a84c' },
+  ornate: {
+    border: '12px double #8b6914',
+    boxShadow: 'inset 0 0 14px #c9a84c',
+  },
   royal: { border: '10px solid #4a1a6e', boxShadow: 'inset 0 0 16px #7a3db5' },
-  inquisition: { border: '10px solid #6b0000', boxShadow: 'inset 0 0 14px #8b0000' },
+  inquisition: {
+    border: '10px solid #6b0000',
+    boxShadow: 'inset 0 0 14px #8b0000',
+  },
 };
 
 export const FaxPanel = (props) => {
@@ -147,12 +259,24 @@ export const FaxPanel = (props) => {
   const trimmedItemDesc = itemDesc.trim();
 
   const canSend = useMemo(
-    () => (trimmedBody.length > 0 || stamp !== 'none' || trimmedItemPath.length > 0)
-      && trimmedSender.length > 0
-      && (sendMode === 'hermes'
+    () =>
+      (trimmedBody.length > 0 ||
+        stamp !== 'none' ||
+        trimmedItemPath.length > 0) &&
+      trimmedSender.length > 0 &&
+      (sendMode === 'hermes'
         ? hermes_list?.length > 0
         : master_exists && !!playerRecipient),
-    [trimmedBody, stamp, trimmedItemPath, trimmedSender, sendMode, hermes_list, master_exists, playerRecipient],
+    [
+      trimmedBody,
+      stamp,
+      trimmedItemPath,
+      trimmedSender,
+      sendMode,
+      hermes_list,
+      master_exists,
+      playerRecipient,
+    ],
   );
 
   useEffect(() => {
@@ -175,7 +299,10 @@ export const FaxPanel = (props) => {
     setPreviewDirty(false);
   };
 
-  const previewHtml = useMemo(() => previewBody.replace(/\n/g, '<br>'), [previewBody]);
+  const previewHtml = useMemo(
+    () => previewBody.replace(/\n/g, '<br>'),
+    [previewBody],
+  );
 
   return (
     <Window width={900} height={760} title="Admin Fax Panel">
@@ -190,7 +317,9 @@ export const FaxPanel = (props) => {
                     style={{ width: '100%', padding: '2px 4px' }}
                     placeholder="e.g. The Grand Duke, Anonymous..."
                     value={sender}
-                    onChange={(e) => setSender((e.target as HTMLInputElement).value)}
+                    onChange={(e) =>
+                      setSender((e.target as HTMLInputElement).value)
+                    }
                   />
                 </LabeledList.Item>
               </LabeledList>
@@ -246,7 +375,9 @@ export const FaxPanel = (props) => {
                       <Box color="average">No players online.</Box>
                     )
                   ) : (
-                    <Box color="bad">Master mailer is offline — cannot send by name.</Box>
+                    <Box color="bad">
+                      Master mailer is offline — cannot send by name.
+                    </Box>
                   )
                 ) : hermes_list?.length > 0 ? (
                   <select
@@ -279,7 +410,8 @@ export const FaxPanel = (props) => {
                 <Button
                   icon="sync"
                   color={previewDirty ? 'average' : undefined}
-                  onClick={updatePreview}>
+                  onClick={updatePreview}
+                >
                   Update Preview
                 </Button>
               </Box>
@@ -391,10 +523,16 @@ export const FaxPanel = (props) => {
               <LabeledList>
                 <LabeledList.Item label="Item Path">
                   <input
-                    style={{ width: '100%', padding: '2px 4px', fontFamily: 'monospace' }}
+                    style={{
+                      width: '100%',
+                      padding: '2px 4px',
+                      fontFamily: 'monospace',
+                    }}
                     placeholder="e.g. /obj/item/coin/gold"
                     value={itemPath}
-                    onChange={(e) => setItemPath((e.target as HTMLInputElement).value)}
+                    onChange={(e) =>
+                      setItemPath((e.target as HTMLInputElement).value)
+                    }
                   />
                 </LabeledList.Item>
                 {trimmedItemPath && (
@@ -404,7 +542,9 @@ export const FaxPanel = (props) => {
                         style={{ width: '100%', padding: '2px 4px' }}
                         placeholder="Override item name (blank = keep default)"
                         value={itemName}
-                        onChange={(e) => setItemName((e.target as HTMLInputElement).value)}
+                        onChange={(e) =>
+                          setItemName((e.target as HTMLInputElement).value)
+                        }
                       />
                     </LabeledList.Item>
                     <LabeledList.Item label="Item Desc">
@@ -412,14 +552,20 @@ export const FaxPanel = (props) => {
                         style={{ width: '100%', padding: '2px 4px' }}
                         placeholder="Override item description (blank = keep default)"
                         value={itemDesc}
-                        onChange={(e) => setItemDesc((e.target as HTMLInputElement).value)}
+                        onChange={(e) =>
+                          setItemDesc((e.target as HTMLInputElement).value)
+                        }
                       />
                     </LabeledList.Item>
                     <LabeledList.Item label="Package Size">
                       <select
                         style={{ padding: '2px' }}
                         value={packageSize}
-                        onChange={(e) => setPackageSize(Number((e.target as HTMLSelectElement).value))}
+                        onChange={(e) =>
+                          setPackageSize(
+                            Number((e.target as HTMLSelectElement).value),
+                          )
+                        }
                       >
                         <option value={0}>Auto (from item)</option>
                         <option value={1}>1 — Tiny</option>
@@ -432,7 +578,8 @@ export const FaxPanel = (props) => {
                     </LabeledList.Item>
                     <LabeledList.Item label="">
                       <Box color="average">
-                        The letter (if any) will be attached as a readable note inside the package.
+                        The letter (if any) will be attached as a readable note
+                        inside the package.
                       </Box>
                     </LabeledList.Item>
                   </>

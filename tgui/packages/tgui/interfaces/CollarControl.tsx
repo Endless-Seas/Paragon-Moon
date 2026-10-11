@@ -96,35 +96,35 @@ const PetSelection = () => {
       }
     >
       <Box style={{ maxHeight: '230px', overflowY: 'auto' }}>
-      <Table>
-        <Table.Row header>
-          <Table.Cell collapsing>Select</Table.Cell>
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell collapsing>Conn</Table.Cell>
-          <Table.Cell collapsing>Mental</Table.Cell>
-          <Table.Cell>Flags</Table.Cell>
-        </Table.Row>
-        {data.pets?.map((pet) => (
-          <Table.Row key={pet.ref}>
-            <Table.Cell collapsing>
-              <Button.Checkbox
-                checked={pet.selected}
-                selected={pet.selected}
-                onClick={() =>
-                  act('select_pet', {
-                    pet_ref: pet.ref,
-                    selected: pet.selected ? 0 : 1,
-                  })
-                }
-              />
-            </Table.Cell>
-            <Table.Cell>{pet.name}</Table.Cell>
-            <Table.Cell collapsing>{pet.connected ? 'Yes' : 'No'}</Table.Cell>
-            <Table.Cell collapsing>{pet.mental_state}</Table.Cell>
-            <Table.Cell>{getPetFlags(pet)}</Table.Cell>
+        <Table>
+          <Table.Row header>
+            <Table.Cell collapsing>Select</Table.Cell>
+            <Table.Cell>Name</Table.Cell>
+            <Table.Cell collapsing>Conn</Table.Cell>
+            <Table.Cell collapsing>Mental</Table.Cell>
+            <Table.Cell>Flags</Table.Cell>
           </Table.Row>
-        ))}
-      </Table>
+          {data.pets?.map((pet) => (
+            <Table.Row key={pet.ref}>
+              <Table.Cell collapsing>
+                <Button.Checkbox
+                  checked={pet.selected}
+                  selected={pet.selected}
+                  onClick={() =>
+                    act('select_pet', {
+                      pet_ref: pet.ref,
+                      selected: pet.selected ? 0 : 1,
+                    })
+                  }
+                />
+              </Table.Cell>
+              <Table.Cell>{pet.name}</Table.Cell>
+              <Table.Cell collapsing>{pet.connected ? 'Yes' : 'No'}</Table.Cell>
+              <Table.Cell collapsing>{pet.mental_state}</Table.Cell>
+              <Table.Cell>{getPetFlags(pet)}</Table.Cell>
+            </Table.Row>
+          ))}
+        </Table>
       </Box>
     </Section>
   );
@@ -157,10 +157,12 @@ const SelectedPetInfo = (props: { selectedPets: PetEntry[] }) => {
             <Stack.Item key={pet.ref}>
               <Section title={pet.name}>
                 <LabeledList>
-	                  <LabeledList.Item label="Condition">
-	                    {pet.condition}
-	                  </LabeledList.Item>
-                  <LabeledList.Item label="Location">{pet.location}</LabeledList.Item>
+                  <LabeledList.Item label="Condition">
+                    {pet.condition}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Location">
+                    {pet.location}
+                  </LabeledList.Item>
                   <LabeledList.Item label="Mental State">
                     {pet.mental_state}
                   </LabeledList.Item>
@@ -240,7 +242,9 @@ const getCommandSectionTitle = (selectedPets: PetEntry[]) => {
     return 'Collar / Cage Commands';
   }
 
-  const cursedCount = selectedPets.filter((pet) => pet.has_cursed_chastity).length;
+  const cursedCount = selectedPets.filter(
+    (pet) => pet.has_cursed_chastity,
+  ).length;
   if (!cursedCount) {
     return 'Collar Commands';
   }
@@ -283,7 +287,9 @@ const ControlPanel = () => {
     ? `${data.cooldown_remaining.toFixed(1)}s`
     : 'Ready';
   const selectedPets = data.pets?.filter((pet) => pet.selected) ?? [];
-  const selectedCursedPets = selectedPets.filter((pet) => pet.has_cursed_chastity);
+  const selectedCursedPets = selectedPets.filter(
+    (pet) => pet.has_cursed_chastity,
+  );
   const hasSelection = selectedPets.length > 0;
   const commandSectionTitle = getCommandSectionTitle(selectedPets);
   const speechState = getToggleVisualState(selectedPets, 'speech_altered');
@@ -308,7 +314,7 @@ const ControlPanel = () => {
         ? 'No selected pets have cursed chastity'
         : selectedCursedPets.length > 1
           ? 'Select exactly one cursed pet'
-        : undefined;
+          : undefined;
 
   const generalActionDisabled = !!reasonForGeneralAction;
   const cursedActionDisabled = !!reasonForCursedAction;
@@ -316,235 +322,237 @@ const ControlPanel = () => {
   return (
     <Section fill scrollable title="Control Panel">
       <Stack vertical>
-      <Stack.Item>
-        <Section title="Status">
-          <LabeledList>
-            <LabeledList.Item label="Master">
-              {data.master_name}
-            </LabeledList.Item>
-            <LabeledList.Item label="Cooldown">{cooldownText}</LabeledList.Item>
-            <LabeledList.Item label="High Pop Mode">
-              {data.high_pop_mode ? 'Enabled' : 'Disabled'}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Stack.Item>
+        <Stack.Item>
+          <Section title="Status">
+            <LabeledList>
+              <LabeledList.Item label="Master">
+                {data.master_name}
+              </LabeledList.Item>
+              <LabeledList.Item label="Cooldown">
+                {cooldownText}
+              </LabeledList.Item>
+              <LabeledList.Item label="High Pop Mode">
+                {data.high_pop_mode ? 'Enabled' : 'Disabled'}
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        </Stack.Item>
 
-      <Stack.Item>
-        <SelectedPetInfo selectedPets={selectedPets} />
-      </Stack.Item>
+        <Stack.Item>
+          <SelectedPetInfo selectedPets={selectedPets} />
+        </Stack.Item>
 
-      <Stack.Item grow>
-        <Section title={commandSectionTitle} fill>
-          <Stack>
-            <Stack.Item basis="50%" grow>
-              <Stack vertical>
-                <Stack.Item>
-                  <CommandButton
-                    label="Listen (First Selected)"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('listen')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label="Force Surrender"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('force_surrender')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label={`Speech: ${toggleStateText(speechState, 'MUTED', 'NORMAL')}`}
-                    color={toggleStateColor(speechState)}
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_speech')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label={`Clothing: ${toggleStateText(clothingState, 'FORBIDDEN', 'ALLOWED')}`}
-                    color={toggleStateColor(clothingState)}
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_clothing')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label={`Forced Love: ${toggleStateText(loveState, 'ON', 'OFF')}`}
-                    color={toggleStateColor(loveState)}
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_love')}
-                  />
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
+        <Stack.Item grow>
+          <Section title={commandSectionTitle} fill>
+            <Stack>
+              <Stack.Item basis="50%" grow>
+                <Stack vertical>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Listen (First Selected)"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('listen')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Force Surrender"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('force_surrender')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label={`Speech: ${toggleStateText(speechState, 'MUTED', 'NORMAL')}`}
+                      color={toggleStateColor(speechState)}
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_speech')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label={`Clothing: ${toggleStateText(clothingState, 'FORBIDDEN', 'ALLOWED')}`}
+                      color={toggleStateColor(clothingState)}
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_clothing')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label={`Forced Love: ${toggleStateText(loveState, 'ON', 'OFF')}`}
+                      color={toggleStateColor(loveState)}
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_love')}
+                    />
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
 
-            <Stack.Item basis="50%" grow>
-              <Stack vertical>
-                <Stack.Item>
-                  <CommandButton
-                    label="Shock Selected"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    color="average"
-                    onClick={() => act('shock')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label="Force Strip"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('force_strip')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label={`Arousal: ${toggleStateText(arousalState, 'FORCED', 'NORMAL')}`}
-                    color={toggleStateColor(arousalState)}
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_arousal')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label={`Orgasm Denial: ${toggleStateText(denialState, 'ON', 'OFF')}`}
-                    color={toggleStateColor(denialState)}
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_denial')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label="Toggle Hallucinations"
-                    color="average"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('toggle_hallucinations')}
-                  />
-                </Stack.Item>
-                <Stack.Item>
-                  <CommandButton
-                    label="Release Selected"
-                    color="red"
-                    disabled={generalActionDisabled}
-                    tooltip={reasonForGeneralAction}
-                    onClick={() => act('release_selected')}
-                  />
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+              <Stack.Item basis="50%" grow>
+                <Stack vertical>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Shock Selected"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      color="average"
+                      onClick={() => act('shock')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Force Strip"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('force_strip')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label={`Arousal: ${toggleStateText(arousalState, 'FORCED', 'NORMAL')}`}
+                      color={toggleStateColor(arousalState)}
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_arousal')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label={`Orgasm Denial: ${toggleStateText(denialState, 'ON', 'OFF')}`}
+                      color={toggleStateColor(denialState)}
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_denial')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Toggle Hallucinations"
+                      color="average"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('toggle_hallucinations')}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <CommandButton
+                      label="Release Selected"
+                      color="red"
+                      disabled={generalActionDisabled}
+                      tooltip={reasonForGeneralAction}
+                      onClick={() => act('release_selected')}
+                    />
+                  </Stack.Item>
+                </Stack>
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
 
-      <Stack.Item>
-        <Section title="Message">
-          <Stack>
-            <Stack.Item grow>
-              <Input
-                fluid
-                value={message}
-                onChange={setMessage}
-                placeholder="Message to selected pets"
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                disabled={generalActionDisabled || !message}
-                tooltip={
-                  reasonForGeneralAction ||
-                  (!message ? 'Enter a message first' : undefined)
-                }
-                onClick={() => {
-                  act('send_message', { message });
-                  setMessage('');
-                }}
-              >
-                Send
-              </Button>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+        <Stack.Item>
+          <Section title="Message">
+            <Stack>
+              <Stack.Item grow>
+                <Input
+                  fluid
+                  value={message}
+                  onChange={setMessage}
+                  placeholder="Message to selected pets"
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  disabled={generalActionDisabled || !message}
+                  tooltip={
+                    reasonForGeneralAction ||
+                    (!message ? 'Enter a message first' : undefined)
+                  }
+                  onClick={() => {
+                    act('send_message', { message });
+                    setMessage('');
+                  }}
+                >
+                  Send
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
 
-      <Stack.Item>
-        <Section title="Force Action">
-          <Stack>
-            <Stack.Item grow>
-              <Input
-                fluid
-                value={actionText}
-                onChange={setActionText}
-                placeholder="Speech or emote (example: *kneels)"
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                disabled={generalActionDisabled || !actionText}
-                tooltip={
-                  reasonForGeneralAction ||
-                  (!actionText ? 'Enter action text first' : undefined)
-                }
-                onClick={() => {
-                  act('force_action', { action_text: actionText });
-                  setActionText('');
-                }}
-              >
-                Force
-              </Button>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+        <Stack.Item>
+          <Section title="Force Action">
+            <Stack>
+              <Stack.Item grow>
+                <Input
+                  fluid
+                  value={actionText}
+                  onChange={setActionText}
+                  placeholder="Speech or emote (example: *kneels)"
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  disabled={generalActionDisabled || !actionText}
+                  tooltip={
+                    reasonForGeneralAction ||
+                    (!actionText ? 'Enter action text first' : undefined)
+                  }
+                  onClick={() => {
+                    act('force_action', { action_text: actionText });
+                    setActionText('');
+                  }}
+                >
+                  Force
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
 
-      <Stack.Item>
-        <Section title="Impose Will">
-          <Stack>
-            <Stack.Item grow>
-              <Input
-                fluid
-                value={willText}
-                onChange={setWillText}
-                placeholder="Unfiltered sensation/illusion text"
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                disabled={generalActionDisabled || !willText}
-                tooltip={
-                  reasonForGeneralAction ||
-                  (!willText ? 'Enter imposed will text first' : undefined)
-                }
-                onClick={() => {
-                  act('impose_will', { will_text: willText });
-                  setWillText('');
-                }}
-              >
-                Impose
-              </Button>
-            </Stack.Item>
-          </Stack>
-        </Section>
-      </Stack.Item>
+        <Stack.Item>
+          <Section title="Impose Will">
+            <Stack>
+              <Stack.Item grow>
+                <Input
+                  fluid
+                  value={willText}
+                  onChange={setWillText}
+                  placeholder="Unfiltered sensation/illusion text"
+                />
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  disabled={generalActionDisabled || !willText}
+                  tooltip={
+                    reasonForGeneralAction ||
+                    (!willText ? 'Enter imposed will text first' : undefined)
+                  }
+                  onClick={() => {
+                    act('impose_will', { will_text: willText });
+                    setWillText('');
+                  }}
+                >
+                  Impose
+                </Button>
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
 
-      <Stack.Item>
-        <Section title="Cursed Chastity">
-          <CursedChastityControls
-            selectedPets={selectedPets}
-            cursedActionDisabled={cursedActionDisabled}
-            reasonForCursedAction={reasonForCursedAction}
-          />
-        </Section>
-      </Stack.Item>
+        <Stack.Item>
+          <Section title="Cursed Chastity">
+            <CursedChastityControls
+              selectedPets={selectedPets}
+              cursedActionDisabled={cursedActionDisabled}
+              reasonForCursedAction={reasonForCursedAction}
+            />
+          </Section>
+        </Stack.Item>
       </Stack>
     </Section>
   );
@@ -556,11 +564,7 @@ const CursedChastityControls = (props: {
   reasonForCursedAction?: string;
 }) => {
   const { act } = useBackend();
-  const {
-    selectedPets,
-    cursedActionDisabled,
-    reasonForCursedAction,
-  } = props;
+  const { selectedPets, cursedActionDisabled, reasonForCursedAction } = props;
 
   const cursedPets = selectedPets.filter((pet) => pet.has_cursed_chastity);
   const selectedCursedPet = cursedPets.length === 1 ? cursedPets[0] : undefined;

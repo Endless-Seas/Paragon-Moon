@@ -589,7 +589,8 @@
 
 /datum/component/personal_crafting/proc/component_ui_interact(atom/movable/screen/craft/image, location, control, params, user)
 	if(user == parent)
-		ui_interact(user)
+		var/mob/crafter = user
+		crafter.open_paperdoll(user, "crafting")
 
 /datum/component/personal_crafting/ui_data(mob/user)
 	var/list/data = list()

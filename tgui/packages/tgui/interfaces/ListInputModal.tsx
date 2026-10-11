@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import { Autofocus, Button, Divider, Input, Section, Stack } from 'tgui-core/components';
+import {
+  Autofocus,
+  Button,
+  Divider,
+  Input,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { isAlphabetic, isNumeric, KEY } from 'tgui-core/keys';
 
 import { InputButtons } from './common/InputButtons';
@@ -184,11 +191,21 @@ export const ListInputModal = (props) => {
                   <Stack.Item>
                     <Button
                       color="transparent"
-                      className={previewing ? 'input-button__cancel' : 'input-button__submit'}
-                      disabled={!filteredItems.length || selected === null || selected < 0}
+                      className={
+                        previewing
+                          ? 'input-button__cancel'
+                          : 'input-button__submit'
+                      }
+                      disabled={
+                        !filteredItems.length ||
+                        selected === null ||
+                        selected < 0
+                      }
                       m={0.5}
                       onClick={() =>
-                        act('preview_toggle', { entry: filteredItems[selected] })
+                        act('preview_toggle', {
+                          entry: filteredItems[selected],
+                        })
                       }
                       textAlign="center"
                     >

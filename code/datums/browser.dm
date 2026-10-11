@@ -1,3 +1,6 @@
+//Browse params that drop the Windows frame; the page draws its own with paragon_window_chrome()
+#define PARAGON_FRAMELESS "titlebar=0;can_resize=0;can_minimize=0;can_maximize=0"
+
 /datum/browser
 	var/mob/user
 	var/title
@@ -94,14 +97,13 @@
 	new_head_content += "<link rel='stylesheet' type='text/css' href='[common_asset.get_url_mappings()["common.css"]]'>"
 	for(var/file in stylesheets)
 		new_head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
+	//Paragon theme colours for common.css and friends, after the stylesheets so they win
+	new_head_content += paragon_theme_style_for(user)
 
 	for(var/file in scripts)
 		new_head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 
 	head_content += new_head_content.Join()
-	var/title_attributes = "class='uiTitle'"
-	if(title_image)
-		title_attributes = "class='uiTitle icon' style='background-image: url([title_image]);'"
 
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -111,8 +113,8 @@
 		[head_content]
 	</head>
 	<body scroll=auto>
+		[paragon_window_chrome(window_id, title, !findtext(window_options, "can_close=0"), !findtext(window_options, "can_resize=0"))]
 		<div class='uiWrapper'>
-			[title ? "<div class='uiTitleWrapper'><div [title_attributes]>[title]</div></div>" : ""]
 			<div class='uiContent'>
 	"}
 //" This is here because else the rest of the file looks like a string in notepad++.
@@ -150,7 +152,8 @@
 		SSassets.transport.send_assets(user, stylesheets)
 	if (length(scripts))
 		SSassets.transport.send_assets(user, scripts)
-	DIRECT_OUTPUT(user, browse(get_content(), "window=[window_id];[window_size][window_options]"))
+	//Frameless: the page draws its own title bar (paragon_window_chrome)
+	DIRECT_OUTPUT(user, browse(get_content(), "window=[window_id];[window_size][window_options];[PARAGON_FRAMELESS]"))
 	if (use_onclose)
 		setup_onclose()
 
@@ -510,3 +513,101 @@
 	// so just reset the user mob's machine var
 	if(src && src.mob)
 		src.mob.unset_machine()
+
+//Paragon window chrome. Popups open borderless (no Windows frame), and this draws a themed title bar
+//in the page instead: drag it to move the window, [X] to close it, and the corner grip to resize.
+//Colours come from the --pg-* theme variables (paragon_theme_style()).
+/proc/paragon_window_chrome(window_id, title, can_close = TRUE, can_resize = TRUE)
+	return {"
+<style>
+#pgFrame { position: fixed; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid var(--pg-frame, #4f8f8a); pointer-events: none; z-index: 9998; }
+#pgTitlebar { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; display: flex; align-items: center; height: 24px; padding: 0 2px 0 10px;
+	background: var(--pg-panel, #0b2423); border-bottom: 1px solid var(--pg-line, #155352); color: var(--pg-bright, #e8efe9);
+	font-family: 'Source Code Pro', monospace; font-size: 12px; font-weight: bold; letter-spacing: 0.08em; cursor: move; user-select: none; }
+#pgTitlebar .pgTitle { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#pgClose { width: 24px; line-height: 22px; text-align: center; color: var(--pg-accent, #40a4b9); cursor: pointer; }
+#pgClose:hover { color: var(--pg-gold, #cfc041); background: var(--pg-raised, #0f3b3a); }
+#pgGrip { position: fixed; right: 1px; bottom: 1px; width: 12px; height: 12px; cursor: nwse-resize; z-index: 9999;
+	background: linear-gradient(135deg, transparent 55%, var(--pg-frame, #4f8f8a) 55%); }
+</style>
+<div id='pgFrame'></div>
+<div style='height: 26px'></div>
+<div id='pgTitlebar'><span class='pgTitle'>[title]</span>[can_close ? "<span id='pgClose' title='Close'>&#x2715;</span>" : ""]</div>
+[can_resize ? "<div id='pgGrip'></div>" : ""]
+<script>
+(function () {
+	var win = '[window_id]';
+	var go = function (url) { window.location.href = url; };
+	var ratio = window.devicePixelRatio || 1;
+	var close = document.getElementById('pgClose');
+	if (close) {
+		close.onmousedown = function (e) { e.stopPropagation(); };
+		close.onclick = function () { go('byond://winset?command=' + encodeURIComponent('.paragon_closewindow ' + win)); };
+	}
+	//One drag at a time: moving the window by its title bar, or sizing it by the grip
+	var drag = null;
+	var point = function (v) {
+		if (typeof v === 'string') { var p = v.split(/\[,x\]/); return { x: +p\[0\], y: +p\[1\] }; }
+		return v && (v.x !== undefined ? v : (v.pos || v.size));
+	};
+	window.pgDragBase = function (value) {
+		if (!drag) { return; }
+		var v = value && (value.pos || value.size || value);
+		drag.base = point(v);
+	};
+	var start = function (e, prop) {
+		if (e.button !== 0) { return; }
+		e.preventDefault();
+		drag = { prop: prop, x: e.screenX, y: e.screenY, base: null, last: 0 };
+		go('byond://winget?id=' + win + '&property=' + prop + '&callback=pgDragBase');
+	};
+	document.getElementById('pgTitlebar').onmousedown = function (e) { start(e, 'pos'); };
+	var grip = document.getElementById('pgGrip');
+	if (grip) { grip.onmousedown = function (e) { start(e, 'size'); }; }
+	document.addEventListener('mousemove', function (e) {
+		if (!drag || !drag.base) { return; }
+		var now = Date.now();
+		if (now - drag.last < 16) { return; }
+		drag.last = now;
+		var x = Math.round(drag.base.x + (e.screenX - drag.x) * ratio);
+		var y = Math.round(drag.base.y + (e.screenY - drag.y) * ratio);
+		if (drag.prop === 'size') { x = Math.max(200, x); y = Math.max(120, y); }
+		go('byond://winset?id=' + win + '&' + drag.prop + '=' + x + ',' + y);
+	});
+	document.addEventListener('mouseup', function (e) {
+		drag = null;
+		//Unless a text field was clicked, hand keyboard focus back to the map so movement keys work at once.
+		//Deferred so a link's own byond:// call goes out first.
+		var tag = (e.target && e.target.tagName || '').toLowerCase();
+		if (tag === 'input' || tag === 'textarea' || tag === 'select') { return; }
+		setTimeout(function () { go('byond://winset?mapwindow.map.focus=true'); }, 150);
+	});
+})();
+</script>
+"}
+
+//Closes a borderless popup from its [X], running the window's own on-close command exactly as the frame's close button did
+/client/verb/paragon_closewindow(window_id as text)
+	set hidden = TRUE
+	set name = ".paragon_closewindow"
+	window_id = sanitize_paragon_window_id(window_id)
+	if(!window_id || !winexists(src, window_id))
+		return
+	var/on_close = winget(src, window_id, "on-close")
+	if(on_close)
+		winset(src, window_id, "on-close=")
+	src << browse(null, "window=[window_id]")
+	if(!on_close)
+		return
+	on_close = trim(on_close)
+	if(copytext(on_close, 1, 2) == "\"")
+		on_close = copytext(on_close, 2, -1)
+	var/static/regex/windowclose = regex(@"^\.windowclose\s+(\S+)$")
+	if(windowclose.Find(on_close))
+		windowclose(windowclose.group[1])
+	else
+		winset(src, null, "command=\"[on_close]\"")
+
+/proc/sanitize_paragon_window_id(window_id)
+	var/static/regex/valid = regex(@"^[A-Za-z0-9_.\-]+$")
+	return (istext(window_id) && valid.Find(window_id)) ? window_id : null

@@ -205,7 +205,16 @@
 
 	for(var/obj/item/I in held_items)
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
-			if(I.bigboy)
+			if(hud_used.paragon_layout)
+				//Hands in the right-hand column (paragon_hud.dm): left hand at EAST+2, right at EAST+3
+				if(I.bigboy)
+					if(I.wielded)
+						I.screen_loc = "EAST+2,SOUTH+2:-16"
+					else
+						I.screen_loc = (get_held_index_of_item(I) == 1) ? "EAST+1:16,SOUTH+2:-16" : "EAST+2:16,SOUTH+2:-16"
+				else
+					I.screen_loc = I.wielded ? "EAST+2:16,SOUTH+2" : ui_hand_position(get_held_index_of_item(I), TRUE)
+			else if(I.bigboy)
 				if(I.wielded)
 					I.screen_loc = "WEST-4:16,SOUTH+7:-16"
 				else
@@ -354,7 +363,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_WEAR_MASK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_WEAR_MASK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_mask)
 		if(!(SLOT_WEAR_MASK in check_obscured_slots()))
@@ -368,7 +377,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_NECK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_NECK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(wear_neck)
 		if(!(SLOT_NECK in check_obscured_slots()))
@@ -382,7 +391,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_BACK])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_BACK]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(back)
 		overlays_standing[BACK_LAYER] = back.build_worn_icon(default_layer = BACK_LAYER, default_icon_file = 'icons/mob/clothing/back.dmi')
@@ -398,7 +407,7 @@
 
 	if(client && hud_used && hud_used.inv_slots[SLOT_HEAD])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[SLOT_HEAD]
-		inv.update_icon()
+		inv?.update_icon()
 
 	if(head)
 		if(hide_nonstandard && (head.worn_x_dimension != 32 || head.worn_y_dimension != 32))

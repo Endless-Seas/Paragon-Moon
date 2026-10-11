@@ -39,11 +39,13 @@
 			<style>
 			</style>
 			<link rel='stylesheet' type='text/css' href='slop_menustyle3.css'>
+			[paragon_theme_style_for(linked_client)]
 		</head>
 	"}
 
 	data += {"
 		<body>
+			[paragon_window_chrome("triumph_buy_window", "Triumphs", TRUE, FALSE)]
 			<div id='top_container_div'>
 				<div id='triumph_quantity_div'>
 					I have [SStriumphs.get_triumphs(linked_client.ckey)] Triumphs
@@ -150,7 +152,7 @@
 	</html>
 	"}
 
-	linked_client << browse(data, "window=triumph_buy_window;size=500x760;can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1")
+	linked_client << browse(data, "window=triumph_buy_window;size=500x760;can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=0")
 
 	// We setup the href_list "close" call if they hit the x on the top right
 	for(var/i in 1 to 10)

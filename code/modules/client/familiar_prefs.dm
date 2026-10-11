@@ -26,7 +26,7 @@
 		// --- Familiar species display using mapping ---
 	if (familiar_specie && GLOB.familiar_display_names[familiar_specie])
 		var/specie_type = GLOB.familiar_display_names[familiar_specie] ? GLOB.familiar_display_names[familiar_specie] : "Unknown Species"
-		dat += "<div align='center'><font size=4 color='#bbbbbb'>[specie_type]</font></div>"
+		dat += "<div align='center'><font size=4 style='color: var(--pg-accent2, #77bfcf)'>[specie_type]</font></div>"
 
 	dat += "<br><b>Familiar Name:</b> <a href='?_src_=familiar_prefs;preference=familiar_name;task=input'>[familiar_name] (Set name)</a>"
 
@@ -156,7 +156,7 @@
 		if("familiar_ooc_extra")
 			to_chat(user, "<span class='notice'>Add a link to an mp3, mp4, or jpg/png (catbox, discord, etc).</span>")
 			to_chat(user, "<span class='notice'>Videos are resized to ~300x300. Abuse = ban.</span>")
-			to_chat(user, "<font color='#d6d6d6'>Leave a single space to delete it.</font>")
+			to_chat(user, "<font color='#98875f'>Leave a single space to delete it.</font>")
 			var/link = input(user, "Input the accessory link (https)", "Familiar OOC Extra", familiar_ooc_extra_link) as text|null
 			if(link == null)
 				return

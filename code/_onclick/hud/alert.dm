@@ -395,6 +395,9 @@
 		for(var/i = 1, i <= alerts.len, i++)
 			mymob.client.screen -= alerts[alerts[i]]
 		return 1
+	if(paragon_layout)
+		place_paragon_alerts(alerts)
+		return 1
 	var/list/buffs = list()
 	var/list/debuffs = list()
 	var/list/status_effects = list()
