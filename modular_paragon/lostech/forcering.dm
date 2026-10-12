@@ -14,9 +14,9 @@
 	icon = 'modular_paragon/icons/clothing/misc.dmi'
 	icon_state = "forcering"
 	mob_overlay_icon = 'modular_paragon/icons/clothing/onmob.dmi'
-	max_integrity = 300 //field's health, not the ring's (i mean, both, i guess)
+	max_integrity = 150 //field's health, not the ring's (i mean, both, i guess)
 	integrity_failure = 0
-	anvilrepair = null
+	anvilrepair = /datum/skill/craft/blacksmithing //IDK. Replace this with whatever.
 	armor_class = ARMOR_CLASS_NONE
 	blocksound = PLATEHIT
 	sellprice = 2000 //idk lmfao
@@ -49,7 +49,7 @@
 	if(active)
 		return
 	if(world.time < next_use)
-		to_chat(H, span_warning("The [src] clicks before humming and going dark."))
+		to_chat(H, span_warning("[src] clicks before humming and going dark."))
 		return
 	activate(H)
 
@@ -119,7 +119,8 @@
 
 /obj/item/clothing/ring/force_ring/dropped(mob/user)
 	. = ..()
-	deactivate()
+	if(active)
+		collapse()
 
 
 /obj/item/clothing/ring/force_ring/obj_destruction(damage_flag)
