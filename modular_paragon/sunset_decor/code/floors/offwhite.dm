@@ -1,64 +1,64 @@
 // Off-White tiling
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor
+/turf/open/floor/sunset/vault_floor/floor
 	icon_state = "floor"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floorsolid
+/turf/open/floor/sunset/vault_floor/floor/floorsolid
 	icon_state = "floorsolid"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floordirty
+/turf/open/floor/sunset/vault_floor/floor/floordirty
 	icon_state = "floordirty"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floordirtysolid
+/turf/open/floor/sunset/vault_floor/floor/floordirtysolid
 	icon_state = "floordirtysolid"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floorrusty
+/turf/open/floor/sunset/vault_floor/floor/floorrusty
 	icon_state = "floorrusty"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floorrustysolid
+/turf/open/floor/sunset/vault_floor/floor/floorrustysolid
 	icon_state = "floorrustysolid"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/floorgrime
+/turf/open/floor/sunset/vault_floor/floor/floorgrime
 	icon_state = "floorgrime"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/damaged
+/turf/open/floor/sunset/vault_floor/floor/damaged
 	icon_state = "floordamaged1"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/damaged2
+/turf/open/floor/sunset/vault_floor/floor/damaged2
 	icon_state = "floordamaged2"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/damaged3
+/turf/open/floor/sunset/vault_floor/floor/damaged3
 	icon_state = "floordamaged3"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/damaged4
+/turf/open/floor/sunset/vault_floor/floor/damaged4
 	icon_state = "floordamaged4"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/damaged5
+/turf/open/floor/sunset/vault_floor/floor/damaged5
 	icon_state = "floordamaged5"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/scorched1
+/turf/open/floor/sunset/vault_floor/floor/scorched1
 	icon_state = "floorscorched1"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/scorched2
+/turf/open/floor/sunset/vault_floor/floor/scorched2
 	icon_state = "floorscorched2"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/dir
+/turf/open/floor/sunset/vault_floor/floor/dir
 	icon_state = "floordir"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/dirtydir
+/turf/open/floor/sunset/vault_floor/floor/dirtydir
 	icon_state = "floordirtydir"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/hash
+/turf/open/floor/sunset/vault_floor/floor/hash
 	icon_state = "floormark"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/loading
+/turf/open/floor/sunset/vault_floor/floor/loading
 	icon_state = "loadingarea"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/loadingdirty
+/turf/open/floor/sunset/vault_floor/floor/loadingdirty
 	icon_state = "loadingareadirty"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/loadingrusty
+/turf/open/floor/sunset/vault_floor/floor/loadingrusty
 	icon_state = "loadingarearusty"
 
-/turf/open/floor/rogue/fluff/sunset/vault_floor/floor/square
+/turf/open/floor/sunset/vault_floor/floor/square
 	icon_state = "bot"
