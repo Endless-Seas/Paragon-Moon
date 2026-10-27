@@ -3141,6 +3141,7 @@
 #include "modular_paragon\spells\astrata.dm"
 #include "modular_paragon\spells\malum.dm"
 #include "modular_paragon\spells\ravox.dm"
+#include "modular_paragon\sunset_decor\sunset_decor.dm"
 #include "modular_rmh\code\modules\clothing\armor\corset_color.dm"
 #include "modular_rmh\code\modules\clothing\face\fancy_spectacles.dm"
 #include "modular_rmh\code\modules\clothing\valentyi\skyrim_dress.dm"
