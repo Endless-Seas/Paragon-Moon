@@ -98,4 +98,4 @@ The floor and wall icons in `modular_paragon/meridian_tiles/icons/` are by the [
 
 ### Sunset Mapping Tiles
 
-The floor and wall icons in 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi' and 'modular_paragon/sunset_decor/icons/walls/sunset_walls.dmi' are by the developers of [Sunset Wasteland](https://github.com/sunset-wasteland/sunset-wasteland), carried by [Meridian Rift](https://github.com/Aphelion-Moon/Meridian-Rift), and licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Minor edits were made to adjust small consistency issues and provide mirrored sprites, but these were done manually. 
+The floor and wall icons in 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi' and 'modular_paragon/sunset_decor/icons/walls' are by the developers of [Sunset Wasteland](https://github.com/sunset-wasteland/sunset-wasteland), carried by [Meridian Rift](https://github.com/Aphelion-Moon/Meridian-Rift), and licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Minor edits were made to adjust small consistency issues and provide mirrored sprites, but these were done manually. 
