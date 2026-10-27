@@ -1,102 +1,102 @@
 //geen
 
-/turf/open/floor/sunset/vault_floor/green
+/turf/open/floor/sunset/green
 	icon_state = "greenfull"
 
-/turf/open/floor/sunset/vault_floor/green/greensolid
+/turf/open/floor/sunset/green/greensolid
 	icon_state = "greensolid"
 
-/turf/open/floor/sunset/vault_floor/green/greendirtyfull
+/turf/open/floor/sunset/green/greendirtyfull
 	icon_state = "greendirtyfull"
 
-/turf/open/floor/sunset/vault_floor/green/greendirtysolid
+/turf/open/floor/sunset/green/greendirtysolid
 	icon_state = "greendirtysolid"
 
-/turf/open/floor/sunset/vault_floor/green/greenrustyfull
+/turf/open/floor/sunset/green/greenrustyfull
 	icon_state = "greenrustyfull"
 
-/turf/open/floor/sunset/vault_floor/green/greenrustysolid
+/turf/open/floor/sunset/green/greenrustysolid
 	icon_state = "greenrustysolid"
 
-/turf/open/floor/sunset/vault_floor/green/side
+/turf/open/floor/sunset/green/side
 	icon_state = "green"
 
-/turf/open/floor/sunset/vault_floor/green/corner
+/turf/open/floor/sunset/green/corner
 	icon_state = "greencorner"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess
+/turf/open/floor/sunset/green/greenchess
 	icon_state = "greenchess"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess/greenchess2
+/turf/open/floor/sunset/green/greenchess/greenchess2
 	icon_state = "greenchess2"
 
-/turf/open/floor/sunset/vault_floor/green/side/dirty
+/turf/open/floor/sunset/green/side/dirty
 	icon_state = "greendirty"
 
-/turf/open/floor/sunset/vault_floor/green/corner/dirty
+/turf/open/floor/sunset/green/corner/dirty
 	icon_state = "greendirtycorner"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess/dirty
+/turf/open/floor/sunset/green/greenchess/dirty
 	icon_state = "greendirtychess"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess/greenchess2/dirty
+/turf/open/floor/sunset/green/greenchess/greenchess2/dirty
 	icon_state = "greendirtychess2"
 
-/turf/open/floor/sunset/vault_floor/green/side/rusty
+/turf/open/floor/sunset/green/side/rusty
 	icon_state = "greenrusty"
 
-/turf/open/floor/sunset/vault_floor/green/corner/rusty
+/turf/open/floor/sunset/green/corner/rusty
 	icon_state = "greenrustycorner"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess/rusty
+/turf/open/floor/sunset/green/greenchess/rusty
 	icon_state = "greenrustychess"
 
-/turf/open/floor/sunset/vault_floor/green/greenchess/greenchess2/rusty
+/turf/open/floor/sunset/green/greenchess/greenchess2/rusty
 	icon_state = "greenrustychess2"
 
-/turf/open/floor/sunset/vault_floor/green/greendir
+/turf/open/floor/sunset/green/greendir
 	icon_state = "greendir"
 
-/turf/open/floor/sunset/vault_floor/green/greendirtydir
+/turf/open/floor/sunset/green/greendirtydir
 	icon_state = "greendirtydir"
 
-/turf/open/floor/sunset/vault_floor/green/greenmark
+/turf/open/floor/sunset/green/greenmark
 	icon_state = "greenmark"
 
 //green and white tiling
 
-/turf/open/floor/sunset/vault_floor/green/white/side
+/turf/open/floor/sunset/green/white/side
 	icon_state = "whitegreen"
 
-/turf/open/floor/sunset/vault_floor/green/white/corner
+/turf/open/floor/sunset/green/white/corner
 	icon_state = "whitegreencorner"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess
+/turf/open/floor/sunset/green/white/whitegreenchess
 	icon_state = "whitegreenchess"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess/whitegreenchess2
+/turf/open/floor/sunset/green/white/whitegreenchess/whitegreenchess2
 	icon_state = "whitegreenchess2"
 
-/turf/open/floor/sunset/vault_floor/green/white/side/dirty
+/turf/open/floor/sunset/green/white/side/dirty
 	icon_state = "whitegreendirty"
 
-/turf/open/floor/sunset/vault_floor/green/white/corner/dirty
+/turf/open/floor/sunset/green/white/corner/dirty
 	icon_state = "whitegreendirtycorner"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess/dirty
+/turf/open/floor/sunset/green/white/whitegreenchess/dirty
 	icon_state = "whitegreendirtychess"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess/whitegreenchess2/dirty
+/turf/open/floor/sunset/green/white/whitegreenchess/whitegreenchess2/dirty
 	icon_state = "whitegreendirtychess2"
 
-/turf/open/floor/sunset/vault_floor/green/white/side/rusty
+/turf/open/floor/sunset/green/white/side/rusty
 	icon_state = "whitegreenrusty"
 
-/turf/open/floor/sunset/vault_floor/green/white/corner/rusty
+/turf/open/floor/sunset/green/white/corner/rusty
 	icon_state = "whitegreenrustycorner"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess/rusty
+/turf/open/floor/sunset/green/white/whitegreenchess/rusty
 	icon_state = "whitegreenrustychess"
 
-/turf/open/floor/sunset/vault_floor/green/white/whitegreenchess/whitegreenchess2/rusty
+/turf/open/floor/sunset/green/white/whitegreenchess/whitegreenchess2/rusty
 	icon_state = "whitegreenrustychess2"
