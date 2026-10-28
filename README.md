@@ -95,3 +95,7 @@ The `_digi` states of legwear and footwear are Roguetown clothing reshaped onto 
 ### Meridian mapping tiles
 
 The floor and wall icons in `modular_paragon/meridian_tiles/icons/` are by the [tgstation](https://github.com/tgstation/tgstation) and [NovaSector](https://github.com/NovaSector/NovaSector) contributors, as carried by [Meridian-Rift](https://github.com/Aphelion-Moon/Meridian-Rift), licensed [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). The smoothing sets were cut from their bitmask templates into Roguetown's 4-corner smoothing states.
+
+### Sunset Mapping Tiles
+
+The floor and wall icons in 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi' and 'modular_paragon/sunset_decor/icons/walls' are by the developers of [Sunset Wasteland](https://github.com/sunset-wasteland/sunset-wasteland), carried by [Aphelion](https://github.com/Aphelion-Moon/Meridian-Rift), and licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). Minor edits were made to adjust small consistency issues and provide mirrored sprites, but these were done manually. 
