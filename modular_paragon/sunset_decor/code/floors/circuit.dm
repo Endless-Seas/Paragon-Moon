@@ -1,8 +1,10 @@
 //Circuit flooring. KEeping the on/off vars for later functionality just in case.
-/turf/open/floor/sunset/circuit/blue
-	icon = 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi'
+/turf/open/floor/sunset/circuit
 	icon_state = "bcircuit2"
-	icon_normal = "bcircuit2"
+
+/turf/open/floor/sunset/circuit/blue
+	icon = 'modular_paragon/sunset_decor/icons/floors/sunset_turfs.dmi'
+	icon_state = "bcircuit2"
 
 /turf/open/floor/sunset/circuit/blue/b1
 	icon_state = "bcircuit1"
@@ -15,7 +17,6 @@
 
 /turf/open/floor/sunset/circuit/blue/off
 	icon_state = "bcircuitoff2"
-	on = FALSE
 
 /turf/open/floor/sunset/circuit/blue/off/b1
 	icon_state = "bcircuitoff1"
@@ -27,11 +28,9 @@
 	icon_state = "bcircuitoff4"
 
 /turf/open/floor/sunset/circuit/green
-	icon = 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi'
+	icon = 'modular_paragon/sunset_decor/icons/floors/sunset_turfs.dmi'
 	icon_state = "gcircuit2"
-	icon_normal = "gcircuit2"
 	light_color = LIGHT_COLOR_GREEN
-	floor_tile = /obj/item/stack/tile/circuit/green
 
 /turf/open/floor/sunset/circuit/green/g1
 	icon_state = "gcircuit1"
@@ -44,7 +43,6 @@
 
 /turf/open/floor/sunset/circuit/green/off
 	icon_state = "gcircuitoff2"
-	on = FALSE
 
 /turf/open/floor/sunset/circuit/green/off/b1
 	icon_state = "gcircuitoff1"
@@ -56,11 +54,9 @@
 	icon_state = "gcircuitoff4"
 
 /turf/open/floor/sunset/circuit/red
-	icon = 'modular_paragon/sunset_decor/icons/floor/sunset_turfs.dmi'
+	icon = 'modular_paragon/sunset_decor/icons/floors/sunset_turfs.dmi'
 	icon_state = "rcircuit1"
-	icon_normal = "rcircuit1"
 	light_color = LIGHT_COLOR_FLARE
-	floor_tile = /obj/item/stack/tile/circuit/red
 
 /turf/open/floor/sunset/circuit/red/r1
 	icon_state = "rcircuit1"
@@ -73,7 +69,6 @@
 
 /turf/open/floor/sunset/circuit/red/off
 	icon_state = "rcircuitoff1"
-	on = FALSE
 
 /turf/open/floor/sunset/circuit/red/off/r1
 	icon_state = "rcircuitoff1"

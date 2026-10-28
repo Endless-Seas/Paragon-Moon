@@ -1,7 +1,7 @@
 /turf/closed/wall/sunset
 	name = "wall"
 	desc = "You shouldn't be seeing me. Poke a dev about this. Error: somehow a base turf/closed/wall/sunset generated."
-	icon = 'modular_paragon/sunset_decor/icons/walls/reinforced.dmi'
+	icon = 'modular_paragon/sunset_decor/icons/walls/rusted.dmi'
 	icon_state = "rrust"
 
 /turf/closed/wall/sunset/metal/rusted
