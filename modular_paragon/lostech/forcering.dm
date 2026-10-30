@@ -122,7 +122,6 @@
 	if(active)
 		collapse()
 
-
 /obj/item/clothing/ring/force_ring/obj_destruction(damage_flag)
 	if(active)
 		collapse()
