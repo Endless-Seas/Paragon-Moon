@@ -13,6 +13,7 @@ import { toFixed } from 'tgui-core/math';
 
 import { clearChat } from '../chat/helpers';
 import { chatRenderer } from '../chat/renderer';
+import { THEME_NAMES, THEMES } from '../themes';
 import { FONTS } from './constants';
 import { exportChatSettings, importChatSettings } from './settingsImExport';
 import { useSettings } from './use-settings';
@@ -24,6 +25,17 @@ export function SettingsGeneral() {
   return (
     <Section>
       <LabeledList>
+        <LabeledList.Item label="Theme">
+          {THEMES.map((theme) => (
+            <Button
+              key={theme}
+              selected={settings.theme === theme}
+              onClick={() => updateSettings({ theme })}
+            >
+              {THEME_NAMES[theme]}
+            </Button>
+          ))}
+        </LabeledList.Item>
         <LabeledList.Item label="Font style">
           <Stack.Item>
             {!freeFont ? (

@@ -72,7 +72,7 @@
 			else
 				customizer_link = ""
 
-		dat += "<table align='center'; width='100%'; height='100px'; style='background-color:#1c1313'><td width=100%>"
+		dat += "<table align='center'; width='100%'; height='100px'; style='background-color:var(--pg-void, #04100f)'><td width=100%>"
 		dat += "<a [customizer_link]>[customizer.name]</a>"
 		if(!entry.disabled)
 			var/choice_link
@@ -183,7 +183,7 @@
 
 /datum/preferences/proc/ShowCustomizers(mob/user)
 	var/list/dat = list()
-	dat += "<style>span.color_holder_box{display: inline-block; width: 20px; height: 8px; border:1px solid #000; padding: 0px;}</style>"
+	dat += "<style>span.color_holder_box{display: inline-block; width: 20px; height: 8px; border:1px solid var(--pg-line, #155352); padding: 0px;}</style>"
 	dat += print_customizers_page()
 	var/datum/browser/popup = new(user, "customization", "<div align='center'>Customization</div>", 630, 730)
 	popup.set_content(dat.Join())

@@ -1,0 +1,226 @@
+//Container window. Same palette as the paper doll.
+
+$void: var(--paragon-void, #04100f);
+$panel: var(--paragon-panel, #0b2423);
+$viridian: var(--paragon-viridian, #0f3b3a);
+$line: var(--paragon-line, #155352);
+$frame: var(--paragon-frame, #4f8f8a);
+$text: var(--paragon-text, #b1c9c3);
+$bright: var(--paragon-bright, #e8efe9);
+$cyan: var(--paragon-cyan, #40a4b9);
+$gold: var(--paragon-gold, #cfc041);
+$red: var(--paragon-red, #d74200);
+$orange: var(--paragon-orange, #e99f10);
+
+.Container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  user-select: none;
+  color: $text;
+  font-family: Consolas, 'Lucida Console', monospace;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  &__title {
+    padding: 3px 10px;
+    background: $panel;
+    color: $bright;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  &__rule,
+  &__groupRule,
+  &__totalsRule {
+    flex: 1;
+    border-top: 1px solid $line;
+  }
+
+  &__groupRule {
+    border-top-style: dashed;
+    margin-left: 8px;
+  }
+
+  &__crumb {
+    cursor: pointer;
+    color: $frame;
+
+    &:hover {
+      color: $gold;
+    }
+
+    &--here {
+      color: $bright;
+    }
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+  }
+
+  &__pane {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2px 0;
+  }
+
+  //The thin double rule down the middle, with the transfer glyph
+  &__divider {
+    width: 28px;
+    margin: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid $line;
+    border-right: 1px solid $line;
+    color: $frame;
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 4px;
+    color: $frame;
+
+    &:hover {
+      background: $viridian;
+    }
+  }
+
+  &__groupName {
+    letter-spacing: 0.15em;
+    font-size: 1.1em;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 26px;
+    cursor: pointer;
+
+    &:hover {
+      background: $viridian;
+      box-shadow: inset 2px 0 0 $gold;
+    }
+
+    &--inert {
+      opacity: 0.55;
+    }
+
+    &--sheathed {
+      font-style: italic;
+    }
+  }
+
+  &__fold {
+    width: 26px;
+    flex-shrink: 0;
+    color: $frame;
+  }
+
+  &__img {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+  }
+
+  &__name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $bright;
+  }
+
+  &__tag {
+    flex-shrink: 0;
+    padding-right: 6px;
+    color: $cyan;
+  }
+
+  &__open {
+    color: $frame;
+
+    &:hover {
+      color: $gold;
+    }
+  }
+
+  &__dim {
+    color: $frame;
+  }
+
+  &__condition {
+    color: $orange;
+  }
+
+  &__cyan {
+    color: $cyan;
+  }
+
+  &__gold {
+    color: $gold;
+  }
+
+  &__empty {
+    padding: 12px;
+    color: $frame;
+    font-style: italic;
+  }
+
+  &__totals {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  &__transfer {
+    color: $gold;
+    font-size: 1.3em;
+    letter-spacing: 0.1em;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  &__search {
+    width: 180px;
+    background: $void;
+    border: 1px solid $line;
+  }
+
+  &__keys {
+    flex: 1;
+    text-align: right;
+    color: $text;
+  }
+
+  &__key {
+    color: $gold;
+  }
+
+  &__clickable {
+    cursor: pointer;
+    margin-left: 10px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -8,8 +8,9 @@ import {
 } from '../telemetry/handlers';
 import { handlePanelAsset } from './handlers/assets';
 import { handleRoundRestart } from './handlers/roundrestart';
+import { handleThemeSet } from './handlers/theme';
 
-/** Messages consumed by the chat panel. Keep names aligned with DM topics. */
+//Messages consumed by the chat panel. Keep names aligned with DM topics.
 export const listeners = {
   'asset/stylesheet': (payload: unknown) =>
     handlePanelAsset('asset/stylesheet', payload),
@@ -22,10 +23,11 @@ export const listeners = {
   'ping/soft': pingSoft,
   roundrestart: handleRoundRestart,
   'telemetry/request': telemetryRequest,
+  'theme/set': handleThemeSet,
   testTelemetryCommand,
-  // The old backend middleware delivered this as `backend/update`; the
-  // transport itself sends `update`. Supporting both makes reconnects during
-  // a rolling bundle update harmless.
+  //The old backend middleware delivered this as `backend/update`; the
+  //transport itself sends `update`. Supporting both makes reconnects during
+  //a rolling bundle update harmless.
   update: handleTelemetryData,
   'backend/update': handleTelemetryData,
 } as const;

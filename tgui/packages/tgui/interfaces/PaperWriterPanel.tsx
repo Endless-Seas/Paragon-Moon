@@ -1,10 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Box,
-  Button,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -151,10 +146,14 @@ export const PaperWriterPanel = () => {
                   <Button onClick={() => insertToken('\n---\n')}>Rule</Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertToken('\n* item')}>Bullet List</Button>
+                  <Button onClick={() => insertToken('\n* item')}>
+                    Bullet List
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertToken('\n1. item')}>Numbered List</Button>
+                  <Button onClick={() => insertToken('\n1. item')}>
+                    Numbered List
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
                   <Button onClick={() => insertToken('%f')}>Field</Button>
@@ -166,16 +165,24 @@ export const PaperWriterPanel = () => {
                   <Box color="label">Color:</Box>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertColorBlock('862F20')}>Red Ink</Button>
+                  <Button onClick={() => insertColorBlock('862F20')}>
+                    Red Ink
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertColorBlock('14103F')}>Blue Ink</Button>
+                  <Button onClick={() => insertColorBlock('14103F')}>
+                    Blue Ink
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertColorBlock('1A3A1A')}>Green</Button>
+                  <Button onClick={() => insertColorBlock('1A3A1A')}>
+                    Green
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button onClick={() => insertColorBlock('8B6914')}>Gold</Button>
+                  <Button onClick={() => insertColorBlock('8B6914')}>
+                    Gold
+                  </Button>
                 </Stack.Item>
               </Stack>
 
@@ -208,14 +215,13 @@ export const PaperWriterPanel = () => {
                     <Button
                       icon="sync"
                       color={previewDirty ? 'average' : undefined}
-                      onClick={updatePreview}>
+                      onClick={updatePreview}
+                    >
                       Update Preview
                     </Button>
                   </Stack.Item>
                   <Stack.Item>
-                    <Button
-                      icon="question-circle"
-                      onClick={() => act('help')}>
+                    <Button icon="question-circle" onClick={() => act('help')}>
                       Help
                     </Button>
                   </Stack.Item>
@@ -230,8 +236,12 @@ export const PaperWriterPanel = () => {
                 }}
                 value={draft}
                 onChange={(event) => pushDraft(event.target.value)}
-                onFocus={() => { isFocused.current = true; }}
-                onBlur={() => { isFocused.current = false; }}
+                onFocus={() => {
+                  isFocused.current = true;
+                }}
+                onBlur={() => {
+                  isFocused.current = false;
+                }}
                 placeholder="Write your letter..."
               />
             </Section>
@@ -267,7 +277,8 @@ export const PaperWriterPanel = () => {
                     }
                     setPreviewDirty(false);
                     act('sign', { draft, font, seq: nextActionSeq() });
-                  }}>
+                  }}
+                >
                   Done
                 </Button>
               </Stack.Item>
@@ -283,15 +294,13 @@ export const PaperWriterPanel = () => {
                     setDraft('');
                     setPreviewDirty(false);
                     act('clear', { seq: nextActionSeq() });
-                  }}>
+                  }}
+                >
                   Clear
                 </Button>
               </Stack.Item>
               <Stack.Item>
-                <Button
-                  color="bad"
-                  icon="times"
-                  onClick={() => act('close')}>
+                <Button color="bad" icon="times" onClick={() => act('close')}>
                   Close
                 </Button>
               </Stack.Item>

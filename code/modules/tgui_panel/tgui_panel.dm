@@ -75,6 +75,8 @@
 /datum/tgui_panel/proc/on_message(type, payload)
 	if(type == "ready")
 		broken = FALSE
+		//Wait for the panel to load its saved settings, or they would overwrite the theme
+		addtimer(CALLBACK(src, PROC_REF(send_theme)), 5 SECONDS)
 		window.send_message("update", list(
 			"config" = list(
 				"client" = list(
@@ -112,3 +114,8 @@
  */
 /datum/tgui_panel/proc/send_roundrestart()
 	window.send_message("roundrestart")
+
+//Tells the panel which Paragon theme the player picked in their preferences; it re-skins chat and the client window
+/datum/tgui_panel/proc/send_theme()
+	if(client?.prefs && window)
+		window.send_message("theme/set", list("theme" = client.prefs.tgui_theme))

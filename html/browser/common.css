@@ -30,16 +30,24 @@ body {
 	font-family: "Source Code Pro", monospace;
 	padding: 0;
 	margin: 0;
-	background: #000000 url("flowers.png") repeat;
+	/* Faint CRT scanlines over the viridian backdrop */
+	background: repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 3px) var(--pg-panel, #0b2423);
 	font-size: 14px;
-	color: #8a8072;
+	color: var(--pg-text, #b1c9c3);
 	line-height: 1.4;
 	vertical-align: middle;
 }
 
-hr {
-	background-color: #000000;
-	height: 2px;
+/* Paragon section rule: a thin line broken by a small pronged ornament */
+hr,
+.paragonDivider {
+	border: 0;
+	height: 12px;
+	margin: 8px 0;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12' shape-rendering='crispEdges' fill='%23b1c9c3'%3E%3Crect x='10' y='0' width='2' height='12'/%3E%3Crect x='6' y='2' width='2' height='8'/%3E%3Crect x='14' y='2' width='2' height='8'/%3E%3Crect x='4' y='5' width='14' height='2'/%3E%3C/svg%3E") center / 22px 12px no-repeat,
+		linear-gradient(to right, transparent calc(50% - 60px), var(--pg-text, #b1c9c3) calc(50% - 60px) calc(50% - 14px), transparent calc(50% - 14px) calc(50% + 14px), var(--pg-text, #b1c9c3) calc(50% + 14px) calc(50% + 60px), transparent calc(50% + 60px)) center / 100% 1px no-repeat,
+		linear-gradient(to right, var(--pg-line, #155352) calc(50% - 14px), transparent calc(50% - 14px) calc(50% + 14px), var(--pg-line, #155352) calc(50% + 14px)) center / 100% 1px no-repeat;
 }
 
 a,
@@ -50,10 +58,10 @@ a:active,
 .linkOn,
 .linkOff {
 	font-family: "Source Code Pro", monospace !important;
-	color: #7b5353;
+	color: var(--pg-accent, #40a4b9);
 	text-decoration: none;
-	background: #00000066;
-	border: 1px solid #000000;
+	background: #04100f99;
+	border: 1px solid var(--pg-void, #04100f);
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
 	cursor: pointer;
@@ -61,9 +69,9 @@ a:active,
 }
 
 a:hover {
-	color: #eac0b9;
-	background: #000000;
-	border-color: #000000;
+	color: var(--pg-gold, #cfc041);
+	background: var(--pg-void, #04100f);
+	border-color: var(--pg-void, #04100f);
 	text-decoration-line: underline;
 }
 
@@ -71,18 +79,18 @@ a.white,
 a.white:link,
 a.white:visited,
 a.white:active {
-	color: #7b5353;
+	color: var(--pg-accent, #40a4b9);
 	text-decoration: none;
-	background: #000000;
-	border: 1px solid #000000;
+	background: transparent;
+	border: 1px solid transparent;
 	padding: 1px 4px 1px 4px;
 	margin: 0 2px 0 0;
-	cursor: default;
+	cursor: pointer;
 }
 
 a.white:hover {
-	color: #eac0b9;
-	background: #000000;
+	color: var(--pg-gold, #cfc041);
+	background: var(--pg-raised, #0f3b3a);
 	text-decoration-line: underline;
 }
 
@@ -91,9 +99,9 @@ a.linkOn:link,
 a.linkOn:visited,
 a.linkOn:active,
 a.linkOn:hover {
-	color: #7b5353;
-	background: #000000;
-	border-color: #7b5353;
+	color: var(--pg-gold, #cfc041);
+	background: var(--pg-void, #04100f);
+	border-color: var(--pg-gold, #cfc041);
 }
 
 .linkOff,
@@ -101,9 +109,9 @@ a.linkOff:link,
 a.linkOff:visited,
 a.linkOff:active,
 a.linkOff:hover {
-	color: #5e5959;
-	background: #000000;
-	border-color: #000000;
+	color: var(--pg-frame, #4c7a75);
+	background: var(--pg-void, #04100f);
+	border-color: var(--pg-void, #04100f);
 }
 
 a.icon,
@@ -146,7 +154,7 @@ h6 {
 	font-family: "Source Code Pro", monospace !important;
 	margin: 0;
 	padding: 16px 0 8px 0;
-	color: #9b3131;
+	color: var(--pg-accent2, #77bfcf);
 	vertical-align: middle;
 }
 
@@ -166,19 +174,58 @@ h4 {
 	font-size: 12px;
 }
 
+/* Paragon window frame: hatched outer border, thin pale inner line, crest on top */
 .uiWrapper {
+	position: relative;
+	box-sizing: border-box;
 	width: 100%;
-	height: 100%;
+	min-height: 100vh;
+	border: 6px solid var(--pg-line, #155352);
+	border-image: repeating-linear-gradient(45deg, var(--pg-hatch, #2a6b68) 0 2px, var(--pg-panel, #0b2423) 2px 4px) 6;
+	box-shadow: inset 0 0 0 2px var(--pg-void, #04100f), inset 0 0 0 3px var(--pg-frame, #4f8f8a);
+	padding: 3px;
+}
+
+.uiWrapper:before {
+	content: "";
+	position: absolute;
+	top: -6px;
+	left: 50%;
+	width: 30px;
+	height: 16px;
+	margin-left: -15px;
+	background: var(--pg-panel, #0b2423) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='16' shape-rendering='crispEdges' fill='%2377bfcf'%3E%3Crect x='14' y='0' width='2' height='16'/%3E%3Crect x='9' y='3' width='2' height='8'/%3E%3Crect x='19' y='3' width='2' height='8'/%3E%3Crect x='5' y='1' width='2' height='6'/%3E%3Crect x='23' y='1' width='2' height='6'/%3E%3Crect x='5' y='7' width='20' height='2'/%3E%3Crect x='9' y='11' width='12' height='2'/%3E%3C/svg%3E") center no-repeat;
 }
 
 .uiTitle {
 	font-family: "Source Code Pro", monospace !important;
 	clear: both;
-	padding: 6px 8px 6px 8px;
-	border-bottom: 2px solid #161616;
-	background: #000000;
-	color: #ae3636;
+	padding: 12px 8px 8px 8px;
+	border-bottom: 1px solid var(--pg-text, #b1c9c3);
+	color: var(--pg-bright, #e8efe9);
 	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 0.08em;
+	text-align: center;
+}
+
+.uiTitleWrapper:after {
+	content: "";
+	display: block;
+	height: 12px;
+	margin-top: 6px;
+	background:
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='12' shape-rendering='crispEdges' fill='%23b1c9c3'%3E%3Crect x='10' y='0' width='2' height='12'/%3E%3Crect x='6' y='2' width='2' height='8'/%3E%3Crect x='14' y='2' width='2' height='8'/%3E%3Crect x='4' y='5' width='14' height='2'/%3E%3C/svg%3E") center / 22px 12px no-repeat,
+		linear-gradient(to right, var(--pg-line, #155352) calc(50% - 14px), transparent calc(50% - 14px) calc(50% + 14px), var(--pg-line, #155352) calc(50% + 14px)) center / 100% 1px no-repeat;
+}
+
+/* Centred cyan section heading, e.g. "Character" / "Items" on the Paragon wiki */
+.paragonHeading {
+	text-align: center;
+	color: var(--pg-accent2, #77bfcf);
+	font-weight: bold;
+	font-size: 16px;
+	padding: 4px 0;
 }
 
 .uiTitle.icon {
@@ -194,29 +241,29 @@ h4 {
 }
 
 .good {
-	color: #00ff00;
+	color: var(--pg-green, #00c420);
 }
 
 .average {
-	color: #d09000;
+	color: var(--pg-orange, #e99f10);
 }
 
 .bad {
-	color: #ff0000;
+	color: var(--pg-red, #d74200);
 }
 
 .highlight {
-	color: #7b5353;
+	color: var(--pg-accent, #40a4b9);
 }
 
 .dark {
-	color: #000000;
+	color: var(--pg-void, #04100f);
 }
 
 .notice {
 	position: relative;
-	background: #000000;
-	color: #ae3636;
+	background: var(--pg-void, #04100f);
+	color: var(--pg-gold, #cfc041);
 	font-size: 10px;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
@@ -240,9 +287,9 @@ div.notice {
 }
 
 .statusDisplay {
-	background: #000000;
+	background: var(--pg-void, #04100f);
 	color: #ffffff;
-	border: 1px solid #2f1c37;
+	border: 1px solid var(--pg-raised, #0f3b3a);
 	padding: 4px;
 	margin: 3px 0;
 }
@@ -251,18 +298,28 @@ div.notice {
 	width: 138px;
 	float: left;
 	overflow: hidden;
-	color: #f9bb00;
+	color: var(--pg-gold, #cfc041);
 }
 
 .statusValue {
 	float: left;
 }
 
+/* Paragon tile: dark inset panel with bright pixel corner brackets */
 .block {
 	padding: 8px;
 	margin: 10px 4px 4px 4px;
-	border: 1px solid #2f1c37;
-	background-color: #202020;
+	border: 2px solid var(--pg-frame, #4f8f8a);
+	background:
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right top / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) left bottom / 2px 8px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 8px 2px no-repeat,
+		linear-gradient(var(--pg-bright, #e8efe9), var(--pg-bright, #e8efe9)) right bottom / 2px 8px no-repeat,
+		repeating-linear-gradient(0deg, #ffffff06 0 1px, transparent 1px 3px) var(--pg-void, #04100f);
 }
 
 .block h3 {
@@ -272,7 +329,7 @@ div.notice {
 .progressBar {
 	width: 240px;
 	height: 14px;
-	border: 1px solid #666666;
+	border: 1px solid var(--pg-line, #155352);
 	float: left;
 	margin: 0 5px;
 	overflow: hidden;
@@ -281,28 +338,28 @@ div.notice {
 .progressFill {
 	width: 100%;
 	height: 100%;
-	background: #2f1c37;
+	background: var(--pg-raised, #0f3b3a);
 	overflow: hidden;
 }
 
 .progressFill.good {
 	color: #ffffff;
-	background: #00ff00;
+	background: var(--pg-green, #00c420);
 }
 
 .progressFill.average {
 	color: #ffffff;
-	background: #d09000;
+	background: var(--pg-orange, #e99f10);
 }
 
 .progressFill.bad {
 	color: #ffffff;
-	background: #ff0000;
+	background: var(--pg-red, #d74200);
 }
 
 .progressFill.highlight {
 	color: #ffffff;
-	background: #8ba5c4;
+	background: var(--pg-accent2, #77bfcf);
 }
 
 .charpreview-border {
@@ -311,7 +368,7 @@ div.notice {
 	top: 276px;
 	width: 96px;
 	height: 121px;
-	border: 4px ridge #aa8f8f;
+	border: 2px solid var(--pg-line, #155352);
 	z-index: 1;
 	box-sizing: border-box;
 }
@@ -321,7 +378,7 @@ div.notice {
 	height: 12px;
 	margin-left: 4px;
 	border-radius: 2px;
-	border: 1px solid #aa8f8f;
+	border: 1px solid var(--pg-line, #155352);
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -361,7 +418,7 @@ div.notice {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #2f1c37;
+	background-color: var(--pg-raised, #0f3b3a);
 	transition: 0.4s;
 }
 
@@ -372,12 +429,12 @@ div.notice {
 	width: 18px;
 	left: 4px;
 	bottom: 4px;
-	background-color: #ab491b;
+	background-color: var(--pg-gold, #cfc041);
 	transition: 0.4s;
 }
 
 .slider.red:before {
-	background-color: #d6858b;
+	background-color: var(--pg-red, #d74200);
 }
 
 .slider.locked:before {
@@ -386,11 +443,11 @@ div.notice {
 }
 
 input:checked+.slider {
-	background-color: #2f1c37;
+	background-color: var(--pg-raised, #0f3b3a);
 }
 
 input:checked+.slider.red {
-	background-color: #a92621;
+	background-color: #a64a2e;
 }
 
 input:checked+.slider.locked {
@@ -398,11 +455,11 @@ input:checked+.slider.locked {
 }
 
 input:focus+.slider {
-	box-shadow: 0 0 1px #2196f3;
+	box-shadow: 0 0 1px var(--pg-accent2, #77bfcf);
 }
 
 input:focus+.slider.red {
-	box-shadow: 0 0 1px #f3212d;
+	box-shadow: 0 0 1px var(--pg-red, #d74200);
 }
 
 input:focus+.slider.locked {
@@ -440,8 +497,8 @@ ul.sparse {
 	margin: 0px;
 	padding: 1px 8px 1px 8px;
 	border-radius: 25px;
-	border: 1px solid #161616;
-	background: #2f1c37;
+	border: 1px solid var(--pg-line, #155352);
+	background: var(--pg-raised, #0f3b3a);
 	color: #ffffff;
 }
 

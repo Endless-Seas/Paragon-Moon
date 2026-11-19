@@ -767,3 +767,14 @@ rules:
   ## https://github.com/lydell/eslint-plugin-simple-import-sort/
   simple-import-sort/imports: error
   simple-import-sort/exports: error
+overrides:
+  ## Paragon UI files write comments as //comment, with no space
+  - files:
+      - packages/tgui/interfaces/Paperdoll.tsx
+      - packages/tgui/interfaces/Container.tsx
+      - packages/tgui-panel/events/handlers/theme.ts
+      - packages/tgui-panel/events/listeners.ts
+      - packages/tgui-panel/settings/migration.ts
+      - packages/tgui-panel/themes.ts
+    rules:
+      spaced-comment: [error, never]

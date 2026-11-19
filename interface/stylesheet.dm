@@ -56,7 +56,7 @@ h1.alert, h2.alert	{color: #c9c1ba;font-family: Pterra, TrueType;}
 .blueteamradio			{color: #3434fd;}
 
 
-.yell					{font-weight: bold;}
+.yell					{font-weight: bold; font-size: 125%;}
 
 .alert					{color: #d82020;}
 

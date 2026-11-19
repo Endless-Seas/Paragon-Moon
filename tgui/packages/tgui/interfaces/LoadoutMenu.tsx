@@ -1,11 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import {
-  Box,
-  Button,
-  Input,
-  Section,
-  Stack,
-} from 'tgui-core/components';
+import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -76,16 +70,14 @@ export const ItemDisplay = (props) => {
         >
           <Stack align="center">
             <Stack.Item>
-             <Box className={item.icon} mr={2} inline />
+              <Box className={item.icon} mr={2} inline />
             </Stack.Item>
             <Stack.Item>
-             {item.name} - {item.triumph_cost}
+              {item.name} - {item.triumph_cost}
             </Stack.Item>
           </Stack>
           <Stack align="center">
-            <Stack.Item>
-             {item.desc}
-            </Stack.Item>
+            <Stack.Item>{item.desc}</Stack.Item>
           </Stack>
         </Button>
       ))}
